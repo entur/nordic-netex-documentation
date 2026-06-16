@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <PublicationTimestamp>2026-03-12T10:30:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ResourceFrame id="NP:ResourceFrame:AltName:1" version="1">
+      <organisations>
+        <Authority id="NP:Authority:1" version="1">
+          <Name>Entur</Name>
+          <alternativeNames>
+            <AlternativeName>
+              <Name>ENTUR AS</Name>
+              <QualifierName>official</QualifierName>
+            </AlternativeName>
+            <AlternativeName>
+              <Name>Entur Norway</Name>
+              <QualifierName>translation</QualifierName>
+            </AlternativeName>
+          </alternativeNames>
+        </Authority>
+      </organisations>
+    </ResourceFrame>
+  </dataObjects>
+</PublicationDelivery>

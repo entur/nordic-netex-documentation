@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NSR:SiteFrame:parking:1" version="1">
+      <parkings>
+        <Parking id="NSR:Parking:1001" version="1">
+          <Name lang="nor">Innfartsparkering Oslo S</Name>
+          <Centroid>
+            <Location>
+              <Longitude>10.752000</Longitude>
+              <Latitude>59.910500</Latitude>
+            </Location>
+          </Centroid>
+          <Covered>outdoors</Covered>
+          <ParentSiteRef ref="NSR:StopPlace:59977"/>
+          <ParkingType>parkAndRide</ParkingType>
+          <ParkingVehicleTypes>car</ParkingVehicleTypes>
+          <ParkingLayout>openSpace</ParkingLayout>
+          <TotalCapacity>150</TotalCapacity>
+          <RechargingAvailable>true</RechargingAvailable>
+          <ParkingPaymentProcess/>
+          <parkingProperties>
+            <ParkingProperties id="NSR:ParkingProperties:1001_1" version="1">
+              <ParkingUserTypes/>
+              <spaces>
+                <ParkingCapacity id="NSR:ParkingCapacity:1001_1" version="1">
+                  <ParkingUserType>allUsers</ParkingUserType>
+                  <NumberOfSpaces>140</NumberOfSpaces>
+                  <NumberOfSpacesWithRechargePoint>10</NumberOfSpacesWithRechargePoint>
+                </ParkingCapacity>
+                <ParkingCapacity id="NSR:ParkingCapacity:1001_2" version="1">
+                  <ParkingUserType>registeredDisabled</ParkingUserType>
+                  <NumberOfSpaces>10</NumberOfSpaces>
+                </ParkingCapacity>
+              </spaces>
+            </ParkingProperties>
+          </parkingProperties>
+        </Parking>
+      </parkings>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

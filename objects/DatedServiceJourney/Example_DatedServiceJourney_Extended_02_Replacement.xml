@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example_DatedServiceJourney_Extended_02_Replacement.xml
+  Scenario: Replacement
+  Purpose:
+    - Demonstrates ServiceAlteration="replaced"
+    - Shows replacedJourneys with one DatedVehicleJourneyRef pointing to the replaced instance
+    - Keeps identifier format (refers to NP:DatedServiceJourney:*)
+  Diff vs minimal (Example_DatedServiceJourney.xml):
+    + replacedJourneys / DatedVehicleJourneyRef (new)
+    - DatedServiceJourneyRef (removed)
+-->
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:siri="http://www.siri.org.uk/siri" version="1.0">
+    <PublicationTimestamp>2026-03-01T10:00:00Z</PublicationTimestamp>
+    <ParticipantRef>NP</ParticipantRef>  
+    <dataObjects>
+            <TimetableFrame version="1" id="NP:TimetableFrame:1">
+                <vehicleJourneys>
+                    <DatedServiceJourney version="2" id="NP:DatedServiceJourney:Replacement02">
+                        <ServiceAlteration>replaced</ServiceAlteration>
+                        <ServiceJourneyRef ref="NP:ServiceJourney:Core"/>
+                        <replacedJourneys>
+                            <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:Core"/>
+                        </replacedJourneys>
+                        <OperatingDayRef ref="NP:OperatingDay:2026-03-07"/>
+                    </DatedServiceJourney>
+                </vehicleJourneys>
+            </TimetableFrame>
+    </dataObjects>
+</PublicationDelivery>
+

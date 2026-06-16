@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="1.0">
+  <PublicationTimestamp>2026-02-27T23:30:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:1" version="1">
+      <frames>
+        <ResourceFrame id="NP:ResourceFrame:1" version="1">
+          <organisations>
+            <Operator id="NP:Operator:ExampleOp" version="1">
+              <Name>Entur</Name>
+            </Operator>
+          </organisations>
+        </ResourceFrame>
+        <ServiceFrame id="NP:ServiceFrame:1" version="1">
+          <Network id="NP:Network:Main" version="1">
+            <Name>Example Network</Name>
+          </Network>
+
+          <routes>
+            <Route id="NP:Route:21:outbound" version="1">
+              <Name>Line 21 Outbound</Name>
+              <LineRef ref="NP:Line:1001"/>
+              <DirectionType>outbound</DirectionType>
+              <pointsInSequence>
+                <PointOnRoute id="NP:PointOnRoute:21:1" version="1" order="1">
+                  <ScheduledStopPointRef ref="NP:ScheduledStopPoint:1001"/>
+                </PointOnRoute>
+                <PointOnRoute id="NP:PointOnRoute:21:2" version="1" order="2">
+                  <ScheduledStopPointRef ref="NP:ScheduledStopPoint:1002"/>
+                </PointOnRoute>
+              </pointsInSequence>
+            </Route>
+          </routes>
+
+          <lines>
+            <Line id="NP:Line:1001" version="1">
+              <Name>Line 21</Name>
+              <PublicCode>21</PublicCode>
+              <OperatorRef ref="NP:Operator:ExampleOp"/>
+            </Line>
+          </lines>
+
+          <groupsOfLines>
+            <GroupOfLines id="NP:GroupOfLines:21" version="1">
+              <Name>Example Group of Lines</Name>
+              <members>
+                <LineRef ref="NP:Line:1001"/>
+              </members>
+            </GroupOfLines>
+          </groupsOfLines>
+
+          <destinationDisplays>
+            <DestinationDisplay id="NP:DestinationDisplay:1001" version="1">
+              <Name>Stop B</Name>
+              <FrontText>Stop B</FrontText>
+            </DestinationDisplay>
+          </destinationDisplays>
+
+          <scheduledStopPoints>
+            <ScheduledStopPoint id="NP:ScheduledStopPoint:1001" version="1">
+              <Name>Stop A</Name>
+            </ScheduledStopPoint>
+            <ScheduledStopPoint id="NP:ScheduledStopPoint:1002" version="1">
+              <Name>Stop B</Name>
+            </ScheduledStopPoint>
+          </scheduledStopPoints>
+
+          <serviceLinks>
+            <ServiceLink id="NP:ServiceLink:1001_1002" version="1">
+              <FromPointRef ref="NP:ScheduledStopPoint:1001"/>
+              <ToPointRef ref="NP:ScheduledStopPoint:1002"/>
+            </ServiceLink>
+          </serviceLinks>
+
+          <stopAssignments>
+            <PassengerStopAssignment id="NP:PassengerStopAssignment:1001" version="1" order="1">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:1001"/>
+              <StopPlaceRef ref="NSR:StopPlace:1001" versionRef="EXTERNAL"/>
+              <QuayRef ref="NSR:Quay:1001" versionRef="EXTERNAL"/>
+            </PassengerStopAssignment>
+            <PassengerStopAssignment id="NP:PassengerStopAssignment:1002" version="1" order="2">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:1002"/>
+              <StopPlaceRef ref="NSR:StopPlace:1002" versionRef="EXTERNAL"/>
+              <QuayRef ref="NSR:Quay:1002" versionRef="EXTERNAL"/>
+            </PassengerStopAssignment>
+          </stopAssignments>
+
+          <journeyPatterns>
+            <JourneyPattern id="NP:JourneyPattern:21:outbound" version="1">
+              <Name>Line 21 JourneyPattern</Name>
+              <RouteRef ref="NP:Route:21:outbound"/>
+              <pointsInSequence>
+                <StopPointInJourneyPattern id="NP:SPJP:21:1" version="1" order="1">
+                  <ScheduledStopPointRef ref="NP:ScheduledStopPoint:1001"/>
+                  <ForAlighting>false</ForAlighting>
+                </StopPointInJourneyPattern>
+                <StopPointInJourneyPattern id="NP:SPJP:21:2" version="1" order="2">
+                  <ScheduledStopPointRef ref="NP:ScheduledStopPoint:1002"/>
+                  <ForBoarding>false</ForBoarding>
+                </StopPointInJourneyPattern>
+              </pointsInSequence>
+              <linksInSequence>
+                <ServiceLinkInJourneyPattern id="NP:SLJP:21:1" version="1" order="1">
+                  <ServiceLinkRef ref="NP:ServiceLink:1001_1002"/>
+                </ServiceLinkInJourneyPattern>
+              </linksInSequence>
+            </JourneyPattern>
+          </journeyPatterns>
+
+          <notices>
+            <Notice id="NP:Notice:1001" version="1">
+              <Text>Example notice for Line 21.</Text>
+            </Notice>
+          </notices>
+        </ServiceFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

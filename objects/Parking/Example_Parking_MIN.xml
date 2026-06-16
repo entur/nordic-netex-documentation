@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <PublicationTimestamp>2026-03-12T13:18:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NP:SiteFrame:ParkingExample:1" version="1">
+      <parkings>
+        <Parking id="NP:Parking:1" version="1">
+          <Name>Park and Ride Example</Name>
+          <ParkingType>parkAndRide</ParkingType>
+        </Parking>
+      </parkings>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

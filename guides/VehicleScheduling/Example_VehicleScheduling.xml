@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example_VehicleScheduling.xml
+
+  Demonstrates vehicle scheduling concepts:
+  - VehicleType (shared template with capacity)
+  - Vehicle (specific fleet unit)
+  - Block grouping two ServiceJourneys into one vehicle duty
+  - DeadRun for non-revenue return to depot
+
+  Scenario: Bus duty 601
+  - 06:00 Drammen -> Oslo (revenue)
+  - 08:30 Oslo -> Drammen (revenue)
+  - Dead run back to depot
+-->
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-18T00:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:VehicleSched:1" version="1">
+      <codespaces>
+        <Codespace id="np">
+          <Xmlns>NP</Xmlns>
+          <XmlnsUrl>http://www.nordicprofile.eu/ns/np</XmlnsUrl>
+        </Codespace>
+      </codespaces>
+      <FrameDefaults>
+        <DefaultCodespaceRef ref="np"/>
+      </FrameDefaults>
+      <frames>
+
+        <!-- ============================================================
+             RESOURCE FRAME — Operator, VehicleType, Vehicle
+             ============================================================ -->
+        <ResourceFrame id="NP:ResourceFrame:VehicleSched:1" version="1">
+          <organisations>
+            <Operator id="NP:Operator:Unibuss" version="1">
+              <Name>Unibuss</Name>
+            </Operator>
+          </organisations>
+          <vehicleTypes>
+            <VehicleType id="NP:VehicleType:Bus_12m_Electric" version="1">
+              <Name>Standard 12m Electric Bus</Name>
+              <Description>Low-floor electric city bus</Description>
+              <PropulsionType>electric</PropulsionType>
+              <PassengerCapacity id="NP:PassengerCapacity:Bus_12m_Electric" version="1">
+                <SeatingCapacity>45</SeatingCapacity>
+                <StandingCapacity>35</StandingCapacity>
+                <WheelchairPlaceCapacity>2</WheelchairPlaceCapacity>
+              </PassengerCapacity>
+              <Length>12.0</Length>
+            </VehicleType>
+          </vehicleTypes>
+          <vehicles>
+            <Vehicle id="NP:Vehicle:EL12345" version="1">
+              <RegistrationNumber>EL 12345</RegistrationNumber>
+              <OperatorRef ref="NP:Operator:Unibuss"/>
+              <VehicleTypeRef ref="NP:VehicleType:Bus_12m_Electric"/>
+            </Vehicle>
+          </vehicles>
+        </ResourceFrame>
+
+        <!-- ============================================================
+             TIMETABLE FRAME — ServiceJourneys with BlockRef
+             ============================================================ -->
+        <TimetableFrame id="NP:TimetableFrame:VehicleSched:1" version="1">
+          <vehicleJourneys>
+            <!-- Morning run: Drammen -> Oslo -->
+            <ServiceJourney id="NP:ServiceJourney:100_0600" version="1">
+              <Name>Bus 100 dep. 06:00</Name>
+              <BlockRef ref="NP:Block:Duty_601"/>
+            </ServiceJourney>
+
+            <!-- Return run: Oslo -> Drammen -->
+            <ServiceJourney id="NP:ServiceJourney:100_0830" version="1">
+              <Name>Bus 100 dep. 08:30</Name>
+              <BlockRef ref="NP:Block:Duty_601"/>
+            </ServiceJourney>
+
+            <!-- Non-revenue return to depot -->
+            <DeadRun id="NP:DeadRun:DR_601_return" version="1">
+              <Name>Return to depot after duty 601</Name>
+              <BlockRef ref="NP:Block:Duty_601"/>
+            </DeadRun>
+          </vehicleJourneys>
+        </TimetableFrame>
+
+        <!-- ============================================================
+             VEHICLE SCHEDULE FRAME — Block assignment
+             ============================================================ -->
+        <VehicleScheduleFrame id="NP:VehicleScheduleFrame:1" version="1">
+          <blocks>
+            <Block id="NP:Block:Duty_601" version="1">
+              <Name>Duty 601 - Morning shift</Name>
+              <Description>Bus 100 morning round trip + depot return</Description>
+              <journeys>
+                <VehicleJourneyRef ref="NP:ServiceJourney:100_0600"/>
+                <VehicleJourneyRef ref="NP:ServiceJourney:100_0830"/>
+                <VehicleJourneyRef ref="NP:DeadRun:DR_601_return"/>
+              </journeys>
+            </Block>
+          </blocks>
+        </VehicleScheduleFrame>
+
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

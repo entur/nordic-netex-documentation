@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NP example: SiteConnection (transfer path between two StopPlaces) -->
+<SiteConnection xmlns="http://www.netex.org.uk/netex" version="any" id="RUT:SiteConnection:TveitaT-TveitaSenter">
+    <Name>Tveita T - Tveita Senter</Name>
+    <TransferDuration>
+        <DefaultDuration>PT4M</DefaultDuration>
+    </TransferDuration>
+    <From>
+        <StopPlaceRef ref="NSR:StopPlace:03011521"/>
+    </From>
+    <To>
+        <StopPlaceRef ref="NSR:StopPlace:03011522"/>
+    </To>
+</SiteConnection>

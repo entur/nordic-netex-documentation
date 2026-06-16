@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NP example: ServiceCalendar with DayTypes and OperatingPeriod -->
+<ServiceCalendar xmlns="http://www.netex.org.uk/netex" version="any" id="RUT:ServiceCalendar:1">
+    <Name>Ruteplan vår 2024</Name>
+    <FromDate>2024-01-15</FromDate>
+    <ToDate>2024-06-30</ToDate>
+</ServiceCalendar>

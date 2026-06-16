@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <PublicationTimestamp>2026-02-25T14:22:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <VehicleScheduleFrame version="1" id="NP:VehicleScheduleFrame:Core">
+      <blocks>
+        <TrainBlock version="1" id="NP:TrainBlock:1"/>
+      </blocks>
+      <vehicleServices>
+        <VehicleService version="1" id="NP:VehicleService:1"/>
+      </vehicleServices>
+    </VehicleScheduleFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NP example: CompoundTrain composed of two Train units -->
+<CompoundTrain xmlns="http://www.netex.org.uk/netex" version="any" id="SJN:CompoundTrain:Type72-Double">
+    <Name>Type 72 dobbeltsett</Name>
+    <components>
+        <TrainInCompoundTrain id="SJN:TrainInCompoundTrain:1" order="1">
+            <TrainRef ref="SJN:Train:Type72-A"/>
+            <Label>Enhet A</Label>
+        </TrainInCompoundTrain>
+        <TrainInCompoundTrain id="SJN:TrainInCompoundTrain:2" order="2">
+            <TrainRef ref="SJN:Train:Type72-B"/>
+            <Label>Enhet B</Label>
+        </TrainInCompoundTrain>
+    </components>
+</CompoundTrain>

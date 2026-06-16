@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">Three train formation with sine curves</title>
+  <desc id="desc">Abstract representation of three train working days: train 1 runs Narvik to Stockholm, train 2 runs with train 1 to Boden then branches to Lulea, and train 3 joins train 1 at Boden from Lulea and continues to Stockholm.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.48" stop-color="#132033"/>
+      <stop offset="1" stop-color="#071015"/>
+    </linearGradient>
+
+    <radialGradient id="bodenGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fff7c2" stop-opacity="0.9"/>
+      <stop offset="0.35" stop-color="#ffb347" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#ffb347" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="train1" x1="120" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7d774"/>
+      <stop offset="0.5" stop-color="#fff3a6"/>
+      <stop offset="1" stop-color="#ffb84d"/>
+    </linearGradient>
+
+    <linearGradient id="train2" x1="120" y1="0" x2="760" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#63e6ff"/>
+      <stop offset="0.62" stop-color="#51b7ff"/>
+      <stop offset="1" stop-color="#7be4d8"/>
+    </linearGradient>
+
+    <linearGradient id="train3" x1="640" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff8a7a"/>
+      <stop offset="0.5" stop-color="#ff6fb1"/>
+      <stop offset="1" stop-color="#ffb36b"/>
+    </linearGradient>
+
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.55 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="labelShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+
+    <marker id="arrowGold" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#ffd773"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#63e6ff"/>
+    </marker>
+    <marker id="arrowPink" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#ff7ea8"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="900" fill="url(#bg)"/>
+
+  <g opacity="0.3">
+    <path d="M110 160 H1290" stroke="#d8e7ff" stroke-opacity="0.12"/>
+    <path d="M110 260 H1290" stroke="#d8e7ff" stroke-opacity="0.12"/>
+    <path d="M110 360 H1290" stroke="#d8e7ff" stroke-opacity="0.12"/>
+    <path d="M110 460 H1290" stroke="#d8e7ff" stroke-opacity="0.12"/>
+    <path d="M110 560 H1290" stroke="#d8e7ff" stroke-opacity="0.12"/>
+    <path d="M110 660 H1290" stroke="#d8e7ff" stroke-opacity="0.12"/>
+    <path d="M150 120 V760" stroke="#d8e7ff" stroke-opacity="0.08"/>
+    <path d="M700 120 V760" stroke="#ffd773" stroke-opacity="0.22" stroke-dasharray="8 12"/>
+    <path d="M1250 120 V760" stroke="#d8e7ff" stroke-opacity="0.08"/>
+  </g>
+
+  <g filter="url(#labelShadow)">
+    <text x="92" y="96" fill="#f5f0de" font-family="Georgia, 'Times New Roman', serif" font-size="42" letter-spacing="0">Tre tog, ett koblingspunkt</text>
+    <text x="94" y="132" fill="#aebbd0" font-family="Verdana, sans-serif" font-size="18">Narvik - Boden - Stockholm, med Lulea-gren som kobles av og pa ved Boden</text>
+  </g>
+
+  <g font-family="Verdana, sans-serif" font-size="20" fill="#dbe7f6">
+    <text x="150" y="806" text-anchor="middle">Narvik</text>
+    <text x="700" y="806" text-anchor="middle" fill="#ffdf91">Boden</text>
+    <text x="1250" y="806" text-anchor="middle">Stockholm</text>
+    <text x="700" y="713" text-anchor="middle">Lulea</text>
+  </g>
+
+  <g opacity="0.82">
+    <path d="M150 748 C270 708 420 708 540 748 C610 772 660 770 700 748" fill="none" stroke="#63e6ff" stroke-width="2" stroke-dasharray="6 10" opacity="0.35"/>
+    <path d="M700 748 C770 705 850 705 920 748" fill="none" stroke="#ff7ea8" stroke-width="2" stroke-dasharray="6 10" opacity="0.35"/>
+  </g>
+
+  <circle cx="700" cy="430" r="122" fill="url(#bodenGlow)" opacity="0.88"/>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)">
+    <path d="M150 430 C255 250 395 250 500 430 S745 610 850 430 S1145 250 1250 430" stroke="url(#train1)" stroke-width="12" marker-end="url(#arrowGold)"/>
+    <path d="M150 462 C255 282 395 282 500 462 S650 585 700 462 C758 565 808 640 882 686" stroke="url(#train2)" stroke-width="9" marker-end="url(#arrowBlue)"/>
+    <path d="M560 690 C625 650 660 555 700 398 C755 560 850 560 905 398 S1145 218 1250 398" stroke="url(#train3)" stroke-width="9" marker-end="url(#arrowPink)"/>
+  </g>
+
+  <g>
+    <circle cx="150" cy="430" r="13" fill="#111827" stroke="#f7d774" stroke-width="4"/>
+    <circle cx="1250" cy="430" r="13" fill="#111827" stroke="#f7d774" stroke-width="4"/>
+    <circle cx="150" cy="462" r="11" fill="#111827" stroke="#63e6ff" stroke-width="4"/>
+    <circle cx="882" cy="686" r="11" fill="#111827" stroke="#63e6ff" stroke-width="4"/>
+    <circle cx="560" cy="690" r="11" fill="#111827" stroke="#ff7ea8" stroke-width="4"/>
+    <circle cx="1250" cy="398" r="11" fill="#111827" stroke="#ff7ea8" stroke-width="4"/>
+    <circle cx="700" cy="430" r="19" fill="#172033" stroke="#fff1a8" stroke-width="5"/>
+    <circle cx="700" cy="430" r="7" fill="#fff1a8"/>
+  </g>
+
+  <g font-family="Verdana, sans-serif" font-size="16" fill="#edf3ff">
+    <g transform="translate(92 590)">
+      <rect x="0" y="0" width="362" height="138" rx="18" fill="#0d1526" fill-opacity="0.74" stroke="#ffffff" stroke-opacity="0.12"/>
+      <path d="M26 38 H88" stroke="url(#train1)" stroke-width="8" stroke-linecap="round"/>
+      <text x="106" y="44">Tog 1: Narvik - Stockholm</text>
+      <path d="M26 76 H88" stroke="url(#train2)" stroke-width="8" stroke-linecap="round"/>
+      <text x="106" y="82">Tog 2: deler til Boden, bryter av</text>
+      <path d="M26 114 H88" stroke="url(#train3)" stroke-width="8" stroke-linecap="round"/>
+      <text x="106" y="120">Tog 3: kobler pa ved Boden</text>
+    </g>
+  </g>
+
+  <g font-family="Verdana, sans-serif" fill="#e8f1ff">
+    <g transform="translate(520 186)">
+      <rect x="0" y="0" width="360" height="84" rx="18" fill="#111827" fill-opacity="0.72" stroke="#ffd773" stroke-opacity="0.25"/>
+      <text x="180" y="34" text-anchor="middle" font-size="19" fill="#fff0b7">Boden</text>
+      <text x="180" y="62" text-anchor="middle" font-size="15" fill="#becbe0">Tog 2 av, Tog 3 pa</text>
+    </g>
+  </g>
+
+  <g font-family="Verdana, sans-serif" font-size="14" fill="#9fb2c8">
+    <text x="700" y="842" text-anchor="middle">Hver kurve er ett VehicleJourney. Synlige brudd ved Boden er VehicleJourneyPart-grenser. Doble segmenter er SharedFormationSegment.</text>
+  </g>
+</svg>

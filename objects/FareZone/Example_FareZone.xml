@@ -1,0 +1,15 @@
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="1.0">
+  <PublicationTimestamp>2026-03-12T18:46:43Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:FareZones" version="1">
+      <frames>
+        <SiteFrame id="NP:SiteFrame:FareZones" version="1">
+          <tariffZones>
+            <FareZone id="NP:FareZone:Z1" version="1" />
+          </tariffZones>
+        </SiteFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

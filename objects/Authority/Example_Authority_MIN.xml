@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-04T00:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <Description>Authority example using NP codespace</Description>
+  <dataObjects>
+    <ResourceFrame id="NP:ResourceFrame:Authority:1" version="1">
+      <codespaces>
+        <Codespace id="np">
+          <Xmlns>NP</Xmlns>
+          <XmlnsUrl>http://www.nordicprofile.eu/ns/np</XmlnsUrl>
+        </Codespace>
+      </codespaces>
+      <organisations>
+        <Authority id="NP:Authority:AUTH1" version="1">
+          <TradingName>Example Authority</TradingName>
+        </Authority>
+      </organisations>
+    </ResourceFrame>
+  </dataObjects>
+</PublicationDelivery>

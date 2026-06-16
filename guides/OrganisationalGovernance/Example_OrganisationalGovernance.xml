@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example_OrganisationalGovernance.xml
+
+  Demonstrates the full governance model:
+  - Authority (Ruter) commissions services
+  - Two Operators (Vy for rail, Unibuss for bus) deliver them
+  - A Contract governs each relationship
+  - A ResponsibilitySet assigns roles under the contract
+
+  All objects live in a single ResourceFrame.
+-->
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-18T00:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:Governance:1" version="1">
+      <codespaces>
+        <Codespace id="np">
+          <Xmlns>NP</Xmlns>
+          <XmlnsUrl>http://www.nordicprofile.eu/ns/np</XmlnsUrl>
+        </Codespace>
+      </codespaces>
+      <FrameDefaults>
+        <DefaultCodespaceRef ref="np"/>
+      </FrameDefaults>
+      <frames>
+
+        <!-- ============================================================
+             RESOURCE FRAME
+             Organisations, contracts, and responsibility assignments
+             ============================================================ -->
+        <ResourceFrame id="NP:ResourceFrame:Governance:1" version="1">
+
+          <responsibilitySets>
+            <!-- Responsibility set for the rail contract -->
+            <ResponsibilitySet id="NP:ResponsibilitySet:Rail_Ruter_Vy" version="1">
+              <Name>Ruter commissions Vy for regional rail</Name>
+              <roles>
+                <ResponsibilityRoleAssignment id="NP:ResponsibilityRoleAssignment:Rail_Auth" version="1">
+                  <ResponsibleOrganisationRef ref="NP:Authority:Ruter"/>
+                  <AssociatedContract>
+                    <ContractRef ref="NP:Contract:Rail_2026"/>
+                  </AssociatedContract>
+                </ResponsibilityRoleAssignment>
+                <ResponsibilityRoleAssignment id="NP:ResponsibilityRoleAssignment:Rail_Op" version="1">
+                  <ResponsibleOrganisationRef ref="NP:Operator:Vy"/>
+                  <AssociatedContract>
+                    <ContractRef ref="NP:Contract:Rail_2026"/>
+                  </AssociatedContract>
+                </ResponsibilityRoleAssignment>
+              </roles>
+            </ResponsibilitySet>
+
+            <!-- Responsibility set for the bus contract -->
+            <ResponsibilitySet id="NP:ResponsibilitySet:Bus_Ruter_Unibuss" version="1">
+              <Name>Ruter commissions Unibuss for city bus</Name>
+              <roles>
+                <ResponsibilityRoleAssignment id="NP:ResponsibilityRoleAssignment:Bus_Auth" version="1">
+                  <ResponsibleOrganisationRef ref="NP:Authority:Ruter"/>
+                  <AssociatedContract>
+                    <ContractRef ref="NP:Contract:Bus_2026"/>
+                  </AssociatedContract>
+                </ResponsibilityRoleAssignment>
+                <ResponsibilityRoleAssignment id="NP:ResponsibilityRoleAssignment:Bus_Op" version="1">
+                  <ResponsibleOrganisationRef ref="NP:Operator:Unibuss"/>
+                  <AssociatedContract>
+                    <ContractRef ref="NP:Contract:Bus_2026"/>
+                  </AssociatedContract>
+                </ResponsibilityRoleAssignment>
+              </roles>
+            </ResponsibilitySet>
+          </responsibilitySets>
+
+          <organisations>
+            <!-- The Authority: plans and commissions services -->
+            <Authority id="NP:Authority:Ruter" version="1">
+              <Name>Ruter AS</Name>
+              <LegalName>Ruter Aksjeselskap</LegalName>
+              <ContactDetails>
+                <Phone>+47 22 05 70 37</Phone>
+                <Url>https://ruter.no</Url>
+              </ContactDetails>
+              <OrganisationType>authority</OrganisationType>
+            </Authority>
+
+            <!-- Operator 1: rail services -->
+            <Operator id="NP:Operator:Vy" version="1">
+              <Name>Vy</Name>
+              <LegalName>Vygruppen AS</LegalName>
+              <ContactDetails>
+                <Url>https://vy.no</Url>
+              </ContactDetails>
+              <OrganisationType>operator</OrganisationType>
+              <CustomerServiceContactDetails>
+                <Phone>+47 61 05 19 10</Phone>
+                <Url>https://vy.no/kundeservice</Url>
+              </CustomerServiceContactDetails>
+            </Operator>
+
+            <!-- Operator 2: bus services -->
+            <Operator id="NP:Operator:Unibuss" version="1">
+              <Name>Unibuss</Name>
+              <LegalName>Unibuss AS</LegalName>
+              <ContactDetails>
+                <Url>https://unibuss.no</Url>
+              </ContactDetails>
+              <OrganisationType>operator</OrganisationType>
+            </Operator>
+          </organisations>
+        </ResourceFrame>
+
+        <!-- ============================================================
+             GENERAL FRAME
+             Contracts (legal agreements between organisations)
+             ============================================================ -->
+        <GeneralFrame id="NP:GeneralFrame:Contracts:1" version="1">
+          <members>
+            <!-- Rail operations contract -->
+            <Contract id="NP:Contract:Rail_2026" version="1">
+              <Name>Regional Rail Operations Agreement 2026</Name>
+              <ContractType>written</ContractType>
+              <LegalStatus>binding</LegalStatus>
+              <ContractGoverningLaw>NO</ContractGoverningLaw>
+              <contractees>
+                <OrganisationRef ref="NP:Authority:Ruter"/>
+              </contractees>
+              <contractors>
+                <OrganisationRef ref="NP:Operator:Vy"/>
+              </contractors>
+            </Contract>
+
+            <!-- Bus operations contract -->
+            <Contract id="NP:Contract:Bus_2026" version="1">
+              <Name>City Bus Operations Agreement 2026</Name>
+              <ContractType>written</ContractType>
+              <LegalStatus>binding</LegalStatus>
+              <ContractGoverningLaw>NO</ContractGoverningLaw>
+              <contractees>
+                <OrganisationRef ref="NP:Authority:Ruter"/>
+              </contractees>
+              <contractors>
+                <OrganisationRef ref="NP:Operator:Unibuss"/>
+              </contractors>
+            </Contract>
+          </members>
+        </GeneralFrame>
+
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

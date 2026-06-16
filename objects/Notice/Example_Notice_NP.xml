@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:notices:1" version="1">
+      <notices>
+        <Notice id="NP:Notice:39" version="1">
+          <Text>Bestillingstur, tlf 91600528 senest 30min. for avgang.</Text>
+        </Notice>
+        <Notice id="NP:Notice:20" version="1">
+          <Text>Går ikke i skolens ferie- og fridager</Text>
+        </Notice>
+      </notices>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

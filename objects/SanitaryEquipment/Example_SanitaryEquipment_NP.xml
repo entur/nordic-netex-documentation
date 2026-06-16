@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NSR:SiteFrame:sanitary:1" version="1">
+      <stopPlaces>
+        <StopPlace id="NSR:StopPlace:1" version="1">
+          <Name lang="nor">Example Stop</Name>
+          <placeEquipments>
+            <SanitaryEquipment id="NSR:SanitaryEquipment:1" version="1">
+              <Gender>both</Gender>
+              <SanitaryFacilityList/>
+              <NumberOfToilets>2</NumberOfToilets>
+              <PaymentMethods/>
+            </SanitaryEquipment>
+          </placeEquipments>
+        </StopPlace>
+      </stopPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NSR:SiteFrame:stops:1" version="1">
+      <stopPlaces>
+        <StopPlace id="NSR:StopPlace:59977" version="1">
+          <ValidBetween>
+            <FromDate>2020-01-01T00:00:00.000</FromDate>
+          </ValidBetween>
+          <keyList>
+            <KeyValue>
+              <Key>imported-id</Key>
+              <Value>NP:StopArea:9060006</Value>
+            </KeyValue>
+          </keyList>
+          <Name lang="nor">Oslo S</Name>
+          <Centroid>
+            <Location>
+              <Longitude>10.752245</Longitude>
+              <Latitude>59.910890</Latitude>
+            </Location>
+          </Centroid>
+          <AccessibilityAssessment id="NSR:AccessibilityAssessment:59977" version="1">
+            <MobilityImpairedAccess>true</MobilityImpairedAccess>
+            <limitations>
+              <AccessibilityLimitation>
+                <WheelchairAccess>true</WheelchairAccess>
+                <StepFreeAccess>true</StepFreeAccess>
+              </AccessibilityLimitation>
+            </limitations>
+          </AccessibilityAssessment>
+          <TopographicPlaceRef ref="NSR:TopographicPlace:Oslo"/>
+          <TransportMode>rail</TransportMode>
+          <StopPlaceType>railStation</StopPlaceType>
+          <Weighting>interchangeAllowed</Weighting>
+          <quays>
+            <Quay id="NSR:Quay:107401" version="1">
+              <Name lang="nor">Spor 1</Name>
+              <PrivateCode type="StopPoint">1</PrivateCode>
+              <Centroid>
+                <Location>
+                  <Longitude>10.752300</Longitude>
+                  <Latitude>59.910950</Latitude>
+                </Location>
+              </Centroid>
+              <PublicCode>1</PublicCode>
+              <CompassBearing>85.0</CompassBearing>
+            </Quay>
+          </quays>
+        </StopPlace>
+      </stopPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

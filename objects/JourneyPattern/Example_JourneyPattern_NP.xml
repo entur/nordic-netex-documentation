@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:jp:1" version="1">
+      <journeyPatterns>
+        <JourneyPattern id="NP:JourneyPattern:81648_1" version="1">
+          <Name>Arendal bussterminal -&gt; Kristiansand rutebilstasjon</Name>
+          <RouteRef ref="NP:Route:49747_1"/>
+          <pointsInSequence>
+            <StopPointInJourneyPattern order="1" version="1" id="NP:StopPointInJourneyPattern:81648_1_1">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:9060006_1"/>
+              <ForAlighting>false</ForAlighting>
+              <DestinationDisplayRef ref="NP:DestinationDisplay:3950001_1"/>
+            </StopPointInJourneyPattern>
+            <StopPointInJourneyPattern order="2" version="1" id="NP:StopPointInJourneyPattern:81648_2_1">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:9060007_1"/>
+            </StopPointInJourneyPattern>
+            <StopPointInJourneyPattern order="3" version="1" id="NP:StopPointInJourneyPattern:81648_3_1">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:10013457_1"/>
+              <ForBoarding>false</ForBoarding>
+            </StopPointInJourneyPattern>
+          </pointsInSequence>
+          <linksInSequence>
+            <ServiceLinkInJourneyPattern order="1" version="1" id="NP:ServiceLinkInJourneyPattern:3556197">
+              <ServiceLinkRef ref="NP:ServiceLink:2645_1"/>
+            </ServiceLinkInJourneyPattern>
+            <ServiceLinkInJourneyPattern order="2" version="1" id="NP:ServiceLinkInJourneyPattern:3556198">
+              <ServiceLinkRef ref="NP:ServiceLink:2646_1"/>
+            </ServiceLinkInJourneyPattern>
+          </linksInSequence>
+        </JourneyPattern>
+      </journeyPatterns>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

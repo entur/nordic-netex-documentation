@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <PublicationTimestamp>2026-02-28T01:47:03Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:InterchangeDemo:1" version="1">
+      <frames>
+        <TimetableFrame id="NP:TimetableFrame:1" version="1">
+          <vehicleJourneys>
+            <ServiceJourney id="NP:ServiceJourney:1001" version="1">
+              <Name>Demo A</Name>
+            </ServiceJourney>
+            <ServiceJourney id="NP:ServiceJourney:1002" version="1">
+              <Name>Demo B</Name>
+            </ServiceJourney>
+          </vehicleJourneys>
+          <journeyInterchanges>
+            <ServiceJourneyInterchange id="NP:ServiceJourneyInterchange:1001_to_1002" version="1">
+              <FromJourneyRef ref="NP:ServiceJourney:1001"/>
+              <ToJourneyRef ref="NP:ServiceJourney:1002"/>
+            </ServiceJourneyInterchange>
+          </journeyInterchanges>
+        </TimetableFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

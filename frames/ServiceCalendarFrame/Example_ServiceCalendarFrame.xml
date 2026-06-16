@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="1.0">
+  <PublicationTimestamp>2026-02-27T23:30:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:1" version="1">
+      <frames>
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:1" version="1">
+          <dayTypes>
+            <DayType id="NP:DayType:WKD" version="1">
+              <Name>Weekdays</Name>
+              <properties>
+                <PropertyOfDay>
+                  <DaysOfWeek>Weekdays</DaysOfWeek>
+                </PropertyOfDay>
+              </properties>
+            </DayType>
+          </dayTypes>
+          <operatingPeriods>
+            <OperatingPeriod id="NP:OperatingPeriod:2026H1" version="1">
+              <FromDate>2026-01-01T00:00:00Z</FromDate>
+              <ToDate>2026-06-30T00:00:00Z</ToDate>
+            </OperatingPeriod>
+          </operatingPeriods>
+          <dayTypeAssignments>
+            <DayTypeAssignment id="NP:DTA:WKD_2026H1" version="1">
+              <OperatingPeriodRef ref="NP:OperatingPeriod:2026H1"/>
+              <DayTypeRef ref="NP:DayType:WKD"/>
+              <isAvailable>true</isAvailable>
+            </DayTypeAssignment>
+          </dayTypeAssignments>
+        </ServiceCalendarFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

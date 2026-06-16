@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NSR:SiteFrame:topo:1" version="1">
+      <topographicPlaces>
+        <TopographicPlace id="NSR:TopographicPlace:Oslo" version="1">
+          <ValidBetween>
+            <FromDate>2020-01-01T00:00:00.000</FromDate>
+          </ValidBetween>
+          <IsoCode>0301</IsoCode>
+          <Descriptor>
+            <Name lang="nor">Oslo</Name>
+          </Descriptor>
+          <TopographicPlaceType>municipality</TopographicPlaceType>
+          <CountryRef ref="no"/>
+          <ParentTopographicPlaceRef ref="NSR:TopographicPlace:Oslo_county"/>
+        </TopographicPlace>
+      </topographicPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-04T00:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <Description>PassengerStopAssignment example using NP codespace</Description>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:psa:1" version="1">
+      <stopAssignments>
+        <!-- Standard assignment -->
+        <PassengerStopAssignment id="NP:PassengerStopAssignment:1001" version="1" order="1">
+          <ScheduledStopPointRef ref="NP:ScheduledStopPoint:1001"/>
+          <StopPlaceRef ref="NSR:StopPlace:6789"/>
+          <QuayRef ref="NSR:Quay:12345"/>
+        </PassengerStopAssignment>
+      </stopAssignments>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

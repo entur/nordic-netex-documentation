@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-18T00:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ResourceFrame id="NP:ResourceFrame:vt:1" version="1">
+      <vehicleTypes>
+        <VehicleType id="NP:VehicleType:bus_12m" version="1">
+          <Name>Standard 12m Bus</Name>
+          <PropulsionType>combustion</PropulsionType>
+          <PassengerCapacity id="NP:PassengerCapacity:bus_12m" version="1">
+            <SeatingCapacity>45</SeatingCapacity>
+            <StandingCapacity>30</StandingCapacity>
+            <WheelchairPlaceCapacity>2</WheelchairPlaceCapacity>
+          </PassengerCapacity>
+          <Length>12.0</Length>
+          <Width>2.55</Width>
+          <Height>3.2</Height>
+        </VehicleType>
+      </vehicleTypes>
+    </ResourceFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example_DatedServiceJourney_Extended_03_BlockLinked.xml
+  Scenario: Block-linked operation
+  Purpose:
+    - Demonstrates linkage to an operational Block via BlockRef
+    - ServiceAlteration omitted (defaults to planned)
+  Diff vs minimal (Example_DatedServiceJourney.xml):
+    + BlockRef
+-->
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:siri="http://www.siri.org.uk/siri" version="1.0">
+    <PublicationTimestamp>2026-03-01T10:00:00Z</PublicationTimestamp>
+    <ParticipantRef>NP</ParticipantRef>    
+    <dataObjects>
+        <TimetableFrame version="1" id="NP:TimetableFrame:1">
+            <vehicleJourneys>
+                <DatedServiceJourney version="2" id="NP:DatedServiceJourney:BlockLinked03">
+                    <BlockRef ref="NP:Block:1001"/>
+                    <ServiceJourneyRef ref="NP:ServiceJourney:Core"/>
+                    <OperatingDayRef ref="NP:OperatingDay:2026-03-07"/>
+                </DatedServiceJourney>
+            </vehicleJourneys>
+        </TimetableFrame>
+    </dataObjects>
+</PublicationDelivery>

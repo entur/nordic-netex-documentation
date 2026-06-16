@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NP example: ServiceLink with distance and GML projection -->
+<ServiceLink xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" version="any" id="RUT:ServiceLink:001-002">
+    <Distance>350</Distance>
+    <projections>
+        <LinkSequenceProjection version="any" id="RUT:LinkSequenceProjection:001-002">
+            <gml:LineString gml:id="RUT_LS_001-002" srsName="WGS84">
+                <gml:posList>59.9127 10.8468 59.9135 10.8492 59.9148 10.8501</gml:posList>
+            </gml:LineString>
+        </LinkSequenceProjection>
+    </projections>
+    <FromPointRef ref="RUT:ScheduledStopPoint:001"/>
+    <ToPointRef ref="RUT:ScheduledStopPoint:002"/>
+</ServiceLink>

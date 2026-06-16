@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ResourceFrame id="NP:ResourceFrame:authorities:1" version="1">
+      <organisations>
+        <Authority id="NP:Authority:AKT_ID" version="1">
+          <CompanyNumber>991776524</CompanyNumber>
+          <Name>Agder Kollektivtrafikk AS</Name>
+          <LegalName>AKT AS</LegalName>
+          <ContactDetails>
+            <Phone>+4738038300</Phone>
+            <Url>https://www.akt.no</Url>
+          </ContactDetails>
+          <OrganisationType>authority</OrganisationType>
+        </Authority>
+      </organisations>
+    </ResourceFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  version="2.0">
+  <PublicationTimestamp>2026-02-25T14:22:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:DayTypeExample:1" version="1">
+      <frames>
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:1" version="1">
+          <dayTypes>
+            <DayType id="NP:DayType:WEEKDAYS:1" version="1">
+              <Name>Weekdays</Name>
+            </DayType>
+          </dayTypes>
+        </ServiceCalendarFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

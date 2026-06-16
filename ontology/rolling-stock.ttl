@@ -1,0 +1,162 @@
+## -----------------------------------------------------------------
+## Rolling Stock Service Sub-Profile
+## -----------------------------------------------------------------
+## Declares exactly which NeTEx elements the Rolling Stock service
+## (PEN/Plass) consumes and produces, using URI-based references
+## to the base ontology.
+##
+## Imports: entur.ttl (Entur governance + codespaces)
+##          → netex-nordic.ttl → netex.ttl
+##
+## Generated: 2026-06-09
+## -----------------------------------------------------------------
+
+@prefix netex:   <https://netex-cen.eu/ontology#> .
+@prefix profile: <https://netex-cen.eu/profile#> .
+@prefix entur:   <https://entur.org/ontology#> .
+@prefix svc:     <https://entur.org/service/rolling-stock#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+
+## --- Import Entur governance ---
+<https://entur.org/service/rolling-stock> a owl:Ontology ;
+    owl:imports <https://entur.org/ontology> .
+
+## =================================================================
+## META-CLASSES
+## =================================================================
+
+netex:SubProfile a owl:Class ;
+    rdfs:label "SubProfile" ;
+    skos:definition "A service-scoped subset of a profile, declaring what a specific system consumes/produces" .
+
+## =================================================================
+## SERVICE DEFINITION
+## =================================================================
+
+svc:RollingStockService a netex:SubProfile ;
+    rdfs:label "Rolling Stock Service Profile" ;
+    skos:definition "Sub-profile for rolling stock planning: train composition, block assignments, facilities, and timetable integration" ;
+    netex:basedOn profile:NP ;
+    svc:managedBy entur:PartnerPlass ;
+    svc:codespace entur:CodespacePEN .
+
+## =================================================================
+## CONSUMED REFERENCES (reads from operator deliveries)
+## =================================================================
+## The service reads these references from incoming NeTEx data
+## to build its internal model.
+## -----------------------------------------------------------------
+
+svc:RollingStockService svc:consumes
+    ## --- Timetable core ---
+    netex:ServiceJourney_JourneyPatternRef ,
+    netex:ServiceJourney_LineRef ,
+    netex:ServiceJourney_DayTypeRef ,
+    netex:ServiceJourney_passingTimes ,
+    netex:ServiceJourney_parts ,
+    netex:DatedServiceJourney_ServiceJourneyRef ,
+    netex:DatedServiceJourney_OperatingDayRef ,
+    netex:DatedServiceJourney_BlockRef ,
+    ## --- Journey pattern / stops ---
+    netex:JourneyPattern_pointsInSequence ,
+    netex:StopPointInJourneyPattern_ScheduledStopPointRef ,
+    netex:PassengerStopAssignment_ScheduledStopPointRef ,
+    netex:PassengerStopAssignment_QuayRef ,
+    ## --- Block → composition ---
+    netex:TrainBlock_blockParts ,
+    netex:TrainBlockPart_CompoundTrainRef ,
+    netex:TrainBlockPart_JourneyPartRef ,
+    ## --- Train composition ---
+    netex:CompoundTrain_components ,
+    netex:TrainInCompoundTrain_TrainRef ,
+    netex:Train_components ,
+    netex:TrainComponent_TrainElementRef ,
+    ## --- JourneyPart ---
+    netex:JourneyPart_FromStopPointRef ,
+    netex:JourneyPart_ToStopPointRef .
+
+## =================================================================
+## CONSUMED ELEMENTS (reads data values)
+## =================================================================
+
+svc:RollingStockService svc:consumes
+    ## --- Times ---
+    netex:TimetabledPassingTime_ArrivalTime ,
+    netex:TimetabledPassingTime_DepartureTime ,
+    ## --- Mode ---
+    netex:ServiceJourney_TransportMode ,
+    netex:ServiceJourney_TransportSubmode ,
+    ## --- Alteration ---
+    netex:DatedServiceJourney_ServiceAlteration ,
+    ## --- Boarding ---
+    netex:StopPointInJourneyPattern_ForBoarding ,
+    netex:StopPointInJourneyPattern_ForAlighting ,
+    ## --- Train details ---
+    netex:TrainComponent_Label ,
+    netex:TrainComponent_OperationalOrientation ,
+    netex:Train_TypeOfFuel ,
+    ## --- Network ---
+    netex:Network_Name .
+
+## =================================================================
+## PRODUCED DATA (PEN central registry)
+## =================================================================
+## The service masters TrainElement in the PEN codespace.
+## Operators reference these via TrainComponent → TrainElementRef.
+## -----------------------------------------------------------------
+
+svc:RollingStockService svc:produces
+    netex:TrainElement .
+
+## =================================================================
+## OBJECTS IN SCOPE
+## =================================================================
+## The full set of NeTEx classes this service needs to understand.
+## -----------------------------------------------------------------
+
+svc:RollingStockService svc:requiresClass
+    netex:ServiceJourney ,
+    netex:DatedServiceJourney ,
+    netex:JourneyPattern ,
+    netex:StopPointInJourneyPattern ,
+    netex:TimetabledPassingTime ,
+    netex:JourneyPart ,
+    netex:ScheduledStopPoint ,
+    netex:PassengerStopAssignment ,
+    netex:Line ,
+    netex:Network ,
+    netex:OperatingDay ,
+    netex:TrainBlock ,
+    netex:TrainBlockPart ,
+    netex:CompoundTrain ,
+    netex:TrainInCompoundTrain ,
+    netex:Train ,
+    netex:TrainComponent ,
+    netex:TrainElement .
+
+## =================================================================
+## SERVICE-SPECIFIC CONSTRAINTS
+## =================================================================
+## Additional tightening beyond what NP requires, specific to
+## what the rolling stock service expects.
+## -----------------------------------------------------------------
+
+svc:RollingStockService svc:requiresCardinality [
+    netex:ref netex:DatedServiceJourney_BlockRef ;
+    netex:cardinality "1..1" ;
+    rdfs:comment "Rolling stock needs block assignment to resolve composition"
+] , [
+    netex:ref netex:TrainComponent_TrainElementRef ;
+    netex:cardinality "1..1" ;
+    rdfs:comment "Every component must reference a PEN:TrainElement"
+] , [
+    netex:ref netex:TrainInCompoundTrain_TrainRef ;
+    netex:cardinality "1..1" ;
+    rdfs:comment "Every unit in a compound train must reference the Train definition"
+] .
+
+## =================================================================
+## END OF ROLLING STOCK SERVICE PROFILE
+## =================================================================

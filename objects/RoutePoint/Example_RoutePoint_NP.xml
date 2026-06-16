@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NP example: RoutePoint with PointProjection -->
+<RoutePoint xmlns="http://www.netex.org.uk/netex" version="any" id="RUT:RoutePoint:0061101001">
+    <projections>
+        <PointProjection version="any" id="RUT:PointProjection:0061101001">
+            <ProjectToPointRef version="any" ref="RUT:ScheduledStopPoint:0061101001"/>
+        </PointProjection>
+    </projections>
+</RoutePoint>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <PublicationTimestamp>2026-02-25T14:22:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame version="1" id="NP:SiteFrame:Core">
+      <stopPlaces>
+        <StopPlace version="1" id="NSR:StopPlace:1">
+          <Name>Example Stop Place</Name>
+          <quays>
+            <Quay version="1" id="NSR:Quay:1">
+              <Name>Platform 1</Name>
+            </Quay>
+          </quays>
+        </StopPlace>
+      </stopPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

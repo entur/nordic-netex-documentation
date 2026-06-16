@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:lines:1" version="1">
+      <lines>
+        <Line id="NP:Line:100" version="1">
+          <Name>Arendal-Kristiansand</Name>
+          <TransportMode>bus</TransportMode>
+          <TransportSubmode>
+            <BusSubmode>regionalBus</BusSubmode>
+          </TransportSubmode>
+          <PublicCode>100</PublicCode>
+          <PrivateCode>100</PrivateCode>
+          <OperatorRef ref="NP:Operator:923"/>
+          <RepresentedByGroupRef ref="NP:Network:AKTNett"/>
+          <Presentation>
+            <Colour>000000</Colour>
+            <TextColour>FFFF00</TextColour>
+          </Presentation>
+        </Line>
+      </lines>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex"
+                     xmlns:gml="http://www.opengis.net/gml/3.2"
+                     version="2.0">
+  <PublicationTimestamp>2026-03-23T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:LinkProjection" version="1">
+      <frames>
+        <ServiceFrame id="NP:ServiceFrame:LinkProjection" version="1">
+          <serviceLinks>
+            <ServiceLink id="NP:ServiceLink:StopA_to_StopB" version="1">
+              <projections>
+                <LinkSequenceProjection id="NP:LinkSequenceProjection:StopA_to_StopB" version="1">
+                  <gml:LineString gml:id="NP_LSP_StopA_to_StopB" srsName="EPSG:4326">
+                    <gml:posList>59.9110 10.7500 59.9130 10.7520 59.9155 10.7560</gml:posList>
+                  </gml:LineString>
+                </LinkSequenceProjection>
+              </projections>
+              <FromPointRef ref="NP:ScheduledStopPoint:StopA"/>
+              <ToPointRef ref="NP:ScheduledStopPoint:StopB"/>
+            </ServiceLink>
+          </serviceLinks>
+        </ServiceFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

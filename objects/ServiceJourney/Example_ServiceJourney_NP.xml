@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <TimetableFrame id="NP:TimetableFrame:sj:1" version="1">
+      <vehicleJourneys>
+        <ServiceJourney id="NP:ServiceJourney:15044_371" version="1">
+          <Name>Arendal bussterminal -&gt; Kristiansand rutebilstasjon</Name>
+          <PrivateCode>371</PrivateCode>
+          <dayTypes>
+            <DayTypeRef ref="NP:DayType:9_1"/>
+          </dayTypes>
+          <JourneyPatternRef ref="NP:JourneyPattern:81648_1"/>
+          <OperatorRef ref="NP:Operator:923"/>
+          <LineRef ref="NP:Line:100"/>
+          <passingTimes>
+            <TimetabledPassingTime version="1" id="NP:TimetabledPassingTime:1001">
+              <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:81648_1_1"/>
+              <DepartureTime>08:30:00</DepartureTime>
+            </TimetabledPassingTime>
+            <TimetabledPassingTime version="1" id="NP:TimetabledPassingTime:1002">
+              <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:81648_2_1"/>
+              <ArrivalTime>09:15:00</ArrivalTime>
+              <DepartureTime>09:17:00</DepartureTime>
+            </TimetabledPassingTime>
+            <TimetabledPassingTime version="1" id="NP:TimetabledPassingTime:1003">
+              <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:81648_3_1"/>
+              <ArrivalTime>10:00:00</ArrivalTime>
+            </TimetabledPassingTime>
+          </passingTimes>
+        </ServiceJourney>
+      </vehicleJourneys>
+    </TimetableFrame>
+  </dataObjects>
+</PublicationDelivery>

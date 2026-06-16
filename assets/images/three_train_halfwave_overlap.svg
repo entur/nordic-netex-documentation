@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">Three train half-wave service journey overlap</title>
+  <desc id="desc">Abstract sine-wave representation where each train curve is the train's daily work, a half-wave is a ServiceJourney, and trains only couple on subsegments of that half-wave.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#09111f"/>
+      <stop offset="0.5" stop-color="#13263a"/>
+      <stop offset="1" stop-color="#071316"/>
+    </linearGradient>
+
+    <linearGradient id="gold" x1="180" y1="0" x2="1220" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3c969"/>
+      <stop offset="0.52" stop-color="#fff1a6"/>
+      <stop offset="1" stop-color="#f5a83d"/>
+    </linearGradient>
+
+    <linearGradient id="blue" x1="180" y1="0" x2="900" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5ee7ff"/>
+      <stop offset="0.55" stop-color="#51a8ff"/>
+      <stop offset="1" stop-color="#70efcf"/>
+    </linearGradient>
+
+    <linearGradient id="rose" x1="520" y1="0" x2="1220" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff9d76"/>
+      <stop offset="0.48" stop-color="#ff6fae"/>
+      <stop offset="1" stop-color="#ffc066"/>
+    </linearGradient>
+
+    <radialGradient id="bodenGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fff4b8" stop-opacity="0.9"/>
+      <stop offset="0.38" stop-color="#ffb84f" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#ffb84f" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="glow" x="-18%" y="-18%" width="136%" height="136%">
+      <feGaussianBlur stdDeviation="4.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.58 0" result="soft"/>
+      <feMerge>
+        <feMergeNode in="soft"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="panelShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000000" flood-opacity="0.38"/>
+    </filter>
+
+    <marker id="arrowGold" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#f4c96b"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#62ddff"/>
+    </marker>
+    <marker id="arrowRose" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#ff7aa7"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="900" fill="url(#background)"/>
+
+  <g opacity="0.28">
+    <path d="M110 120 H1290" stroke="#d8e7ff" stroke-opacity="0.10"/>
+    <path d="M110 260 H1290" stroke="#d8e7ff" stroke-opacity="0.10"/>
+    <path d="M110 420 H1290" stroke="#d8e7ff" stroke-opacity="0.10"/>
+    <path d="M110 560 H1290" stroke="#d8e7ff" stroke-opacity="0.18"/>
+    <path d="M110 700 H1290" stroke="#d8e7ff" stroke-opacity="0.10"/>
+    <path d="M220 90 V760" stroke="#d8e7ff" stroke-opacity="0.08"/>
+    <path d="M700 90 V760" stroke="#ffdf8a" stroke-opacity="0.24" stroke-dasharray="8 12"/>
+    <path d="M1180 90 V760" stroke="#d8e7ff" stroke-opacity="0.08"/>
+  </g>
+
+  <g filter="url(#panelShadow)">
+    <text x="86" y="86" fill="#f7f1dc" font-family="Georgia, 'Times New Roman', serif" font-size="42">Halvbølge = ServiceJourney</text>
+    <text x="88" y="123" fill="#b8c6d7" font-family="Verdana, sans-serif" font-size="18">Togene deler bare deler av samme halvbølge: Tog 2 til Boden, Tog 3 fra Boden</text>
+  </g>
+
+  <circle cx="700" cy="142" r="120" fill="url(#bodenGlow)" opacity="0.78"/>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M220 540 C350 190 535 90 700 118" stroke="#70e6ff" stroke-width="42" stroke-opacity="0.16"/>
+    <path d="M700 118 C865 90 1050 190 1180 540" stroke="#ff80aa" stroke-width="42" stroke-opacity="0.16"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.32">
+    <path d="M90 650 C120 715 175 705 220 540" stroke="url(#gold)" stroke-width="5" stroke-dasharray="8 12"/>
+    <path d="M1180 540 C1225 705 1280 715 1310 650" stroke="url(#gold)" stroke-width="5" stroke-dasharray="8 12"/>
+    <path d="M90 680 C130 735 180 725 220 570" stroke="url(#blue)" stroke-width="5" stroke-dasharray="8 12"/>
+    <path d="M860 682 C920 760 1010 755 1065 690" stroke="url(#blue)" stroke-width="5" stroke-dasharray="8 12"/>
+    <path d="M392 690 C450 755 500 760 540 682" stroke="url(#rose)" stroke-width="5" stroke-dasharray="8 12"/>
+    <path d="M1180 570 C1230 725 1280 735 1310 680" stroke="url(#rose)" stroke-width="5" stroke-dasharray="8 12"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M220 540 C350 190 535 90 700 118 C865 90 1050 190 1180 540" stroke="url(#gold)" stroke-width="13" marker-end="url(#arrowGold)"/>
+    <path d="M220 570 C350 220 535 120 700 148 C755 190 810 405 860 682" stroke="url(#blue)" stroke-width="9" marker-end="url(#arrowBlue)"/>
+    <path d="M540 682 C590 405 645 190 700 148 C865 120 1050 220 1180 570" stroke="url(#rose)" stroke-width="9" marker-end="url(#arrowRose)"/>
+  </g>
+
+  <g>
+    <circle cx="220" cy="540" r="13" fill="#101827" stroke="#f3c969" stroke-width="4"/>
+    <circle cx="1180" cy="540" r="13" fill="#101827" stroke="#f3c969" stroke-width="4"/>
+    <circle cx="220" cy="570" r="11" fill="#101827" stroke="#5ee7ff" stroke-width="4"/>
+    <circle cx="860" cy="682" r="11" fill="#101827" stroke="#5ee7ff" stroke-width="4"/>
+    <circle cx="540" cy="682" r="11" fill="#101827" stroke="#ff7aa7" stroke-width="4"/>
+    <circle cx="1180" cy="570" r="11" fill="#101827" stroke="#ff7aa7" stroke-width="4"/>
+    <circle cx="700" cy="132" r="20" fill="#172033" stroke="#fff1aa" stroke-width="5"/>
+    <circle cx="700" cy="132" r="7" fill="#fff1aa"/>
+  </g>
+
+  <g font-family="Verdana, sans-serif" fill="#dce8f5">
+    <text x="220" y="808" font-size="20" text-anchor="middle">Narvik</text>
+    <text x="700" y="808" font-size="20" text-anchor="middle" fill="#ffe49d">Boden</text>
+    <text x="1180" y="808" font-size="20" text-anchor="middle">Stockholm</text>
+    <text x="860" y="734" font-size="18" text-anchor="middle" fill="#b8fff1">Lulea</text>
+    <text x="540" y="734" font-size="18" text-anchor="middle" fill="#ffd0dc">Lulea</text>
+  </g>
+
+  <g font-family="Verdana, sans-serif" font-size="15" fill="#eef6ff" filter="url(#panelShadow)">
+    <g transform="translate(76 594)">
+      <rect x="0" y="0" width="405" height="150" rx="16" fill="#0d1625" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+      <path d="M28 38 H96" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+      <text x="116" y="43">Tog 1: full halvbølge Narvik - Stockholm</text>
+      <path d="M28 78 H96" stroke="url(#blue)" stroke-width="8" stroke-linecap="round"/>
+      <text x="116" y="83">Tog 2: deler starten, bryter av til Lulea</text>
+      <path d="M28 118 H96" stroke="url(#rose)" stroke-width="8" stroke-linecap="round"/>
+      <text x="116" y="123">Tog 3: kommer fra Lulea, deler slutten</text>
+    </g>
+
+    <g transform="translate(892 170)">
+      <rect x="0" y="0" width="390" height="112" rx="16" fill="#0d1625" fill-opacity="0.76" stroke="#ffffff" stroke-opacity="0.12"/>
+      <text x="22" y="34" fill="#fff0b8">SharedFormationSegment</text>
+      <text x="22" y="64" fill="#b8c6d7">er ikke hele ServiceJourney.</text>
+      <text x="22" y="90" fill="#b8c6d7">Det er et delintervall pa halvbølgen.</text>
+    </g>
+  </g>
+
+  <g font-family="Verdana, sans-serif" font-size="16" fill="#d9e7f7">
+    <text x="365" y="178" text-anchor="middle" fill="#9ff3ff">Tog 1 + Tog 2</text>
+    <text x="1010" y="178" text-anchor="middle" fill="#ffb2cc">Tog 1 + Tog 3</text>
+    <text x="700" y="72" text-anchor="middle" fill="#fff0b8">koblingspunkt</text>
+  </g>
+
+  <g font-family="Verdana, sans-serif" font-size="14" fill="#9fb3c8">
+    <text x="700" y="855" text-anchor="middle">Hel kurve = dagsverk. Fet halvbølge = ServiceJourney. Farget overlapp = fysisk koblet del av halvbølgen.</text>
+  </g>
+</svg>

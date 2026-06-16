@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NP example: TrainNumber for railway service -->
+<TrainNumber xmlns="http://www.netex.org.uk/netex" version="any" id="SJN:TrainNumber:41">
+    <ForAdvertisement>41</ForAdvertisement>
+</TrainNumber>

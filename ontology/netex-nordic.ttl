@@ -1,0 +1,380 @@
+## -----------------------------------------------------------------
+## Nordic NeTEx Profile Ontology
+## -----------------------------------------------------------------
+## Profile-specific constraints, element ordering, and domain chains
+## for the Nordic Profile (NP).
+##
+## Imports: netex.ttl (base NeTEx classes and relationships)
+##
+## Generated: 2026-06-09
+## -----------------------------------------------------------------
+
+@prefix netex:   <https://netex-cen.eu/ontology#> .
+@prefix profile: <https://netex-cen.eu/profile#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+
+## --- Import base NeTEx ontology ---
+<https://netex-cen.eu/profile/nordic> a owl:Ontology ;
+    owl:imports <https://netex-cen.eu/ontology> .
+
+## =================================================================
+## PROFILE DEFINITION
+## =================================================================
+
+profile:NP a netex:Profile ;
+    rdfs:label "Nordic Profile" ;
+    skos:notation "NP" ;
+    skos:definition "Shared NeTEx profile for Norway, Sweden, Finland and Denmark" .
+
+## =================================================================
+## PROFILE CONSTRAINTS (NP)
+## =================================================================
+## NP-specific exclusions, allowances, and cardinality tightening vs XSD.
+## References point directly to named resources in netex.ttl.
+## -----------------------------------------------------------------
+
+## --- Elements excluded from NP (forbidden in Nordic Profile) ---
+
+profile:NP netex:excludes
+    netex:StopPlace_ParentSiteRef ,
+    netex:StopPlace_TariffZoneRef ,
+    netex:ServiceJourney_FlexibleLineRef ,
+    netex:ServiceJourney_BlockRef .
+
+## --- Elements allowed in NP (with cardinality overrides) ---
+
+profile:NP netex:allows [
+    netex:ref netex:StopPlace_TopographicPlaceRef ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:StopPlace_ValidBetween ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:StopPlace_AccessibilityAssessment ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:Quay_AccessibilityAssessment ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:Quay_boardingPositions ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:Line_RepresentedByGroupRef ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:Line_TransportSubmode ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:Line_PublicCode ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:Line_PrivateCode ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:Interchange_FromPointRef ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:Interchange_ToPointRef ;
+    netex:cardinality "0..1"
+] , [
+    netex:ref netex:DatedServiceJourney_DatedVehicleJourneyRef ;
+    netex:cardinality "0..n" ;
+    rdfs:comment "Deviation/replacement tracking"
+] .
+
+## --- Cardinality tightening (XSD is looser than NP requires) ---
+
+profile:NP netex:requires [
+    netex:ref netex:JourneyPattern_RouteRef ;
+    netex:cardinality "1..1" ;
+    rdfs:comment "XSD allows 0..1, NP mandates"
+] , [
+    netex:ref netex:Vehicle_VehicleTypeRef ;
+    netex:cardinality "1..1" ;
+    rdfs:comment "XSD allows 0..1, NP mandates"
+] , [
+    netex:ref netex:Authority_Name ;
+    netex:cardinality "1..1"
+] , [
+    netex:ref netex:Operator_Name ;
+    netex:cardinality "1..1"
+] , [
+    netex:ref netex:VehicleType_Name ;
+    netex:cardinality "1..1"
+] , [
+    netex:ref netex:FareZone_Name ;
+    netex:cardinality "1..1"
+] .
+
+## =================================================================
+## ELEMENT ORDERING (XSD-derived)
+## =================================================================
+## Canonical element sequence per class, derived from XSD type
+## hierarchy. Tables, descriptions, and generators should follow
+## this order. Attributes (@id, @version, @order) are listed first
+## by convention — XML attributes have no sequence constraint.
+## Only elements documented in the profile Tables are listed.
+## -----------------------------------------------------------------
+
+netex:ServiceJourney netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "keyList"
+] , [
+    netex:position 4 ; netex:element "Name"
+] , [
+    netex:position 5 ; netex:element "PrivateCode"
+] , [
+    netex:position 6 ; netex:element "Description"
+] , [
+    netex:position 7 ; netex:element "TransportMode"
+] , [
+    netex:position 8 ; netex:element "TransportSubmode"
+] , [
+    netex:position 9 ; netex:element "dayTypes"
+] , [
+    netex:position 10 ; netex:element "JourneyPatternRef"
+] , [
+    netex:position 11 ; netex:element "VehicleTypeRef"
+] , [
+    netex:position 12 ; netex:element "BlockRef"
+] , [
+    netex:position 13 ; netex:element "OperatorRef"
+] , [
+    netex:position 14 ; netex:element "LineRef"
+] , [
+    netex:position 15 ; netex:element "FlexibleLineRef"
+] , [
+    netex:position 16 ; netex:element "passingTimes"
+] , [
+    netex:position 17 ; netex:element "parts"
+] .
+
+netex:Operator netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "CompanyNumber"
+] , [
+    netex:position 4 ; netex:element "Name"
+] , [
+    netex:position 5 ; netex:element "ShortName"
+] , [
+    netex:position 6 ; netex:element "LegalName"
+] , [
+    netex:position 7 ; netex:element "ContactDetails"
+] , [
+    netex:position 8 ; netex:element "OrganisationType"
+] , [
+    netex:position 9 ; netex:element "CountryRef"
+] , [
+    netex:position 10 ; netex:element "PrimaryMode"
+] , [
+    netex:position 11 ; netex:element "CustomerServiceContactDetails"
+] .
+
+netex:StopPlace netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "ValidBetween"
+] , [
+    netex:position 4 ; netex:element "keyList"
+] , [
+    netex:position 5 ; netex:element "Name"
+] , [
+    netex:position 6 ; netex:element "Centroid"
+] , [
+    netex:position 7 ; netex:element "AccessibilityAssessment"
+] , [
+    netex:position 8 ; netex:element "TopographicPlaceRef"
+] , [
+    netex:position 9 ; netex:element "ParentSiteRef"
+] , [
+    netex:position 10 ; netex:element "TransportMode"
+] , [
+    netex:position 11 ; netex:element "StopPlaceType"
+] , [
+    netex:position 12 ; netex:element "Weighting"
+] , [
+    netex:position 13 ; netex:element "quays"
+] .
+
+netex:Line netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "Name"
+] , [
+    netex:position 4 ; netex:element "TransportMode"
+] , [
+    netex:position 5 ; netex:element "TransportSubmode"
+] , [
+    netex:position 6 ; netex:element "PublicCode"
+] , [
+    netex:position 7 ; netex:element "PrivateCode"
+] , [
+    netex:position 8 ; netex:element "OperatorRef"
+] , [
+    netex:position 9 ; netex:element "Monitored"
+] , [
+    netex:position 10 ; netex:element "RepresentedByGroupRef"
+] , [
+    netex:position 11 ; netex:element "Presentation"
+] .
+
+netex:Route netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "Name"
+] , [
+    netex:position 4 ; netex:element "ShortName"
+] , [
+    netex:position 5 ; netex:element "Description"
+] , [
+    netex:position 6 ; netex:element "LineRef"
+] , [
+    netex:position 7 ; netex:element "DirectionType"
+] , [
+    netex:position 8 ; netex:element "pointsInSequence"
+] , [
+    netex:position 9 ; netex:element "InverseRouteRef"
+] .
+
+netex:JourneyPattern netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "Name"
+] , [
+    netex:position 4 ; netex:element "RouteRef"
+] , [
+    netex:position 5 ; netex:element "pointsInSequence"
+] , [
+    netex:position 6 ; netex:element "linksInSequence"
+] .
+
+netex:DatedServiceJourney netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "ServiceAlteration"
+] , [
+    netex:position 4 ; netex:element "BlockRef"
+] , [
+    netex:position 5 ; netex:element "ServiceJourneyRef"
+] , [
+    netex:position 6 ; netex:element "replacedJourneys"
+] , [
+    netex:position 7 ; netex:element "OperatingDayRef"
+] .
+
+netex:DayType netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "Name"
+] , [
+    netex:position 4 ; netex:element "properties"
+] .
+
+netex:ScheduledStopPoint netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "ValidBetween"
+] , [
+    netex:position 4 ; netex:element "Name"
+] , [
+    netex:position 5 ; netex:element "TimingPointStatus"
+] .
+
+netex:PassengerStopAssignment netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "@order"
+] , [
+    netex:position 4 ; netex:element "ValidBetween"
+] , [
+    netex:position 5 ; netex:element "ScheduledStopPointRef"
+] , [
+    netex:position 6 ; netex:element "StopPlaceRef"
+] , [
+    netex:position 7 ; netex:element "QuayRef"
+] .
+
+netex:DestinationDisplay netex:elementOrder [
+    netex:position 1 ; netex:element "@id"
+] , [
+    netex:position 2 ; netex:element "@version"
+] , [
+    netex:position 3 ; netex:element "Name"
+] , [
+    netex:position 4 ; netex:element "SideText"
+] , [
+    netex:position 5 ; netex:element "FrontText"
+] , [
+    netex:position 6 ; netex:element "vias"
+] .
+
+## =================================================================
+## DOMAIN CHAINS (navigational shortcuts)
+## =================================================================
+
+netex:TimetableChain rdfs:comment """
+    Line → Route → JourneyPattern → ServiceJourney → DatedServiceJourney
+    The core modelling chain: from abstract line identity
+    through physical route, stop sequence, timed trip template,
+    to a concrete instance on a specific date.
+""" ;
+    netex:step1 netex:Line ;
+    netex:step2 netex:Route ;
+    netex:step3 netex:JourneyPattern ;
+    netex:step4 netex:ServiceJourney ;
+    netex:step5 netex:DatedServiceJourney .
+
+netex:StopChain rdfs:comment """
+    ScheduledStopPoint → PassengerStopAssignment → StopPlace → Quay
+    The logical-to-physical stop bridge.
+""" ;
+    netex:step1 netex:ScheduledStopPoint ;
+    netex:step2 netex:PassengerStopAssignment ;
+    netex:step3 netex:StopPlace ;
+    netex:step4 netex:Quay .
+
+netex:CalendarChain rdfs:comment """
+    DayType → DayTypeAssignment → OperatingPeriod / Date
+    How services are bound to dates.
+""" ;
+    netex:step1 netex:DayType ;
+    netex:step2 netex:DayTypeAssignment ;
+    netex:step3 netex:OperatingPeriod .
+
+netex:OrganisationChain rdfs:comment """
+    Authority → Contract → Operator → ResponsibilitySet
+    Organisational governance and responsibility.
+""" ;
+    netex:step1 netex:Authority ;
+    netex:step2 netex:Contract ;
+    netex:step3 netex:Operator ;
+    netex:step4 netex:ResponsibilitySet .
+
+## =================================================================
+## END OF NORDIC PROFILE ONTOLOGY
+## =================================================================

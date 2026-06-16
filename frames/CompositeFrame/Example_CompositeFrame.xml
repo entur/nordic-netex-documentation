@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-18T00:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:1" version="1">
+      <codespaces>
+        <Codespace id="np">
+          <Xmlns>NP</Xmlns>
+          <XmlnsUrl>http://www.nordicprofile.eu/ns/np</XmlnsUrl>
+        </Codespace>
+      </codespaces>
+      <FrameDefaults>
+        <DefaultCodespaceRef ref="np"/>
+      </FrameDefaults>
+      <frames>
+        <ResourceFrame id="NP:ResourceFrame:1" version="1">
+          <organisations>
+            <Authority id="NP:Authority:AUT_001" version="1">
+              <Name>Example Authority</Name>
+            </Authority>
+            <Operator id="NP:Operator:OP_001" version="1">
+              <Name>Example Operator</Name>
+            </Operator>
+          </organisations>
+        </ResourceFrame>
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:1" version="1">
+          <dayTypes>
+            <DayType id="NP:DayType:WKD" version="1">
+              <Name>Weekdays</Name>
+              <properties>
+                <PropertyOfDay>
+                  <DaysOfWeek>Monday Tuesday Wednesday Thursday Friday</DaysOfWeek>
+                </PropertyOfDay>
+              </properties>
+            </DayType>
+          </dayTypes>
+        </ServiceCalendarFrame>
+        <ServiceFrame id="NP:ServiceFrame:1" version="1">
+          <lines>
+            <Line id="NP:Line:L1" version="1">
+              <Name>Line 1</Name>
+              <PublicCode>1</PublicCode>
+              <OperatorRef ref="NP:Operator:OP_001"/>
+            </Line>
+          </lines>
+        </ServiceFrame>
+        <TimetableFrame id="NP:TimetableFrame:1" version="1">
+          <vehicleJourneys>
+            <ServiceJourney id="NP:ServiceJourney:SJ_001" version="1">
+              <Name>Morning departure</Name>
+              <dayTypes>
+                <DayTypeRef ref="NP:DayType:WKD"/>
+              </dayTypes>
+              <JourneyPatternRef ref="NP:JourneyPattern:JP_001"/>
+              <LineRef ref="NP:Line:L1"/>
+            </ServiceJourney>
+          </vehicleJourneys>
+        </TimetableFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

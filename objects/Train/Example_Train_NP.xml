@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NP example: Train unit with capacity information -->
+<Train xmlns="http://www.netex.org.uk/netex" version="any" id="SJN:Train:Type72-A">
+    <Name>NSB Type 72</Name>
+    <TrainSize>
+        <NumberOfCars>4</NumberOfCars>
+        <TrainSizeType>normal</TrainSizeType>
+    </TrainSize>
+    <components>
+        <TrainComponent id="SJN:TrainComponent:72A-1" version="any" order="1">
+            <Label>Vogn 1</Label>
+            <TrainElement id="SJN:TrainElement:72A-1" version="any">
+                <TrainElementType>carriage</TrainElementType>
+                <FareClasses>standardClass</FareClasses>
+                <PassengerCapacity>
+                    <SeatingCapacity>76</SeatingCapacity>
+                    <StandingCapacity>40</StandingCapacity>
+                </PassengerCapacity>
+            </TrainElement>
+        </TrainComponent>
+    </components>
+</Train>

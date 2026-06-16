@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <PublicationTimestamp>2026-03-12T11:20:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:DestinationDisplayExample:1" version="1">
+      <destinationDisplays>
+        <DestinationDisplay id="NP:DestinationDisplay:1" version="1">
+          <FrontText>Oslo S</FrontText>
+        </DestinationDisplay>
+        <DestinationDisplay id="NP:DestinationDisplay:2" version="1">
+          <FrontText>Bergen</FrontText>
+        </DestinationDisplay>
+      </destinationDisplays>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

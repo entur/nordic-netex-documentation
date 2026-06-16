@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-18T00:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ResourceFrame id="NP:ResourceFrame:vehicles:1" version="1">
+      <vehicles>
+        <!-- Example 1: Standard Vehicle Definition -->
+        <Vehicle id="NP:Vehicle:1001" version="1">
+          <RegistrationNumber>AB12345</RegistrationNumber>
+          <VehicleTypeRef ref="NP:VehicleType:BusStandard"/>
+        </Vehicle>
+        <!-- Example 2: Vehicle with Operator Association -->
+        <Vehicle id="NP:Vehicle:2001" version="1">
+          <RegistrationNumber>EV56789</RegistrationNumber>
+          <OperatorRef ref="NP:Operator:OP100"/>
+          <VehicleTypeRef ref="NP:VehicleType:ElectricBus"/>
+        </Vehicle>
+      </vehicles>
+    </ResourceFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-23T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:DayTypeAssignment" version="1">
+      <frames>
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:DayTypeAssignment" version="1">
+
+          <dayTypes>
+            <DayType id="NP:DayType:Weekdays" version="1">
+              <Name>Weekdays</Name>
+            </DayType>
+          </dayTypes>
+
+          <operatingPeriods>
+            <OperatingPeriod id="NP:OperatingPeriod:2026H1" version="1">
+              <FromDate>2026-01-01T00:00:00Z</FromDate>
+              <ToDate>2026-06-30T00:00:00Z</ToDate>
+            </OperatingPeriod>
+          </operatingPeriods>
+
+          <dayTypeAssignments>
+            <!-- Baseline: Weekdays active during H1 2026 -->
+            <DayTypeAssignment id="NP:DayTypeAssignment:WKD_2026H1" version="1" order="1">
+              <OperatingPeriodRef ref="NP:OperatingPeriod:2026H1"/>
+              <DayTypeRef ref="NP:DayType:Weekdays"/>
+              <isAvailable>true</isAvailable>
+            </DayTypeAssignment>
+
+            <!-- Exception: May Day — no weekday service -->
+            <DayTypeAssignment id="NP:DayTypeAssignment:WKD_MayDay" version="1" order="2">
+              <Date>2026-05-01</Date>
+              <DayTypeRef ref="NP:DayType:Weekdays"/>
+              <isAvailable>false</isAvailable>
+            </DayTypeAssignment>
+          </dayTypeAssignments>
+
+        </ServiceCalendarFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

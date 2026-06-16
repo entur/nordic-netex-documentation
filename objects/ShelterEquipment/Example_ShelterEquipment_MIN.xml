@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <PublicationTimestamp>2026-03-12T13:45:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <GeneralFrame id="NP:GeneralFrame:ShelterEquipmentExample:1" version="1">
+      <members>
+        <ShelterEquipment id="NP:ShelterEquipment:1" version="1">
+          <ValidBetween>
+            <FromDate>2026-03-12T00:00:00Z</FromDate>
+            <ToDate>2027-03-12T00:00:00Z</ToDate>
+          </ValidBetween>
+        </ShelterEquipment>
+      </members>
+    </GeneralFrame>
+  </dataObjects>
+</PublicationDelivery>

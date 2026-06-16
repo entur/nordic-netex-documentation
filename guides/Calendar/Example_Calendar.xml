@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-23T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:CalendarExample" version="1">
+      <frames>
+
+        <!-- ============================================================ -->
+        <!-- ServiceCalendarFrame: all calendar data in one frame         -->
+        <!-- ============================================================ -->
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:Calendar" version="1">
+
+          <!-- =============================== -->
+          <!-- DayTypes: recurring day patterns -->
+          <!-- =============================== -->
+          <dayTypes>
+            <!-- Weekdays: Monday through Friday -->
+            <DayType id="NP:DayType:Weekdays" version="1">
+              <Name>Weekdays</Name>
+              <properties>
+                <PropertyOfDay>
+                  <DaysOfWeek>Monday Tuesday Wednesday Thursday Friday</DaysOfWeek>
+                </PropertyOfDay>
+              </properties>
+            </DayType>
+
+            <!-- Saturdays -->
+            <DayType id="NP:DayType:Saturdays" version="1">
+              <Name>Saturdays</Name>
+              <properties>
+                <PropertyOfDay>
+                  <DaysOfWeek>Saturday</DaysOfWeek>
+                </PropertyOfDay>
+              </properties>
+            </DayType>
+          </dayTypes>
+
+          <!-- ================================================= -->
+          <!-- OperatingDays: specific dates for DatedServiceJourney -->
+          <!-- Used for deviations, block assignment, sales         -->
+          <!-- ================================================= -->
+          <operatingDays>
+            <OperatingDay id="NP:OperatingDay:2026-03-18" version="1">
+              <CalendarDate>2026-03-18</CalendarDate>
+            </OperatingDay>
+            <OperatingDay id="NP:OperatingDay:2026-03-19" version="1">
+              <CalendarDate>2026-03-19</CalendarDate>
+            </OperatingDay>
+          </operatingDays>
+
+          <!-- ========================================= -->
+          <!-- OperatingPeriods: date ranges of validity -->
+          <!-- ========================================= -->
+          <operatingPeriods>
+            <!-- First half of 2026 -->
+            <OperatingPeriod id="NP:OperatingPeriod:2026H1" version="1">
+              <FromDate>2026-01-01T00:00:00Z</FromDate>
+              <ToDate>2026-06-30T00:00:00Z</ToDate>
+            </OperatingPeriod>
+
+            <!-- Full year 2026 (used for Saturday services) -->
+            <OperatingPeriod id="NP:OperatingPeriod:2026" version="1">
+              <FromDate>2026-01-01T00:00:00Z</FromDate>
+              <ToDate>2026-12-31T00:00:00Z</ToDate>
+            </OperatingPeriod>
+          </operatingPeriods>
+
+          <!-- ================================================== -->
+          <!-- DayTypeAssignments: bind patterns to date ranges    -->
+          <!-- including exception handling with isAvailable=false -->
+          <!-- ================================================== -->
+          <dayTypeAssignments>
+            <!-- Weekdays during H1 2026 -->
+            <DayTypeAssignment id="NP:DayTypeAssignment:WKD_2026H1" version="1" order="1">
+              <OperatingPeriodRef ref="NP:OperatingPeriod:2026H1"/>
+              <DayTypeRef ref="NP:DayType:Weekdays"/>
+              <isAvailable>true</isAvailable>
+            </DayTypeAssignment>
+
+            <!-- Exception: May Day (Friday) — no weekday service -->
+            <DayTypeAssignment id="NP:DayTypeAssignment:WKD_MayDay" version="1" order="2">
+              <Date>2026-05-01</Date>
+              <DayTypeRef ref="NP:DayType:Weekdays"/>
+              <isAvailable>false</isAvailable>
+            </DayTypeAssignment>
+
+            <!-- Exception: Ascension Day (Thursday) — no weekday service -->
+            <DayTypeAssignment id="NP:DayTypeAssignment:WKD_Ascension" version="1" order="3">
+              <Date>2026-05-14</Date>
+              <DayTypeRef ref="NP:DayType:Weekdays"/>
+              <isAvailable>false</isAvailable>
+            </DayTypeAssignment>
+
+            <!-- Saturdays all year -->
+            <DayTypeAssignment id="NP:DayTypeAssignment:SAT_2026" version="1" order="1">
+              <OperatingPeriodRef ref="NP:OperatingPeriod:2026"/>
+              <DayTypeRef ref="NP:DayType:Saturdays"/>
+              <isAvailable>true</isAvailable>
+            </DayTypeAssignment>
+          </dayTypeAssignments>
+
+        </ServiceCalendarFrame>
+
+        <!-- ============================================================ -->
+        <!-- TimetableFrame: journeys referencing the calendar            -->
+        <!-- ============================================================ -->
+        <TimetableFrame id="NP:TimetableFrame:Calendar" version="1">
+          <vehicleJourneys>
+
+            <!-- ServiceJourney using pattern-based scheduling (DayType) -->
+            <ServiceJourney id="NP:ServiceJourney:100_0730" version="1">
+              <Name>Bus 100 dep. 07:30</Name>
+              <dayTypes>
+                <DayTypeRef ref="NP:DayType:Weekdays"/>
+              </dayTypes>
+            </ServiceJourney>
+
+            <!-- DatedServiceJourney using date-based scheduling (OperatingDay) -->
+            <!-- This journey is cancelled on March 18 due to track work -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:100_0730_20260318" version="2">
+              <ServiceAlteration>cancellation</ServiceAlteration>
+              <ServiceJourneyRef ref="NP:ServiceJourney:100_0730"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-03-18"/>
+            </DatedServiceJourney>
+
+            <!-- This journey runs as planned on March 19 -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:100_0730_20260319" version="1">
+              <ServiceJourneyRef ref="NP:ServiceJourney:100_0730"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-03-19"/>
+            </DatedServiceJourney>
+
+          </vehicleJourneys>
+        </TimetableFrame>
+
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

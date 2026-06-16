@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+    <PublicationTimestamp>2026-03-04T00:00:00Z</PublicationTimestamp>
+    <ParticipantRef>NP</ParticipantRef>
+    <dataObjects>
+        <CompositeFrame id="NP:CompositeFrame:1" version="1">
+            <frames>
+                <ServiceFrame id="NP:ServiceFrame:1" version="1">
+                    <lines>
+                        <Line id="NP:Line:100" version="1">
+                            <Name>Example Line 100</Name>
+                            <TransportMode>bus</TransportMode>
+                        </Line>
+                        <Line id="NP:Line:200" version="1">
+                            <Name>Example Line 200</Name>
+                            <TransportMode>bus</TransportMode>
+                        </Line>
+                    </lines>
+                    <groupsOfLines>
+                        <GroupOfLines id="NP:GroupOfLines:1" version="1" responsibilitySetRef="NP:ResponsibilitySet:Test">
+                            <Name>Example Group of Lines</Name>
+                            <members>
+                                <LineRef ref="NP:Line:100" version="1"/>
+                                <LineRef ref="NP:Line:200" version="1"/>
+                            </members>
+                        </GroupOfLines>
+                    </groupsOfLines>
+                </ServiceFrame>
+            </frames>
+        </CompositeFrame>
+    </dataObjects>
+</PublicationDelivery>

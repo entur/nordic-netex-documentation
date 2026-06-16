@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NSR:SiteFrame:waitroom:1" version="1">
+      <stopPlaces>
+        <StopPlace id="NSR:StopPlace:1" version="1">
+          <Name lang="nor">Example Stop</Name>
+          <placeEquipments>
+            <WaitingRoomEquipment id="NSR:WaitingRoomEquipment:1" version="1">
+              <Seats>12</Seats>
+              <StepFree>true</StepFree>
+              <Heated>true</Heated>
+              <Sanitary/>
+            </WaitingRoomEquipment>
+          </placeEquipments>
+        </StopPlace>
+      </stopPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,62 @@
+<svg width="100%" viewBox="0 0 720 200" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Human–Agent feedback loop</title>
+<desc>The iterative cycle: Human intent → Agent draft → XSD validation → Human review → Correction → Agent revision, repeating until right.</desc>
+<defs>
+  <marker id="fwd" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="rgb(83, 74, 183)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="loop" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="rgb(175, 169, 236)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- ===== TOP ROW: Forward flow ===== -->
+
+<!-- Human intent -->
+<g>
+  <rect x="20" y="40" width="130" height="52" rx="8" fill="rgb(60, 52, 137)" stroke="rgb(175, 169, 236)" stroke-width="0.5"/>
+  <text x="85" y="60" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="500" fill="rgb(206, 203, 246)">Human intent</text>
+  <text x="85" y="78" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="rgb(175, 169, 236)">goal + context</text>
+</g>
+
+<!-- Agent draft -->
+<g>
+  <rect x="195" y="40" width="130" height="52" rx="8" fill="rgb(60, 52, 137)" stroke="rgb(175, 169, 236)" stroke-width="0.5"/>
+  <text x="260" y="60" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="500" fill="rgb(206, 203, 246)">Agent draft</text>
+  <text x="260" y="78" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="rgb(175, 169, 236)">XML + markdown</text>
+</g>
+
+<!-- XSD validation -->
+<g>
+  <rect x="370" y="40" width="130" height="52" rx="8" fill="rgb(40, 100, 60)" stroke="rgb(130, 210, 150)" stroke-width="0.5"/>
+  <text x="435" y="60" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="500" fill="rgb(200, 240, 210)">XSD validation</text>
+  <text x="435" y="78" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="rgb(130, 210, 150)">pass / fail gate</text>
+</g>
+
+<!-- Human review -->
+<g>
+  <rect x="545" y="40" width="130" height="52" rx="8" fill="rgb(60, 52, 137)" stroke="rgb(175, 169, 236)" stroke-width="0.5"/>
+  <text x="610" y="60" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="500" fill="rgb(206, 203, 246)">Human review</text>
+  <text x="610" y="78" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="rgb(175, 169, 236)">correct / redirect</text>
+</g>
+
+<!-- ===== FORWARD ARROWS ===== -->
+<line x1="150" y1="66" x2="193" y2="66" stroke="rgb(83, 74, 183)" stroke-width="1.2" marker-end="url(#fwd)"/>
+<line x1="325" y1="66" x2="368" y2="66" stroke="rgb(83, 74, 183)" stroke-width="1.2" marker-end="url(#fwd)"/>
+<line x1="500" y1="66" x2="543" y2="66" stroke="rgb(83, 74, 183)" stroke-width="1.2" marker-end="url(#fwd)"/>
+
+<!-- ===== LOOP-BACK ARC ===== -->
+<!-- From Human review, curve down and back to Agent draft -->
+<path d="M 610 92 C 610 155, 260 155, 260 92"
+      fill="none" stroke="rgb(175, 169, 236)" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#loop)"/>
+
+<!-- Loop label -->
+<text x="435" y="148" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-style="italic" fill="rgb(175, 169, 236)">Repeat until right</text>
+
+<!-- ===== VALIDATION FAIL shortcut back ===== -->
+<!-- From XSD validation fail, small arc back to Agent draft -->
+<path d="M 400 92 C 400 118, 290 118, 290 92"
+      fill="none" stroke="rgb(130, 210, 150)" stroke-width="1" stroke-dasharray="3,3" opacity="0.7" marker-end="url(#loop)"/>
+<text x="345" y="117" text-anchor="middle" font-family="'Anthropic Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="rgb(130, 210, 150)">fail → fix</text>
+
+</svg>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NSR:SiteFrame:quays:1" version="1">
+      <stopPlaces>
+        <StopPlace id="NSR:StopPlace:59977" version="1">
+          <Name lang="nor">Oslo S</Name>
+          <quays>
+            <Quay id="NSR:Quay:107401" version="1">
+              <keyList>
+                <KeyValue>
+                  <Key>imported-id</Key>
+                  <Value>NP:Quay:9060006_1</Value>
+                </KeyValue>
+              </keyList>
+              <Name lang="nor">Spor 1</Name>
+              <PrivateCode type="StopPoint">1</PrivateCode>
+              <Centroid>
+                <Location>
+                  <Longitude>10.752300</Longitude>
+                  <Latitude>59.910950</Latitude>
+                </Location>
+              </Centroid>
+              <AccessibilityAssessment id="NSR:AccessibilityAssessment:Q107401" version="1">
+                <MobilityImpairedAccess>true</MobilityImpairedAccess>
+                <limitations>
+                  <AccessibilityLimitation>
+                    <WheelchairAccess>true</WheelchairAccess>
+                    <StepFreeAccess>true</StepFreeAccess>
+                  </AccessibilityLimitation>
+                </limitations>
+              </AccessibilityAssessment>
+              <PublicCode>1</PublicCode>
+              <CompassBearing>85.0</CompassBearing>
+              <boardingPositions>
+                <BoardingPosition id="NSR:BoardingPosition:107401_A" version="1">
+                  <Centroid>
+                    <Location>
+                      <Longitude>10.752310</Longitude>
+                      <Latitude>59.910960</Latitude>
+                    </Location>
+                  </Centroid>
+                  <PublicCode>A</PublicCode>
+                </BoardingPosition>
+              </boardingPositions>
+            </Quay>
+          </quays>
+        </StopPlace>
+      </stopPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

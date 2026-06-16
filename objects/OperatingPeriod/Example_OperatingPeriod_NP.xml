@@ -1,0 +1,18 @@
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="1.0">
+  <PublicationTimestamp>2026-03-12T19:20:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:ServiceCalendar" version="1">
+      <frames>
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:Example" version="1">
+          <operatingPeriods>
+            <OperatingPeriod id="NP:OperatingPeriod:OP1" version="1">
+              <FromDate>2026-01-01T00:00:00Z</FromDate>
+              <ToDate>2026-12-31T23:59:59Z</ToDate>
+            </OperatingPeriod>
+          </operatingPeriods>
+        </ServiceCalendarFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

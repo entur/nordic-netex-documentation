@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ResourceFrame id="NP:ResourceFrame:operators:1" version="1">
+      <organisations>
+        <Operator id="NP:Operator:331" version="1">
+          <CompanyNumber>974208849</CompanyNumber>
+          <Name>Boreal Sjø</Name>
+          <LegalName>Boreal Sjø AS</LegalName>
+          <ContactDetails>
+            <Phone>+4791555888</Phone>
+            <Url>https://boreal.no</Url>
+          </ContactDetails>
+          <OrganisationType>operator</OrganisationType>
+          <CustomerServiceContactDetails>
+            <Email>post.sjo@boreal.no</Email>
+            <Phone>+4791555888</Phone>
+            <Url>https://boreal.no</Url>
+          </CustomerServiceContactDetails>
+        </Operator>
+      </organisations>
+    </ResourceFrame>
+  </dataObjects>
+</PublicationDelivery>

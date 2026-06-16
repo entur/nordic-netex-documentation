@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:siri="http://www.siri.org.uk/siri" version="2.0">
+  <PublicationTimestamp>2026-02-28T13:37:46.0Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <Description>Minimal example using NP as the codespace</Description>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:CF_1" version="1">
+      <codespaces>
+        <Codespace id="np">
+          <Xmlns>NP</Xmlns>
+          <XmlnsUrl>http://www.nordicprofile.eu/ns/np</XmlnsUrl>
+        </Codespace>
+        <Codespace id="nsr">
+          <Xmlns>NSR</Xmlns>
+          <XmlnsUrl>http://www.rutebanken.org/ns/nsr</XmlnsUrl>
+        </Codespace>
+      </codespaces>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

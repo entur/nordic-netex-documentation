@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:siri="http://www.siri.org.uk/siri" version="1.0">
+    <PublicationTimestamp>2026-02-23T13:52:00Z</PublicationTimestamp>
+    <ParticipantRef>NP:publisher:1</ParticipantRef>
+    <dataObjects>
+        <CompositeFrame id="NP:CompositeFrame:Timetable:1" version="1">
+            <frames>
+                <ServiceCalendarFrame version="1" id="NP:ServiceCalendarFrame:Z">
+                    <operatingDays>
+                        <OperatingDay id="NP:OD:2026-03-01" version="1">
+                            <CalendarDate>2026-03-01</CalendarDate>
+                        </OperatingDay>
+                    </operatingDays>
+                </ServiceCalendarFrame>
+                <TimetableFrame id="NP:TimetableFrame:2026-03" version="1">
+                    <vehicleJourneys>
+                        <ServiceJourney id="NP:SJ:1001" version="1">
+                            <JourneyPatternRef ref="NP:JP:10"/>
+                        </ServiceJourney>
+                        <DatedServiceJourney id="NP:DSJ:reinforcement-01" version="1">
+                            <ServiceAlteration>extraJourney</ServiceAlteration>
+                            <ServiceJourneyRef ref="NP:SJ:1001"/>
+                            <OperatingDayRef ref="NP:OD:2026-03-01"/>
+                        </DatedServiceJourney>
+                    </vehicleJourneys>
+                </TimetableFrame>
+            </frames>
+        </CompositeFrame>
+    </dataObjects>
+</PublicationDelivery>

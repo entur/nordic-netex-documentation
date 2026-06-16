@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Eksempel på en minimal NeTEx Route. Juster id/ref etter behov. -->
+<Route xmlns="http://www.netex.org.uk/netex" id="NP:Route:ROU_10_OUT" version="1">
+  <Name>Linje 10 – Utgående</Name>
+  <ShortName>10</ShortName>
+  <Description>Eksempelrute for linje 10, retning utgående</Description>
+  <LineRef ref="NP:Line:LIN_10"/>
+  <DirectionType>outbound</DirectionType>
+  <pointsInSequence>
+    <PointOnRoute id="NP:PointOnRoute:POR_10_1" version="1" order="1">
+      <ScheduledStopPointRef ref="NP:ScheduledStopPoint:SSP_1001"/>
+    </PointOnRoute>
+    <PointOnRoute id="NP:PointOnRoute:POR_10_2" version="1" order="2">
+      <ScheduledStopPointRef ref="NP:ScheduledStopPoint:SSP_1002"/>
+    </PointOnRoute>
+    <PointOnRoute id="NP:PointOnRoute:POR_10_3" version="1" order="3">
+      <ScheduledStopPointRef ref="NP:ScheduledStopPoint:SSP_1003"/>
+    </PointOnRoute>
+  </pointsInSequence>
+</Route>

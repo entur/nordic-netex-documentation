@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:dsj:1" version="1">
+      <frames>
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:dsj:1" version="1">
+          <operatingDays>
+            <OperatingDay id="NP:OperatingDay:2026-06-01" version="1">
+              <CalendarDate>2026-06-01</CalendarDate>
+            </OperatingDay>
+          </operatingDays>
+        </ServiceCalendarFrame>
+        <TimetableFrame id="NP:TimetableFrame:dsj:1" version="1">
+          <vehicleJourneys>
+            <ServiceJourney id="NP:ServiceJourney:21_F6" version="0">
+              <Name>Line 21 weekday pattern</Name>
+            </ServiceJourney>
+            <DatedServiceJourney id="NP:DatedServiceJourney:21_2026-06-01" version="1">
+              <ServiceJourneyRef ref="NP:ServiceJourney:21_F6" version="0"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-06-01"/>
+            </DatedServiceJourney>
+            <DatedServiceJourney id="NP:DatedServiceJourney:21_2026-06-01_replaced" version="1">
+              <ServiceAlteration>replaced</ServiceAlteration>
+              <ServiceJourneyRef ref="NP:ServiceJourney:21_F6" version="0"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-06-01"/>
+            </DatedServiceJourney>
+          </vehicleJourneys>
+        </TimetableFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>
