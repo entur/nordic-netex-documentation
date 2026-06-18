@@ -1,5 +1,7 @@
 # 🚂 Rolling Stock — Linking Services to Trains
 
+> [!NOTE] **Entur Extension** — This guide documents rolling stock modelling (TrainBlock, CompoundTrain, Train) which is not part of the official Nordic NeTEx Profile. It is an Entur-driven extension targeting future NP harmonisation.
+
 ## 1. 🎯 Introduction
 
 > **vehicle** /ˈviːɪk(ə)l/ *noun*

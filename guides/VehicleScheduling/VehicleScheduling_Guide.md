@@ -1,5 +1,7 @@
 # 🚆 Vehicle Scheduling — Blocks, Vehicles & Fleet Assignment
 
+> [!NOTE] This guide covers both Nordic Profile objects (Block, VehicleType, Vehicle) and Entur extensions (TrainBlock). Extension-specific content is noted inline.
+
 ## 1. 🎯 Introduction
 
 Once timetables are planned, the operational question becomes: *which vehicle runs which journeys?* Vehicle scheduling ties fleet management to the timetable, grouping journeys into **blocks** (the work a single vehicle does in a day) and linking them to physical **vehicles** and their **types**.

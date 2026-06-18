@@ -4,8 +4,16 @@
 ## Machine-readable model of the NeTEx XML schema: classes, frames,
 ## relationships, XSD cardinality, SIRI bridges, and Transmodel alignment.
 ##
-## This is the BASE SCHEMA shared across all profiles.
-## Profile-specific constraints live in separate files that import this one.
+## ROLE: Base vocabulary and schema — the foundation all other files
+##       import. Defines what NeTEx IS (classes, references, elements)
+##       without any profile-specific constraints.
+##
+## LAYER STACK:
+##   netex.ttl                     ← Base schema (this file)
+##   └─ netex-nordic.ttl           ← Nordic Profile constraints & ordering
+##      └─ netex-entur.ttl         ← Entur-specific governance & codespaces
+##         └─ netex-rolling-stock.ttl ← Service sub-profile (system dependencies)
+##   netex-nordic-documentation.ttl ← File paths for descriptions/tables/examples
 ##
 ## Generated: 2026-06-09
 ## -----------------------------------------------------------------
@@ -33,6 +41,102 @@ netex:Profile a owl:Class ;
 netex:DataSource a owl:Class ;
     rdfs:label "DataSource" ;
     skos:definition "Origin classification for data ownership (central registry, operator delivery, etc.)" .
+
+## =================================================================
+## CUSTOM PROPERTIES (domain-specific vocabulary)
+## =================================================================
+## These properties model NeTEx-specific structural relationships and
+## XSD-derived metadata. They define the vocabulary that all other
+## ontology files (netex-nordic.ttl, netex-entur.ttl, etc.) build upon.
+##
+## WHY custom properties instead of standard OWL constructs?
+##   - OWL cardinality requires verbose blank-node Restrictions
+##   - rdfs:domain/range applies globally; we need per-reference scoping
+##   - No standard expresses XML containment hierarchy or XPath paths
+##
+## Profile-level constraints (excludes, requires, cardinality tightening)
+## are expressed as SHACL shapes in netex-nordic.ttl and
+## netex-rolling-stock.ttl — standard tooling (pySHACL, Apache Jena,
+## TopBraid) can validate NeTEx data directly against them.
+## -----------------------------------------------------------------
+
+## --- Structural (XML containment hierarchy) ---
+
+netex:contains a owl:ObjectProperty ;
+    rdfs:label "contains" ;
+    skos:definition "Frame or object contains these child classes as XML child elements" .
+
+netex:containedIn a owl:ObjectProperty ;
+    rdfs:label "containedIn" ;
+    owl:inverseOf netex:contains ;
+    skos:definition "Inverse of contains — this frame is nested within a parent frame" .
+
+netex:childOf a owl:ObjectProperty ;
+    rdfs:label "childOf" ;
+    skos:definition "Object is modelled as inline child element(s) within the parent class" .
+
+netex:inFrame a owl:ObjectProperty ;
+    rdfs:label "inFrame" ;
+    skos:definition "Object is a top-level member of this frame type" .
+
+netex:specializes a owl:ObjectProperty ;
+    rdfs:label "specializes" ;
+    skos:definition "This class is a functional specialization of another (e.g. DatedServiceJourney specializes ServiceJourney)" .
+
+## --- Reference metadata (per-relationship scoping) ---
+
+netex:onClass a owl:ObjectProperty ;
+    rdfs:label "onClass" ;
+    skos:definition "The source class that owns this reference or element" .
+
+netex:target a owl:ObjectProperty ;
+    rdfs:label "target" ;
+    skos:definition "The target class pointed to by this reference" .
+
+netex:xsdCardinality a owl:DatatypeProperty ;
+    rdfs:label "xsdCardinality" ;
+    rdfs:range xsd:string ;
+    skos:definition "Cardinality as defined in XSD (e.g. '0..1', '1..n'). String notation mirrors XSD minOccurs/maxOccurs." .
+
+netex:path a owl:DatatypeProperty ;
+    rdfs:label "path" ;
+    rdfs:range xsd:string ;
+    skos:definition "XPath-like path from the owning class to the reference element in the XML tree" .
+
+netex:altPath a owl:DatatypeProperty ;
+    rdfs:label "altPath" ;
+    rdfs:range xsd:string ;
+    skos:definition "Alternative XPath-like path (when multiple structural options exist)" .
+
+## --- Element ordering ---
+
+netex:elementOrder a owl:ObjectProperty ;
+    rdfs:label "elementOrder" ;
+    skos:definition "Canonical element sequence for a class (XSD-derived)" .
+
+netex:position a owl:DatatypeProperty ;
+    rdfs:label "position" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Ordinal position within the element sequence" .
+
+netex:element a owl:DatatypeProperty ;
+    rdfs:label "element" ;
+    rdfs:range xsd:string ;
+    skos:definition "XML element or attribute name at this position" .
+
+## --- Domain chains (navigational) ---
+
+netex:step1 a owl:ObjectProperty ; rdfs:label "step1" .
+netex:step2 a owl:ObjectProperty ; rdfs:label "step2" .
+netex:step3 a owl:ObjectProperty ; rdfs:label "step3" .
+netex:step4 a owl:ObjectProperty ; rdfs:label "step4" .
+netex:step5 a owl:ObjectProperty ; rdfs:label "step5" .
+
+## --- SIRI bridge ---
+
+netex:referencedBySIRI a owl:ObjectProperty ;
+    rdfs:label "referencedBySIRI" ;
+    skos:definition "This NeTEx class is referenced by the given SIRI service via ID" .
 
 ## =================================================================
 ## FRAME CLASSES (Containers)

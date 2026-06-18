@@ -1,0 +1,432 @@
+## -----------------------------------------------------------------
+## NeTEx Nordic Documentation Layer
+## -----------------------------------------------------------------
+## ROLE: Pure documentation metadata — maps each class to its
+##       description file, table file, and XML example in the repo.
+##       Also assigns profile scope (NordicProfile, EnturExtension,
+##       NordicCandidate) to each object.
+##
+## This file contains NO model logic. It only adds doc: and
+## profile:scope annotations to classes defined in the other files.
+##
+## Usage: import alongside netex-nordic.ttl for full documentation
+## links for LLM navigation and tooling.
+##
+## Generated: 2026-06-16
+## -----------------------------------------------------------------
+
+@prefix netex:   <https://netex-cen.eu/ontology#> .
+@prefix profile: <https://netex-cen.eu/profile#> .
+@prefix doc:     <https://netex-cen.eu/doc#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+
+## --- Ontology declaration ---
+<https://netex-cen.eu/ontology/nordic-documentation> a owl:Ontology ;
+    owl:imports <https://netex-cen.eu/profile/nordic> ;
+    rdfs:label "NeTEx Nordic Documentation Layer" ;
+    rdfs:comment "Adds doc:description, doc:table, doc:example, and profile:scope to ontology classes." .
+
+## --- Documentation vocabulary ---
+doc:description a owl:AnnotationProperty ;
+    rdfs:label "description" ;
+    rdfs:comment "Relative path to the Description markdown file" .
+
+doc:table a owl:AnnotationProperty ;
+    rdfs:label "table" ;
+    rdfs:comment "Relative path to the Table markdown file (element/attribute spec)" .
+
+doc:example a owl:AnnotationProperty ;
+    rdfs:label "example" ;
+    rdfs:comment "Relative path to an XML example file" .
+
+## --- Scope vocabulary ---
+profile:scope a owl:AnnotationProperty ;
+    rdfs:label "scope" ;
+    rdfs:comment "Which profile level governs this object" .
+
+profile:NordicProfile a profile:Scope ;
+    rdfs:label "Nordic Profile" ;
+    skos:definition "Officially part of the Nordic NeTEx Profile" .
+
+profile:EnturExtension a profile:Scope ;
+    rdfs:label "Entur Extension" ;
+    skos:definition "Entur-specific implementation not yet in the Nordic Profile. Defined in netex-entur.ttl." .
+
+profile:NordicCandidate a profile:Scope ;
+    rdfs:label "Nordic Profile Candidate" ;
+    skos:definition "Proposed for Nordic Profile harmonisation, currently Entur-driven" .
+
+## =================================================================
+## FRAME DOCUMENTATION
+## =================================================================
+
+netex:CompositeFrame
+    doc:description "frames/CompositeFrame/Description_CompositeFrame.md" ;
+    doc:table "frames/CompositeFrame/Table_CompositeFrame.md" ;
+    doc:example "frames/CompositeFrame/Example_CompositeFrame.xml" .
+
+netex:ResourceFrame
+    doc:description "frames/ResourceFrame/Description_ResourceFrame.md" ;
+    doc:table "frames/ResourceFrame/Table_ResourceFrame.md" ;
+    doc:example "frames/ResourceFrame/Example_ResourceFrame.xml" .
+
+netex:SiteFrame
+    doc:description "frames/SiteFrame/Description_SiteFrame.md" ;
+    doc:table "frames/SiteFrame/Table_SiteFrame.md" ;
+    doc:example "frames/SiteFrame/Example_SiteFrame.xml" .
+
+netex:ServiceCalendarFrame
+    doc:description "frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md" ;
+    doc:table "frames/ServiceCalendarFrame/Table_ServiceCalendarFrame.md" ;
+    doc:example "frames/ServiceCalendarFrame/Example_ServiceCalendarFrame.xml" .
+
+netex:ServiceFrame
+    doc:description "frames/ServiceFrame/Description_ServiceFrame.md" ;
+    doc:table "frames/ServiceFrame/Table_ServiceFrame.md" ;
+    doc:example "frames/ServiceFrame/Example_ServiceFrame.xml" .
+
+netex:TimetableFrame
+    doc:description "frames/TimetableFrame/Description_TimetableFrame.md" ;
+    doc:table "frames/TimetableFrame/Table_TimetableFrame.md" ;
+    doc:example "frames/TimetableFrame/Example_TimetableFrame.xml" .
+
+netex:VehicleScheduleFrame
+    doc:description "frames/VehicleScheduleFrame/Description_VehicleScheduleFrame.md" ;
+    doc:table "frames/VehicleScheduleFrame/Table_VehicleScheduleFrame.md" ;
+    doc:example "frames/VehicleScheduleFrame/Example_VehicleScheduleFrame.xml" .
+
+netex:FareFrame
+    doc:description "frames/FareFrame/Description_FareFrame.md" ;
+    doc:table "frames/FareFrame/Table_FareFrame.md" ;
+    doc:example "frames/FareFrame/Example_FareFrame.xml" .
+
+netex:SalesTransactionFrame
+    doc:description "frames/SalesTransactionFrame/Description_SalesTransactionFrame.md" ;
+    doc:table "frames/SalesTransactionFrame/Table_SalesTransactionFrame.md" .
+
+## =================================================================
+## OBJECT DOCUMENTATION — ResourceFrame
+## =================================================================
+
+netex:Organisation
+    doc:description "objects/Organisation/Description_Organisation.md" ;
+    doc:table "objects/Organisation/Table_Organisation.md" .
+
+netex:Authority
+    doc:description "objects/Authority/Description_Authority.md" ;
+    doc:table "objects/Authority/Table_Authority.md" ;
+    doc:example "objects/Authority/Example_Authority_NP.xml" .
+
+netex:Operator
+    doc:description "objects/Operator/Description_Operator.md" ;
+    doc:table "objects/Operator/Table_Operator.md" ;
+    doc:example "objects/Operator/Example_Operator_NP.xml" .
+
+netex:VehicleType
+    doc:description "objects/VehicleType/Description_VehicleType.md" ;
+    doc:table "objects/VehicleType/Table_VehicleType.md" ;
+    doc:example "objects/VehicleType/Example_VehicleType.xml" .
+
+netex:Vehicle
+    doc:description "objects/Vehicle/Description_Vehicle.md" ;
+    doc:table "objects/Vehicle/Table_Vehicle.md" ;
+    doc:example "objects/Vehicle/Example_Vehicle.xml" .
+
+netex:PurposeOfGrouping
+    doc:description "objects/PurposeOfGrouping/Description_PurposeOfGrouping.md" ;
+    doc:table "objects/PurposeOfGrouping/Table_PurposeOfGrouping.md" ;
+    doc:example "objects/PurposeOfGrouping/Example_PurposeOfGrouping_MIN.xml" .
+
+netex:ResponsibilitySet
+    doc:description "objects/ResponsibilitySet/Description_ResponsibilitySet.md" ;
+    doc:table "objects/ResponsibilitySet/Table_ResponsibilitySet.md" ;
+    doc:example "objects/ResponsibilitySet/Example_ResponsibilitySet.xml" .
+
+netex:Contract
+    doc:description "objects/Contract/Description_Contract.md" ;
+    doc:table "objects/Contract/Table_Contract.md" ;
+    doc:example "objects/Contract/Example_Contract_Minimal.xml" .
+
+netex:CompoundTrain
+    doc:description "objects/CompoundTrain/Description_CompoundTrain.md" ;
+    doc:table "objects/CompoundTrain/Table_CompoundTrain.md" ;
+    doc:example "objects/CompoundTrain/Example_CompoundTrain_NP.xml" .
+
+netex:Train
+    doc:description "objects/Train/Description_Train.md" ;
+    doc:table "objects/Train/Table_Train.md" ;
+    doc:example "objects/Train/Example_Train_NP.xml" .
+
+## =================================================================
+## OBJECT DOCUMENTATION — SiteFrame
+## =================================================================
+
+netex:StopPlace
+    doc:description "objects/StopPlace/Description_StopPlace.md" ;
+    doc:table "objects/StopPlace/Table_StopPlace.md" ;
+    doc:example "objects/StopPlace/Example_StopPlace_NP.xml" .
+
+netex:Quay
+    doc:description "objects/Quay/Description_Quay.md" ;
+    doc:table "objects/Quay/Table_Quay.md" ;
+    doc:example "objects/Quay/Example_Quay_NP.xml" .
+
+netex:TopographicPlace
+    doc:description "objects/TopographicPlace/Description_TopographicPlace.md" ;
+    doc:table "objects/TopographicPlace/Table_TopographicPlace.md" ;
+    doc:example "objects/TopographicPlace/Example_TopographicPlace_NP.xml" .
+
+netex:Parking
+    doc:description "objects/Parking/Description_Parking.md" ;
+    doc:table "objects/Parking/Table_Parking.md" ;
+    doc:example "objects/Parking/Example_Parking_NP.xml" .
+
+netex:TariffZone
+    doc:description "objects/TariffZone/Description_TariffZone.md" ;
+    doc:table "objects/TariffZone/Table_TariffZone.md" ;
+    doc:example "objects/TariffZone/Example_TariffZone_NP.xml" .
+
+netex:FareZone
+    doc:description "objects/FareZone/Description_FareZone.md" ;
+    doc:table "objects/FareZone/Table_FareZone.md" ;
+    doc:example "objects/FareZone/Example_FareZone.xml" .
+
+## --- Equipment ---
+
+netex:ShelterEquipment
+    doc:description "objects/ShelterEquipment/Description_ShelterEquipment.md" ;
+    doc:table "objects/ShelterEquipment/Table_ShelterEquipment.md" ;
+    doc:example "objects/ShelterEquipment/Example_ShelterEquipment_NP.xml" .
+
+netex:WaitingRoomEquipment
+    doc:description "objects/WaitingRoomEquipment/Description_WaitingRoomEquipment.md" ;
+    doc:table "objects/WaitingRoomEquipment/Table_WaitingRoomEquipment.md" ;
+    doc:example "objects/WaitingRoomEquipment/Example_WaitingRoomEquipment_NP.xml" .
+
+netex:SanitaryEquipment
+    doc:description "objects/SanitaryEquipment/Description_SanitaryEquipment.md" ;
+    doc:table "objects/SanitaryEquipment/Table_SanitaryEquipment.md" ;
+    doc:example "objects/SanitaryEquipment/Example_SanitaryEquipment_NP.xml" .
+
+netex:TicketingEquipment
+    doc:description "objects/TicketingEquipment/Description_TicketingEquipment.md" ;
+    doc:table "objects/TicketingEquipment/Table_TicketingEquipment.md" ;
+    doc:example "objects/TicketingEquipment/Example_TicketingEquipment_NP.xml" .
+
+## =================================================================
+## OBJECT DOCUMENTATION — ServiceCalendarFrame
+## =================================================================
+
+netex:ServiceCalendar
+    doc:description "objects/ServiceCalendar/Description_ServiceCalendar.md" ;
+    doc:table "objects/ServiceCalendar/Table_ServiceCalendar.md" ;
+    doc:example "objects/ServiceCalendar/Example_ServiceCalendar_NP.xml" .
+
+netex:DayType
+    doc:description "objects/DayType/Description_DayType.md" ;
+    doc:table "objects/DayType/Table_DayType.md" ;
+    doc:example "objects/DayType/Example_DayType_NP.xml" .
+
+netex:DayTypeAssignment
+    doc:description "objects/DayTypeAssignment/Description_DayTypeAssignment.md" ;
+    doc:table "objects/DayTypeAssignment/Table_DayTypeAssignment.md" ;
+    doc:example "objects/DayTypeAssignment/Example_DayTypeAssignment_NP.xml" .
+
+netex:OperatingPeriod
+    doc:description "objects/OperatingPeriod/Description_OperatingPeriod.md" ;
+    doc:table "objects/OperatingPeriod/Table_OperatingPeriod.md" ;
+    doc:example "objects/OperatingPeriod/Example_OperatingPeriod_NP.xml" .
+
+netex:OperatingDay
+    doc:description "objects/OperatingDay/Description_OperatingDay.md" ;
+    doc:table "objects/OperatingDay/Table_OperatingDay.md" ;
+    doc:example "objects/OperatingDay/Example_OperatingDay_NP.xml" .
+
+## =================================================================
+## OBJECT DOCUMENTATION — ServiceFrame
+## =================================================================
+
+netex:Line
+    doc:description "objects/Line/Description_Line.md" ;
+    doc:table "objects/Line/Table_Line.md" ;
+    doc:example "objects/Line/Example_Line_NP.xml" .
+
+netex:GroupOfLines
+    doc:description "objects/GroupOfLines/Description_GroupOfLines.md" ;
+    doc:table "objects/GroupOfLines/Table_GroupOfLines.md" ;
+    doc:example "objects/GroupOfLines/Example_GroupOfLines.xml" .
+
+netex:Network
+    doc:description "objects/Network/Description_Network.md" ;
+    doc:table "objects/Network/Table_Network.md" .
+
+netex:Route
+    doc:description "objects/Route/Description_Route.md" ;
+    doc:table "objects/Route/Table_Route.md" ;
+    doc:example "objects/Route/Example_Route_NP.xml" .
+
+netex:RoutePoint
+    doc:description "objects/RoutePoint/Description_RoutePoint.md" ;
+    doc:table "objects/RoutePoint/Table_RoutePoint.md" ;
+    doc:example "objects/RoutePoint/Example_RoutePoint_NP.xml" .
+
+netex:JourneyPattern
+    doc:description "objects/JourneyPattern/Description_JourneyPattern.md" ;
+    doc:table "objects/JourneyPattern/Table_JourneyPattern.md" ;
+    doc:example "objects/JourneyPattern/Example_JourneyPattern_NP.xml" .
+
+netex:StopPointInJourneyPattern
+    doc:description "objects/JourneyPattern/Description_JourneyPattern.md" ;
+    doc:table "objects/JourneyPattern/Table_JourneyPattern.md" .
+
+netex:ScheduledStopPoint
+    doc:description "objects/ScheduledStopPoint/Description_ScheduledStopPoint.md" ;
+    doc:table "objects/ScheduledStopPoint/Table_ScheduledStopPoint.md" ;
+    doc:example "objects/ScheduledStopPoint/Example_ScheduledStopPoint_NP.xml" .
+
+netex:PassengerStopAssignment
+    doc:description "objects/PassengerStopAssignment/Description_PassengerStopAssignment.md" ;
+    doc:table "objects/PassengerStopAssignment/Table_PassengerStopAssignment.md" ;
+    doc:example "objects/PassengerStopAssignment/Example_PassengerStopAssignment_NP.xml" .
+
+netex:DestinationDisplay
+    doc:description "objects/DestinationDisplay/Description_DestinationDisplay.md" ;
+    doc:table "objects/DestinationDisplay/Table_DestinationDisplay.md" ;
+    doc:example "objects/DestinationDisplay/Example_DestinationDisplay_NP.xml" .
+
+netex:Notice
+    doc:description "objects/Notice/Description_Notice.md" ;
+    doc:table "objects/Notice/Table_Notice.md" ;
+    doc:example "objects/Notice/Example_Notice_NP.xml" .
+
+netex:FlexibleServiceProperties
+    doc:description "objects/FlexibleServiceProperties/Description_FlexibleServiceProperties.md" ;
+    doc:table "objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md" ;
+    doc:example "objects/FlexibleServiceProperties/Example_FlexibleServiceProperties_MIN.xml" .
+
+netex:LinkSequenceProjection
+    doc:description "objects/LinkSequenceProjection/Description_LinkSequenceProjection.md" ;
+    doc:table "objects/LinkSequenceProjection/Table_LinkSequenceProjection.md" ;
+    doc:example "objects/LinkSequenceProjection/Example_LinkSequenceProjection.xml" .
+
+netex:ServiceLink
+    doc:description "objects/ServiceLink/Description_ServiceLink.md" ;
+    doc:table "objects/ServiceLink/Table_ServiceLink.md" ;
+    doc:example "objects/ServiceLink/Example_ServiceLink_NP.xml" .
+
+netex:SiteConnection
+    doc:description "objects/SiteConnection/Description_SiteConnection.md" ;
+    doc:table "objects/SiteConnection/Table_SiteConnection.md" ;
+    doc:example "objects/SiteConnection/Example_SiteConnection_NP.xml" .
+
+## =================================================================
+## OBJECT DOCUMENTATION — TimetableFrame
+## =================================================================
+
+netex:ServiceJourney
+    doc:description "objects/ServiceJourney/Description_ServiceJourney.md" ;
+    doc:table "objects/ServiceJourney/Table_ServiceJourney.md" ;
+    doc:example "objects/ServiceJourney/Example_ServiceJourney_NP.xml" .
+
+netex:DatedServiceJourney
+    doc:description "objects/DatedServiceJourney/Description_DatedServiceJourney.md" ;
+    doc:table "objects/DatedServiceJourney/Table_DatedServiceJourney.md" ;
+    doc:example "objects/DatedServiceJourney/Example_DatedServiceJourney_NP.xml" .
+
+netex:Interchange
+    doc:description "objects/Interchange/Description_Interchange.md" ;
+    doc:table "objects/Interchange/Table_Interchange.md" ;
+    doc:example "objects/Interchange/Example_Interchange_NP.xml" .
+
+netex:TrainNumber
+    doc:description "objects/TrainNumber/Description_TrainNumber.md" ;
+    doc:table "objects/TrainNumber/Table_TrainNumber.md" ;
+    doc:example "objects/TrainNumber/Example_TrainNumber_NP.xml" .
+
+## =================================================================
+## OBJECT DOCUMENTATION — VehicleScheduleFrame
+## =================================================================
+
+netex:TrainBlock
+    doc:description "objects/TrainBlock/Description_TrainBlock.md" ;
+    doc:table "objects/TrainBlock/Table_TrainBlock.md" ;
+    doc:example "objects/TrainBlock/Example_TrainBlock.xml" .
+
+## =================================================================
+## OBJECT DOCUMENTATION — SalesTransactionFrame
+## =================================================================
+
+netex:FareContract
+    doc:description "objects/FareContract/Description_FareContract.md" ;
+    doc:table "objects/FareContract/Table_FareContract.md" ;
+    doc:example "objects/FareContract/Example_FareContract_Minimal.xml" .
+
+## =================================================================
+## OBJECT DOCUMENTATION — Metadata (not frame-specific)
+## =================================================================
+
+netex:AlternativeName
+    doc:description "objects/AlternativeName/Description_AlternativeName.md" ;
+    doc:table "objects/AlternativeName/Table_AlternativeName.md" ;
+    doc:example "objects/AlternativeName/Example_AlternativeName_NP.xml" .
+
+netex:AlternativeText
+    doc:description "objects/AlternativeText/Description_AlternativeText.md" ;
+    doc:table "objects/AlternativeText/Table_AlternativeText.md" ;
+    doc:example "objects/AlternativeText/Example_AlternativeText_MIN.xml" .
+
+netex:Codespace
+    doc:description "objects/Codespace/Description_Codespace.md" ;
+    doc:table "objects/Codespace/Table_Codespace.md" ;
+    doc:example "objects/Codespace/Example_Codespace.xml" .
+
+## =================================================================
+## SCOPE ASSIGNMENTS
+## =================================================================
+## Classifies each documented object/frame by its profile scope.
+## Objects without an explicit scope annotation are assumed
+## profile:NordicProfile.
+## -----------------------------------------------------------------
+
+## --- Entur Extensions (defined in netex-entur.ttl / netex-rolling-stock.ttl) ---
+
+netex:TrainBlock         profile:scope profile:EnturExtension .
+netex:CompoundTrain      profile:scope profile:EnturExtension .
+netex:Train              profile:scope profile:EnturExtension .
+
+## --- Nordic Profile Candidates (Entur-driven, targeting NP harmonisation) ---
+
+netex:Contract           profile:scope profile:NordicCandidate .
+
+## --- Nordic Profile (all other objects default to this) ---
+## Explicit for key classes; unlisted objects inherit NordicProfile.
+
+netex:CompositeFrame     profile:scope profile:NordicProfile .
+netex:ResourceFrame      profile:scope profile:NordicProfile .
+netex:SiteFrame          profile:scope profile:NordicProfile .
+netex:ServiceCalendarFrame profile:scope profile:NordicProfile .
+netex:ServiceFrame       profile:scope profile:NordicProfile .
+netex:TimetableFrame     profile:scope profile:NordicProfile .
+netex:VehicleScheduleFrame profile:scope profile:NordicProfile .
+netex:FareFrame          profile:scope profile:NordicProfile .
+netex:SalesTransactionFrame profile:scope profile:NordicProfile .
+netex:FareContract       profile:scope profile:NordicProfile .
+netex:TrainNumber        profile:scope profile:NordicProfile .
+netex:Line               profile:scope profile:NordicProfile .
+netex:Route              profile:scope profile:NordicProfile .
+netex:JourneyPattern     profile:scope profile:NordicProfile .
+netex:ServiceJourney     profile:scope profile:NordicProfile .
+netex:DatedServiceJourney profile:scope profile:NordicProfile .
+netex:StopPlace          profile:scope profile:NordicProfile .
+netex:Quay               profile:scope profile:NordicProfile .
+netex:ScheduledStopPoint profile:scope profile:NordicProfile .
+netex:PassengerStopAssignment profile:scope profile:NordicProfile .
+netex:DayType            profile:scope profile:NordicProfile .
+netex:DayTypeAssignment  profile:scope profile:NordicProfile .
+netex:OperatingPeriod    profile:scope profile:NordicProfile .
+netex:OperatingDay       profile:scope profile:NordicProfile .
+netex:Authority          profile:scope profile:NordicProfile .
+netex:Operator           profile:scope profile:NordicProfile .
+netex:Interchange        profile:scope profile:NordicProfile .

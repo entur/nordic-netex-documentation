@@ -43,6 +43,16 @@ A public transport organisation responsible for planning, organising, and managi
 
 ---
 
+## AvailabilityCondition
+
+Temporal availability expressed as dates, timebands, or valid-day bitmasks. Used to restrict when an entity (e.g. a StopPlace or fare product) is active.
+
+> **NeTEx XSD:** A specific type of VALIDITY CONDITION used to specify a set of temporal conditions that can be associated with an ENTITY, for example that a STOP PLACE is open on a particular DAY TYPE.
+>
+> **Transmodel:** A VALIDITY CONDITION expressed in terms of temporal parameters and referring to DAY TYPEs.
+
+---
+
 ## Codespace
 
 The namespace definition used for all NeTEx `@id` and `@ref` values within a dataset, ensuring identifier uniqueness across producers.
@@ -111,6 +121,16 @@ The binding between a DayType and a specific date or date range (OperatingPeriod
 
 ---
 
+## DefaultConnection
+
+Specifies default transfer times for various situations (within a StopPlace, between Operators, between modes).
+
+> **NeTEx XSD:** Specifies default times to be used to change from one mode of transport or another at an area or national level as specified by a TOPOGRAPHIC PLACE or SITE. May be restricted to a specific MODE or OPERATOR or only apply in a particular direction of transfer.
+>
+> **Transmodel:** The physical (spatial) possibility for a passenger to change from one public transport vehicle to another to continue the trip. Specifies default times at an area or national level.
+
+---
+
 ## DestinationDisplay
 
 The text shown on the front or side of a public transport vehicle to indicate its destination, including via-points and variant labels.
@@ -175,6 +195,14 @@ The scheduling and operational characteristics of a flexible (demand-responsive)
 
 ---
 
+## FrameDefaults
+
+Holds default values for common properties of elements in a frame, such as data source, time zone, and locale. Simplifies export and reduces document size.
+
+> **NeTEx XSD:** The FrameDefaults element specifies default values for certain common properties of elements in the frame, such as DATA SOURCE, time-zone etc., to be applied to elements in the frame for which an explicit value has not been specified.
+
+---
+
 ## GroupOfLines
 
 A logical grouping of multiple Line objects for common management, branding, distribution, or filtering.
@@ -194,6 +222,16 @@ A planned transfer opportunity between two ServiceJourneys at a shared stop poin
 > **Transmodel:** The scheduled possibility for transfer of passengers between two SERVICE JOURNEYs at the same or different SCHEDULED STOP POINTs.
 
 → [Full documentation](../../Objects/Interchange/Description_Interchange.md)
+
+---
+
+## InterchangeRule
+
+Defines interchange possibilities where at least one journey is specified indirectly (via Direction, Line, or Mode) rather than as an explicit journey pair.
+
+> **NeTEx XSD:** INTERCHANGE RULE specifies conditions governing the possibility of interchanging between two SERVICE JOURNEYs, stopping at the same or different SCHEDULED STOP POINTs, where at least one of the two SERVICE JOURNEYs is indicated indirectly by a DIRECTION, LINE or VEHICLE JOURNEY.
+>
+> **Transmodel:** Conditions governing the possibility of interchanging between two SERVICE JOURNEYs, where at least one is indicated indirectly by a DIRECTION, LINE or VEHICLE JOURNEY.
 
 ---
 
@@ -229,6 +267,14 @@ The geographic representation of a ServiceLink, carrying GML geometry (typically
 
 ---
 
+## MultilingualString
+
+NeTEx type used to define a string in one or more natural languages.
+
+> **NeTEx XSD:** MultilingualString allows the definition of a string in one or more natural languages.
+
+---
+
 ## NAP
 
 National Access Point — the national portal through which public transport data is published and made available to third parties, as mandated by EU delegated regulations.
@@ -244,6 +290,16 @@ Informational or regulatory text associated with public transport services, disp
 > **Transmodel:** A text for informational purposes on exceptions in a LINE, a JOURNEY PATTERN, etc. The information may be usable for passenger or driver information.
 
 → [Full documentation](../../Objects/Notice/Description_Notice.md)
+
+---
+
+## NoticeAssignment
+
+Assigns a Notice to a specific element (JourneyPattern, ServiceJourney, StopPointInJourneyPattern, etc.), optionally restricting its validity to a range of points.
+
+> **NeTEx XSD:** The assignment of a NOTICE to any model element. Can be used in particular to show an exception in a JOURNEY PATTERN, a COMMON SECTION, or a VEHICLE JOURNEY, possibly specifying at which POINT IN JOURNEY PATTERN the validity of the NOTICE starts and ends respectively.
+>
+> **Transmodel:** The assignment of a NOTICE showing an exception in a JOURNEY PATTERN, a COMMON SECTION, or a VEHICLE JOURNEY.
 
 ---
 
@@ -282,6 +338,16 @@ An organisation that provides public transport services under contract with an A
 > **NeTEx XSD / Transmodel:** A company providing public transport services.
 
 → [Full documentation](../../Objects/Operator/Description_Operator.md)
+
+---
+
+## Organisation
+
+A legally incorporated body associated with any aspect of public transportation. Authority and Operator are specialisations of Organisation.
+
+> **NeTEx XSD / Transmodel:** A legally incorporated body associated with any aspect of public transportation.
+
+→ [Full documentation](../../Objects/Organisation/Description_Organisation.md)
 
 ---
 
@@ -349,6 +415,16 @@ A specific boarding or alighting position (platform, stand, bay) within a StopPl
 
 ---
 
+## ResourceFrame
+
+Contains shared resources used across other frames - organisations (Authorities and Operators), vehicle types, vehicles, codespaces, and other common reference data.
+
+> **NeTEx XSD:** A coherent set of reference values for TYPE OF VALUEs, ORGANISATIONs, VEHICLE TYPEs etc that have a common validity. Used to define common resources that will be referenced by other types of FRAME.
+
+→ [Full documentation](../../Frames/ResourceFrame/Description_ResourceFrame.md)
+
+---
+
 ## ResponsibilitySet
 
 The set of roles and organisations responsible for managing data, operations, or contractual obligations within a defined scope.
@@ -358,16 +434,6 @@ The set of roles and organisations responsible for managing data, operations, or
 > **Transmodel:** A list of possible responsibilities over one or more ENTITies IN VERSION, resulting from the process of the assignment of RESPONSIBILITY ROLEs (such as data origination, ownership, etc.) on specific data (instances) to ORGANISATIONs or ORGANISATION PARTs.
 
 → [Full documentation](../../Objects/ResponsibilitySet/Description_ResponsibilitySet.md)
-
----
-
-## ResourceFrame
-
-Contains shared resources used across other frames - organisations (Authorities and Operators), vehicle types, vehicles, codespaces, and other common reference data.
-
-> **NeTEx XSD:** A coherent set of reference values for TYPE OF VALUEs, ORGANISATIONs, VEHICLE TYPEs etc that have a common validity. Used to define common resources that will be referenced by other types of FRAME.
-
-→ [Full documentation](../../Frames/ResourceFrame/Description_ResourceFrame.md)
 
 ---
 
@@ -421,6 +487,16 @@ An enumeration on DatedServiceJourney indicating the deviation type. Allowed val
 
 ---
 
+## ServiceCalendar
+
+A collection mapping DayTypes to OperatingDays, defining the overall calendar for a dataset.
+
+> **NeTEx XSD:** A collection of assignments of OPERATING DAYs to DAY TYPEs.
+
+→ [Full documentation](../../Objects/ServiceCalendar/Description_ServiceCalendar.md)
+
+---
+
 ## ServiceCalendarFrame
 
 Groups calendar definitions that describe when services operate - day types, operating periods, and day-type assignments.
@@ -428,6 +504,16 @@ Groups calendar definitions that describe when services operate - day types, ope
 > **NeTEx XSD:** A SERVICE CALENDAR. A coherent set of OPERATING DAYS and DAY TYPES comprising a Calendar, used to state the temporal VALIDITY of other NeTEx entities such as Timetables and STOP PLACEs.
 
 → [Full documentation](../../Frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md)
+
+---
+
+## ServiceFacilitySet
+
+Set of facilities available for a ServiceJourney or JourneyPart (e.g. WiFi, power outlets, quiet zone).
+
+> **NeTEx XSD:** Set of FACILITies available for a SERVICE JOURNEY or a JOURNEY PART. The set may be available only for a specific VEHICLE TYPE within the SERVICE.
+>
+> **Transmodel:** Set of FACILITies available for a specific VEHICLE TYPE possibly only for a service.
 
 ---
 
@@ -451,6 +537,16 @@ A planned trip in the timetable operating on a recurring schedule, defining the 
 
 ---
 
+## ServiceJourneyPattern
+
+The JOURNEY PATTERN for a passenger-carrying SERVICE JOURNEY. In the Nordic Profile, `ServiceJourneyPattern` is the concrete XML type used for JourneyPattern.
+
+> **NeTEx XSD / Transmodel:** The JOURNEY PATTERN for a (passenger carrying) SERVICE JOURNEY.
+
+→ [Full documentation](../../Objects/JourneyPattern/Description_JourneyPattern.md)
+
+---
+
 ## ShelterEquipment
 
 Weather shelter facilities available at a stop place or quay, with properties such as seating, step-free access, and enclosure.
@@ -460,6 +556,28 @@ Weather shelter facilities available at a stop place or quay, with properties su
 > **Transmodel:** Specialisation of WAITING EQUIPMENT describing a shelter.
 
 → [Full documentation](../../Objects/ShelterEquipment/Description_ShelterEquipment.md)
+
+---
+
+## SiteConnection
+
+A physical transfer path between two stop places (or site elements) with associated walk time, used for interchange planning.
+
+> **NeTEx XSD:** The physical (spatial) possibility for a passenger to change from one public transport vehicle to another to continue the trip, determined by physical locations such as SITEs and/or its components.
+>
+> **Transmodel:** The physical (spatial) possibility for a passenger to change from one public transport vehicle to another, determined by physical locations such as STOP PLACEs and/or its components.
+
+→ [Full documentation](../../Objects/SiteConnection/Description_SiteConnection.md)
+
+---
+
+## SiteFacilitySet
+
+Set of facilities available at a StopPlace, Quay, or other site element (e.g. waiting room, ticket office, luggage lockers).
+
+> **NeTEx XSD:** Set of FACILITies available for a SITE or SITE ELEMENT.
+>
+> **Transmodel:** Set of FACILITies available for a SITE ELEMENT.
 
 ---
 
@@ -505,6 +623,16 @@ Ticket machines, validators, or other ticketing infrastructure available at a st
 
 ---
 
+## TimetabledPassingTime
+
+Long-term planned time data for a vehicle passing a particular point in a JourneyPattern — arrival time, departure time, and related scheduling attributes.
+
+> **NeTEx XSD:** PASSING TIME indicates the time of a vehicle at a point in a journey pattern. TIMETABLED PASSING TIME represents scheduled information.
+>
+> **Transmodel:** Long-term planned time data concerning public transport vehicles passing a particular POINT IN JOURNEY PATTERN on a specified VEHICLE JOURNEY for a certain DAY TYPE.
+
+---
+
 ## TimetableFrame
 
 Contains operational journey definitions - ServiceJourneys, DatedServiceJourneys, dead runs, coupled journeys, and interchange rules.
@@ -529,6 +657,8 @@ A named geographic area such as a city, municipality, county, or region - used t
 
 ## TrainBlock
 
+*Entur Extension — not part of the official Nordic Profile.*
+
 A rail-specific specialisation of Block that represents an operational grouping for a single train on a given operating day.
 
 > **NeTEx XSD:** The vehicle work required by a train-based JOURNEY or sequence of JOURNEYs, from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT.
@@ -536,6 +666,36 @@ A rail-specific specialisation of Block that represents an operational grouping 
 > **Transmodel:** The work required to be done by a vehicle from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT. *(Transmodel: BLOCK)*
 
 → [Full documentation](../../Objects/TrainBlock/Description_TrainBlock.md)
+
+---
+
+## TrainNumber
+
+Codes assigned to particular journeys when operated by trains, used for passenger information and operational follow-up.
+
+> **NeTEx XSD:** Specification of codes assigned to particular VEHICLE JOURNEYs when operated by TRAINs or COMPOUND TRAINs according to a functional purpose (passenger information, operation follow-up, etc.).
+>
+> **Transmodel:** A specification of codes assigned to particular VEHICLE JOURNEYs or JOURNEY PARTs when operated by TRAINs or COMPOUND TRAINs.
+
+→ [Full documentation](../../Objects/TrainNumber/Description_TrainNumber.md)
+
+---
+
+## TypeOf...
+
+Used for classification of NeTEx entities. TypeOfValue subclasses (TypeOfNotice, TypeOfLine, etc.) provide extensible code lists.
+
+> **NeTEx XSD:** Classification of ENTITies, for instance according to the domain in which they are defined or used.
+>
+> **Transmodel:** TYPE OF VALUE — an ENTITY that serves to classify another entry, using as a list of simple code values, each with a name.
+
+---
+
+## ValueSet
+
+A collection of classification codes of a particular TypeOf... entity (e.g., a list of TypeOfNotice values) exchanged as a group.
+
+> **NeTEx XSD:** A grouping of instances of a specific TYPE OF VALUE instances for the purposes of exchange (i.e. a list of codes).
 
 ---
 
@@ -571,18 +731,6 @@ A typified vehicle configuration (model or series) defining reusable characteris
 
 ---
 
-## WaitingRoomEquipment
-
-Enclosed indoor waiting room facilities available at a stop place or station, with properties such as seating, step-free access, and heating.
-
-> **NeTEx XSD:** Specialisation of WAITING EQUIPMENT for WAITING ROOMs, classified by TYPE OF WAITING ROOM.
->
-> **Transmodel:** Specialisation of WAITING EQUIPMENT describing waiting rooms (number of seats, type, FACILITIEs, etc.).
-
-→ [Full documentation](../../Objects/WaitingRoomEquipment/Description_WaitingRoomEquipment.md)
-
----
-
 ## View
 
 In this profile, "View" is used in two complementary senses:
@@ -595,3 +743,15 @@ Clarifications:
 - When in doubt, prefer the precise NeTEx model terms (PublicationDelivery, TimetableFrame, DatedServiceJourney).
 
 → [DatedServiceJourney](../../Objects/DatedServiceJourney/Description_DatedServiceJourney.md)
+
+---
+
+## WaitingRoomEquipment
+
+Enclosed indoor waiting room facilities available at a stop place or station, with properties such as seating, step-free access, and heating.
+
+> **NeTEx XSD:** Specialisation of WAITING EQUIPMENT for WAITING ROOMs, classified by TYPE OF WAITING ROOM.
+>
+> **Transmodel:** Specialisation of WAITING EQUIPMENT describing waiting rooms (number of seats, type, FACILITIEs, etc.).
+
+→ [Full documentation](../../Objects/WaitingRoomEquipment/Description_WaitingRoomEquipment.md)

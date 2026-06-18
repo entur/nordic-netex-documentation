@@ -1,8 +1,12 @@
 ## -----------------------------------------------------------------
 ## Nordic NeTEx Profile Ontology
 ## -----------------------------------------------------------------
-## Profile-specific constraints, element ordering, and domain chains
-## for the Nordic Profile (NP).
+## ROLE: Defines what the Nordic Profile ALLOWS, REQUIRES, and EXCLUDES
+##       beyond the XSD schema. Cardinality tightening, element ordering,
+##       and navigational domain chains.
+##
+## This is the shared Nordic agreement (NO, SE, FI, DK) — constraints
+## that go beyond what XSD expresses but are mandatory for interoperability.
 ##
 ## Imports: netex.ttl (base NeTEx classes and relationships)
 ##
@@ -11,6 +15,7 @@
 
 @prefix netex:   <https://netex-cen.eu/ontology#> .
 @prefix profile: <https://netex-cen.eu/profile#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
@@ -30,84 +35,208 @@ profile:NP a netex:Profile ;
     skos:definition "Shared NeTEx profile for Norway, Sweden, Finland and Denmark" .
 
 ## =================================================================
-## PROFILE CONSTRAINTS (NP)
+## PROFILE CONSTRAINTS — SHACL SHAPES
 ## =================================================================
-## NP-specific exclusions, allowances, and cardinality tightening vs XSD.
-## References point directly to named resources in netex.ttl.
+## NP-specific exclusions, allowances, and cardinality tightening.
+## Expressed as SHACL NodeShapes for validation with standard tooling
+## (pySHACL, Apache Jena, TopBraid).
+##
+## sh:path references point to named Reference/Element resources
+## defined in netex.ttl, enabling traceability between constraints
+## and the base schema vocabulary.
+##
+## Shape naming: profile:NP_{ClassName}Shape
 ## -----------------------------------------------------------------
 
-## --- Elements excluded from NP (forbidden in Nordic Profile) ---
+## --- StopPlace ---
 
-profile:NP netex:excludes
-    netex:StopPlace_ParentSiteRef ,
-    netex:StopPlace_TariffZoneRef ,
-    netex:ServiceJourney_FlexibleLineRef ,
-    netex:ServiceJourney_BlockRef .
+profile:NP_StopPlaceShape a sh:NodeShape ;
+    sh:targetClass netex:StopPlace ;
+    rdfs:label "StopPlace — NP constraints" ;
+    ## Excluded
+    sh:property [
+        sh:path netex:StopPlace_ParentSiteRef ;
+        sh:maxCount 0 ;
+        sh:name "ParentSiteRef" ;
+        sh:description "Not used in NP — stop hierarchy managed by central registry"
+    ] , [
+        sh:path netex:StopPlace_TariffZoneRef ;
+        sh:maxCount 0 ;
+        sh:name "TariffZoneRef" ;
+        sh:description "Not used in NP"
+    ] ;
+    ## Allowed (0..1)
+    sh:property [
+        sh:path netex:StopPlace_TopographicPlaceRef ;
+        sh:maxCount 1 ;
+        sh:name "TopographicPlaceRef"
+    ] , [
+        sh:path netex:StopPlace_ValidBetween ;
+        sh:maxCount 1 ;
+        sh:name "ValidBetween"
+    ] , [
+        sh:path netex:StopPlace_AccessibilityAssessment ;
+        sh:maxCount 1 ;
+        sh:name "AccessibilityAssessment"
+    ] .
 
-## --- Elements allowed in NP (with cardinality overrides) ---
+## --- Quay ---
 
-profile:NP netex:allows [
-    netex:ref netex:StopPlace_TopographicPlaceRef ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:StopPlace_ValidBetween ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:StopPlace_AccessibilityAssessment ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:Quay_AccessibilityAssessment ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:Quay_boardingPositions ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:Line_RepresentedByGroupRef ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:Line_TransportSubmode ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:Line_PublicCode ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:Line_PrivateCode ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:Interchange_FromPointRef ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:Interchange_ToPointRef ;
-    netex:cardinality "0..1"
-] , [
-    netex:ref netex:DatedServiceJourney_DatedVehicleJourneyRef ;
-    netex:cardinality "0..n" ;
-    rdfs:comment "Deviation/replacement tracking"
-] .
+profile:NP_QuayShape a sh:NodeShape ;
+    sh:targetClass netex:Quay ;
+    rdfs:label "Quay — NP constraints" ;
+    sh:property [
+        sh:path netex:Quay_AccessibilityAssessment ;
+        sh:maxCount 1 ;
+        sh:name "AccessibilityAssessment"
+    ] , [
+        sh:path netex:Quay_boardingPositions ;
+        sh:maxCount 1 ;
+        sh:name "boardingPositions"
+    ] .
 
-## --- Cardinality tightening (XSD is looser than NP requires) ---
+## --- Line ---
 
-profile:NP netex:requires [
-    netex:ref netex:JourneyPattern_RouteRef ;
-    netex:cardinality "1..1" ;
-    rdfs:comment "XSD allows 0..1, NP mandates"
-] , [
-    netex:ref netex:Vehicle_VehicleTypeRef ;
-    netex:cardinality "1..1" ;
-    rdfs:comment "XSD allows 0..1, NP mandates"
-] , [
-    netex:ref netex:Authority_Name ;
-    netex:cardinality "1..1"
-] , [
-    netex:ref netex:Operator_Name ;
-    netex:cardinality "1..1"
-] , [
-    netex:ref netex:VehicleType_Name ;
-    netex:cardinality "1..1"
-] , [
-    netex:ref netex:FareZone_Name ;
-    netex:cardinality "1..1"
-] .
+profile:NP_LineShape a sh:NodeShape ;
+    sh:targetClass netex:Line ;
+    rdfs:label "Line — NP constraints" ;
+    sh:property [
+        sh:path netex:Line_RepresentedByGroupRef ;
+        sh:maxCount 1 ;
+        sh:name "RepresentedByGroupRef"
+    ] , [
+        sh:path netex:Line_TransportSubmode ;
+        sh:maxCount 1 ;
+        sh:name "TransportSubmode"
+    ] , [
+        sh:path netex:Line_PublicCode ;
+        sh:maxCount 1 ;
+        sh:name "PublicCode"
+    ] , [
+        sh:path netex:Line_PrivateCode ;
+        sh:maxCount 1 ;
+        sh:name "PrivateCode"
+    ] .
+
+## --- ServiceJourney ---
+
+profile:NP_ServiceJourneyShape a sh:NodeShape ;
+    sh:targetClass netex:ServiceJourney ;
+    rdfs:label "ServiceJourney — NP constraints" ;
+    ## Excluded
+    sh:property [
+        sh:path netex:ServiceJourney_FlexibleLineRef ;
+        sh:maxCount 0 ;
+        sh:name "FlexibleLineRef" ;
+        sh:description "Not used in NP — use Line with FlexibleServiceProperties"
+    ] , [
+        sh:path netex:ServiceJourney_BlockRef ;
+        sh:maxCount 0 ;
+        sh:name "BlockRef" ;
+        sh:description "Not used in NP — block assignment via DatedServiceJourney"
+    ] .
+
+## --- JourneyPattern ---
+
+profile:NP_JourneyPatternShape a sh:NodeShape ;
+    sh:targetClass netex:JourneyPattern ;
+    rdfs:label "JourneyPattern — NP constraints" ;
+    ## Required (tightened from XSD 0..1)
+    sh:property [
+        sh:path netex:JourneyPattern_RouteRef ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class netex:Route ;
+        sh:name "RouteRef" ;
+        sh:description "XSD allows 0..1, NP mandates 1..1"
+    ] .
+
+## --- Vehicle ---
+
+profile:NP_VehicleShape a sh:NodeShape ;
+    sh:targetClass netex:Vehicle ;
+    rdfs:label "Vehicle — NP constraints" ;
+    ## Required (tightened from XSD 0..1)
+    sh:property [
+        sh:path netex:Vehicle_VehicleTypeRef ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class netex:VehicleType ;
+        sh:name "VehicleTypeRef" ;
+        sh:description "XSD allows 0..1, NP mandates 1..1"
+    ] .
+
+## --- Authority ---
+
+profile:NP_AuthorityShape a sh:NodeShape ;
+    sh:targetClass netex:Authority ;
+    rdfs:label "Authority — NP constraints" ;
+    sh:property [
+        sh:path netex:Authority_Name ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:name "Name" ;
+        sh:description "XSD allows 0..1, NP mandates 1..1"
+    ] .
+
+## --- Operator ---
+
+profile:NP_OperatorShape a sh:NodeShape ;
+    sh:targetClass netex:Operator ;
+    rdfs:label "Operator — NP constraints" ;
+    sh:property [
+        sh:path netex:Operator_Name ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:name "Name" ;
+        sh:description "XSD allows 0..1, NP mandates 1..1"
+    ] .
+
+## --- VehicleType ---
+
+profile:NP_VehicleTypeShape a sh:NodeShape ;
+    sh:targetClass netex:VehicleType ;
+    rdfs:label "VehicleType — NP constraints" ;
+    sh:property [
+        sh:path netex:VehicleType_Name ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:name "Name" ;
+        sh:description "XSD allows 0..1, NP mandates 1..1"
+    ] .
+
+## --- FareZone ---
+
+profile:NP_FareZoneShape a sh:NodeShape ;
+    sh:targetClass netex:FareZone ;
+    rdfs:label "FareZone — NP constraints" ;
+    sh:property [
+        sh:path netex:FareZone_Name ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:name "Name" ;
+        sh:description "XSD allows 0..1, NP mandates 1..1"
+    ] .
+
+## --- Interchange ---
+
+profile:NP_InterchangeShape a sh:NodeShape ;
+    sh:targetClass netex:Interchange ;
+    rdfs:label "Interchange — NP constraints" ;
+    sh:property [
+        sh:path netex:Interchange_FromPointRef ;
+        sh:maxCount 1 ;
+        sh:name "FromPointRef"
+    ] , [
+        sh:path netex:Interchange_ToPointRef ;
+        sh:maxCount 1 ;
+        sh:name "ToPointRef"
+    ] .
+
+## --- DatedServiceJourney ---
+
+profile:NP_DatedServiceJourneyShape a sh:NodeShape ;
+    sh:targetClass netex:DatedServiceJourney ;
+    rdfs:label "DatedServiceJourney — NP constraints" ;
+    sh:property [
+        sh:path netex:DatedServiceJourney_DatedVehicleJourneyRef ;
+        sh:name "DatedVehicleJourneyRef" ;
+        sh:description "Deviation/replacement tracking — allowed in NP"
+    ] .
 
 ## =================================================================
 ## ELEMENT ORDERING (XSD-derived)

@@ -1,8 +1,13 @@
 ## -----------------------------------------------------------------
 ## Entur Data Governance Ontology
 ## -----------------------------------------------------------------
-## Entur-specific codespace rules, central registry ownership,
-## and data source assignments for Norwegian NeTEx deliveries.
+## ROLE: Entur-specific implementation details that deviate from or
+##       extend the Nordic Profile. Codespace conventions, central
+##       registry ownership, data source assignments, and partner
+##       portal modules for Norwegian NeTEx deliveries.
+##
+## These are Entur's operational choices — not part of the Nordic
+## agreement, but necessary for operators delivering data to Entur.
 ##
 ## Imports: netex-nordic.ttl (Nordic Profile constraints)
 ##          → which imports netex.ttl (base NeTEx classes)

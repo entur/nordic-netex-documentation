@@ -1,11 +1,17 @@
 ## -----------------------------------------------------------------
 ## Rolling Stock Service Sub-Profile
 ## -----------------------------------------------------------------
-## Declares exactly which NeTEx elements the Rolling Stock service
-## (PEN/Plass) consumes and produces, using URI-based references
-## to the base ontology.
+## ROLE: Describes the NeTEx dependencies for a specific Entur system
+##       (PEN/Plass). Declares which references and elements the
+##       service consumes from operator deliveries, what it produces
+##       in central registries, and any cardinality tightening beyond
+##       the Nordic Profile.
 ##
-## Imports: entur.ttl (Entur governance + codespaces)
+## This is a system-scoped sub-profile — it documents what one service
+## needs, not what the profile requires. Other services could have
+## their own sub-profile files following the same pattern.
+##
+## Imports: netex-entur.ttl (Entur governance + codespaces)
 ##          → netex-nordic.ttl → netex.ttl
 ##
 ## Generated: 2026-06-09
@@ -15,6 +21,7 @@
 @prefix profile: <https://netex-cen.eu/profile#> .
 @prefix entur:   <https://entur.org/ontology#> .
 @prefix svc:     <https://entur.org/service/rolling-stock#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
@@ -137,25 +144,47 @@ svc:RollingStockService svc:requiresClass
     netex:TrainElement .
 
 ## =================================================================
-## SERVICE-SPECIFIC CONSTRAINTS
+## SERVICE-SPECIFIC CONSTRAINTS — SHACL SHAPES
 ## =================================================================
-## Additional tightening beyond what NP requires, specific to
-## what the rolling stock service expects.
+## Cardinality tightening beyond NP, specific to what the rolling
+## stock service expects from operator deliveries.
+## Validatable with standard SHACL tooling (pySHACL, Jena, TopBraid).
+##
+## Shape naming: svc:RS_{ClassName}Shape
 ## -----------------------------------------------------------------
 
-svc:RollingStockService svc:requiresCardinality [
-    netex:ref netex:DatedServiceJourney_BlockRef ;
-    netex:cardinality "1..1" ;
-    rdfs:comment "Rolling stock needs block assignment to resolve composition"
-] , [
-    netex:ref netex:TrainComponent_TrainElementRef ;
-    netex:cardinality "1..1" ;
-    rdfs:comment "Every component must reference a PEN:TrainElement"
-] , [
-    netex:ref netex:TrainInCompoundTrain_TrainRef ;
-    netex:cardinality "1..1" ;
-    rdfs:comment "Every unit in a compound train must reference the Train definition"
-] .
+svc:RS_DatedServiceJourneyShape a sh:NodeShape ;
+    sh:targetClass netex:DatedServiceJourney ;
+    rdfs:label "DatedServiceJourney — Rolling Stock constraints" ;
+    sh:property [
+        sh:path netex:DatedServiceJourney_BlockRef ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class netex:TrainBlock ;
+        sh:name "BlockRef" ;
+        sh:description "Rolling stock needs block assignment to resolve composition"
+    ] .
+
+svc:RS_TrainComponentShape a sh:NodeShape ;
+    sh:targetClass netex:TrainComponent ;
+    rdfs:label "TrainComponent — Rolling Stock constraints" ;
+    sh:property [
+        sh:path netex:TrainComponent_TrainElementRef ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class netex:TrainElement ;
+        sh:name "TrainElementRef" ;
+        sh:description "Every component must reference a PEN:TrainElement"
+    ] .
+
+svc:RS_TrainInCompoundTrainShape a sh:NodeShape ;
+    sh:targetClass netex:TrainInCompoundTrain ;
+    rdfs:label "TrainInCompoundTrain — Rolling Stock constraints" ;
+    sh:property [
+        sh:path netex:TrainInCompoundTrain_TrainRef ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class netex:Train ;
+        sh:name "TrainRef" ;
+        sh:description "Every unit in a compound train must reference the Train definition"
+    ] .
 
 ## =================================================================
 ## END OF ROLLING STOCK SERVICE PROFILE
