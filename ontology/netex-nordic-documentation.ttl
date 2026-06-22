@@ -136,8 +136,7 @@ netex:Vehicle
 
 netex:PurposeOfGrouping
     doc:description "objects/PurposeOfGrouping/Description_PurposeOfGrouping.md" ;
-    doc:table "objects/PurposeOfGrouping/Table_PurposeOfGrouping.md" ;
-    doc:example "objects/PurposeOfGrouping/Example_PurposeOfGrouping_MIN.xml" .
+    doc:table "objects/PurposeOfGrouping/Table_PurposeOfGrouping.md" .
 
 netex:ResponsibilitySet
     doc:description "objects/ResponsibilitySet/Description_ResponsibilitySet.md" ;
@@ -146,8 +145,7 @@ netex:ResponsibilitySet
 
 netex:Contract
     doc:description "objects/Contract/Description_Contract.md" ;
-    doc:table "objects/Contract/Table_Contract.md" ;
-    doc:example "objects/Contract/Example_Contract_Minimal.xml" .
+    doc:table "objects/Contract/Table_Contract.md" .
 
 netex:CompoundTrain
     doc:description "objects/CompoundTrain/Description_CompoundTrain.md" ;
@@ -303,8 +301,7 @@ netex:Notice
 
 netex:FlexibleServiceProperties
     doc:description "objects/FlexibleServiceProperties/Description_FlexibleServiceProperties.md" ;
-    doc:table "objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md" ;
-    doc:example "objects/FlexibleServiceProperties/Example_FlexibleServiceProperties_MIN.xml" .
+    doc:table "objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md" .
 
 netex:LinkSequenceProjection
     doc:description "objects/LinkSequenceProjection/Description_LinkSequenceProjection.md" ;
@@ -360,8 +357,7 @@ netex:TrainBlock
 
 netex:FareContract
     doc:description "objects/FareContract/Description_FareContract.md" ;
-    doc:table "objects/FareContract/Table_FareContract.md" ;
-    doc:example "objects/FareContract/Example_FareContract_Minimal.xml" .
+    doc:table "objects/FareContract/Table_FareContract.md" .
 
 ## =================================================================
 ## OBJECT DOCUMENTATION — Metadata (not frame-specific)
@@ -374,8 +370,7 @@ netex:AlternativeName
 
 netex:AlternativeText
     doc:description "objects/AlternativeText/Description_AlternativeText.md" ;
-    doc:table "objects/AlternativeText/Table_AlternativeText.md" ;
-    doc:example "objects/AlternativeText/Example_AlternativeText_MIN.xml" .
+    doc:table "objects/AlternativeText/Table_AlternativeText.md" .
 
 netex:Codespace
     doc:description "objects/Codespace/Description_Codespace.md" ;

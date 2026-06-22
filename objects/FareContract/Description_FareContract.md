@@ -56,4 +56,4 @@ A **FareContract** models a customer-facing agreement for the right to travel an
 
 See [Table_FareContract.md](Table_FareContract.md) for detailed attribute specifications.
 
-Example XML: [Example_FareContract_Minimal.xml](Example_FareContract_Minimal.xml)
+Example XML: *(no NP example yet)*

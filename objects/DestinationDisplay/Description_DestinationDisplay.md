@@ -69,4 +69,4 @@ DestinationDisplay
 
 See [Table_DestinationDisplay.md](Table_DestinationDisplay.md) for detailed attribute specifications.
 
-Example XML: [Example_DestinationDisplay_MIN.xml](Example_DestinationDisplay_MIN.xml) | [Example_DestinationDisplay_NP.xml](Example_DestinationDisplay_NP.xml) | [Example_DestinationDisplay_FR.xml](Example_DestinationDisplay_FR.xml)
+Example XML: [Example_DestinationDisplay_NP.xml](Example_DestinationDisplay_NP.xml)

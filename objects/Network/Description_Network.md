@@ -62,6 +62,6 @@ A **Network** represents a branded, passenger-facing public transport network co
 
 See [Table_Network.md](Table_Network.md) for detailed attribute specifications.
 
-Example XML: [Example_Network_FR.xml](Example_Network_FR.xml)
+Example XML: *(no NP example yet)*
 
 Network is placed in the ServiceFrame alongside Lines and GroupOfLines. In the French profile, it is placed in a GeneralFrame with TypeOfFrame `NETEX_RESEAU`.

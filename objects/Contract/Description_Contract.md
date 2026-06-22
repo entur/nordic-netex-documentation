@@ -58,4 +58,4 @@ A **Contract** defines the legal or commercial agreement that governs responsibi
 
 See [Table_Contract.md](Table_Contract.md) for detailed attribute specifications.
 
-Example XML: [Example_Contract_Minimal.xml](Example_Contract_Minimal.xml)
+Example XML: *(no NP example yet)*

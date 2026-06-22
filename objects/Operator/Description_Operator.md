@@ -65,5 +65,5 @@ Operator
 ## 6. Additional Information
 See [Table_Operator.md](Table_Operator.md) for detailed attribute specifications.
 
-Example XML: [Example_Operator_MIN.xml](Example_Operator_MIN.xml) | [Example_Operator_NP.xml](Example_Operator_NP.xml) | [Example_Operator_FR.xml](Example_Operator_FR.xml)
+Example XML: [Example_Operator_NP.xml](Example_Operator_NP.xml)
 

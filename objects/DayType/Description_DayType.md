@@ -55,4 +55,4 @@ A **DayType** represents a classification of days on which a specific set of tra
 
 See [Table_DayType.md](Table_DayType.md) for detailed attribute specifications.
 
-Example XML: [Example_DayType_MIN.xml](Example_DayType_MIN.xml) | [Example_DayType_NP.xml](Example_DayType_NP.xml) | [Example_DayType_FR.xml](Example_DayType_FR.xml)
+Example XML: [Example_DayType_NP.xml](Example_DayType_NP.xml)

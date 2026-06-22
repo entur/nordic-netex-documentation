@@ -129,7 +129,7 @@ else:
 ./scripts/validate-xml.sh --changed
 
 # Validate specific files
-./scripts/validate-xml.sh Objects/Line/Example_Line_MIN.xml
+./scripts/validate-xml.sh Objects/Line/Example_Line_NP.xml
 ```
 
 ---
