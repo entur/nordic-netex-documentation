@@ -1,4 +1,4 @@
-- [Home](/)
+- [Home](/home.md)
 
 - **Guides**
   - [Get Started](/Guides/GetStarted/GetStarted_Guide.md)
