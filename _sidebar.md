@@ -5,11 +5,9 @@
   - [NeTEx Conventions](/Guides/NeTExConventions/NeTEx_Conventions.md)
   - [How to Build a Timetable](/Guides/HowToBuildATimetable/HowToBuildATimetable_Guide.md)
   - [Stop Infrastructure](/Guides/StopInfrastructure/StopInfrastructure_Guide.md)
-  - [Network Timetable](/Guides/NetworkTimetable/NetworkTimetable_Guide.md)
   - [Calendar](/Guides/Calendar/Calendar_Guide.md)
   - [Passenger Information](/Guides/PassengerInformation/PassengerInformation_Guide.md)
   - [Interchange](/Guides/Interchange/Interchange_Guide.md)
-  <!-- - [Organisational Governance](/Guides/OrganisationalGovernance/OrganisationalGovernance_Guide.md) -->
   <!-- - [Separation of Concerns](/Guides/SeparationOfConcerns/SeparationOfConcerns.md) -->
   - [Block - Vehicle Scheduling](/Guides/VehicleScheduling/VehicleScheduling_Guide.md)
   - [TrainBlock - Rolling Stock](/Guides/RollingStock/RollingStock_Guide.md)

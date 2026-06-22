@@ -114,24 +114,6 @@ else:
         print(err)
 ```
 
-### This Repository's Validation Infrastructure
-
-| Tool | Location | Use |
-|------|----------|-----|
-| Local script | [`scripts/validate-xml.sh`](../../scripts/validate-xml.sh) | Validate all, changed, or specific XML files |
-| CI workflow | [`.github/workflows/PR_Validator.yml`](../../.github/workflows/PR_Validator.yml) | Automatic validation on pull requests |
-
-```bash
-# Validate all XML files in the repository
-./scripts/validate-xml.sh
-
-# Validate only changed files (vs EnStandardBranch)
-./scripts/validate-xml.sh --changed
-
-# Validate specific files
-./scripts/validate-xml.sh Objects/Line/Example_Line_NP.xml
-```
-
 ---
 
 ## 5. 🔍 Useful Utilities
@@ -182,14 +164,13 @@ For batch-processing NeTEx files (renaming codespaces, extracting summaries):
                  for real-time validation and auto-complete
                       |
                       v
-2. Validate      Run local validation before committing:
-                 ./scripts/validate-xml.sh --changed
+2. Validate      Run local validation before committing
                       |
                       v
 3. Commit        Stage specific files, write a descriptive commit message
                       |
                       v
-4. PR            Push branch, CI runs PR_Validator.yml automatically
+4. PR            Push branch, CI runs validation automatically
                       |
                       v
 5. Review        Check CI results, fix any validation errors, merge
@@ -200,7 +181,6 @@ For batch-processing NeTEx files (renaming codespaces, extracting summaries):
 ## 7. 🔗 Related Resources
 
 ### Guides
-- [Validation](../Validation/Validation.md) — Detailed validation procedures and troubleshooting
 - [NeTEx Conventions](../NeTExConventions/NeTEx_Conventions.md) — Casing rules and naming patterns
 - [Get Started](../GetStarted/GetStarted_Guide.md) — Introduction to NeTEx basics
 

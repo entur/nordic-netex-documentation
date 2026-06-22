@@ -44,7 +44,6 @@ flowchart LR
 | 3 | **[How to Build a Timetable](guides/HowToBuildATimetable/HowToBuildATimetable_Guide.md)** | Line → Route → JourneyPattern → ServiceJourney → Departure |
 | 4 | **[Stop Infrastructure](guides/StopInfrastructure/StopInfrastructure_Guide.md)** | Logical stops, physical platforms, the assignment bridge |
 | 5 | **[Calendar](guides/Calendar/Calendar_Guide.md)** | DayTypes, OperatingPeriods, exceptions, date-based scheduling |
-| 6 | **[Network Timetable](guides/NetworkTimetable/NetworkTimetable_Guide.md)** | Producing and consuming complete datasets |
 
 ---
 

@@ -260,7 +260,7 @@ In the Nordic Profile, a timetable dataset is split into a **shared data file** 
 
 ![Line file vs shared data file](../../assets/images/netex_line_file_vs_shared_file_v3.svg)
 
-See the [Network Timetable Guide](../NetworkTimetable/NetworkTimetable_Guide.md) for full details on the file split.
+<!-- TODO: Network Timetable guide (file split details) planned for future release -->
 
 ---
 
@@ -289,7 +289,6 @@ To produce a working timetable delivery, you need at minimum:
 
 **Expand the dataset:**
 - [Stop Infrastructure](../StopInfrastructure/StopInfrastructure_Guide.md) — [StopPlace](../../Objects/StopPlace/Description_StopPlace.md), [Quay](../../Objects/Quay/Description_Quay.md), and how they connect via [PassengerStopAssignment](../../Objects/PassengerStopAssignment/Description_PassengerStopAssignment.md)
-- [Network Timetable Guide](../NetworkTimetable/NetworkTimetable_Guide.md) — full dataset structure with shared files and line files
 - [Separation of Concerns](../SeparationOfConcerns/SeparationOfConcerns.md) — how domains stay independent
 
 **Handle special cases:**
