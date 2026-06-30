@@ -1,4 +1,11 @@
-﻿<div align="center">
+﻿<!--
+  AI AGENT NOTE: To navigate this documentation programmatically, load
+  ontology/netex-nordic-documentation.ttl. Each NeTEx class is annotated with
+  doc:description, doc:table, and doc:example pointing to the relevant
+  markdown and XML files in this repo. Use these annotations to traverse
+  from any class to its documentation instead of guessing file paths.
+-->
+<div align="center">
 
 # 🚍 NeTEx Nordic Profile — Entur Implementation
 
