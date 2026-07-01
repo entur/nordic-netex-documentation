@@ -27,7 +27,7 @@
 
 ## What is this?
 
-Public transport in the Nordics runs on **NeTEx** — every timetable, stop, vehicle assignment, and fare product flows through this XML format. The [Nordic NeTEx Profile](https://enturas.atlassian.net/wiki/spaces/PUBLIC/pages/728891481/Nordic+NeTEx+Profile) constrains the full standard into a practical subset.
+**NeTEx** is the common standard that Nordic public transport integrates toward — covering timetables, stops, vehicle assignments, and fare products in a shared XML format. The [Nordic NeTEx Profile](https://enturas.atlassian.net/wiki/spaces/PUBLIC/pages/728891481/Nordic+NeTEx+Profile) constrains the full standard into a practical subset.
 
 This repository is **Entur's implementation guide**: clear explanations, validated examples, and machine-readable rules for how to produce and consume NeTEx data in the Nordic context.
 
@@ -94,12 +94,13 @@ objects/<Name>/
 
 ## 🧠 Ontology
 
-The `ontology/` folder contains a layered knowledge graph:
+The `ontology/` folder contains a layered knowledge graph sourced from [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) (git submodule):
 
 - **netex.ttl** — Base NeTEx schema (classes, relationships, cardinality)
 - **netex-nordic.ttl** — Nordic Profile constraints and element ordering
 - **netex-entur.ttl** — Entur-specific governance (codespaces, data ownership)
 - **netex-rolling-stock.ttl** — Rolling stock sub-profile
+- **netex-nordic-documentation.ttl** — Documentation paths and scope metadata (local to this repo)
 
 ---
 
