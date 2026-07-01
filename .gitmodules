@@ -1,0 +1,3 @@
+[submodule "ontology/entur-netex-ontology"]
+	path = ontology/entur-netex-ontology
+	url = https://github.com/entur/entur-netex-ontology.git
