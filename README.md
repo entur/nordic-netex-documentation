@@ -94,7 +94,7 @@ objects/<Name>/
 
 ## 🧠 Ontology
 
-The `ontology/` folder contains a layered knowledge graph sourced from [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) (git submodule):
+The `ontology/` folder contains a layered knowledge graph sourced from [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) (git submodule). To fetch the ontology files locally, clone with `--recurse-submodules` (or run `git submodule update --init --recursive`).
 
 - **netex.ttl** — Base NeTEx schema (classes, relationships, cardinality)
 - **netex-nordic.ttl** — Nordic Profile constraints and element ordering
