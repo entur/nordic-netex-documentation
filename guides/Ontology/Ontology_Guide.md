@@ -19,15 +19,18 @@ The ontology serves two purposes:
 
 ## 2. 📂 File Structure
 
-The `ontology/` folder contains five files, each with a distinct role:
+The `ontology/` folder contains a documentation-specific file alongside the [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) submodule (the single source of truth for all non-documentation ontology files):
 
 ```
 ontology/
-  ├── netex.ttl                      ← Base schema (classes, references, elements)
-  ├── netex-nordic.ttl               ← Nordic Profile (SHACL constraints + element ordering)
-  ├── netex-entur.ttl                ← Entur governance (codespaces, data ownership)
-  ├── netex-rolling-stock.ttl        ← Rolling stock service sub-profile
-  └── netex-nordic-documentation.ttl ← Documentation paths and scope metadata
+  ├── entur-netex-ontology/            ← git submodule (https://github.com/entur/entur-netex-ontology)
+  │   ├── netex-entur.ttl             ← Entur governance (codespaces, data ownership)
+  │   ├── netex-entur-nsr.ttl         ← Entur NSR sub-profile
+  │   ├── netex-rolling-stock.ttl     ← Rolling stock service sub-profile
+  │   └── nordic-netex-ontology/      ← nested submodule (https://github.com/entur/nordic-netex-ontology)
+  │       ├── netex.ttl               ← Base schema (classes, references, elements)
+  │       └── netex-nordic.ttl        ← Nordic Profile (SHACL constraints + element ordering)
+  └── netex-nordic-documentation.ttl  ← Documentation paths and scope metadata
 ```
 
 ### Import Chain
