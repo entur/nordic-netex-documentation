@@ -1,6 +1,6 @@
 # TopographicPlace
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#topographicplace)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#topographicplace)*
 
 ## 1. Purpose
 

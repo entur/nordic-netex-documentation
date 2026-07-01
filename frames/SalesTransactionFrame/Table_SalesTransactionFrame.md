@@ -17,4 +17,4 @@ SalesTransactionFrame
 | @id | ID | Unique identifier for the SalesTransactionFrame | SalesTransactionFrame/@id |
 | @version | String | Version number for change tracking | SalesTransactionFrame/@version |
 | fareContracts | Container | Collection of fare contract definitions | SalesTransactionFrame/fareContracts |
-| [FareContract](../../Objects/FareContract/Table_FareContract.md) | Element | Sales agreement between passenger and provider | SalesTransactionFrame/fareContracts/FareContract |
+| [FareContract](../../objects/FareContract/Table_FareContract.md) | Element | Sales agreement between passenger and provider | SalesTransactionFrame/fareContracts/FareContract |

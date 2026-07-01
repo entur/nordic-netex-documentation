@@ -1,6 +1,6 @@
 # Network
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#network)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#network)*
 
 ## 1. Purpose
 

@@ -1,6 +1,6 @@
 # PurposeOfGrouping
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#purposeofgrouping)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#purposeofgrouping)*
 
 ## 1. Purpose
 

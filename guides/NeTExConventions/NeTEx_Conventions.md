@@ -177,5 +177,5 @@ All examples in this repository use:
 - [Tools](../Tools/Tools_Guide.md) — Editors with schema-aware auto-completion
 
 ### Reference
-- [Codespace](../../Objects/Codespace/Table_Codespace.md) — Codespace object documentation
+- [Codespace](../../objects/Codespace/Table_Codespace.md) — Codespace object documentation
 - [CompositeFrame](../../Frames/CompositeFrame/Description_CompositeFrame.md) — Top-level delivery structure

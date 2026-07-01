@@ -1,6 +1,6 @@
 # ResponsibilitySet
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#responsibilityset)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#responsibilityset)*
 
 ## 1. Purpose
 

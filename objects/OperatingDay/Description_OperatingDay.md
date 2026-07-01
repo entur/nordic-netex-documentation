@@ -1,6 +1,6 @@
 # OperatingDay
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#operatingday)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#operatingday)*
 
 ## 1. Purpose
 

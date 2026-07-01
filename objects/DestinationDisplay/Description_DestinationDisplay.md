@@ -1,6 +1,6 @@
 # DestinationDisplay
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#destinationdisplay)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#destinationdisplay)*
 
 ## 1. Purpose
 

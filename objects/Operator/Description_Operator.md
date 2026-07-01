@@ -1,6 +1,6 @@
 # Operator
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#operator)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#operator)*
 
 ## 1. Purpose
 The **Operator** represents an organization that provides public transport services under contract with an Authority. It is a core organizational entity that identifies the legal or commercial entity responsible for executing transport operations, including the operation of lines, schedules, and individual journeys. Operators enable the separation of network planning (Authority responsibility) from service delivery (Operator responsibility).

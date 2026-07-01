@@ -23,7 +23,7 @@ ServiceCalendarFrame
 | @id | ID | Unique identifier for the ServiceCalendarFrame | ServiceCalendarFrame/@id |
 | @version | String | Version number for change tracking | ServiceCalendarFrame/@version |
 | dayTypes | Container | Collection of day type definitions | ServiceCalendarFrame/dayTypes |
-| [DayType](../../Objects/DayType/Table_DayType.md) | Element | Reusable day pattern (e.g., Weekdays, Weekend) | ServiceCalendarFrame/dayTypes/DayType |
+| [DayType](../../objects/DayType/Table_DayType.md) | Element | Reusable day pattern (e.g., Weekdays, Weekend) | ServiceCalendarFrame/dayTypes/DayType |
 | operatingPeriods | Container | Collection of operating period definitions | ServiceCalendarFrame/operatingPeriods |
 | OperatingPeriod | Element | Date-time window of validity | ServiceCalendarFrame/operatingPeriods/OperatingPeriod |
 | dayTypeAssignments | Container | Collection of day type assignment definitions | ServiceCalendarFrame/dayTypeAssignments |

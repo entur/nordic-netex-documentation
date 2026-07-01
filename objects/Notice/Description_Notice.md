@@ -1,6 +1,6 @@
 # Notice
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#notice)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#notice)*
 
 ## 1. Purpose
 
