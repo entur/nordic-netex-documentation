@@ -28,8 +28,8 @@ TimetableFrame
 | @id | ID | Unique identifier for the TimetableFrame | TimetableFrame/@id |
 | @version | String | Version number for change tracking | TimetableFrame/@version |
 | vehicleJourneys | Container | Collection of journey definitions | TimetableFrame/vehicleJourneys |
-| [ServiceJourney](../../Objects/ServiceJourney/Table_ServiceJourney.md) | Element | Planned passenger-carrying trip | TimetableFrame/vehicleJourneys/ServiceJourney |
-| [DatedServiceJourney](../../Objects/DatedServiceJourney/Table_DatedServiceJourney.md) | Element | Date-specific instance of a ServiceJourney | TimetableFrame/vehicleJourneys/DatedServiceJourney |
+| [ServiceJourney](../../objects/ServiceJourney/Table_ServiceJourney.md) | Element | Planned passenger-carrying trip | TimetableFrame/vehicleJourneys/ServiceJourney |
+| [DatedServiceJourney](../../objects/DatedServiceJourney/Table_DatedServiceJourney.md) | Element | Date-specific instance of a ServiceJourney | TimetableFrame/vehicleJourneys/DatedServiceJourney |
 | DatedVehicleJourney | Element | Date-specific vehicle journey | TimetableFrame/vehicleJourneys/DatedVehicleJourney |
 | DeadRun | Element | Non-passenger vehicle repositioning movement | TimetableFrame/vehicleJourneys/DeadRun |
 | coupledJourneys | Container | Collection of coupled journey definitions | TimetableFrame/coupledJourneys |

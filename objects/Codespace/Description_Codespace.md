@@ -1,6 +1,6 @@
 # Codespace
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#codespace)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#codespace)*
 
 ## 1. Purpose
 

@@ -9,10 +9,10 @@ You know how to plan a route: which stops a vehicle serves, in what order, and w
 We'll build a timetable step by step, starting with concepts you already know and showing the NeTEx objects that represent them. By the end, you'll have a complete picture of how stops, lines, patterns, and journeys fit together.
 
 **In this guide you will learn:**
-- 📍 How stops are represented ([ScheduledStopPoint](../../Objects/ScheduledStopPoint/Description_ScheduledStopPoint.md))
-- 🚌 How a line is defined ([Line](../../Objects/Line/Description_Line.md))
-- 🗺️ How the stop sequence is described ([JourneyPattern](../../Objects/JourneyPattern/Description_JourneyPattern.md))
-- 🕐 How departure times are added ([ServiceJourney](../../Objects/ServiceJourney/Description_ServiceJourney.md) + TimetabledPassingTime)
+- 📍 How stops are represented ([ScheduledStopPoint](../../objects/ScheduledStopPoint/Description_ScheduledStopPoint.md))
+- 🚌 How a line is defined ([Line](../../objects/Line/Description_Line.md))
+- 🗺️ How the stop sequence is described ([JourneyPattern](../../objects/JourneyPattern/Description_JourneyPattern.md))
+- 🕐 How departure times are added ([ServiceJourney](../../objects/ServiceJourney/Description_ServiceJourney.md) + TimetabledPassingTime)
 - 🔗 How the pieces reference each other
 
 > [!TIP]
@@ -32,11 +32,11 @@ Each question maps to a NeTEx object:
 
 | Question | NeTEx Object | Lives in |
 |----------|-------------|----------|
-| Where does it stop? | [ScheduledStopPoint](../../Objects/ScheduledStopPoint/Description_ScheduledStopPoint.md) | ServiceFrame |
-| What line is it? | [Line](../../Objects/Line/Description_Line.md) | ServiceFrame |
-| In what order? | [JourneyPattern](../../Objects/JourneyPattern/Description_JourneyPattern.md) | ServiceFrame |
-| What time? | [ServiceJourney](../../Objects/ServiceJourney/Description_ServiceJourney.md) + TimetabledPassingTime | TimetableFrame |
-| Which days? | [DatedServiceJourney](../../Objects/DatedServiceJourney/Description_DatedServiceJourney.md) + OperatingDay | TimetableFrame / ServiceCalendarFrame |
+| Where does it stop? | [ScheduledStopPoint](../../objects/ScheduledStopPoint/Description_ScheduledStopPoint.md) | ServiceFrame |
+| What line is it? | [Line](../../objects/Line/Description_Line.md) | ServiceFrame |
+| In what order? | [JourneyPattern](../../objects/JourneyPattern/Description_JourneyPattern.md) | ServiceFrame |
+| What time? | [ServiceJourney](../../objects/ServiceJourney/Description_ServiceJourney.md) + TimetabledPassingTime | TimetableFrame |
+| Which days? | [DatedServiceJourney](../../objects/DatedServiceJourney/Description_DatedServiceJourney.md) + OperatingDay | TimetableFrame / ServiceCalendarFrame |
 
 Let's build them one at a time.
 
@@ -44,7 +44,7 @@ Let's build them one at a time.
 
 ## 3. 📍 Where does it stop? — ScheduledStopPoint
 
-A [ScheduledStopPoint](../../Objects/ScheduledStopPoint/Description_ScheduledStopPoint.md) is a logical stopping point in the timetable. It's not the physical platform or shelter — it's the planning concept "the vehicle stops here."
+A [ScheduledStopPoint](../../objects/ScheduledStopPoint/Description_ScheduledStopPoint.md) is a logical stopping point in the timetable. It's not the physical platform or shelter — it's the planning concept "the vehicle stops here."
 
 ```xml
 <scheduledStopPoints>
@@ -78,7 +78,7 @@ That's it — a name and a unique ID. But every ScheduledStopPoint must be linke
 
 ## 4. 🚌 What line is it? — Line
 
-A [Line](../../Objects/Line/Description_Line.md) groups related journeys into a single public-facing service. It gives the service a name, a transport mode, and links to the operator.
+A [Line](../../objects/Line/Description_Line.md) groups related journeys into a single public-facing service. It gives the service a name, a transport mode, and links to the operator.
 
 ```xml
 <lines>
@@ -100,7 +100,7 @@ Key points:
 
 ## 5. 🗺️ In what order? — JourneyPattern
 
-A [JourneyPattern](../../Objects/JourneyPattern/Description_JourneyPattern.md) defines the ordered sequence of stops a vehicle visits. It references the ScheduledStopPoints you already defined, and puts them in sequence.
+A [JourneyPattern](../../objects/JourneyPattern/Description_JourneyPattern.md) defines the ordered sequence of stops a vehicle visits. It references the ScheduledStopPoints you already defined, and puts them in sequence.
 
 ```xml
 <journeyPatterns>
@@ -140,7 +140,7 @@ Key points:
 
 ## 6. 🕐 When does it depart? — ServiceJourney
 
-Now we have stops, a line, and an order. The final piece is *time*. A [ServiceJourney](../../Objects/ServiceJourney/Description_ServiceJourney.md) ties it all together: it references a JourneyPattern and adds concrete arrival/departure times for each stop.
+Now we have stops, a line, and an order. The final piece is *time*. A [ServiceJourney](../../objects/ServiceJourney/Description_ServiceJourney.md) ties it all together: it references a JourneyPattern and adds concrete arrival/departure times for each stop.
 
 ```xml
 <vehicleJourneys>
@@ -187,7 +187,7 @@ Key points:
 
 ## 7. 📅 Which days does it run? — DatedServiceJourney
 
-A ServiceJourney defines *what* happens and *at what time*, but not *on which date*. To assign a journey to a specific calendar day, you create a [DatedServiceJourney](../../Objects/DatedServiceJourney/Description_DatedServiceJourney.md). It references the ServiceJourney (the template) and an OperatingDay (the date).
+A ServiceJourney defines *what* happens and *at what time*, but not *on which date*. To assign a journey to a specific calendar day, you create a [DatedServiceJourney](../../objects/DatedServiceJourney/Description_DatedServiceJourney.md). It references the ServiceJourney (the template) and an OperatingDay (the date).
 
 ```xml
 <ServiceCalendarFrame id="NP:ServiceCalendarFrame:1" version="1">
@@ -285,10 +285,10 @@ To produce a working timetable delivery, you need at minimum:
 ## 11. 🧭 Where to Go Next
 
 **Add passenger information:**
-- [Passenger Information](../PassengerInformation/PassengerInformation_Guide.md) — [DestinationDisplay](../../Objects/DestinationDisplay/Description_DestinationDisplay.md) (headsign text), notices
+- [Passenger Information](../PassengerInformation/PassengerInformation_Guide.md) — [DestinationDisplay](../../objects/DestinationDisplay/Description_DestinationDisplay.md) (headsign text), notices
 
 **Expand the dataset:**
-- [Stop Infrastructure](../StopInfrastructure/StopInfrastructure_Guide.md) — [StopPlace](../../Objects/StopPlace/Description_StopPlace.md), [Quay](../../Objects/Quay/Description_Quay.md), and how they connect via [PassengerStopAssignment](../../Objects/PassengerStopAssignment/Description_PassengerStopAssignment.md)
+- [Stop Infrastructure](../StopInfrastructure/StopInfrastructure_Guide.md) — [StopPlace](../../objects/StopPlace/Description_StopPlace.md), [Quay](../../objects/Quay/Description_Quay.md), and how they connect via [PassengerStopAssignment](../../objects/PassengerStopAssignment/Description_PassengerStopAssignment.md)
 - [Separation of Concerns](../SeparationOfConcerns/SeparationOfConcerns.md) — how domains stay independent
 
 **Handle special cases:**

@@ -1,4 +1,4 @@
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#servicecalendar)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#servicecalendar)*
 
 # ServiceCalendar
 

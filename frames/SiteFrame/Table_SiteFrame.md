@@ -27,13 +27,13 @@ SiteFrame
 | @id | ID | Unique identifier for the SiteFrame | SiteFrame/@id |
 | @version | String | Version number for change tracking | SiteFrame/@version |
 | stopPlaces | Container | Collection of stop place definitions | SiteFrame/stopPlaces |
-| [StopPlace](../../Objects/StopPlace/Table_StopPlace.md) | Element | Physical stop location with quays | SiteFrame/stopPlaces/StopPlace |
+| [StopPlace](../../objects/StopPlace/Table_StopPlace.md) | Element | Physical stop location with quays | SiteFrame/stopPlaces/StopPlace |
 | topographicPlaces | Container | Collection of TopographicPlace definitions | SiteFrame/topographicPlaces |
-| [TopographicPlace](../../Objects/TopographicPlace/Table_TopographicPlace.md) | Element | Geographic area (municipality, county) | SiteFrame/topographicPlaces/TopographicPlace |
+| [TopographicPlace](../../objects/TopographicPlace/Table_TopographicPlace.md) | Element | Geographic area (municipality, county) | SiteFrame/topographicPlaces/TopographicPlace |
 | parkings | Container | Collection of Parking definitions | SiteFrame/parkings |
-| [Parking](../../Objects/Parking/Table_Parking.md) | Element | Parking facility near a stop | SiteFrame/parkings/Parking |
+| [Parking](../../objects/Parking/Table_Parking.md) | Element | Parking facility near a stop | SiteFrame/parkings/Parking |
 | tariffZones | Container | Collection of TariffZone definitions | SiteFrame/tariffZones |
-| [TariffZone](../../Objects/TariffZone/Table_TariffZone.md) | Element | Fare zone boundary | SiteFrame/tariffZones/TariffZone |
+| [TariffZone](../../objects/TariffZone/Table_TariffZone.md) | Element | Fare zone boundary | SiteFrame/tariffZones/TariffZone |
 | groupsOfStopPlaces | Container | Collection of stop place groupings | SiteFrame/groupsOfStopPlaces |
 | GroupOfStopPlaces | Element | Logical grouping of stop places | SiteFrame/groupsOfStopPlaces/GroupOfStopPlaces |
 | groupsOfTariffZones | Container | Collection of tariff zone groupings | SiteFrame/groupsOfTariffZones |

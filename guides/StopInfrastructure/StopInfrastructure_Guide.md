@@ -315,13 +315,13 @@ flowchart TD
 ### Frames & Objects
 - [SiteFrame](../../Frames/SiteFrame/Table_SiteFrame.md) — Physical infrastructure
 - [ServiceFrame](../../Frames/ServiceFrame/Table_ServiceFrame.md) — Logical timetable data
-- [StopPlace](../../Objects/StopPlace/Table_StopPlace.md) — Physical stop location
-- [Quay](../../Objects/Quay/Table_Quay.md) — Boarding/alighting position
-- [ScheduledStopPoint](../../Objects/ScheduledStopPoint/Table_ScheduledStopPoint.md) — Logical stop
-- [PassengerStopAssignment](../../Objects/PassengerStopAssignment/Table_PassengerStopAssignment.md) — The bridge
-- [TopographicPlace](../../Objects/TopographicPlace/Table_TopographicPlace.md) — Geographic context
-- [TariffZone](../../Objects/TariffZone/Table_TariffZone.md) — Fare zone (legacy)
-- [FareZone](../../Objects/FareZone/Table_FareZone.md) — Fare zone (preferred)
+- [StopPlace](../../objects/StopPlace/Table_StopPlace.md) — Physical stop location
+- [Quay](../../objects/Quay/Table_Quay.md) — Boarding/alighting position
+- [ScheduledStopPoint](../../objects/ScheduledStopPoint/Table_ScheduledStopPoint.md) — Logical stop
+- [PassengerStopAssignment](../../objects/PassengerStopAssignment/Table_PassengerStopAssignment.md) — The bridge
+- [TopographicPlace](../../objects/TopographicPlace/Table_TopographicPlace.md) — Geographic context
+- [TariffZone](../../objects/TariffZone/Table_TariffZone.md) — Fare zone (legacy)
+- [FareZone](../../objects/FareZone/Table_FareZone.md) — Fare zone (preferred)
 
 ### External
 - [NeTEx CEN Standard](https://www.netex-cen.eu/) — Official specification

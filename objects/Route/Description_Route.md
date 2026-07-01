@@ -1,6 +1,6 @@
 # Route
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#route)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#route)*
 
 ## 1. Purpose
 The **Route** represents the logical geographic path definition for a Line with a specific direction. It defines the canonical sequence of scheduled stops that a line follows, serving as the authoritative reference for all JourneyPattern variants and ServiceJourney instances. By separating logical routing (Route) from operational variation (JourneyPattern) and specific departures (ServiceJourney), NeTEx enables flexible modeling of complex transport networks while maintaining data consistency.

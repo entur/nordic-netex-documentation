@@ -1,4 +1,4 @@
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#compoundtrain)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#compoundtrain)*
 
 # CompoundTrain
 

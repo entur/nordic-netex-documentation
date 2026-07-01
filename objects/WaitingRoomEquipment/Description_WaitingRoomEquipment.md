@@ -1,6 +1,6 @@
 # WaitingRoomEquipment
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#waitingroomequipment)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#waitingroomequipment)*
 
 ## 1. Purpose
 

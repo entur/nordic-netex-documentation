@@ -260,10 +260,10 @@ A complete example showing OperatingDays for date-specific instances, Weekdays a
 
 ### Frames & Objects
 - [ServiceCalendarFrame](../../Frames/ServiceCalendarFrame/Table_ServiceCalendarFrame.md) — The frame containing all calendar data
-- [OperatingDay](../../Objects/OperatingDay/Table_OperatingDay.md) — Single calendar date
-- [DatedServiceJourney](../../Objects/DatedServiceJourney/Table_DatedServiceJourney.md) — The dated instance that references OperatingDay
-- [DayType](../../Objects/DayType/Table_DayType.md) — Recurring day pattern specification
-- [ServiceJourney](../../Objects/ServiceJourney/Table_ServiceJourney.md) — The template that references DayType
+- [OperatingDay](../../objects/OperatingDay/Table_OperatingDay.md) — Single calendar date
+- [DatedServiceJourney](../../objects/DatedServiceJourney/Table_DatedServiceJourney.md) — The dated instance that references OperatingDay
+- [DayType](../../objects/DayType/Table_DayType.md) — Recurring day pattern specification
+- [ServiceJourney](../../objects/ServiceJourney/Table_ServiceJourney.md) — The template that references DayType
 
 ### External
 - [NeTEx CEN Standard](https://www.netex-cen.eu/) — Official specification

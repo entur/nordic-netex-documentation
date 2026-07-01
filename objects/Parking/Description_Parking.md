@@ -1,6 +1,6 @@
 # Parking
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#parking)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#parking)*
 
 ## 1. Purpose
 

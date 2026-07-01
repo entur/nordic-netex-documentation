@@ -271,10 +271,10 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 ### Frames & Objects
 - [VehicleScheduleFrame](../../Frames/VehicleScheduleFrame/Table_VehicleScheduleFrame.md) — Where TrainBlock lives
 - [ResourceFrame](../../Frames/ResourceFrame/Table_ResourceFrame.md) — Where Train/CompoundTrain/TrainElement are defined
-- [TrainBlock](../../Objects/TrainBlock/Table_TrainBlock.md) — Block object specification
-- [VehicleType](../../Objects/VehicleType/Table_VehicleType.md) — Generic vehicle type (parent of Train)
-- [DatedServiceJourney](../../Objects/DatedServiceJourney/Table_DatedServiceJourney.md) — Date-specific journey with BlockRef
-- [ServiceJourney](../../Objects/ServiceJourney/Table_ServiceJourney.md) — Journey template
+- [TrainBlock](../../objects/TrainBlock/Table_TrainBlock.md) — Block object specification
+- [VehicleType](../../objects/VehicleType/Table_VehicleType.md) — Generic vehicle type (parent of Train)
+- [DatedServiceJourney](../../objects/DatedServiceJourney/Table_DatedServiceJourney.md) — Date-specific journey with BlockRef
+- [ServiceJourney](../../objects/ServiceJourney/Table_ServiceJourney.md) — Journey template
 
 ### External
 - [NeTEx CEN Standard](https://www.netex-cen.eu/) — Official specification

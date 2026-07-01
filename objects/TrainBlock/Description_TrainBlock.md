@@ -1,6 +1,6 @@
 # TrainBlock
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#trainblock)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#trainblock)*
 
 ## 1. Purpose
 

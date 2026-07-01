@@ -1,4 +1,4 @@
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#servicelink)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#servicelink)*
 
 # ServiceLink
 
