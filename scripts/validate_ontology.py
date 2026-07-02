@@ -117,8 +117,13 @@ def check_doc_paths(g: Graph, result: ValidationResult):
     for prop in doc_props:
         for subj, obj in g.subject_objects(prop):
             path_str = str(obj)
-            full_path = REPO_ROOT / path_str
+            full_path = (REPO_ROOT / path_str).resolve()
             checked += 1
+            if not full_path.is_relative_to(REPO_ROOT):
+                short_subj = str(subj).split("#")[-1] if "#" in str(subj) else str(subj)
+                result.error(f"Path escapes repo root: {path_str} (referenced by {short_subj})")
+                missing += 1
+                continue
             if not full_path.exists():
                 short_subj = str(subj).split("#")[-1] if "#" in str(subj) else str(subj)
                 result.error(f"File not found: {path_str} (referenced by {short_subj})")

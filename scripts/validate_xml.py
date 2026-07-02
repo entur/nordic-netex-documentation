@@ -79,7 +79,7 @@ def find_xml_files() -> list[Path]:
             files.extend(glob.glob(arg, recursive=True))
         return [Path(f) for f in files if f.endswith(".xml")]
 
-    patterns = ["frames/**/*.xml", "objects/**/*.xml"]
+    patterns = ["frames/**/*.xml", "objects/**/*.xml", "guides/**/*.xml"]
     xml_files = []
     for pattern in patterns:
         xml_files.extend(REPO_ROOT.glob(pattern))

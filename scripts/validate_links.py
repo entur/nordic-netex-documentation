@@ -19,7 +19,8 @@ import io
 from pathlib import Path
 
 # Ensure UTF-8 output regardless of terminal encoding
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+if hasattr(sys.stdout, 'buffer'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 VERBOSE = "--verbose" in sys.argv or "-v" in sys.argv
@@ -54,6 +55,10 @@ def check_link(md_file: Path, target: str) -> bool:
         resolved = (REPO_ROOT / path_part.lstrip("/")).resolve()
     else:
         resolved = (md_file.parent / path_part).resolve()
+
+    # Reject paths that escape the repository root
+    if not resolved.is_relative_to(REPO_ROOT):
+        return False
     return resolved.exists()
 
 
