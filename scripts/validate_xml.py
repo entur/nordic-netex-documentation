@@ -72,11 +72,10 @@ def ensure_xsd():
 
 def find_xml_files() -> list[Path]:
     """Find all XML example files."""
-    if len(sys.argv) > 1:
+    positional_args = [a for a in sys.argv[1:] if not a.startswith("-")]
+    if positional_args:
         files = []
-        for arg in sys.argv[1:]:
-            if arg.startswith("-"):
-                continue
+        for arg in positional_args:
             files.extend(glob.glob(arg, recursive=True))
         return [Path(f) for f in files if f.endswith(".xml")]
 

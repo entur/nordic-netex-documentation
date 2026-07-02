@@ -24,10 +24,6 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 ONTOLOGY_DIR = REPO_ROOT / "ontology"
 DOC_TTL = ONTOLOGY_DIR / "netex-nordic-documentation.ttl"
 
-# Submodule paths
-SUBMODULE_DIR = ONTOLOGY_DIR / "entur-netex-ontology"
-INNER_SUBMODULE_DIR = SUBMODULE_DIR / "nordic-netex-ontology"
-
 NETEX = Namespace("https://netex-cen.eu/ontology#")
 DOC = Namespace("https://netex-cen.eu/doc#")
 PROFILE = Namespace("https://netex-cen.eu/profile#")
