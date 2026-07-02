@@ -1,0 +1,27 @@
+# Known broken links — content not yet written
+# Remove entries as pages are created
+# Format: exact link target as it appears in the Markdown source
+
+# Guides not yet written
+/guides/ExtendedSales_and_DeviationHandling/ExtendedSales_and_DeviationHandling_Guide.md
+../ExtendedSales_and_DeviationHandling/ExtendedSales_and_DeviationHandling_Guide.md
+guides/ExtendedSales_and_DeviationHandling/ExtendedSales_and_DeviationHandling_Guide.md
+../JourneyLifecycle/JourneyLifecycle_Guide.md
+
+# LLM tooling directory (not yet created)
+../../LLM/README.md
+../../LLM/Templates/Object_Struture_and_Table_Template.md
+
+# Objects not yet documented
+../../objects/placeEquipments/Description_placeEquipments.md
+../DatedVehicleJourney/Table_DatedVehicleJourney.md
+../Block/Table_Block.md
+../KeyValue/Table_KeyValue.md
+../FlexibleLine/Table_FlexibleLine.md
+../PassingTimes/Table_TimetabledPassingTime.md
+../JourneyPart/Table_JourneyPart.md
+
+# XML examples not yet created
+AlternativeText.xml
+FlexibleServiceProperties.xml
+PurposeOfGrouping.xml

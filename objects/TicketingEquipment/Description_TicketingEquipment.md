@@ -1,4 +1,4 @@
-# TicketingEquipment
+﻿# TicketingEquipment
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#ticketingequipment)*
 
@@ -56,4 +56,4 @@ The **TicketingEquipment** describes ticket machines, validators, or other ticke
 
 See [Table_TicketingEquipment.md](Table_TicketingEquipment.md) for detailed attribute specifications.
 
-Example XML: [TicketingEquipment.xml](TicketingEquipment.xml)
+Example XML: [Example_TicketingEquipment_NP.xml](Example_TicketingEquipment_NP.xml)

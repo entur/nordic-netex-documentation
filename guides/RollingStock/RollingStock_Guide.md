@@ -269,8 +269,8 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 - [Separation of Concerns](../SeparationOfConcerns/SeparationOfConcerns.md) — Why timetable and vehicle domains are separated
 
 ### Frames & Objects
-- [VehicleScheduleFrame](../../Frames/VehicleScheduleFrame/Table_VehicleScheduleFrame.md) — Where TrainBlock lives
-- [ResourceFrame](../../Frames/ResourceFrame/Table_ResourceFrame.md) — Where Train/CompoundTrain/TrainElement are defined
+- [VehicleScheduleFrame](../../frames/VehicleScheduleFrame/Table_VehicleScheduleFrame.md) — Where TrainBlock lives
+- [ResourceFrame](../../frames/ResourceFrame/Table_ResourceFrame.md) — Where Train/CompoundTrain/TrainElement are defined
 - [TrainBlock](../../objects/TrainBlock/Table_TrainBlock.md) — Block object specification
 - [VehicleType](../../objects/VehicleType/Table_VehicleType.md) — Generic vehicle type (parent of Train)
 - [DatedServiceJourney](../../objects/DatedServiceJourney/Table_DatedServiceJourney.md) — Date-specific journey with BlockRef

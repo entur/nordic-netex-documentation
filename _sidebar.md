@@ -17,14 +17,14 @@
   - [Ontology](/guides/Ontology/Ontology_Guide.md)
 
 <!-- - **Frames** -->
-  <!-- - [CompositeFrame](/Frames/CompositeFrame/Description_CompositeFrame.md) -->
-  <!-- - [ResourceFrame](/Frames/ResourceFrame/Description_ResourceFrame.md) -->
-  <!-- - [SiteFrame](/Frames/SiteFrame/Description_SiteFrame.md) -->
-  <!-- - [ServiceFrame](/Frames/ServiceFrame/Description_ServiceFrame.md) -->
-  <!-- - [ServiceCalendarFrame](/Frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md) -->
-  <!-- - [TimetableFrame](/Frames/TimetableFrame/Description_TimetableFrame.md) -->
-  <!-- - [VehicleScheduleFrame](/Frames/VehicleScheduleFrame/Description_VehicleScheduleFrame.md) -->
-  <!-- - [FareFrame](/Frames/FareFrame/Description_FareFrame.md) -->
-  <!-- - [SalesTransactionFrame](/Frames/SalesTransactionFrame/Description_SalesTransactionFrame.md) -->
+  <!-- - [CompositeFrame](/frames/CompositeFrame/Description_CompositeFrame.md) -->
+  <!-- - [ResourceFrame](/frames/ResourceFrame/Description_ResourceFrame.md) -->
+  <!-- - [SiteFrame](/frames/SiteFrame/Description_SiteFrame.md) -->
+  <!-- - [ServiceFrame](/frames/ServiceFrame/Description_ServiceFrame.md) -->
+  <!-- - [ServiceCalendarFrame](/frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md) -->
+  <!-- - [TimetableFrame](/frames/TimetableFrame/Description_TimetableFrame.md) -->
+  <!-- - [VehicleScheduleFrame](/frames/VehicleScheduleFrame/Description_VehicleScheduleFrame.md) -->
+  <!-- - [FareFrame](/frames/FareFrame/Description_FareFrame.md) -->
+  <!-- - [SalesTransactionFrame](/frames/SalesTransactionFrame/Description_SalesTransactionFrame.md) -->
 - **Reference**
   - [Glossary](/guides/Glossary/Glossary.md)

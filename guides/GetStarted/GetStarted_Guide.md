@@ -86,7 +86,7 @@ flowchart TD
 
 **Frames** separate data by domain. Each frame type holds a specific kind of data. This separation means you can update timetables without touching stop data, or change fares without republishing routes.
 
-For details, see the [CompositeFrame documentation](../../Frames/CompositeFrame/Description_CompositeFrame.md).
+For details, see the [CompositeFrame documentation](../../frames/CompositeFrame/Description_CompositeFrame.md).
 
 ---
 
@@ -96,13 +96,13 @@ Each frame type owns a specific domain of transport data. You only include the f
 
 | Frame | Transmodel Domain | What It Holds | Example Objects |
 |-------|-------------------|---------------|-----------------|
-| [ResourceFrame](../../Frames/ResourceFrame/Description_ResourceFrame.md) | Organizations | Shared resources used by all other frames | Operator, Authority, VehicleType |
-| [SiteFrame](../../Frames/SiteFrame/Description_SiteFrame.md) | Fixed Objects | Physical infrastructure | StopPlace, Quay, Parking |
-| [ServiceCalendarFrame](../../Frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md) | Calendar | When services operate | DayType, OperatingDay, OperatingPeriod |
-| [ServiceFrame](../../Frames/ServiceFrame/Description_ServiceFrame.md) | Network | Route structure and stop assignments | Line, Route, JourneyPattern, ScheduledStopPoint |
-| [TimetableFrame](../../Frames/TimetableFrame/Description_TimetableFrame.md) | Timetable | Journey scheduling | ServiceJourney, DatedServiceJourney |
-| [VehicleScheduleFrame](../../Frames/VehicleScheduleFrame/Description_VehicleScheduleFrame.md) | Vehicle Planning | Vehicle assignments | Block, TrainBlock |
-| [FareFrame](../../Frames/FareFrame/Description_FareFrame.md) | Fares | Pricing and products | FareZone, TariffZone |
+| [ResourceFrame](../../frames/ResourceFrame/Description_ResourceFrame.md) | Organizations | Shared resources used by all other frames | Operator, Authority, VehicleType |
+| [SiteFrame](../../frames/SiteFrame/Description_SiteFrame.md) | Fixed Objects | Physical infrastructure | StopPlace, Quay, Parking |
+| [ServiceCalendarFrame](../../frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md) | Calendar | When services operate | DayType, OperatingDay, OperatingPeriod |
+| [ServiceFrame](../../frames/ServiceFrame/Description_ServiceFrame.md) | Network | Route structure and stop assignments | Line, Route, JourneyPattern, ScheduledStopPoint |
+| [TimetableFrame](../../frames/TimetableFrame/Description_TimetableFrame.md) | Timetable | Journey scheduling | ServiceJourney, DatedServiceJourney |
+| [VehicleScheduleFrame](../../frames/VehicleScheduleFrame/Description_VehicleScheduleFrame.md) | Vehicle Planning | Vehicle assignments | Block, TrainBlock |
+| [FareFrame](../../frames/FareFrame/Description_FareFrame.md) | Fares | Pricing and products | FareZone, TariffZone |
 
 > [!TIP]
 > You don't need all frames in every delivery. A stop registry might only use SiteFrame. A timetable exchange might use ServiceCalendarFrame + ServiceFrame + TimetableFrame. Include only what's relevant.
@@ -115,7 +115,7 @@ Each frame type owns a specific domain of transport data. You only include the f
 
 Let's look at what a real NeTEx file looks like. At this stage, don't worry about what the objects *mean* — focus on the **structure** and the **reference pattern**.
 
-📄 **Full file:** [Example_CompositeFrame.xml](../../Frames/CompositeFrame/Example_CompositeFrame.xml)
+📄 **Full file:** [Example_CompositeFrame.xml](../../frames/CompositeFrame/Example_CompositeFrame.xml)
 
 ### The Envelope
 

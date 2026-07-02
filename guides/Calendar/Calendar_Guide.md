@@ -259,7 +259,7 @@ A complete example showing OperatingDays for date-specific instances, Weekdays a
 - [Get Started](../GetStarted/GetStarted_Guide.md) — NeTEx fundamentals and document anatomy
 
 ### Frames & Objects
-- [ServiceCalendarFrame](../../Frames/ServiceCalendarFrame/Table_ServiceCalendarFrame.md) — The frame containing all calendar data
+- [ServiceCalendarFrame](../../frames/ServiceCalendarFrame/Table_ServiceCalendarFrame.md) — The frame containing all calendar data
 - [OperatingDay](../../objects/OperatingDay/Table_OperatingDay.md) — Single calendar date
 - [DatedServiceJourney](../../objects/DatedServiceJourney/Table_DatedServiceJourney.md) — The dated instance that references OperatingDay
 - [DayType](../../objects/DayType/Table_DayType.md) — Recurring day pattern specification

@@ -1,4 +1,4 @@
-# StopPlace
+ï»¿# StopPlace
 
 > *? [Glossary definition](../../guides/Glossary/Glossary.md#stopplace)*
 
@@ -11,20 +11,20 @@ StopPlace (Monomodal)
  +- ?? @id (1..1)
  +- ?? @version (1..1)
  +- ?? ValidBetween (0..1)
- ¦  +- ?? FromDate (1..1)
+ ï¿½  +- ?? FromDate (1..1)
  +- ?? keyList (0..1)
- ¦  +- ?? KeyValue (0..*)
+ ï¿½  +- ?? KeyValue (0..*)
  +- ?? Name (1..1)
  +- ?? Centroid (0..1)
- ¦  +- ?? Location (1..1)
- ¦     +- ?? Longitude (1..1)
- ¦     +- ?? Latitude (1..1)
+ ï¿½  +- ?? Location (1..1)
+ ï¿½     +- ?? Longitude (1..1)
+ ï¿½     +- ?? Latitude (1..1)
  +- ?? AccessibilityAssessment (0..1)
- ¦  +- ?? MobilityImpairedAccess (1..1)
- ¦  +- ?? limitations (0..1)
- ¦     +- ?? AccessibilityLimitation (1..n)
- ¦        +- ?? WheelchairAccess (0..1)
- ¦        +- ?? StepFreeAccess (0..1)
+ ï¿½  +- ?? MobilityImpairedAccess (1..1)
+ ï¿½  +- ?? limitations (0..1)
+ ï¿½     +- ?? AccessibilityLimitation (1..n)
+ ï¿½        +- ?? WheelchairAccess (0..1)
+ ï¿½        +- ?? StepFreeAccess (0..1)
  +- ?? TopographicPlaceRef/@ref (0..1)
  +- ?? ParentSiteRef/@ref (0..1)
  +- ?? TransportMode (1..1)
@@ -51,9 +51,9 @@ StopPlace (Multimodal Parent)
 - **TopographicPlaceRef**: Reference to the city or geographic region; supports administrative hierarchy and reporting.
 
 ## 4. References
-- [Quay](../Quay/Table_Quay.md) – Specific boarding/alighting positions within this StopPlace
-- [TariffZone](../TariffZone/Table_TariffZone.md) – Fare zones applicable at this StopPlace
-- [TopographicPlace](../TopographicPlace/Table_TopographicPlace.md) – City or region containing this StopPlace
+- [Quay](../Quay/Table_Quay.md) ï¿½ Specific boarding/alighting positions within this StopPlace
+- [TariffZone](../TariffZone/Table_TariffZone.md) ï¿½ Fare zones applicable at this StopPlace
+- [TopographicPlace](../TopographicPlace/Table_TopographicPlace.md) ï¿½ City or region containing this StopPlace
 
 ## 5. Usage Notes
 
@@ -64,12 +64,12 @@ StopPlace (Multimodal Parent)
 - **Centroid positioning**: For monomodal stops, Centroid should be positioned centrally between serving Quays; for multimodal parents, it should be at the hub center.
 
 ### 5b. Validation Requirements
-- **Name is mandatory** – All StopPlaces must have a Name element for identification and display.
-- **TransportMode is mandatory for monomodal StopPlaces** – If the StopPlace contains Quays, TransportMode MUST be present; multimodal parents must NOT have TransportMode.
-- **StopPlaceType is required when Quays are present** – Functional classification enables downstream routing and service assignment.
-- **@id and @version are mandatory** – Follow codespace convention (e.g., `NP:StopPlace:1001`); version typically "1" unless updated.
-- **ParentSiteRef cardinality** – If used, a child StopPlace references exactly one multimodal parent; no orphaned children or multiple parents allowed.
-- **Quay containment** – Multimodal parents must have zero Quays (cardinality 0); monomodal StopPlaces must have at least one Quay (cardinality 1..n).
+- **Name is mandatory** ï¿½ All StopPlaces must have a Name element for identification and display.
+- **TransportMode is mandatory for monomodal StopPlaces** ï¿½ If the StopPlace contains Quays, TransportMode MUST be present; multimodal parents must NOT have TransportMode.
+- **StopPlaceType is required when Quays are present** ï¿½ Functional classification enables downstream routing and service assignment.
+- **@id and @version are mandatory** ï¿½ Follow codespace convention (e.g., `NP:StopPlace:1001`); version typically "1" unless updated.
+- **ParentSiteRef cardinality** ï¿½ If used, a child StopPlace references exactly one multimodal parent; no orphaned children or multiple parents allowed.
+- **Quay containment** ï¿½ Multimodal parents must have zero Quays (cardinality 0); monomodal StopPlaces must have at least one Quay (cardinality 1..n).
 
 ### 5c. Common Pitfalls
 
@@ -80,7 +80,7 @@ StopPlace (Multimodal Parent)
 > - **Mixed navigation elements in wrong context**: Placing pathLinks, navigationPaths, or accessSpaces under Quays instead of under the parent StopPlace; these are stop-level, not quay-level constructs.
 
 > [!TIP]
-> **Centroid positioning**: For monomodal stops, place the Centroid centrally between all serving Quays. For multimodal parents, position it at the hub center — not at a single Quay.
+> **Centroid positioning**: For monomodal stops, place the Centroid centrally between all serving Quays. For multimodal parents, position it at the hub center ï¿½ not at a single Quay.
 
 ## 6. Additional Information
-See [Table_StopPlace.md](Table_StopPlace.md) for detailed attribute specifications, cardinality rules, and the complete element structure. See [Example_StopPlace.xml](Example_StopPlace.xml) for examples of monomodal and multimodal StopPlace configurations with embedded Quays.
+See [Table_StopPlace.md](Table_StopPlace.md) for detailed attribute specifications, cardinality rules, and the complete element structure. See [Example_StopPlace_NP.xml](Example_StopPlace_NP.xml) for examples of monomodal and multimodal StopPlace configurations with embedded Quays.
