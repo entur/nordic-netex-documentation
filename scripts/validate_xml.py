@@ -94,7 +94,8 @@ def validate_file(xml_path: Path, schema: etree.XMLSchema) -> list[str]:
     except etree.XMLSyntaxError as e:
         return [f"XML parse error: {e}"]
 
-    schema.validate(doc)
+    if schema.validate(doc):
+        return []
     return [f"  Line {err.line}: {err.message}" for err in schema.error_log]
 
 
