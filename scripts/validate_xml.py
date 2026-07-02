@@ -7,7 +7,7 @@ Usage:
     python scripts/validate_xml.py frames/**/*.xml     # specific files
     python scripts/validate_xml.py --verbose
 
-Requires: lxml
+Requires: Python 3.9+, lxml
     pip install lxml
 
 XSD: Downloaded automatically on first run, or set NETEX_XSD_PATH env var.
@@ -67,7 +67,7 @@ def ensure_xsd():
                 else:
                     target.parent.mkdir(parents=True, exist_ok=True)
                     with z.open(member) as src, open(target, 'wb') as dst:
-                        dst.write(src.read())
+                        shutil.copyfileobj(src, dst)
     zip_path.unlink()
     print(f"XSD extracted to {XSD_DIR / 'xsd'}")
     return SCHEMA_PATH

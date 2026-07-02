@@ -77,7 +77,7 @@ jobs:
           echo "Checking submodule status..."
           status="$(git submodule status --recursive)"
           echo "$status"
-          if echo "$status" | grep -qE '^[+-]'; then
+          if echo "$status" | grep -qE '^[-+U]'; then
             echo "ERROR: One or more submodules are not checked out at the recorded commit"
             exit 1
           fi

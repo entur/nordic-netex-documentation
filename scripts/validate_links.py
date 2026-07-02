@@ -11,7 +11,7 @@ Usage:
     python scripts/validate_links.py
     python scripts/validate_links.py --verbose
 
-Requires: no external dependencies (stdlib only)
+Requires: Python 3.10+, no external dependencies (stdlib only)
 """
 import re
 import sys
