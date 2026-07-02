@@ -1,0 +1,82 @@
+name: Validate Documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-ontology:
+    name: Ontology TTL validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install rdflib
+
+      - name: Validate ontology (syntax, structure, doc paths)
+        run: python scripts/validate_ontology.py
+
+  validate-links:
+    name: Markdown link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate internal links
+        run: python scripts/validate_links.py
+
+  validate-xml:
+    name: XML schema validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install lxml
+
+      - name: Cache NeTEx XSD
+        uses: actions/cache@v4
+        with:
+          path: .xsd-cache
+          key: netex-xsd-v1.2.2
+
+      - name: Validate XML examples against NeTEx XSD
+        run: python scripts/validate_xml.py
+
+  validate-submodules:
+    name: Submodule integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Verify submodule checkout
+        run: |
+          echo "Checking submodule paths..."
+          test -f ontology/entur-netex-ontology/netex-entur.ttl || \
+            (echo "ERROR: entur-netex-ontology not checked out" && exit 1)
+          test -f ontology/entur-netex-ontology/nordic-netex-ontology/netex.ttl || \
+            (echo "ERROR: nordic-netex-ontology not checked out" && exit 1)
+          echo "All submodules present ✓"

@@ -28,6 +28,17 @@
     rdfs:label "NeTEx Nordic Documentation Layer" ;
     rdfs:comment "Adds doc:description, doc:table, doc:example, and profile:scope to ontology classes." .
 
+## --- Repository base URL ---
+## All doc:description, doc:table, and doc:example paths are relative
+## to this base. Concatenate with the raw content path for resolution:
+##   {doc:repoBase}/blob/main/{relative-path}
+doc:repoBase a owl:AnnotationProperty ;
+    rdfs:label "repoBase" ;
+    rdfs:comment "Base URL of the repository containing the documentation files. Resolve relative paths by appending: /blob/main/{path}" .
+
+<https://netex-cen.eu/ontology/nordic-documentation>
+    doc:repoBase "https://github.com/entur/nordic-netex-documentation" .
+
 ## --- Documentation vocabulary ---
 doc:description a owl:AnnotationProperty ;
     rdfs:label "description" ;
