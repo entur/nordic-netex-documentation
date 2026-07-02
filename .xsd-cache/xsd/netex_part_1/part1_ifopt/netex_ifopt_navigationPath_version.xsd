@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 2007 03 23 Add repeating name -->
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:siri="http://www.siri.org.uk/siri" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0" id="netex_ifopt_navigationPath_version">
+	<!-- ======================================================================= -->
+	<!-- ===Global import of all acsb namespace elements neeeded to work around XERCES limitation
+	<xsd:include schemaLocation="../acsb/netex_acsb_all.xsd"/> =====-->
+	<!--.....These are the actual dependencies...-->
+	<xsd:include schemaLocation="netex_ifopt_path_version.xsd"/>
+	<xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_environment_version.xsd"/>
+	<!-- ======================================================================= -->
+	<xsd:annotation>
+		<xsd:appinfo>
+			<Metadata xmlns="http://www.govtalk.gov.uk/CM/gms-xs">
+				<Aggregation>main schema</Aggregation>
+				<Audience>e-service developers</Audience>
+				<Contributor>V1.0 Nicholas Knowles</Contributor>
+				<Contributor>Roger Slevin [Roger.Slevin@dft.gsi.gov.uk]</Contributor>
+				<Coverage>Europe</Coverage>
+				<Creator>Created as W3C .xsd schema by Nicholas Knowles. as 1.0 XML schema </Creator>
+				<Date>
+					<Created>2006-08-10</Created>
+				</Date>
+				<Date>
+					<Modified>2006-09-21</Modified>
+				</Date>
+				<Date>
+					<Modified>2007-03-22</Modified>
+				</Date>
+				<Date><Modified>2017-11-08</Modified> Move Description from Path in Sequence to supertype link in Sequence
+				</Date>
+				<Date><Modified>2024-02-06</Modified> Refactor  to share  common path elements with new DECK PATH LINKs etc
+				</Date>
+				<Description>
+					<Title>NeTEx Network Exchange - NAVIGATION PATH types.</Title>
+				</Description>
+				<Format>
+					<MediaType>text/xml</MediaType>
+					<Syntax>http://www.w3.org/2001/XMLSchema</Syntax>
+					<Description>XML schema, W3C Recommendation 2001</Description>
+				</Format>
+				<Identifier>{http://www.netex.org.uk/schemas/1.0/xsd/netex_part_1/part1_ifopt}netex_ifopt_navigationPath_version.xsd</Identifier>
+				<Language>[ISO 639-2/B] ENG</Language>
+				<Publisher>CEN TC278 SG6 and Department for Transport, Great Minster House, 76 Marsham Street, London SW1P 4DR</Publisher>
+				<Relation>
+					<Requires>http://www.netex.org.uk/schemas/1.0/ifopt/netex_ifopt_xxxxx.xsd</Requires>
+				</Relation>
+				<Rights>Unclassified
+					 <Copyright>CEN, Crown Copyright 2009-2024</Copyright>
+				</Rights>
+				<Source>
+					<ul>
+						<li>Evolved from NaPTAN, SIRI and other schemas.</li>
+					</ul>
+				</Source>
+				<Status>Version 1.0</Status>
+				<Subject>
+					<Category>Arts, recreation and travel, Tourism, Travel (tourism), Transport,
+Air transport, Airports,
+Ports and maritime transport, Ferries (marine),
+Public transport, Bus services, Coach services, Bus stops and stations,
+Rail transport, Railway stations and track, Train services, Underground trains,
+Business and industry, Transport, Air transport , Ports and maritime transport, Public transport,
+Rail transport, Roads and Road transport
+</Category>
+					<Project>CEN TC278 WG3 SG9.</Project>
+				</Subject>
+				<Title>NeTEx Network Exchange (IFOPT subset) - NAVIGATION PATH types.</Title>
+				<Type>Standard</Type>
+			</Metadata>
+		</xsd:appinfo>
+		<xsd:documentation>IFOPT NAVIGATION PATH Model.</xsd:documentation>
+	</xsd:annotation>
+	<!-- ===ENTIITY IN VERSION IN FRAME====(Used in SITEFRAME)=================================================== -->
+	<xsd:group name="PathInFrameGroup">
+		<xsd:annotation>
+			<xsd:documentation>PATH related elements in frame.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="navigationPaths" type="navigationPathsInFrame_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>NAVIGATION PATHs in frame.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="pathLinks" type="sitePathLinksInFrame_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>SITE PATH LINKs in frame.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="pathJunctions" type="sitePathJunctionsInFrame_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>SITE PATH JUNCTIONs in frame.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:complexType name="navigationPathsInFrame_RelStructure">
+		<xsd:annotation>
+			<xsd:documentation>Type for containment in frame of NAVIGATION PATHs.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="containmentAggregationStructure">
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element ref="SiteNavigationPath"/>
+					<xsd:element ref="NavigationPath">
+						<xsd:annotation>
+							<xsd:documentation>A designated path between two PLACEs. May include an Ordered sequence of references to PATH LINKS.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="sitePathLinksInFrame_RelStructure">
+		<xsd:annotation>
+			<xsd:documentation>Type for containment in frame of SITE PATH LINKs.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="containmentAggregationStructure">
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element ref="SitePathLink">
+						<xsd:annotation>
+							<xsd:documentation>A designated path between two PLACEs. May include an Ordered sequence of references to PATH LINKS.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element ref="OffSitePathLink"/>
+					<xsd:element ref="PathLink"/>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="sitePathJunctionsInFrame_RelStructure">
+		<xsd:annotation>
+			<xsd:documentation>Type for containment in frame of SITE PATH JUNCTIONs.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="containmentAggregationStructure">
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element ref="SitePathJunction">
+						<xsd:annotation>
+							<xsd:documentation>A designated path between two PLACEs within a SITE. May include an Ordered sequence of references to PATH LINKS.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element ref="PathJunction">
+						<xsd:annotation>
+							<xsd:documentation>A designated path between two PLACEs. May include an Ordered sequence of references to PATH LINKS.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:group name="SiteAccessGroup">
+		<xsd:annotation>
+			<xsd:documentation>Group of ACCESS and PATH related elements for a site.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="pathLinks" type="sitePathLinks_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>PATH LINKs for SITE.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="pathJunctions" type="sitePathJunctions_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>PATH JUNCTIONs within the SITE and or between the SITE elsewhere.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="accesses" type="accesses_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ACCESS links for SITE.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="navigationPaths" type="navigationPaths_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>NAVIGATION PATHs within the SITE and or between the SITE elsewhere.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+	<!-- ======SITE NAVIGATION PATH =============================================== -->
+	<xsd:complexType name="navigationPaths_RelStructure">
+		<xsd:annotation>
+			<xsd:documentation>Type for a list of NAVIGATION PATHs.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="containmentAggregationStructure">
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element ref="NavigationPathRef"/>
+					<xsd:element ref="NavigationPath">
+						<xsd:annotation>
+							<xsd:documentation>NAVIGATION PATH for a SITE.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="NavigationPath" substitutionGroup="LinkSequence">
+		<xsd:annotation>
+			<xsd:documentation>DEPRECATED use SITE NAVIGATION instead</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:restriction base="SiteNavigationPath_VersionStructure">
+					<xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="DataManagedObjectGroup"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="LinkSequenceGroup"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="GenericNavigationPathGroup"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="SiteNavigationPathGroup"/>
+						</xsd:sequence>
+					</xsd:sequence>
+					<xsd:attribute name="id" type="SiteNavigationPathIdType" use="required"/>
+				</xsd:restriction>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SiteNavigationPath" substitutionGroup="LinkSequence">
+		<xsd:annotation>
+			<xsd:documentation>A designated path between two places. May include an ordered sequence of PATH LINKs.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:restriction base="SiteNavigationPath_VersionStructure">
+					<xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="DataManagedObjectGroup"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="LinkSequenceGroup"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="GenericNavigationPathGroup"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:group ref="SiteNavigationPathGroup"/>
+						</xsd:sequence>
+					</xsd:sequence>
+					<xsd:attribute name="id" type="SiteNavigationPathIdType" use="required"/>
+				</xsd:restriction>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="SiteNavigationPath_VersionStructure">
+		<xsd:annotation>
+			<xsd:documentation>Type for NAVIGATION PATH.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="GenericNavigationPath_VersionStructure">
+				<xsd:sequence>
+					<xsd:group ref="SiteNavigationPathGroup"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:group name="SiteNavigationPathGroup">
+		<xsd:annotation>
+			<xsd:documentation>Elements of a SITE NAVIGATION PATH.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:group ref="SiteNavigationPathSummaryGroup"/>
+			<xsd:group ref="SiteElementPropertiesGroup"/>
+			<xsd:group ref="NavigationPathLinksGroup"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="SiteNavigationPathSummaryGroup">
+		<xsd:annotation>
+			<xsd:documentation>Elements of a SITE NAVIGATION PATH that summarise properties o the set of PATH LINKs. Will state the strictest constraint found . e.g. if any link forbids wheelchair, the NAVIGATION PATH forbids wheelchair.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="From" type="SitePathLinkEndStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Origin end of NAVIGATION PATH. Only needed if detailed PATH LINKs are not given.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="To" type="SitePathLinkEndStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Destination end of NAVIGATION PATH. Only needed if detailed PATH LINKs not given.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:group ref="NavigationPathSummaryGroup"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="NavigationPathLinksGroup">
+		<xsd:annotation>
+			<xsd:documentation>Elements of a NAVIGATION PATH.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AccessFeatureList" type="AccessFeatureListOfEnumerations" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Classification of Overall Accessibility of NAVIGATION PATH.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NavigationType" type="NavigationTypeEnumeration" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Classification of Navigation.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="placesInSequence" type="placesInSequence_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ordered collection of References to STOP PLACE spaces Use for a branch path.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="pathLinksInSequence" type="pathLinksInSequence_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ordered collection of References to PATH LINKs.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="transfers" type="transferRefs_RelStructure" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Access Links that NAVIGATION PATH serves.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+	<!-- ======================================================================= -->
+</xsd:schema>
