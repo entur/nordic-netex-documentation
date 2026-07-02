@@ -1,0 +1,7 @@
+# XSD cache (downloaded by validate_xml.py)
+.xsd-cache/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
