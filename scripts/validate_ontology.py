@@ -6,7 +6,7 @@ Checks:
   1. Turtle syntax (all .ttl files parse without errors)
   2. Structural invariants (every owl:Class has rdfs:label + skos:definition)
   3. Doc path validation (every doc:description/table/example points to a real file)
-  4. OWL:Ontology header present in base ontology
+  4. OWL:Ontology header present in every parsed TTL file
 
 Usage:
     python scripts/validate_ontology.py
@@ -150,7 +150,7 @@ def main():
         if g is not None:
             graphs[ttl] = g
 
-    # 2. Check owl:Ontology headers (skip documentation layer — it already has one)
+    # 2. Check owl:Ontology headers
     print("\nChecking owl:Ontology headers...")
     for path, g in graphs.items():
         check_ontology_header(g, path, result)

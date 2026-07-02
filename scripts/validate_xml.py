@@ -37,9 +37,11 @@ def ensure_xsd():
     env_path = os.environ.get("NETEX_XSD_PATH")
     if env_path:
         p = Path(env_path)
+        if p.is_dir():
+            p = p / SCHEMA_PATH.name
         if p.exists():
             return p
-        print(f"WARNING: NETEX_XSD_PATH={env_path} does not exist")
+        print(f"WARNING: NETEX_XSD_PATH={env_path} did not resolve to an existing XSD file")
 
     if SCHEMA_PATH.exists():
         return SCHEMA_PATH
@@ -53,7 +55,9 @@ def ensure_xsd():
         for member in z.namelist():
             if member.startswith(XSD_SUBDIR):
                 rel = member[len("NeTEx-1.2.2/"):]
-                target = XSD_DIR / rel
+                target = (XSD_DIR / rel).resolve()
+                if not target.is_relative_to(XSD_DIR.resolve()):
+                    raise RuntimeError(f"Refusing to extract path outside cache dir: {member}")
                 if member.endswith('/'):
                     target.mkdir(parents=True, exist_ok=True)
                 else:
