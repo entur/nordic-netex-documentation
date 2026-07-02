@@ -30,7 +30,7 @@
 
 ## --- Repository base URL ---
 ## All doc:description, doc:table, and doc:example paths are relative
-## to this base. Concatenate with the raw content path for resolution:
+## to this base. Concatenate with the GitHub web UI path for resolution:
 ##   {doc:repoBase}/blob/main/{relative-path}
 doc:repoBase a owl:AnnotationProperty ;
     rdfs:label "repoBase" ;
