@@ -1,4 +1,4 @@
-# Route
+﻿# Route
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#route)*
 
@@ -61,4 +61,4 @@ The **Route** represents the logical geographic path definition for a Line with 
 > - **Multiple routes with identical stop sequences under one Line**: Unnecessarily creating separate Routes that differ only in DirectionType or naming; consolidate where possible and distinguish via DirectionType and PublicCode.
 
 ## 6. Additional Information
-See [Table_Route.md](Table_Route.md) for detailed attribute specifications, cardinality rules, and the complete PointsInSequence structure. See [Example_Route.xml](Example_Route.xml) for a complete, validated XML instance showing Route with ordered PointOnRoute elements.
+See [Table_Route.md](Table_Route.md) for detailed attribute specifications, cardinality rules, and the complete PointsInSequence structure. See [Example_Route_NP.xml](Example_Route_NP.xml) for a complete, validated XML instance showing Route with ordered PointOnRoute elements.

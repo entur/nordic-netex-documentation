@@ -1,4 +1,4 @@
-# Parking
+﻿# Parking
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#parking)*
 
@@ -69,4 +69,4 @@ Parking
 
 See [Table_Parking.md](Table_Parking.md) for detailed attribute specifications.
 
-Example XML: [Parking.xml](Parking.xml)
+Example XML: [Example_Parking_NP.xml](Example_Parking_NP.xml)

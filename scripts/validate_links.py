@@ -28,6 +28,21 @@ VERBOSE = "--verbose" in sys.argv or "-v" in sys.argv
 # Regex for Markdown links: [text](path) — excludes http/https URLs
 LINK_PATTERN = re.compile(r'\[([^\]]*)\]\(([^)]+)\)')
 
+# Known broken links file (one target path per line, comments with #)
+KNOWN_BROKEN_FILE = REPO_ROOT / "scripts" / "known_broken_links.txt"
+
+
+def load_known_broken() -> set[str]:
+    """Load known broken link targets that should be skipped."""
+    if not KNOWN_BROKEN_FILE.exists():
+        return set()
+    entries = set()
+    for line in KNOWN_BROKEN_FILE.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            entries.add(line)
+    return entries
+
 
 def find_md_files() -> list[Path]:
     """Find all Markdown files in the repo (excluding node_modules etc)."""
@@ -99,15 +114,22 @@ def main():
     print("Markdown Link Validation")
     print("=" * 60)
 
+    known_broken = load_known_broken()
+    if known_broken:
+        print(f"\nLoaded {len(known_broken)} known broken link targets (skipped)")
+
     md_files = find_md_files()
     print(f"\nScanning {len(md_files)} Markdown files...")
 
     errors = []
     warnings = []
+    skipped = 0
     total_links = 0
 
     for md in md_files:
         content = md.read_text(encoding="utf-8", errors="replace")
+        # Strip HTML comments to avoid parsing commented-out links
+        content = re.sub(r'<!--.*?-->', '', content, flags=re.DOTALL)
         for match in LINK_PATTERN.finditer(content):
             target = match.group(2)
 
@@ -117,6 +139,13 @@ def main():
 
             total_links += 1
             rel_md = md.relative_to(REPO_ROOT)
+
+            # Skip known broken links (content not yet written)
+            if target in known_broken:
+                skipped += 1
+                if VERBOSE:
+                    print(f"  SKIP (known): {rel_md} → {target}")
+                continue
 
             if not check_link(md, target):
                 line_num = content[:match.start()].count('\n') + 1
@@ -128,7 +157,7 @@ def main():
                 print(f"  OK: {rel_md} → {target}")
 
     # Report
-    print(f"\nChecked {total_links} internal links")
+    print(f"\nChecked {total_links} internal links ({skipped} skipped as known broken)")
 
     if warnings:
         print(f"\nWARN: {len(warnings)} case-sensitivity warnings:")

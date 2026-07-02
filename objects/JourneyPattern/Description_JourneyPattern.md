@@ -1,4 +1,4 @@
-# JourneyPattern
+﻿# JourneyPattern
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#journeypattern)*
 
@@ -90,4 +90,4 @@ JourneyPattern
 
 See [Table_JourneyPattern.md](Table_JourneyPattern.md) for detailed attribute specifications.
 
-Example XML: [Example_JourneyPattern.xml](Example_JourneyPattern.xml)
+Example XML: [Example_JourneyPattern_NP.xml](Example_JourneyPattern_NP.xml)
