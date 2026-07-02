@@ -27,6 +27,7 @@ SCHEMA_PATH = XSD_DIR / "xsd" / "NeTEx_publication.xsd"
 # NeTEx XSD release (pinned for reproducibility)
 XSD_URL = "https://github.com/NeTEx-CEN/NeTEx/archive/refs/tags/v1.2.2.zip"
 XSD_SUBDIR = "NeTEx-1.2.2/xsd"
+XSD_PREFIX = XSD_SUBDIR.split("/")[0] + "/"  # e.g. "NeTEx-1.2.2/"
 
 VERBOSE = "--verbose" in sys.argv or "-v" in sys.argv
 
@@ -54,7 +55,7 @@ def ensure_xsd():
     with zipfile.ZipFile(zip_path, 'r') as z:
         for member in z.namelist():
             if member.startswith(XSD_SUBDIR):
-                rel = member[len("NeTEx-1.2.2/"):]
+                rel = member[len(XSD_PREFIX):]
                 target = (XSD_DIR / rel).resolve()
                 if not target.is_relative_to(XSD_DIR.resolve()):
                     raise RuntimeError(f"Refusing to extract path outside cache dir: {member}")
