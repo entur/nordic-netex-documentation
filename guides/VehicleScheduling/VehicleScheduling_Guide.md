@@ -162,8 +162,8 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 - [Separation of Concerns](../SeparationOfConcerns/SeparationOfConcerns.md) -- Domain coupling strategies
 
 ### Frames & Objects
-- [VehicleScheduleFrame](../../Frames/VehicleScheduleFrame/Table_VehicleScheduleFrame.md) -- Where blocks live
-- [ResourceFrame](../../Frames/ResourceFrame/Table_ResourceFrame.md) -- VehicleType and Vehicle definitions
+- [VehicleScheduleFrame](../../frames/VehicleScheduleFrame/Table_VehicleScheduleFrame.md) -- Where blocks live
+- [ResourceFrame](../../frames/ResourceFrame/Table_ResourceFrame.md) -- VehicleType and Vehicle definitions
 - [TrainBlock](../../objects/TrainBlock/Table_TrainBlock.md) -- Rail-specific block
 - [VehicleType](../../objects/VehicleType/Table_VehicleType.md) -- Vehicle category template
 - [Vehicle](../../objects/Vehicle/Table_Vehicle.md) -- Physical fleet unit

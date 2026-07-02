@@ -169,8 +169,8 @@ Key properties:
 - [Stop Infrastructure](../StopInfrastructure/StopInfrastructure_Guide.md) -- Where stops are defined
 
 ### Frames & Objects
-- [ServiceFrame](../../Frames/ServiceFrame/Table_ServiceFrame.md) -- Where displays and notices are defined
-- [TimetableFrame](../../Frames/TimetableFrame/Table_TimetableFrame.md) -- Where notice assignments live
+- [ServiceFrame](../../frames/ServiceFrame/Table_ServiceFrame.md) -- Where displays and notices are defined
+- [TimetableFrame](../../frames/TimetableFrame/Table_TimetableFrame.md) -- Where notice assignments live
 - [DestinationDisplay](../../objects/DestinationDisplay/Table_DestinationDisplay.md) -- Vehicle signage text
 - [Notice](../../objects/Notice/Table_Notice.md) -- Reusable information text
 - [JourneyPattern](../../objects/JourneyPattern/Table_JourneyPattern.md) -- References DestinationDisplay per stop
