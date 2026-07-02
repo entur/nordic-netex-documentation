@@ -88,8 +88,9 @@ def find_xml_files() -> list[Path]:
 
 def validate_file(xml_path: Path, schema: etree.XMLSchema) -> list[str]:
     """Validate a single XML file. Returns list of error strings."""
+    parser = etree.XMLParser(resolve_entities=False, no_network=True, dtd_validation=False)
     try:
-        doc = etree.parse(str(xml_path))
+        doc = etree.parse(str(xml_path), parser)
     except etree.XMLSyntaxError as e:
         return [f"XML parse error: {e}"]
 
