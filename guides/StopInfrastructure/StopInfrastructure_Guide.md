@@ -313,8 +313,8 @@ flowchart TD
 - [NeTEx Conventions](../NeTExConventions/NeTEx_Conventions.md) — ID format and naming rules
 
 ### Frames & Objects
-- [SiteFrame](../../Frames/SiteFrame/Table_SiteFrame.md) — Physical infrastructure
-- [ServiceFrame](../../Frames/ServiceFrame/Table_ServiceFrame.md) — Logical timetable data
+- [SiteFrame](../../frames/SiteFrame/Table_SiteFrame.md) — Physical infrastructure
+- [ServiceFrame](../../frames/ServiceFrame/Table_ServiceFrame.md) — Logical timetable data
 - [StopPlace](../../objects/StopPlace/Table_StopPlace.md) — Physical stop location
 - [Quay](../../objects/Quay/Table_Quay.md) — Boarding/alighting position
 - [ScheduledStopPoint](../../objects/ScheduledStopPoint/Table_ScheduledStopPoint.md) — Logical stop

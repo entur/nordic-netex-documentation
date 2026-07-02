@@ -1,4 +1,4 @@
-# SanitaryEquipment
+﻿# SanitaryEquipment
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#sanitaryequipment)*
 
@@ -52,4 +52,4 @@ The **SanitaryEquipment** describes sanitary facilities (toilets, washrooms) ava
 
 See [Table_SanitaryEquipment.md](Table_SanitaryEquipment.md) for detailed attribute specifications.
 
-Example XML: [SanitaryEquipment.xml](SanitaryEquipment.xml)
+Example XML: [Example_SanitaryEquipment_NP.xml](Example_SanitaryEquipment_NP.xml)

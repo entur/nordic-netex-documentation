@@ -5,3 +5,6 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Script output files (accidental terminal dumps)
+*_out.txt

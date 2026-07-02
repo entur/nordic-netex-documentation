@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .xsd-cache
-          key: netex-xsd-v1.2.2
+          key: netex-xsd-v2.0.0
 
       - name: Validate XML examples against NeTEx XSD
         run: python scripts/validate_xml.py

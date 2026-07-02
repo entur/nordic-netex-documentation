@@ -1,4 +1,4 @@
-# AlternativeName
+﻿# AlternativeName
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#alternativename)*
 
@@ -48,4 +48,4 @@ The **AlternativeName** provides additional name variants for a NeTEx object, su
 
 See [Table_AlternativeName.md](Table_AlternativeName.md) for detailed attribute specifications.
 
-Example XML: [AlternativeName.xml](AlternativeName.xml)
+Example XML: [Example_AlternativeName_NP.xml](Example_AlternativeName_NP.xml)

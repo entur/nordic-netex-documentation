@@ -1,4 +1,4 @@
-# ShelterEquipment
+﻿# ShelterEquipment
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#shelterequipment)*
 
@@ -51,4 +51,4 @@ The **ShelterEquipment** describes weather shelter facilities available at a sto
 
 See [Table_ShelterEquipment.md](Table_ShelterEquipment.md) for detailed attribute specifications.
 
-Example XML: [ShelterEquipment.xml](ShelterEquipment.xml)
+Example XML: [Example_ShelterEquipment_NP.xml](Example_ShelterEquipment_NP.xml)

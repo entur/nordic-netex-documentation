@@ -71,7 +71,7 @@ A container frame that groups multiple typed frames (ServiceFrame, TimetableFram
 >
 > **Transmodel:** A set of VERSION FRAMEs to which the same VALIDITY CONDITIONs have been assigned.
 
-→ [Full documentation](../../Frames/CompositeFrame/Description_CompositeFrame.md)
+→ [Full documentation](../../frames/CompositeFrame/Description_CompositeFrame.md)
 
 ---
 
@@ -169,7 +169,7 @@ Contains fare data, products, and pricing rules - tariffs, validable elements, p
 
 > **NeTEx XSD:** A coherent set of Fare data to which the same VALIDITY CONDITIONs have been assigned.
 
-→ [Full documentation](../../Frames/FareFrame/Description_FareFrame.md)
+→ [Full documentation](../../frames/FareFrame/Description_FareFrame.md)
 
 ---
 
@@ -389,7 +389,7 @@ The root element of every NeTEx XML document, wrapping one or more frames with m
 
 > **NeTEx XSD:** A set of NeTEx objects as assembled by a publication request or other service. Provides a general purpose wrapper for NeTEx data content.
 
-→ [Example](../../Frames/Example_PublicationDelivery.xml)
+→ [Example](../../frames/Example_PublicationDelivery.xml)
 
 ---
 
@@ -421,7 +421,7 @@ Contains shared resources used across other frames - organisations (Authorities 
 
 > **NeTEx XSD:** A coherent set of reference values for TYPE OF VALUEs, ORGANISATIONs, VEHICLE TYPEs etc that have a common validity. Used to define common resources that will be referenced by other types of FRAME.
 
-→ [Full documentation](../../Frames/ResourceFrame/Description_ResourceFrame.md)
+→ [Full documentation](../../frames/ResourceFrame/Description_ResourceFrame.md)
 
 ---
 
@@ -453,7 +453,7 @@ Contains sales-related data including fare contracts and their entries, represen
 
 > **NeTEx XSD:** A coherent set of Sales Transaction data to which the same VALIDITY CONDITIONs have been assigned.
 
-→ [Full documentation](../../Frames/SalesTransactionFrame/Description_SalesTransactionFrame.md)
+→ [Full documentation](../../frames/SalesTransactionFrame/Description_SalesTransactionFrame.md)
 
 ---
 
@@ -503,7 +503,7 @@ Groups calendar definitions that describe when services operate - day types, ope
 
 > **NeTEx XSD:** A SERVICE CALENDAR. A coherent set of OPERATING DAYS and DAY TYPES comprising a Calendar, used to state the temporal VALIDITY of other NeTEx entities such as Timetables and STOP PLACEs.
 
-→ [Full documentation](../../Frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md)
+→ [Full documentation](../../frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md)
 
 ---
 
@@ -523,7 +523,7 @@ Contains the network and route definitions - Lines, Routes, JourneyPatterns, Sch
 
 > **NeTEx XSD:** A coherent set of Service data to which the same frame VALIDITY CONDITIONs have been assigned.
 
-→ [Full documentation](../../Frames/ServiceFrame/Description_ServiceFrame.md)
+→ [Full documentation](../../frames/ServiceFrame/Description_ServiceFrame.md)
 
 ---
 
@@ -587,7 +587,7 @@ Contains the physical infrastructure model for public transport - stop places, q
 
 > **NeTEx XSD:** A coherent set of SITE data to which the same frame VALIDITY CONDITIONs have been assigned.
 
-→ [Full documentation](../../Frames/SiteFrame/Description_SiteFrame.md)
+→ [Full documentation](../../frames/SiteFrame/Description_SiteFrame.md)
 
 ---
 
@@ -639,7 +639,7 @@ Contains operational journey definitions - ServiceJourneys, DatedServiceJourneys
 
 > **NeTEx XSD:** A coherent set of timetable data (VEHICLE JOURNEYs and BLOCKs) to which the same VALIDITY CONDITIONs have been assigned.
 
-→ [Full documentation](../../Frames/TimetableFrame/Description_TimetableFrame.md)
+→ [Full documentation](../../frames/TimetableFrame/Description_TimetableFrame.md)
 
 ---
 
@@ -715,7 +715,7 @@ Contains operational vehicle schedules - blocks, vehicle services, and duty assi
 
 > **NeTEx XSD:** A coherent set of Vehicle Scheduling data to which the same VALIDITY CONDITIONs have been assigned.
 
-→ [Full documentation](../../Frames/VehicleScheduleFrame/Description_VehicleScheduleFrame.md)
+→ [Full documentation](../../frames/VehicleScheduleFrame/Description_VehicleScheduleFrame.md)
 
 ---
 

@@ -1,4 +1,4 @@
-# OperatingDay
+﻿# OperatingDay
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#operatingday)*
 
@@ -52,4 +52,4 @@ OperatingDay
 
 See [Table_OperatingDay.md](Table_OperatingDay.md) for detailed attribute specifications.
 
-Example XML: [Example_OperatingDay.xml](Example_OperatingDay.xml)
+Example XML: [Example_OperatingDay_NP.xml](Example_OperatingDay_NP.xml)

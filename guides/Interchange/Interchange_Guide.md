@@ -234,7 +234,7 @@ Combining the interchange with a transfer-only stop in the journey pattern:
 - [NeTEx Conventions](../NeTExConventions/NeTEx_Conventions.md) -- ID format, casing, and element ordering rules
 
 ### Frames & Objects
-- [TimetableFrame](../../Frames/TimetableFrame/Table_TimetableFrame.md) -- Where interchanges are placed
+- [TimetableFrame](../../frames/TimetableFrame/Table_TimetableFrame.md) -- Where interchanges are placed
 - [ServiceJourney](../../objects/ServiceJourney/Table_ServiceJourney.md) -- The feeder and distributor journeys
 - [Interchange](../../objects/Interchange/Table_Interchange.md) -- Attribute specification table
 - [JourneyPattern](../../objects/JourneyPattern/Table_JourneyPattern.md) -- Contains StopPointInJourneyPattern

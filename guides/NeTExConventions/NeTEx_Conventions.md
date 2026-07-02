@@ -178,4 +178,4 @@ All examples in this repository use:
 
 ### Reference
 - [Codespace](../../objects/Codespace/Table_Codespace.md) — Codespace object documentation
-- [CompositeFrame](../../Frames/CompositeFrame/Description_CompositeFrame.md) — Top-level delivery structure
+- [CompositeFrame](../../frames/CompositeFrame/Description_CompositeFrame.md) — Top-level delivery structure
