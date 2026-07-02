@@ -4,7 +4,7 @@ Validate ontology TTL files: syntax, structural invariants, and doc path integri
 
 Checks:
   1. Turtle syntax (all .ttl files parse without errors)
-  2. Structural invariants (every owl:Class has rdfs:label + skos:definition)
+  2. Structural invariants (every owl:Class has rdfs:label; skos:definition recommended)
   3. Doc path validation (every doc:description/table/example points to a real file)
   4. OWL:Ontology header present in every parsed TTL file
 

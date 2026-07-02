@@ -15,6 +15,7 @@ XSD: Downloaded automatically on first run, or set NETEX_XSD_PATH env var.
 import os
 import sys
 import glob
+import shutil
 import urllib.request
 import zipfile
 from pathlib import Path
@@ -51,7 +52,9 @@ def ensure_xsd():
     XSD_DIR.mkdir(parents=True, exist_ok=True)
     zip_path = XSD_DIR / "netex-xsd.zip"
 
-    urllib.request.urlretrieve(XSD_URL, zip_path)
+    with urllib.request.urlopen(XSD_URL, timeout=120) as resp:
+        with open(zip_path, 'wb') as f:
+            shutil.copyfileobj(resp, f)
     with zipfile.ZipFile(zip_path, 'r') as z:
         for member in z.namelist():
             if member.startswith(XSD_SUBDIR):
