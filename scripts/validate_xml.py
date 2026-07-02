@@ -26,9 +26,9 @@ XSD_DIR = REPO_ROOT / ".xsd-cache"
 SCHEMA_PATH = XSD_DIR / "xsd" / "NeTEx_publication.xsd"
 
 # NeTEx XSD release (pinned for reproducibility)
-XSD_URL = "https://github.com/NeTEx-CEN/NeTEx/archive/refs/tags/v1.2.2.zip"
-XSD_SUBDIR = "NeTEx-1.2.2/xsd"
-XSD_PREFIX = XSD_SUBDIR.split("/")[0] + "/"  # e.g. "NeTEx-1.2.2/"
+XSD_URL = "https://github.com/TransmodelEcosystem/NeTEx/archive/refs/tags/v2.0.0.zip"
+XSD_SUBDIR = "NeTEx-2.0.0/xsd"
+XSD_PREFIX = XSD_SUBDIR.split("/")[0] + "/"  # e.g. "NeTEx-2.0.0/"
 
 VERBOSE = "--verbose" in sys.argv or "-v" in sys.argv
 
