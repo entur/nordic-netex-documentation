@@ -46,7 +46,7 @@ def check_link(md_file: Path, target: str) -> bool:
     if not path_part:
         return True  # pure fragment link
 
-    # Strip Docsify image sizing suffix (e.g. ':size=720')
+    # Strip Docsify image sizing suffix (e.g. "image.svg ':size=720'")
     if "'" in path_part:
         path_part = path_part.split("'")[0].strip()
 
