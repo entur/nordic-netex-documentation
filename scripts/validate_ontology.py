@@ -12,7 +12,7 @@ Usage:
     python scripts/validate_ontology.py
     python scripts/validate_ontology.py --verbose
 
-Requires: rdflib
+Requires: Python 3.10+, rdflib
     pip install rdflib
 """
 import sys

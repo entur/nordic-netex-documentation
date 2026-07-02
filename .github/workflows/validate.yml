@@ -74,9 +74,11 @@ jobs:
 
       - name: Verify submodule checkout
         run: |
-          echo "Checking submodule paths..."
-          test -f ontology/entur-netex-ontology/netex-entur.ttl || \
-            (echo "ERROR: entur-netex-ontology not checked out" && exit 1)
-          test -f ontology/entur-netex-ontology/nordic-netex-ontology/netex.ttl || \
-            (echo "ERROR: nordic-netex-ontology not checked out" && exit 1)
+          echo "Checking submodule status..."
+          status="$(git submodule status --recursive)"
+          echo "$status"
+          if echo "$status" | grep -qE '^[+-]'; then
+            echo "ERROR: One or more submodules are not checked out at the recorded commit"
+            exit 1
+          fi
           echo "All submodules present ✓"

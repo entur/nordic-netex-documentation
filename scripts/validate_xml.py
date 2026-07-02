@@ -77,10 +77,11 @@ def find_xml_files() -> list[Path]:
     """Find all XML example files."""
     positional_args = [a for a in sys.argv[1:] if not a.startswith("-")]
     if positional_args:
-        files = []
+        paths: set[Path] = set()
         for arg in positional_args:
-            files.extend(glob.glob(arg, recursive=True))
-        return [Path(f) for f in files if f.endswith(".xml")]
+            pattern = str(REPO_ROOT / arg) if not os.path.isabs(arg) else arg
+            paths.update(Path(p) for p in glob.glob(pattern, recursive=True))
+        return sorted(p for p in paths if p.suffix.lower() == ".xml" and p.is_file())
 
     patterns = ["frames/**/*.xml", "objects/**/*.xml", "guides/**/*.xml"]
     xml_files = []
