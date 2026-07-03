@@ -46,7 +46,7 @@ def load_known_broken() -> set[str]:
 
 def find_md_files() -> list[Path]:
     """Find all Markdown files in the repo (excluding node_modules etc)."""
-    excludes = {'.git', 'node_modules', '.venv'}
+    excludes = {'.git', 'node_modules', '.venv', '.claude'}
     files = []
     for md in REPO_ROOT.rglob("*.md"):
         if not any(part in excludes for part in md.parts):
