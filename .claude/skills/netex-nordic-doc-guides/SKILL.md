@@ -123,8 +123,9 @@ Links to related guides, frame/object documentation, and external references:
 
 ## Length
 
-- **Target:** 400–1200 words (excluding XML examples)
+- **Target:** 400–1200 words (excluding XML examples and tables)
 - Guides may be longer than Object/Frame descriptions — depth is expected
+- Completeness is preferred over truncation — especially for complex topics (e.g. rolling stock, compound trains)
 - If a guide exceeds ~2000 words, consider splitting into sub-guides
 
 ---
