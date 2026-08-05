@@ -74,7 +74,7 @@ graph TD
 | **TrainBlockPart** | (inside TrainBlock) | Segment with one formation | **CompoundTrainRef**, journeyParts |
 | **CompoundTrain** | ResourceFrame | Full train consist | components/TrainInCompoundTrain |
 | **Train** | ResourceFrame | Logical sub-unit (e.g. coach set) | components/TrainComponent |
-| **TrainElement** | ResourceFrame (vehicles/) | Single physical wagon/engine | TrainElementType |
+| **TrainElement** | ResourceFrame (trainElementTypes/) | Vehicle type/classification | TrainElementType |
 
 ---
 
@@ -82,9 +82,9 @@ graph TD
 
 NeTEx uses a three-level hierarchy for train formations:
 
-### Level 1: TrainElement — The Physical Unit
+### Level 1: TrainElement — The Vehicle Type
 
-A **TrainElement** represents a single indivisible unit: one locomotive, one carriage, one power car. It lives in `ResourceFrame/vehicles/`:
+A **TrainElement** represents a vehicle *type* — a classification such as "EL18" (a locomotive type) or "SL79" (a railcar type). It lives in `ResourceFrame/trainElementTypes/`:
 
 ```xml
 <TrainElement version="0" id="VYG:TrainElement:EL_18">
@@ -97,6 +97,9 @@ A **TrainElement** represents a single indivisible unit: one locomotive, one car
   <TrainElementType>carriage</TrainElementType>
 </TrainElement>
 ```
+
+> [!NOTE]
+> A TrainElement identifies a vehicle **type**, not the specific physical unit running today. Individual physical units are modelled separately via the [Vehicle](../../objects/Vehicle/Table_Vehicle.md) object in `ResourceFrame/vehicles/`, which is outside the scope of this guide.
 
 ### Level 2: Train — A Logical Group
 
@@ -256,7 +259,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 | Putting Train/CompoundTrain in VehicleScheduleFrame | XSD requires them in ResourceFrame/vehicleTypes | Move to `vehicleTypes` in ResourceFrame |
 | Using VehicleTypeRef for specific formation assignment | VehicleTypeRef is a generic hint, not dated assignment | Use DatedServiceJourney → TrainBlockRef → TrainBlockPart → CompoundTrainRef |
 | Missing DatedServiceJourney in chain | ServiceJourney alone can't carry date-specific block assignment | Always create DatedServiceJourney as the linking object |
-| TrainElement in vehicleTypes instead of vehicles | XSD places TrainElement under ResourceFrame/vehicles | Check container: `vehicleTypes` for Train/CompoundTrain, `vehicles` for TrainElement |
+| TrainElement in vehicleTypes instead of trainElementTypes | XSD places TrainElement under ResourceFrame/trainElementTypes, not vehicleTypes or vehicles | Check container: `vehicleTypes` for Train/CompoundTrain, `trainElementTypes` for TrainElement, `vehicles` for physical Vehicle instances |
 | TrainBlockRef on ServiceJourney (not DatedServiceJourney) | The XSD allows BlockRef on ServiceJourney, but for rail the assignment is date-specific | Use TrainBlockRef on DatedServiceJourney for date-variant formations |
 
 ---
@@ -273,6 +276,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 - [ResourceFrame](../../frames/ResourceFrame/Table_ResourceFrame.md) — Where Train/CompoundTrain/TrainElement are defined
 - [TrainBlock](../../objects/TrainBlock/Table_TrainBlock.md) — Block object specification
 - [VehicleType](../../objects/VehicleType/Table_VehicleType.md) — Generic vehicle type (parent of Train)
+- [Vehicle](../../objects/Vehicle/Table_Vehicle.md) — Physical vehicle instance (as opposed to TrainElement's vehicle type)
 - [DatedServiceJourney](../../objects/DatedServiceJourney/Table_DatedServiceJourney.md) — Date-specific journey with BlockRef
 - [ServiceJourney](../../objects/ServiceJourney/Table_ServiceJourney.md) — Journey template
 
