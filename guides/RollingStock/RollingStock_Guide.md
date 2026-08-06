@@ -99,7 +99,7 @@ A **TrainElement** represents a vehicle *type* — a classification such as "EL1
 ```
 
 > [!NOTE]
-> A TrainElement identifies a vehicle **type**, not the specific physical unit running today. Individual physical units are modelled separately via the [Vehicle](../../objects/Vehicle/Table_Vehicle.md) object in `ResourceFrame/vehicles/`, which is outside the scope of this guide.
+In the Nordic profile, TrainElement is the binding element into the central rolling stock registry (PEN, the Plads90 replacement) — analogous to how ScheduledStopPoint/PassengerStopAssignment bind into the national stop registry (NSR). Operators don't define train elements themselves; they reference PEN:TrainElement via TrainComponent → TrainElementRef. Formally the element is a train element type (TrainElementType), but in practice PEN registers rolling stock at type or near-individual granularity. Genuinely physical vehicle instances are modelled via the Vehicle object in ResourceFrame/vehicles/, which is outside the scope of this guide.```
 
 ### Level 2: Train — A Logical Group
 
