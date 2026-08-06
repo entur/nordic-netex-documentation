@@ -259,6 +259,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 | Putting Train/CompoundTrain in VehicleScheduleFrame | XSD requires them in ResourceFrame/vehicleTypes | Move to `vehicleTypes` in ResourceFrame |
 | Using VehicleTypeRef for specific formation assignment | VehicleTypeRef is a generic hint, not dated assignment | Use DatedServiceJourney → TrainBlockRef → TrainBlockPart → CompoundTrainRef |
 | Missing DatedServiceJourney in chain | ServiceJourney alone can't carry date-specific block assignment | Always create DatedServiceJourney as the linking object |
+| TrainElement in operator codespace instead of PEN | TrainElement is mastered centrally in the PEN registry | Reference `PEN:TrainElement:...`, don't define `VYG:TrainElement:...` locally |
 | TrainElement in vehicleTypes instead of trainElementTypes | XSD places TrainElement under ResourceFrame/trainElementTypes, not vehicleTypes or vehicles | Check container: `vehicleTypes` for Train/CompoundTrain, `trainElementTypes` for TrainElement, `vehicles` for physical Vehicle instances |
 | TrainBlockRef on ServiceJourney (not DatedServiceJourney) | The XSD allows BlockRef on ServiceJourney, but for rail the assignment is date-specific | Use TrainBlockRef on DatedServiceJourney for date-variant formations |
 
