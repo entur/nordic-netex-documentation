@@ -46,6 +46,9 @@ graph TD
     T2["Train: Coaches 1–4<br/><i>A7, B7, BC7, B7</i>"]
     T3["Train: Hvilevogn<br/><i>rest car</i>"]
     T4["Train: Coaches 5–8<br/><i>FR7, B7, B7</i>"]
+  end
+
+  subgraph TrainElementTypes["🔧 ResourceFrame · trainElementTypes/"]
     TE["<b>TrainElement</b><br/>engine · carriage"]
   end
 
@@ -99,7 +102,9 @@ A **TrainElement** represents a vehicle *type* — a classification such as "EL1
 ```
 
 > [!NOTE]
-In the Nordic profile, TrainElement is the binding element into the central rolling stock registry (PEN, the Plads90 replacement) — analogous to how ScheduledStopPoint/PassengerStopAssignment bind into the national stop registry (NSR). Operators don't define train elements themselves; they reference PEN:TrainElement via TrainComponent → TrainElementRef. Formally the element is a train element type (TrainElementType), but in practice PEN registers rolling stock at type or near-individual granularity. Genuinely physical vehicle instances are modelled via the Vehicle object in ResourceFrame/vehicles/, which is outside the scope of this guide.```
+> In the Nordic profile, TrainElement is the binding element into the central rolling stock registry (PEN, the Plads90 replacement) — analogous to how ScheduledStopPoint/PassengerStopAssignment bind into the national stop registry (NSR). Operators don't define train elements themselves; they reference PEN:TrainElement via TrainComponent → TrainElementRef. Formally the element is a train element type (TrainElementType), but in practice PEN registers rolling stock at type or near-individual granularity. Genuinely physical vehicle instances are modelled via the Vehicle object in ResourceFrame/vehicles/, which is outside the scope of this guide.
+>
+> The `VYG:TrainElement:...` references in the examples below are a simplified placeholder for this guide; a real delivery references `PEN:TrainElement:...` instead.
 
 ### Level 2: Train — A Logical Group
 
@@ -247,7 +252,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 > - **Use CompoundTrain** when a train has locomotive + carriages (most long-distance). Use a plain **Train** for EMU/DMU sets that are a single unit.
 > - **TrainBlock is reusable.** It has no date — define one per formation pattern. Multiple DatedServiceJourneys (on different dates) can reference the same TrainBlock. Create a new one only when the formation changes.
 > - **Use TrainBlockPart** whenever formation changes mid-journey (coupling/uncoupling). Otherwise, one part is fine.
-> - **Keep TrainElements simple** — Name and TrainElementType (`engine` or `carriage`) are sufficient for most use cases.
+> - **Reference PEN train elements** — operators don't author TrainElements; they reference centrally mastered `PEN:TrainElement` via `TrainComponent → TrainElementRef`. Name and TrainElementType (`engine` / `carriage`) are owned in PEN.
 > - **Don't duplicate formation data** across dates — define CompoundTrain once and reference from multiple TrainBlockParts.
 
 ---
