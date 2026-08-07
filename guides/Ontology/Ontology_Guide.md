@@ -24,14 +24,19 @@ The `ontology/` folder contains a documentation-specific file alongside the [`en
 ```
 ontology/
   ├── entur-netex-ontology/            ← git submodule (https://github.com/entur/entur-netex-ontology)
-  │   ├── netex-entur.ttl             ← Entur governance (codespaces, data ownership)
-  │   ├── netex-entur-nsr.ttl         ← Entur NSR sub-profile
-  │   ├── netex-rolling-stock.ttl     ← Rolling stock service sub-profile
-  │   └── nordic-netex-ontology/      ← nested submodule (https://github.com/entur/nordic-netex-ontology)
-  │       ├── netex.ttl               ← Base schema (classes, references, elements)
-  │       └── netex-nordic.ttl        ← Nordic Profile (SHACL constraints + element ordering)
-  └── netex-nordic-documentation.ttl  ← Documentation paths and scope metadata
+  │   ├── netex-entur.ttl                    ← Entur governance (codespaces, data ownership)
+  │   ├── netex-entur-nsr.ttl                ← Entur NSR sub-profile (stop places)
+  │   ├── netex-rolling-stock.ttl            ← Rolling stock service sub-profile
+  │   └── nordic-netex-ontology/             ← nested submodule (https://github.com/entur/nordic-netex-ontology)
+  │       ├── netex-nordic.ttl               ← Nordic Profile (SHACL constraints + element ordering)
+  │       ├── netex-nordic-vocab.ttl         ← Nordic vocabulary (nordic:) — terms not in the XSD
+  │       ├── netex-nordic-model.ttl         ← Curated frame containment & specialisation
+  │       ├── netex-transmodel-alignment.ttl ← NeTEx ⇄ Transmodel mapping (skos)
+  │       └── netex-siri-bridge.ttl          ← NeTEx ⇄ SIRI real-time bridges
+  └── netex-nordic-documentation.ttl   ← Documentation paths and scope metadata
 ```
+
+> ℹ️ The NeTEx **base vocabulary** (`netex:`) is now **generated from the NeTEx XSD** and owned externally (CEN). It is pulled in via `owl:imports <https://netex-cen.eu/ontology>` but is **not stored in this repository** — there is no `netex.ttl` file in the submodule.
 
 ### Import Chain
 
@@ -39,14 +44,21 @@ The files form a layered stack where each file imports the one above:
 
 ```mermaid
 flowchart TD
-    BASE["<b>netex.ttl</b><br/><i>Base schema: what NeTEx IS</i>"]
+    BASE["<b>netex: base</b> (generated, external)<br/><i>CEN-owned NeTEx vocabulary from the XSD</i>"]
+    VOCAB["<b>netex-nordic-vocab.ttl</b><br/><i>nordic: terms not in the XSD</i>"]
     NP["<b>netex-nordic.ttl</b><br/><i>Profile: what NP allows/requires/excludes</i>"]
+    MODEL["<b>netex-nordic-model.ttl</b><br/><i>Frame containment & specialisation</i>"]
     ENTUR["<b>netex-entur.ttl</b><br/><i>Governance: codespaces, data ownership</i>"]
-    RS["<b>netex-rolling-stock.ttl</b><br/><i>Service sub-profile: system dependencies</i>"]
+    NSR["<b>netex-entur-nsr.ttl</b><br/><i>NSR sub-profile: stop places</i>"]
+    RS["<b>netex-rolling-stock.ttl</b><br/><i>Rolling stock sub-profile</i>"]
     DOC["<b>netex-nordic-documentation.ttl</b><br/><i>File paths, scope metadata</i>"]
 
     BASE --> NP
+    VOCAB --> NP
+    BASE --> MODEL
+    VOCAB --> MODEL
     NP --> ENTUR
+    ENTUR --> NSR
     ENTUR --> RS
     NP --> DOC
 
@@ -57,14 +69,21 @@ flowchart TD
     style DOC fill:#f0f0f0
 ```
 
+> `netex-transmodel-alignment.ttl` and `netex-siri-bridge.ttl` sit in the Nordic layer beside `netex-nordic-model.ttl`, adding `skos` alignment to Transmodel and the NeTEx ⇄ SIRI bridge respectively.
+
 ### What Each File Does
 
 | File | Role | Contains |
 |------|------|----------|
-| `netex.ttl` | **Base schema** | Classes, frame containment, references between classes, XSD cardinality, SIRI bridges, Transmodel alignment |
-| `netex-nordic.ttl` | **Nordic Profile** | SHACL validation shapes (excludes, requires, allows), element ordering, navigational domain chains |
+| `netex:` base (external) | **Generated base** | OWL classes + `lowerCamelCase` properties + XSD cardinality/sequence, projected from the NeTEx XSD (CEN-owned) |
+| `netex-nordic.ttl` | **Nordic Profile** | SHACL validation shapes (excludes, requires, allows), element ordering |
+| `netex-nordic-vocab.ttl` | **Nordic vocabulary** | `nordic:` terms not derived from the XSD (profile meta-classes, data confidence, ordering, domain chains, structural predicates, SIRI bridge property) |
+| `netex-nordic-model.ttl` | **Nordic model** | Curated frame containment (`nordic:contains`/`inFrame`/`childOf`) and functional specialisation (`nordic:specializes`) |
+| `netex-transmodel-alignment.ttl` | **Alignment** | `skos` mapping from NeTEx classes to Transmodel concepts |
+| `netex-siri-bridge.ttl` | **SIRI bridge** | Which NeTEx classes are referenced by SIRI real-time services |
 | `netex-entur.ttl` | **Entur governance** | Codespace conventions (NSR, NOG, PEN), data ownership per class, Partner portal modules |
-| `netex-rolling-stock.ttl` | **Service sub-profile** | Which references/elements the rolling stock service consumes/produces, service-specific SHACL constraints |
+| `netex-entur-nsr.ttl` | **NSR sub-profile** | Authoritative stop place profile (Tiamat export, hierarchy rules, keyList conventions) |
+| `netex-rolling-stock.ttl` | **Rolling stock sub-profile** | Which references/elements the rolling stock service consumes/produces, service-specific SHACL constraints |
 | `netex-nordic-documentation.ttl` | **Documentation layer** | Paths to Description/Table/Example files, profile scope assignments |
 
 ---
@@ -91,10 +110,10 @@ netex:Line a owl:Class ;
 Formal class and property declarations with logical semantics.
 
 ```turtle
-netex:Line a owl:Class .                         ## Class declaration
-netex:contains a owl:ObjectProperty .             ## Relates two things
-netex:xsdCardinality a owl:DatatypeProperty .     ## Relates thing to a value
-netex:containedIn owl:inverseOf netex:contains .  ## Inverse relationship
+netex:Line a owl:Class .                             ## Class declaration
+nordic:contains a owl:ObjectProperty .              ## Relates two things
+nordic:position a owl:DatatypeProperty .            ## Relates thing to a value
+nordic:containedIn owl:inverseOf nordic:contains .  ## Inverse relationship
 ```
 
 **Used for:** `owl:Class`, `owl:ObjectProperty`, `owl:DatatypeProperty`, `owl:inverseOf`, `owl:Ontology`, `owl:imports`
@@ -119,7 +138,7 @@ Validation rules that tools can execute against real data.
 profile:NP_JourneyPatternShape a sh:NodeShape ;
     sh:targetClass netex:JourneyPattern ;
     sh:property [
-        sh:path netex:JourneyPattern_RouteRef ;
+        sh:path netex:routeRef ;
         sh:minCount 1 ; sh:maxCount 1 ;       ## "Must have exactly one"
         sh:class netex:Route ;                 ## "Must point to a Route"
     ] .
@@ -136,63 +155,68 @@ profile:NP_JourneyPatternShape a sh:NodeShape ;
 | `skos:` | Simple Knowledge Organization System | Defines terms and maps between vocabularies |
 | `sh:` | SHACL | Validates data against rules |
 
+Alongside these, four **domain namespaces** carry the model itself:
+
+| Prefix | Namespace | Owner | Role |
+|--------|-----------|-------|------|
+| `netex:` | `https://netex-cen.eu/ontology#` | CEN (generated from XSD) | Base classes & properties |
+| `nordic:` | `https://netex-cen.eu/nordic#` | Nordic editorial team | Profile vocabulary, structural model, SIRI bridge |
+| `profile:` | `https://netex-cen.eu/profile#` | Nordic editorial team | Profile definition & SHACL shapes |
+| `entur:` | `https://entur.org/ontology#` | Entur | Governance, codespaces, sub-profiles |
+
 ---
 
 ## 4. 🛠️ Custom Properties
 
-Some relationships in the ontology use custom `netex:` properties instead of standard vocabularies. These are all declared in `netex.ttl` with explicit type and definition.
+Beyond the standard W3C vocabularies, the ontology relies on two families of domain terms: **generated `netex:` properties** projected 1:1 from the NeTEx XSD (`lowerCamelCase`, e.g. `netex:routeRef`) that live in the external CEN-owned base, and **hand-authored `nordic:` predicates** for profile navigation, declared in `netex-nordic-vocab.ttl` and applied in `netex-nordic-model.ttl`.
 
-### Why Custom?
+### Why a Separate `nordic:` Namespace?
 
-Three reasons, depending on the property:
+The generated base intentionally mints **no terms beyond the XSD**, so anything the profile invents lives in `nordic:` — keeping the CEN-owned `netex:` namespace clean and regenerable.
 
-1. **No standard equivalent exists** — XML containment hierarchy (`netex:contains`, `netex:childOf`, `netex:inFrame`) has no RDF/OWL counterpart. There's no standard way to say "this class appears as a child element inside this frame in the XML".
+1. **No XSD equivalent exists** — the XML containment hierarchy (`nordic:contains`, `nordic:childOf`, `nordic:inFrame`) has no counterpart in the schema. There's no standard way to say "this class appears as a child element inside this frame in the XML".
 
-2. **Standard equivalent is too verbose** — OWL cardinality requires nested blank-node `owl:Restriction` blocks. `netex:xsdCardinality "0..1"` is a flat string annotation that mirrors XSD notation directly.
+2. **Functional specialisation, deliberately not `rdfs:subClassOf`** — `nordic:specializes` records that e.g. `DatedServiceJourney` specialises `ServiceJourney` without letting a reasoner infer a true IS-A hierarchy the standard never formalised.
 
-3. **Standard equivalent has wrong scope** — `rdfs:domain`/`rdfs:range` apply globally to a property. `netex:onClass` and `netex:target` scope a reference to a specific relationship instance (e.g. "Line → OperatorRef targets Operator" without implying all `onClass` values are Lines).
+3. **XSD cardinality lives in the generated base** — the base carries cardinality and element sequence via `owl:Restriction`, so the profile no longer maintains hand-written named-reference resources.
 
-### Structural Properties
+### Structural Predicates (`nordic:`)
 
-These model the XML containment hierarchy — how classes nest inside frames and each other:
+These model the XML containment hierarchy — how classes nest inside frames and each other. Declared in `netex-nordic-vocab.ttl`, asserted on generated `netex:` classes in `netex-nordic-model.ttl`:
 
 | Property | Meaning | Example |
 |----------|---------|---------|
-| `netex:contains` | Frame/object contains these child classes | `ResourceFrame contains Authority, Operator, ...` |
-| `netex:containedIn` | Inverse of contains | `ResourceFrame containedIn CompositeFrame` |
-| `netex:childOf` | Inline child element within a parent | `Quay childOf StopPlace` |
-| `netex:inFrame` | Top-level member of a frame type | `Line inFrame ServiceFrame` |
-| `netex:specializes` | Functional specialization | `DatedServiceJourney specializes ServiceJourney` |
+| `nordic:contains` | Frame/object contains these child classes | `ResourceFrame contains Authority, Operator, …` |
+| `nordic:containedIn` | Inverse of contains | `ResourceFrame containedIn CompositeFrame` |
+| `nordic:childOf` | Inline child element within a parent | `Quay childOf StopPlace` |
+| `nordic:inFrame` | Top-level member of a frame type | `Line inFrame ServiceFrame` |
+| `nordic:specializes` | Functional specialization (not `rdfs:subClassOf`) | `DatedServiceJourney specializes ServiceJourney` |
 
-### Reference Metadata Properties
+### Generated Reference Properties (`netex:`)
 
-These scope each named reference to its owning class and target:
-
-| Property | Type | Meaning |
-|----------|------|---------|
-| `netex:onClass` | ObjectProperty | Source class that owns the reference |
-| `netex:target` | ObjectProperty | Target class pointed to |
-| `netex:xsdCardinality` | DatatypeProperty | Cardinality in XSD notation (e.g. `"0..1"`, `"1..n"`) |
-| `netex:path` | DatatypeProperty | XPath-like path in the XML tree |
-| `netex:altPath` | DatatypeProperty | Alternative path when multiple options exist |
-
-### Example: Anatomy of a Named Reference
+Named references are **no longer hand-modelled**. Each reference is a generated `lowerCamelCase` property projected from the XSD, and profile constraints target it directly by URI:
 
 ```turtle
-netex:Line_OperatorRef a netex:Reference ;    ## Type: it's a reference
-    rdfs:label "Line → OperatorRef" ;          ## Human label
-    netex:onClass netex:Line ;                 ## Source: Line
-    netex:target netex:Operator ;              ## Target: Operator
-    netex:xsdCardinality "1..1" .              ## XSD: mandatory
+## Generated base (external): the property exists, projected 1:1 from the XSD
+netex:routeRef a owl:ObjectProperty .
+
+## netex-nordic.ttl: a SHACL shape tightens it for the profile
+profile:NP_JourneyPatternShape a sh:NodeShape ;
+    sh:targetClass netex:JourneyPattern ;
+    sh:property [
+        sh:path netex:routeRef ;         ## the generated property
+        sh:minCount 1 ; sh:maxCount 1 ;  ## NP mandates 1..1 (XSD allows 0..1)
+        sh:class netex:Route
+    ] .
 ```
 
-This single resource (`netex:Line_OperatorRef`) is then referenceable from SHACL shapes, profile constraints, and service sub-profiles — all by URI.
+SHACL shapes, profile constraints, and service sub-profiles all reference these generated properties by URI.
 
 ---
 
 ## 5. ✅ SHACL Validation
 
-SHACL shapes in `netex-nordic.ttl` and `netex-rolling-stock.ttl` express constraints that standard tools can validate automatically.
+SHACL shapes in `netex-nordic.ttl`, `netex-entur-nsr.ttl`, and `netex-rolling-stock.ttl` express constraints that standard tools can validate automatically.
 
 ### What SHACL Expresses
 
@@ -208,6 +232,7 @@ SHACL shapes in `netex-nordic.ttl` and `netex-rolling-stock.ttl` express constra
 | File | Pattern | Example |
 |------|---------|---------|
 | `netex-nordic.ttl` | `profile:NP_{ClassName}Shape` | `profile:NP_JourneyPatternShape` |
+| `netex-entur-nsr.ttl` | `nsr:NSR_{ClassName}Shape` | `nsr:NSR_StopPlaceShape` |
 | `netex-rolling-stock.ttl` | `svc:RS_{ClassName}Shape` | `svc:RS_DatedServiceJourneyShape` |
 
 ### Layered Validation
@@ -239,21 +264,21 @@ This enables tools and LLM agents to navigate from a class URI to its full docum
 
 ### From Ontology to Validation
 
-A SHACL shape references the same named resource that `netex.ttl` defines:
+A SHACL shape references a generated property from the (external) NeTEx base:
 
 ```
-netex.ttl defines:     netex:JourneyPattern_RouteRef  (xsdCardinality "0..1")
-                                    ↓
-netex-nordic.ttl:      sh:path netex:JourneyPattern_RouteRef
-                       sh:minCount 1  (NP tightens to "1..1")
+generated base:   netex:routeRef        (XSD cardinality 0..1, via owl:Restriction)
+                              ↓
+netex-nordic.ttl: sh:path netex:routeRef
+                  sh:minCount 1          (NP tightens to 1..1)
 ```
 
 ### From Ontology to SIRI
 
-The `netex:referencedBySIRI` property shows which NeTEx classes appear in SIRI real-time feeds:
+The `nordic:referencedBySIRI` property (declared in `netex-nordic-vocab.ttl`, asserted in `netex-siri-bridge.ttl`) shows which NeTEx classes appear in SIRI real-time feeds:
 
 ```turtle
-netex:Line netex:referencedBySIRI siri:SIRI_ET , siri:SIRI_SX , siri:SIRI_VM , siri:SIRI_FM .
+netex:Line nordic:referencedBySIRI siri:SIRI_ET , siri:SIRI_SX , siri:SIRI_VM , siri:SIRI_FM .
 ```
 
 This makes it possible to trace which NeTEx data must be stable for SIRI interoperability.
