@@ -1,0 +1,127 @@
+name: ontology-ingest
+
+# Sporer oppstrøms entur-netex-ontology (main) og åpner PR når submodul-pinnen
+# flytter seg. Dokumentasjonen er et PRODUKT av ontologien: en oppstrøms-endring
+# er et signal om at objekt-/frame-docs kan trenge oppdatering — derfor ALLTID PR,
+# aldri auto-push. Den nøstede nordic-netex-ontology-pinnen følger med det
+# oppstrøms entur-netex-ontology committer på sin main (sporing gjøres oppstrøms).
+#
+# Porten er validate_ontology.py: kjøres her og resultatet legges rett i PR-teksten,
+# så PR-en er selvforklarende. (validate.yml kjører IKKE på denne PR-en: GitHub trigger
+# med vilje ikke andre workflows på PR-er laget med GITHUB_TOKEN. Vil man ha en egen
+# check i PR-UI, må peter-evans-steget få en PAT via token:.) En rød validering er ikke
+# en blokkering — den er selve signalet om at docs har blitt ute av synk med standarden.
+
+on:
+  schedule:
+    # Hver dag 06:00 UTC. Juster ved behov.
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+# Én kjøring om gangen; ny natt oppdaterer samme PR-branch fremfor å lage duplikat.
+concurrency:
+  group: ontology-ingest
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Noter gammel pin
+        id: before
+        run: echo "sha=$(git -C ontology/entur-netex-ontology rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Hent siste oppstrøms main (kun toppnivå)
+        # --remote flytter toppnivå-pinnen til origin/main (branch=main i .gitmodules).
+        # Deretter sjekkes nøstede submoduler ut ved den commiten toppnivået nå peker
+        # på — uten --remote, så de følger den oppstrøms-committede pinnen.
+        run: |
+          git submodule update --remote ontology/entur-netex-ontology
+          git submodule update --init --recursive
+
+      - name: Noter ny pin
+        id: after
+        run: echo "sha=$(git -C ontology/entur-netex-ontology rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Flyttet pinnen seg?
+        id: diff
+        run: |
+          if git diff --quiet --ignore-submodules=dirty; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Ingen oppstrøms-endring — pinnen står stille."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Sett opp Python
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer rdflib
+        if: steps.diff.outputs.changed == 'true'
+        run: pip install --quiet rdflib
+
+      - name: Kjør ontologivalidering (resultatet rapporteres i PR-en)
+        id: validate
+        if: steps.diff.outputs.changed == 'true'
+        continue-on-error: true   # rød validering skal IKKE hindre PR — den ER signalet
+        run: |
+          if python scripts/validate_ontology.py > validate-out.txt 2>&1; then
+            echo "status=✅ **validate_ontology.py: bestått** — ingen døde doc-stier oppdaget." >> "$GITHUB_OUTPUT"
+          else
+            echo "status=❌ **validate_ontology.py: FEILET** — dokumentasjonen er trolig ute av synk med standarden (se logg under)." >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bygg PR-tekst
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          OLD_SHA: ${{ steps.before.outputs.sha }}
+          NEW_SHA: ${{ steps.after.outputs.sha }}
+          STATUS: ${{ steps.validate.outputs.status }}
+        run: |
+          {
+            echo "Oppstrøms [\`entur-netex-ontology\`](https://github.com/entur/entur-netex-ontology) (main) har fått nye commits, og submodul-pinnen i dette repoet er flyttet fremover."
+            echo ""
+            echo "**Pin:** \`${OLD_SHA:0:12}\` → \`${NEW_SHA:0:12}\`"
+            echo ""
+            echo "**Oppstrøms-diff:** https://github.com/entur/entur-netex-ontology/compare/${OLD_SHA}...${NEW_SHA}"
+            echo ""
+            echo "${STATUS}"
+            echo ""
+            echo "<details><summary>Valideringslogg</summary>"
+            echo ""
+            echo '```'
+            tail -n 60 validate-out.txt || true
+            echo '```'
+            echo ""
+            echo "</details>"
+            echo ""
+            echo "---"
+            echo "**Til gjennomgang:** har standarden fått nye/endrede/fjernede klasser som krever oppdatert objekt-/frame-dokumentasjon? Merge når docs er i synk."
+          } > pr-body.md
+
+      - name: Opprett/oppdater karantene-PR
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: main
+          branch: ontology-ingest/upstream
+          commit-message: "chore(ontology): bump entur-netex-ontology til oppstrøms main"
+          title: "[oppstrøms] entur-netex-ontology har flyttet seg — sjekk om docs må oppdateres"
+          body-path: pr-body.md
+          labels: |
+            ontology
+            automated
+          delete-branch: false
