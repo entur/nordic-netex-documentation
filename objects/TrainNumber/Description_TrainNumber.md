@@ -1,4 +1,4 @@
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#trainnumber)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#trainnumber)*
 
 # TrainNumber
 

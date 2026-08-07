@@ -1,4 +1,4 @@
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#routepoint)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#routepoint)*
 
 # RoutePoint
 

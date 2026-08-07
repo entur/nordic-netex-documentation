@@ -1,6 +1,6 @@
-# TopographicPlace
+﻿# TopographicPlace
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#topographicplace)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#topographicplace)*
 
 ## 1. Purpose
 
@@ -60,4 +60,4 @@ TopographicPlace
 
 See [Table_TopographicPlace.md](Table_TopographicPlace.md) for detailed attribute specifications.
 
-Example XML: [TopographicPlace.xml](TopographicPlace.xml)
+Example XML: [Example_TopographicPlace_NP.xml](Example_TopographicPlace_NP.xml)

@@ -1,6 +1,6 @@
 # FlexibleServiceProperties
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#flexibleserviceproperties)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#flexibleserviceproperties)*
 
 ## 1. Purpose
 

@@ -1,6 +1,6 @@
 # FareContract
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#farecontract)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#farecontract)*
 
 ## 1. Purpose
 

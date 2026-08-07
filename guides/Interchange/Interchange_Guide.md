@@ -130,7 +130,7 @@ The simplest valid interchange — just two journey references:
 </TimetableFrame>
 ```
 
-> 📄 **Full example:** [Example_Interchange_NP.xml](../../Objects/Interchange/Example_Interchange_NP.xml)
+> 📄 **Full example:** [Example_Interchange_NP.xml](../../objects/Interchange/Example_Interchange_NP.xml)
 
 ### 4b. Guaranteed Interchange with Timing (NP profile)
 
@@ -157,7 +157,7 @@ A guaranteed connection with stop references and timing constraints:
 </TimetableFrame>
 ```
 
-> 📄 **Full example:** [Example_Interchange_NP.xml](../../Objects/Interchange/Example_Interchange_NP.xml)
+> 📄 **Full example:** [Example_Interchange_NP.xml](../../objects/Interchange/Example_Interchange_NP.xml)
 
 ### 4c. Interchange with interchangeOnly Stop
 
@@ -234,11 +234,11 @@ Combining the interchange with a transfer-only stop in the journey pattern:
 - [NeTEx Conventions](../NeTExConventions/NeTEx_Conventions.md) -- ID format, casing, and element ordering rules
 
 ### Frames & Objects
-- [TimetableFrame](../../Frames/TimetableFrame/Table_TimetableFrame.md) -- Where interchanges are placed
-- [ServiceJourney](../../Objects/ServiceJourney/Table_ServiceJourney.md) -- The feeder and distributor journeys
-- [Interchange](../../Objects/Interchange/Table_Interchange.md) -- Attribute specification table
-- [JourneyPattern](../../Objects/JourneyPattern/Table_JourneyPattern.md) -- Contains StopPointInJourneyPattern
-- [ScheduledStopPoint](../../Objects/ScheduledStopPoint/Table_ScheduledStopPoint.md) -- The transfer location
+- [TimetableFrame](../../frames/TimetableFrame/Table_TimetableFrame.md) -- Where interchanges are placed
+- [ServiceJourney](../../objects/ServiceJourney/Table_ServiceJourney.md) -- The feeder and distributor journeys
+- [Interchange](../../objects/Interchange/Table_Interchange.md) -- Attribute specification table
+- [JourneyPattern](../../objects/JourneyPattern/Table_JourneyPattern.md) -- Contains StopPointInJourneyPattern
+- [ScheduledStopPoint](../../objects/ScheduledStopPoint/Table_ScheduledStopPoint.md) -- The transfer location
 
 ### External
 - [NeTEx CEN Standard](https://www.netex-cen.eu/) -- Official specification

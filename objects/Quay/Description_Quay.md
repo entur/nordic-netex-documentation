@@ -1,6 +1,6 @@
-# Quay
+﻿# Quay
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#quay)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#quay)*
 
 ## 1. Purpose
 The **Quay** represents a specific boarding or alighting position (such as a platform, stand, or bay) within a StopPlace where passengers physically meet vehicles. It provides precise geospatial location information and passenger-facing identification, enabling accurate passenger navigation, vehicle docking, and real-time passenger information displays. A Quay is a spatial anchor point critical for journey planning and accessibility services.
@@ -69,4 +69,4 @@ Quay
 > - **Coordinate precision loss**: Using too few decimal places (e.g., 59.91 instead of 59.9127) reduces accuracy for accessibility routing and vehicle docking; recommendation is 4–6 decimal places.
 
 ## 6. Additional Information
-See [Table_Quay.md](Table_Quay.md) for detailed property specifications and cardinality constraints. See [Example_Quay.xml](Example_Quay.xml) for a complete, validated XML instance embedded within a StopPlace container.
+See [Table_Quay.md](Table_Quay.md) for detailed property specifications and cardinality constraints. See [Example_Quay_NP.xml](Example_Quay_NP.xml) for a complete, validated XML instance embedded within a StopPlace container.

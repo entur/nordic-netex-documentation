@@ -1,6 +1,6 @@
-# ScheduledStopPoint
+﻿# ScheduledStopPoint
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#scheduledstoppoint)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#scheduledstoppoint)*
 
 ## 1. Purpose
 
@@ -52,4 +52,4 @@ A **ScheduledStopPoint** represents a logical stopping point in the timetable, u
 
 See [Table_ScheduledStopPoint.md](Table_ScheduledStopPoint.md) for detailed attribute specifications.
 
-Example XML: [Example_ScheduledStopPoint.xml](Example_ScheduledStopPoint.xml)
+Example XML: [Example_ScheduledStopPoint_NP.xml](Example_ScheduledStopPoint_NP.xml)

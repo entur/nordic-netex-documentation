@@ -1,6 +1,6 @@
-# OperatingPeriod
+﻿# OperatingPeriod
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#operatingperiod)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#operatingperiod)*
 
 ## 1. Purpose
 
@@ -50,4 +50,4 @@ OperatingPeriod
 
 See [Table_OperatingPeriod.md](Table_OperatingPeriod.md) for detailed attribute specifications.
 
-Example XML: [Example_OperatingPeriod.xml](Example_OperatingPeriod.xml)
+Example XML: [Example_OperatingPeriod_NP.xml](Example_OperatingPeriod_NP.xml)

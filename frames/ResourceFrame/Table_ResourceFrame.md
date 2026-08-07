@@ -24,11 +24,11 @@ ResourceFrame
 | @id | ID | Unique identifier for the ResourceFrame | ResourceFrame/@id |
 | @version | String | Version number for change tracking | ResourceFrame/@version |
 | organisations | Container | Collection of organisational entities | ResourceFrame/organisations |
-| [Authority](../../Objects/Authority/Table_Authority.md) | Element | Public transport authority | ResourceFrame/organisations/Authority |
-| [Operator](../../Objects/Operator/Table_Operator.md) | Element | Service provider organisation | ResourceFrame/organisations/Operator |
+| [Authority](../../objects/Authority/Table_Authority.md) | Element | Public transport authority | ResourceFrame/organisations/Authority |
+| [Operator](../../objects/Operator/Table_Operator.md) | Element | Service provider organisation | ResourceFrame/organisations/Operator |
 | vehicleTypes | Container | Collection of vehicle type definitions | ResourceFrame/vehicleTypes |
-| [VehicleType](../../Objects/VehicleType/Table_VehicleType.md) | Element | Vehicle type specification | ResourceFrame/vehicleTypes/VehicleType |
+| [VehicleType](../../objects/VehicleType/Table_VehicleType.md) | Element | Vehicle type specification | ResourceFrame/vehicleTypes/VehicleType |
 | vehicles | Container | Collection of vehicle instances | ResourceFrame/vehicles |
-| [Vehicle](../../Objects/Vehicle/Table_Vehicle.md) | Element | Individual vehicle with VehicleTypeRef | ResourceFrame/vehicles/Vehicle |
+| [Vehicle](../../objects/Vehicle/Table_Vehicle.md) | Element | Individual vehicle with VehicleTypeRef | ResourceFrame/vehicles/Vehicle |
 | typesOfValue | Container | Collection of type definitions and code lists | ResourceFrame/typesOfValue |
 | PurposeOfGrouping | Element | Classification for why objects are grouped | ResourceFrame/typesOfValue/PurposeOfGrouping |

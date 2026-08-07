@@ -1,6 +1,6 @@
-# DatedServiceJourney
+﻿# DatedServiceJourney
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#datedservicejourney)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#datedservicejourney)*
 
 ## 1. Purpose
 
@@ -72,7 +72,7 @@ For a complete list of all elements, attributes, cardinalities, and data types, 
 
 Minimal and scenario-specific XML examples are provided:
 
-1. **Minimal** – [Example_DatedServiceJourney.xml](Example_DatedServiceJourney.xml)
+1. **Minimal** – [Example_DatedServiceJourney_NP.xml](Example_DatedServiceJourney_NP.xml)
 2. **01 Reinforcement** – [Example_DatedServiceJourney_Extended_01_Reinforcement.xml](Example_DatedServiceJourney_Extended_01_Reinforcement.xml) – Additional vehicle/crew added to handle increased demand
 3. **02 Replacement** – [Example_DatedServiceJourney_Extended_02_Replacement.xml](Example_DatedServiceJourney_Extended_02_Replacement.xml) – Substitutes for cancelled or redirected journey
 4. **03 Block-Linked** – [Example_DatedServiceJourney_Extended_03_BlockLinked.xml](Example_DatedServiceJourney_Extended_03_BlockLinked.xml) – Journey linked via BlockRef for vehicle continuity

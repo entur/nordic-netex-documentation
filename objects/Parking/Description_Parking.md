@@ -1,6 +1,6 @@
-# Parking
+﻿# Parking
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#parking)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#parking)*
 
 ## 1. Purpose
 
@@ -69,4 +69,4 @@ Parking
 
 See [Table_Parking.md](Table_Parking.md) for detailed attribute specifications.
 
-Example XML: [Parking.xml](Parking.xml)
+Example XML: [Example_Parking_NP.xml](Example_Parking_NP.xml)

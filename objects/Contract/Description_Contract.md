@@ -1,6 +1,6 @@
 # Contract
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#contract)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#contract)*
 
 ## 1. Purpose
 

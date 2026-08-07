@@ -1,6 +1,6 @@
-# TariffZone
+﻿# TariffZone
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#tariffzone)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#tariffzone)*
 
 ## 1. Purpose
 
@@ -55,4 +55,4 @@ TariffZone
 
 See [Table_TariffZone.md](Table_TariffZone.md) for detailed attribute specifications.
 
-Example XML: [TariffZone.xml](TariffZone.xml)
+Example XML: [Example_TariffZone_NP.xml](Example_TariffZone_NP.xml)

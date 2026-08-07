@@ -1,0 +1,185 @@
+#!/usr/bin/env python3
+"""
+Validate all internal Markdown links across the repository.
+
+Checks:
+  1. Relative links in .md files resolve to existing files
+  2. Case-sensitive path correctness (catches Windows vs Linux issues)
+  3. Fragment references (#anchor) are not validated (only file existence)
+
+Usage:
+    python scripts/validate_links.py
+    python scripts/validate_links.py --verbose
+
+Requires: Python 3.10+, no external dependencies (stdlib only)
+"""
+import re
+import sys
+import io
+from pathlib import Path
+
+# Ensure UTF-8 output regardless of terminal encoding
+if hasattr(sys.stdout, 'buffer'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+VERBOSE = "--verbose" in sys.argv or "-v" in sys.argv
+
+# Regex for Markdown links: [text](path) — excludes http/https URLs
+LINK_PATTERN = re.compile(r'\[([^\]]*)\]\(([^)]+)\)')
+
+# Known broken links file (one target path per line, comments with #)
+KNOWN_BROKEN_FILE = REPO_ROOT / "scripts" / "known_broken_links.txt"
+
+
+def load_known_broken() -> set[str]:
+    """Load known broken link targets that should be skipped."""
+    if not KNOWN_BROKEN_FILE.exists():
+        return set()
+    entries = set()
+    for line in KNOWN_BROKEN_FILE.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            entries.add(line)
+    return entries
+
+
+def find_md_files() -> list[Path]:
+    """Find all Markdown files in the repo (excluding node_modules etc)."""
+    excludes = {'.git', 'node_modules', '.venv', '.claude'}
+    files = []
+    for md in REPO_ROOT.rglob("*.md"):
+        if not any(part in excludes for part in md.parts):
+            files.append(md)
+    return sorted(files)
+
+
+def check_link(md_file: Path, target: str) -> bool:
+    """Check if a relative link target exists."""
+    # Strip fragment
+    path_part = target.split("#")[0]
+    if not path_part:
+        return True  # pure fragment link
+
+    # Strip Docsify image sizing suffix (e.g. "image.svg ':size=720'")
+    if "'" in path_part:
+        path_part = path_part.split("'")[0].strip()
+
+    # Handle Docsify root-relative paths (start with /)
+    if path_part.startswith("/"):
+        resolved = (REPO_ROOT / path_part.lstrip("/")).resolve()
+    else:
+        resolved = (md_file.parent / path_part).resolve()
+
+    # Reject paths that escape the repository root
+    if not resolved.is_relative_to(REPO_ROOT):
+        return False
+    return resolved.exists()
+
+
+def check_case_sensitive(md_file: Path, target: str) -> bool:
+    """Check that the path components match filesystem casing exactly."""
+    path_part = target.split("#")[0]
+    if not path_part:
+        return True
+
+    # Strip Docsify image sizing suffix
+    if "'" in path_part:
+        path_part = path_part.split("'")[0].strip()
+
+    # Handle Docsify root-relative paths
+    if path_part.startswith("/"):
+        resolved = (REPO_ROOT / path_part.lstrip("/")).resolve()
+    else:
+        resolved = (md_file.parent / path_part).resolve()
+    if not resolved.exists():
+        return False  # already caught by existence check
+
+    # Walk up the path and compare each component against actual directory listing
+    try:
+        rel = resolved.relative_to(REPO_ROOT)
+        current = REPO_ROOT
+        for part in rel.parts:
+            actual_entries = {p.name for p in current.iterdir()}
+            if part not in actual_entries:
+                return False
+            current = current / part
+        return True
+    except (ValueError, OSError):
+        return True  # can't determine, assume OK
+
+
+def main():
+    print("=" * 60)
+    print("Markdown Link Validation")
+    print("=" * 60)
+
+    known_broken = load_known_broken()
+    if known_broken:
+        print(f"\nLoaded {len(known_broken)} known broken link targets (skipped)")
+
+    md_files = find_md_files()
+    print(f"\nScanning {len(md_files)} Markdown files...")
+
+    errors = []
+    warnings = []
+    skipped = 0
+    total_links = 0
+
+    for md in md_files:
+        content = md.read_text(encoding="utf-8", errors="replace")
+        # Strip HTML comments to avoid parsing commented-out links
+        content = re.sub(r'<!--.*?-->', '', content, flags=re.DOTALL)
+        for match in LINK_PATTERN.finditer(content):
+            target = match.group(2)
+
+            # Skip external URLs and mailto
+            if target.startswith(("http://", "https://", "mailto:", "#")):
+                continue
+
+            total_links += 1
+            rel_md = md.relative_to(REPO_ROOT)
+
+            # Skip known broken links (content not yet written)
+            if target in known_broken:
+                skipped += 1
+                if VERBOSE:
+                    print(f"  SKIP (known): {rel_md} → {target}")
+                continue
+
+            if not check_link(md, target):
+                line_num = content[:match.start()].count('\n') + 1
+                errors.append(f"{rel_md}:{line_num}: broken link → {target}")
+            elif not check_case_sensitive(md, target):
+                line_num = content[:match.start()].count('\n') + 1
+                warnings.append(f"{rel_md}:{line_num}: case mismatch → {target}")
+            elif VERBOSE:
+                print(f"  OK: {rel_md} → {target}")
+
+    # Report
+    print(f"\nChecked {total_links} internal links ({skipped} skipped as known broken)")
+
+    if warnings:
+        print(f"\nWARN: {len(warnings)} case-sensitivity warnings:")
+        for w in warnings[:20]:
+            print(f"  {w}")
+        if len(warnings) > 20:
+            print(f"  ... and {len(warnings) - 20} more")
+
+    if errors:
+        print(f"\nERROR: {len(errors)} broken links:")
+        for e in errors:
+            print(f"  {e}")
+
+    print("\n" + "=" * 60)
+    if not errors:
+        print(f"  PASSED ({total_links} links, {len(warnings)} case warnings)")
+    else:
+        print(f"  FAILED ({len(errors)} broken links)")
+    print("=" * 60)
+
+    sys.exit(0 if not errors else 1)
+
+
+if __name__ == "__main__":
+    main()

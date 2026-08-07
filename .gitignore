@@ -1,0 +1,10 @@
+# XSD cache (downloaded by validate_xml.py)
+.xsd-cache/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Script output files (accidental terminal dumps)
+*_out.txt

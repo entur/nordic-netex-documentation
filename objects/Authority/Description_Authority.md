@@ -1,6 +1,6 @@
-# Authority
+﻿# Authority
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#authority)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#authority)*
 
 ## 1. Purpose
 
@@ -62,5 +62,5 @@ Authority
 
 For a complete list of all elements, attributes, cardinalities, and data types, see [Table — Authority](Table_Authority.md).
 
-Example XML: [Example_Authority.xml](Example_Authority.xml)
+Example XML: [Example_Authority_NP.xml](Example_Authority_NP.xml)
 

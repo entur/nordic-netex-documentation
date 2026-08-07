@@ -28,7 +28,7 @@ CompositeFrame
 | @id | ID | Unique identifier for the CompositeFrame | CompositeFrame/@id |
 | @version | String | Version number for change tracking | CompositeFrame/@version |
 | codespaces | Container | Collection of Codespace declarations shared by all contained frames | CompositeFrame/codespaces |
-| [Codespace](../../Objects/Codespace/Table_Codespace.md) | Element | XML namespace prefix definition with Xmlns and XmlnsUrl | CompositeFrame/codespaces/Codespace |
+| [Codespace](../../objects/Codespace/Table_Codespace.md) | Element | XML namespace prefix definition with Xmlns and XmlnsUrl | CompositeFrame/codespaces/Codespace |
 | FrameDefaults | Container | Default settings inherited by all contained frames | CompositeFrame/FrameDefaults |
 | DefaultCodespaceRef | Reference | Reference to the default Codespace for contained frames | CompositeFrame/FrameDefaults/DefaultCodespaceRef |
 | frames | Container | Collection of child frames making up the delivery | CompositeFrame/frames |

@@ -1,4 +1,4 @@
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#siteconnection)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#siteconnection)*
 
 # SiteConnection
 

@@ -94,13 +94,13 @@ objects/<Name>/
 
 ## 🧠 Ontology
 
-The `ontology/` folder contains a layered knowledge graph sourced from [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) (git submodule):
+The `ontology/` folder contains a layered knowledge graph sourced from [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) (git submodule). To fetch the ontology files locally, clone with `--recurse-submodules` (or run `git submodule update --init --recursive`).
 
-- **netex.ttl** — Base NeTEx schema (classes, relationships, cardinality)
-- **netex-nordic.ttl** — Nordic Profile constraints and element ordering
-- **netex-entur.ttl** — Entur-specific governance (codespaces, data ownership)
-- **netex-rolling-stock.ttl** — Rolling stock sub-profile
-- **netex-nordic-documentation.ttl** — Documentation paths and scope metadata (local to this repo)
+- **ontology/entur-netex-ontology/nordic-netex-ontology/netex.ttl** — Base NeTEx schema (classes, relationships, cardinality)
+- **ontology/entur-netex-ontology/nordic-netex-ontology/netex-nordic.ttl** — Nordic Profile constraints and element ordering
+- **ontology/entur-netex-ontology/netex-entur.ttl** — Entur-specific governance (codespaces, data ownership)
+- **ontology/entur-netex-ontology/netex-rolling-stock.ttl** — Rolling stock sub-profile
+- **ontology/netex-nordic-documentation.ttl** — Documentation paths and scope metadata (local to this repo)
 
 ---
 

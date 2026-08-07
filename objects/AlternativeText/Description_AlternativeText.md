@@ -1,6 +1,6 @@
 # AlternativeText
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#alternativetext)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#alternativetext)*
 
 ## 1. Purpose
 

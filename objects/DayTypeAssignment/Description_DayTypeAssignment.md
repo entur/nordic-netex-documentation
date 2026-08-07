@@ -1,6 +1,6 @@
-# DayTypeAssignment
+﻿# DayTypeAssignment
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#daytypeassignment)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#daytypeassignment)*
 
 ## 1. Purpose
 
@@ -58,4 +58,4 @@ DayTypeAssignment
 
 See [Table_DayTypeAssignment.md](Table_DayTypeAssignment.md) for detailed attribute specifications.
 
-Example XML: [Example_DayTypeAssignment.xml](Example_DayTypeAssignment.xml)
+Example XML: [Example_DayTypeAssignment_NP.xml](Example_DayTypeAssignment_NP.xml)

@@ -169,12 +169,12 @@ Key properties:
 - [Stop Infrastructure](../StopInfrastructure/StopInfrastructure_Guide.md) -- Where stops are defined
 
 ### Frames & Objects
-- [ServiceFrame](../../Frames/ServiceFrame/Table_ServiceFrame.md) -- Where displays and notices are defined
-- [TimetableFrame](../../Frames/TimetableFrame/Table_TimetableFrame.md) -- Where notice assignments live
-- [DestinationDisplay](../../Objects/DestinationDisplay/Table_DestinationDisplay.md) -- Vehicle signage text
-- [Notice](../../Objects/Notice/Table_Notice.md) -- Reusable information text
-- [JourneyPattern](../../Objects/JourneyPattern/Table_JourneyPattern.md) -- References DestinationDisplay per stop
-- [FlexibleServiceProperties](../../Objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md) -- Demand-responsive rules
+- [ServiceFrame](../../frames/ServiceFrame/Table_ServiceFrame.md) -- Where displays and notices are defined
+- [TimetableFrame](../../frames/TimetableFrame/Table_TimetableFrame.md) -- Where notice assignments live
+- [DestinationDisplay](../../objects/DestinationDisplay/Table_DestinationDisplay.md) -- Vehicle signage text
+- [Notice](../../objects/Notice/Table_Notice.md) -- Reusable information text
+- [JourneyPattern](../../objects/JourneyPattern/Table_JourneyPattern.md) -- References DestinationDisplay per stop
+- [FlexibleServiceProperties](../../objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md) -- Demand-responsive rules
 
 ### External
 - [NeTEx CEN Standard](https://www.netex-cen.eu/) -- Official specification

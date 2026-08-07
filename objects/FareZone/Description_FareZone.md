@@ -1,6 +1,6 @@
 # FareZone
 
-> *→ [Glossary definition](../../Guides/Glossary/Glossary.md#farezone)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#farezone)*
 
 ## 1. Purpose
 
