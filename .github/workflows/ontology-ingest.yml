@@ -6,9 +6,11 @@ name: ontology-ingest
 # aldri auto-push. Den nøstede nordic-netex-ontology-pinnen følger med det
 # oppstrøms entur-netex-ontology committer på sin main (sporing gjøres oppstrøms).
 #
-# Porten er validate_ontology.py: kjøres her og rapporteres i PR-en, og kjøres på
-# nytt av validate.yml når PR-en åpnes. En rød validering er ikke en blokkering —
-# den er selve signalet om at dokumentasjonen har blitt ute av synk med standarden.
+# Porten er validate_ontology.py: kjøres her og resultatet legges rett i PR-teksten,
+# så PR-en er selvforklarende. (validate.yml kjører IKKE på denne PR-en: GitHub trigger
+# med vilje ikke andre workflows på PR-er laget med GITHUB_TOKEN. Vil man ha en egen
+# check i PR-UI, må peter-evans-steget få en PAT via token:.) En rød validering er ikke
+# en blokkering — den er selve signalet om at docs har blitt ute av synk med standarden.
 
 on:
   schedule:
@@ -83,7 +85,6 @@ jobs:
           fi
 
       - name: Bygg PR-tekst
-        id: body
         if: steps.diff.outputs.changed == 'true'
         env:
           OLD_SHA: ${{ steps.before.outputs.sha }}
@@ -110,7 +111,6 @@ jobs:
             echo "---"
             echo "**Til gjennomgang:** har standarden fått nye/endrede/fjernede klasser som krever oppdatert objekt-/frame-dokumentasjon? Merge når docs er i synk."
           } > pr-body.md
-          echo "path=pr-body.md" >> "$GITHUB_OUTPUT"
 
       - name: Opprett/oppdater karantene-PR
         if: steps.diff.outputs.changed == 'true'
