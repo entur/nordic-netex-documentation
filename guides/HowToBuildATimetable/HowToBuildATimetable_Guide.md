@@ -65,6 +65,14 @@ A [ScheduledStopPoint](../../objects/ScheduledStopPoint/Description_ScheduledSto
 
 That's it — a name and a unique ID. But every ScheduledStopPoint must be linked to a specific physical Quay (platform or boarding position) via a PassengerStopAssignment. The Quay lives inside a StopPlace in the stop registry. So while the timetable itself only references the logical point, the assignment to a Quay is mandatory — it's what tells passengers *where* to stand.
 
+> [!NOTE]
+> **ScheduledStopPoint: `id` vs `Name` — what each is for.** On a ScheduledStopPoint these two fields play very different roles:
+> - **`id`** is the *authoritative identifier*. All references and integrations rely on it (`ScheduledStopPointRef`, `PassengerStopAssignment`, downstream consumers). It must be stable and unique within its codespace.
+> - **`Name`** is a *descriptive label* for human readability and QA — nothing downstream resolves a stop by `Name`. It is informative, not functional.
+> - **Physical passenger location** is never derived from `Name`. It is determined through the `PassengerStopAssignment → Quay` chain (see below).
+>
+> Because `Name` is only a label, it does not have to match the stop-registry naming of the assigned StopPlace/Quay — though aligning it with the registry name is good practice, since it makes datasets easier to read and validate. Keep `id` stable over time; treat `Name` as free-text that consumers should display but not depend on.
+
 ![Stop assignment chain: ScheduledStopPoint → PassengerStopAssignment → Quay inside StopPlace](../../assets/images/netex_stop_assignment_chain.svg)
 
 
