@@ -1,15 +1,15 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 PassengerStopAssignment
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ @order (1..1)
- â”œâ”€ ScheduledStopPointRef/@ref (1..1)
- â”œâ”€ StopPlaceRef/@ref (0..1)
- â”œâ”€ QuayRef/@ref (1..1)
- â””â”€ ValidBetween (0..1)
-    â””â”€ FromDate (0..1)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ @order (1..1)
+ ├─ ScheduledStopPointRef/@ref (1..1)
+ ├─ StopPlaceRef/@ref (0..1)
+ ├─ QuayRef/@ref (1..1)
+ └─ ValidBetween (0..1)
+    └─ FromDate (0..1)
 ```
 
 ## Table

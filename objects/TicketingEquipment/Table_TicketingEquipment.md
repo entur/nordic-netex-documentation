@@ -1,19 +1,19 @@
-﻿# TicketingEquipment
+# TicketingEquipment
 
 ## Structure Overview
 
 ```text
 TicketingEquipment
-  â”œâ”€ @id (1..1)
-  â”œâ”€ @version (1..1)
-  â”œâ”€ VehicleModes (0..1)
-  â”œâ”€ TicketMachines (0..1)
-  â”œâ”€ NumberOfMachines (0..1)
-  â”œâ”€ TicketingFacilityList (0..1)
-  â”œâ”€ TicketOffice (0..1)
-  â”œâ”€ PaymentMethods (0..1)
-  â”œâ”€ TicketTypesAvailable (0..1)
-  â””â”€ ScopeOfTicketsAvailable (0..1)
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  ├─ VehicleModes (0..1)
+  ├─ TicketMachines (0..1)
+  ├─ NumberOfMachines (0..1)
+  ├─ TicketingFacilityList (0..1)
+  ├─ TicketOffice (0..1)
+  ├─ PaymentMethods (0..1)
+  ├─ TicketTypesAvailable (0..1)
+  └─ ScopeOfTicketsAvailable (0..1)
 ```
 
 ## Table

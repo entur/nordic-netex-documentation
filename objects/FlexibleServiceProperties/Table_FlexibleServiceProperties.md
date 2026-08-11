@@ -1,15 +1,15 @@
-﻿# FlexibleServiceProperties
+# FlexibleServiceProperties
 
 ## Structure Overview
 
 ```text
 FlexibleServiceProperties
-  â”œâ”€ @id (1..1)
-  â”œâ”€ @version (1..1)
-  â”œâ”€ BookingMethods (0..1)
-  â”œâ”€ BookingAccess (0..1)
-  â”œâ”€ BookWhen (0..1)
-  â””â”€ LatestBookingTime (0..1)
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  ├─ BookingMethods (0..1)
+  ├─ BookingAccess (0..1)
+  ├─ BookWhen (0..1)
+  └─ LatestBookingTime (0..1)
 ```
 
 ## Table

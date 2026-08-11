@@ -1,13 +1,13 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 ScheduledStopPoint
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ Name (0..1)
- â”œâ”€ TimingPointStatus (0..1)
- â””â”€ ValidBetween (0..1)
-    â””â”€ FromDate (0..1)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ Name (0..1)
+ ├─ TimingPointStatus (0..1)
+ └─ ValidBetween (0..1)
+    └─ FromDate (0..1)
 ```
 
 ## Table

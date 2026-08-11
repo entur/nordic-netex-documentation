@@ -1,19 +1,19 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 Authority
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ Name (1..1)
- â”œâ”€ LegalName (0..1)
- â”œâ”€ ShortName (0..1)
- â”œâ”€ CompanyNumber (0..1)
- â”œâ”€ Description (0..1)
- â”œâ”€ ContactDetails (0..1)
- â”‚  â”œâ”€ Phone (0..1)
- â”‚  â””â”€ Url (0..1)
- â”œâ”€ OrganisationType (0..1)
- â””â”€ ResponsibilitySetRef/@ref (0..1)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ Name (1..1)
+ ├─ LegalName (0..1)
+ ├─ ShortName (0..1)
+ ├─ CompanyNumber (0..1)
+ ├─ Description (0..1)
+ ├─ ContactDetails (0..1)
+ │  ├─ Phone (0..1)
+ │  └─ Url (0..1)
+ ├─ OrganisationType (0..1)
+ └─ ResponsibilitySetRef/@ref (0..1)
 ```
 
 ## Table

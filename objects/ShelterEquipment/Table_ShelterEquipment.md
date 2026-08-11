@@ -1,14 +1,14 @@
-﻿# ShelterEquipment
+# ShelterEquipment
 
 ## Structure Overview
 
 ```text
 ShelterEquipment
-  â”œâ”€ @id (1..1)
-  â”œâ”€ @version (1..1)
-  â”œâ”€ Seats (0..1)
-  â”œâ”€ StepFree (0..1)
-  â””â”€ Enclosed (0..1)
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  ├─ Seats (0..1)
+  ├─ StepFree (0..1)
+  └─ Enclosed (0..1)
 ```
 
 ## Table

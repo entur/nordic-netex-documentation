@@ -1,12 +1,12 @@
-﻿# AlternativeText
+# AlternativeText
 
 ## Structure Overview
 
 ```text
 AlternativeText
-  â”œâ”€ @id (1..1)
-  â”œâ”€ @version (1..1)
-  â””â”€ Text (1..1)
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  └─ Text (1..1)
 ```
 
 ## Table

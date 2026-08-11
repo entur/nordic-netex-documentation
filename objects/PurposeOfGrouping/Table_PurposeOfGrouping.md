@@ -1,12 +1,12 @@
-﻿# PurposeOfGrouping
+# PurposeOfGrouping
 
 ## Structure Overview
 
 ```text
 PurposeOfGrouping
-  â”œâ”€ @id (1..1)
-  â”œâ”€ @version (1..1)
-  â””â”€ Name (1..1)
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  └─ Name (1..1)
 ```
 
 ## Table

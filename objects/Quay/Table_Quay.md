@@ -1,27 +1,27 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 Quay
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ Name (1..1)
- â”œâ”€ Description (0..1)
- â”œâ”€ PrivateCode (0..1)
- â”œâ”€ Centroid (1..1)
- â”‚  â””â”€ Location (1..1)
- â”‚     â”œâ”€ Longitude (1..1)
- â”‚     â””â”€ Latitude (1..1)
- â”œâ”€ AccessibilityAssessment (0..1)
- â”‚  â”œâ”€ MobilityImpairedAccess (1..1)
- â”‚  â””â”€ limitations (0..1)
- â”‚     â””â”€ AccessibilityLimitation (1..n)
- â”‚        â”œâ”€ WheelchairAccess (0..1)
- â”‚        â””â”€ StepFreeAccess (0..1)
- â”œâ”€ PublicCode (0..1)
- â”œâ”€ CompassBearing (0..1)
- â”œâ”€ placeEquipments (0..1)
- â””â”€ boardingPositions (0..1)
-    â””â”€ BoardingPosition (1..n)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ Name (1..1)
+ ├─ Description (0..1)
+ ├─ PrivateCode (0..1)
+ ├─ Centroid (1..1)
+ │  └─ Location (1..1)
+ │     ├─ Longitude (1..1)
+ │     └─ Latitude (1..1)
+ ├─ AccessibilityAssessment (0..1)
+ │  ├─ MobilityImpairedAccess (1..1)
+ │  └─ limitations (0..1)
+ │     └─ AccessibilityLimitation (1..n)
+ │        ├─ WheelchairAccess (0..1)
+ │        └─ StepFreeAccess (0..1)
+ ├─ PublicCode (0..1)
+ ├─ CompassBearing (0..1)
+ ├─ placeEquipments (0..1)
+ └─ boardingPositions (0..1)
+    └─ BoardingPosition (1..n)
 ```
 
 ## Table

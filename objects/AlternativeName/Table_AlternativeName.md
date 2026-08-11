@@ -1,12 +1,12 @@
-﻿# AlternativeName
+# AlternativeName
 
 ## Structure Overview
 
 ```text
 AlternativeName
-  â”œâ”€ NameType (0..1)
-  â”œâ”€ Name (1..1)
-  â””â”€ QualifierName (0..1)
+  ├─ NameType (0..1)
+  ├─ Name (1..1)
+  └─ QualifierName (0..1)
 ```
 
 ## Table

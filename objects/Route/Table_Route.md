@@ -1,22 +1,22 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 Route
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ Name (1..1)
- â”œâ”€ ShortName (0..1)
- â”œâ”€ Description (0..1)
- â”œâ”€ PublicCode (0..1)
- â”œâ”€ PrivateCode (0..1)
- â”œâ”€ LineRef/@ref (1..1)
- â”œâ”€ DirectionType (0..1)
- â”œâ”€ InverseRouteRef/@ref (0..1)
- â””â”€ pointsInSequence (1..1)
-    â””â”€ PointOnRoute (1..n)
-       â”œâ”€ @order (1..1)
-       â”œâ”€ ScheduledStopPointRef/@ref (1..1)
-       â””â”€ RoutePointRef/@ref (0..1)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ Name (1..1)
+ ├─ ShortName (0..1)
+ ├─ Description (0..1)
+ ├─ PublicCode (0..1)
+ ├─ PrivateCode (0..1)
+ ├─ LineRef/@ref (1..1)
+ ├─ DirectionType (0..1)
+ ├─ InverseRouteRef/@ref (0..1)
+ └─ pointsInSequence (1..1)
+    └─ PointOnRoute (1..n)
+       ├─ @order (1..1)
+       ├─ ScheduledStopPointRef/@ref (1..1)
+       └─ RoutePointRef/@ref (0..1)
 ```
 
 ## Table
