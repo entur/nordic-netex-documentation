@@ -1,39 +1,39 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 JourneyPattern
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ Name (0..1)
- â”œâ”€ RouteRef/@ref (1..1)
- â”œâ”€ DirectionType (0..1)
- â”œâ”€ pointsInSequence (1..1)
- â”‚  â””â”€ StopPointInJourneyPattern (1..n)
- â”‚     â”œâ”€ @id (1..1)
- â”‚     â”œâ”€ @version (1..1)
- â”‚     â”œâ”€ @order (1..1)
- â”‚     â”œâ”€ ScheduledStopPointRef/@ref (1..1)
- â”‚     â”œâ”€ ForAlighting (0..1)
- â”‚     â”œâ”€ ForBoarding (0..1)
- â”‚     â”œâ”€ DestinationDisplayRef/@ref (0..1)
- â”‚     â”œâ”€ ChangeOfDestinationDisplay (0..1)
- â”‚     â”œâ”€ RequestStop (0..1)
- â”‚     â”œâ”€ RequestMethod (0..1)
- â”‚     â”œâ”€ StopUse (0..1)
- â”‚     â”œâ”€ noticeAssignments (0..1)
- â”‚     â”‚  â””â”€ NoticeAssignment (0..n)
- â”‚     â”‚     â”œâ”€ @id, @version, @order
- â”‚     â”‚     â””â”€ NoticeRef/@ref (1..1)
- â”‚     â””â”€ BookingArrangements (0..1)
- â”‚        â”œâ”€ BookingAccess, BookWhen, LatestBookingTime
- â”‚        â”œâ”€ MinimumBookingPeriod, BookingUrl, BookingNote
- â”‚        â””â”€ BookingMethods/BookingMethod (0..n)
- â””â”€ linksInSequence (0..1)
-    â””â”€ ServiceLinkInJourneyPattern (1..n)
-       â”œâ”€ @id (1..1)
-       â”œâ”€ @version (1..1)
-       â”œâ”€ @order (1..1)
-       â””â”€ ServiceLinkRef/@ref (1..1)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ Name (0..1)
+ ├─ RouteRef/@ref (1..1)
+ ├─ DirectionType (0..1)
+ ├─ pointsInSequence (1..1)
+ │  └─ StopPointInJourneyPattern (1..n)
+ │     ├─ @id (1..1)
+ │     ├─ @version (1..1)
+ │     ├─ @order (1..1)
+ │     ├─ ScheduledStopPointRef/@ref (1..1)
+ │     ├─ ForAlighting (0..1)
+ │     ├─ ForBoarding (0..1)
+ │     ├─ DestinationDisplayRef/@ref (0..1)
+ │     ├─ ChangeOfDestinationDisplay (0..1)
+ │     ├─ RequestStop (0..1)
+ │     ├─ RequestMethod (0..1)
+ │     ├─ StopUse (0..1)
+ │     ├─ noticeAssignments (0..1)
+ │     │  └─ NoticeAssignment (0..n)
+ │     │     ├─ @id, @version, @order
+ │     │     └─ NoticeRef/@ref (1..1)
+ │     └─ BookingArrangements (0..1)
+ │        ├─ BookingAccess, BookWhen, LatestBookingTime
+ │        ├─ MinimumBookingPeriod, BookingUrl, BookingNote
+ │        └─ BookingMethods/BookingMethod (0..n)
+ └─ linksInSequence (0..1)
+    └─ ServiceLinkInJourneyPattern (1..n)
+       ├─ @id (1..1)
+       ├─ @version (1..1)
+       ├─ @order (1..1)
+       └─ ServiceLinkRef/@ref (1..1)
 ```
 
 ## Table

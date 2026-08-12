@@ -1,17 +1,17 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 DayType
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ Name (1..1)
- â”œâ”€ Description (0..1)
- â””â”€ properties (0..1)
-    â””â”€ PropertyOfDay (0..n)
-       â”œâ”€ DaysOfWeek (0..1)
-       â”œâ”€ Seasons (0..1)
-       â”œâ”€ HolidayTypes (0..1)
-       â””â”€ Tides (0..1)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ Name (1..1)
+ ├─ Description (0..1)
+ └─ properties (0..1)
+    └─ PropertyOfDay (0..n)
+       ├─ DaysOfWeek (0..1)
+       ├─ Seasons (0..1)
+       ├─ HolidayTypes (0..1)
+       └─ Tides (0..1)
 ```
 
 ## Table

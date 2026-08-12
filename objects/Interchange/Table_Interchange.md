@@ -1,17 +1,17 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 ServiceJourneyInterchange
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ FromJourneyRef/@ref (1..1)
- â”œâ”€ ToJourneyRef/@ref (1..1)
- â”œâ”€ FromPointRef/@ref (0..1)
- â”œâ”€ ToPointRef/@ref (0..1)
- â”œâ”€ Guaranteed (0..1)
- â”œâ”€ MinimumTransferTime (0..1)
- â”œâ”€ MaximumWaitTime (0..1)
- â””â”€ StaySeated (0..1)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ FromJourneyRef/@ref (1..1)
+ ├─ ToJourneyRef/@ref (1..1)
+ ├─ FromPointRef/@ref (0..1)
+ ├─ ToPointRef/@ref (0..1)
+ ├─ Guaranteed (0..1)
+ ├─ MinimumTransferTime (0..1)
+ ├─ MaximumWaitTime (0..1)
+ └─ StaySeated (0..1)
 ```
 
 ## Table

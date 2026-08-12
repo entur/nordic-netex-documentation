@@ -22,9 +22,9 @@ Operator
  │  ├─ 📄 Phone (0..1)
  │  └─ 📄 Url (0..1)
  ├─ 📄 OrganisationType (0..1)
- ├─ � PrimaryMode (0..1)
+ ├─ 📄 PrimaryMode (0..1)
  ├─ 📄 CountryRef (0..1)
- ├─ �🔗 AuthorityRef/@ref (0..1)
+ ├─ 🔗 AuthorityRef/@ref (0..1)
  └─ 🔗 ResponsibilitySetRef/@ref (0..1)
 ```
 

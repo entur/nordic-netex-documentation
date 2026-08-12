@@ -1,15 +1,15 @@
-﻿# SanitaryEquipment
+# SanitaryEquipment
 
 ## Structure Overview
 
 ```text
 SanitaryEquipment
-  â”œâ”€ @id (1..1)
-  â”œâ”€ @version (1..1)
-  â”œâ”€ Gender (0..1)
-  â”œâ”€ SanitaryFacilityList (0..1)
-  â”œâ”€ NumberOfToilets (0..1)
-  â””â”€ PaymentMethods (0..1)
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  ├─ Gender (0..1)
+  ├─ SanitaryFacilityList (0..1)
+  ├─ NumberOfToilets (0..1)
+  └─ PaymentMethods (0..1)
 ```
 
 ## Table

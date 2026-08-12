@@ -1,15 +1,15 @@
-﻿# TariffZone
+# TariffZone
 
 ## Structure Overview
 
 ```text
 TariffZone
-  â”œâ”€ @id (1..1)
-  â”œâ”€ @version (1..1)
-  â”œâ”€ Name (1..1)
-  â”œâ”€ ValidBetween (0..1)
-  â”‚  â””â”€ FromDate (1..1)
-  â””â”€ Polygon (0..1)
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  ├─ Name (1..1)
+  ├─ ValidBetween (0..1)
+  │  └─ FromDate (1..1)
+  └─ Polygon (0..1)
 ```
 
 ## Table

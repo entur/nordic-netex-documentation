@@ -1,26 +1,26 @@
-﻿# DestinationDisplay
+# DestinationDisplay
 
 ## Structure Overview
 
 ```text
 DestinationDisplay
-  â”œâ”€ @id (1..1)
-  â”œâ”€ @version (1..1)
-  â”œâ”€ Name (0..1)
-  â”œâ”€ ShortName (0..1)
-  â”œâ”€ PublicCode (0..1)
-  â”œâ”€ FrontText (1..1)
-  â”œâ”€ SideText (0..1)
-  â”œâ”€ vias (0..1)
-  â”‚  â””â”€ Via (0..n)
-  â”‚     â””â”€ DestinationDisplayRef/@ref (1..1)
-  â””â”€ variants (0..1)
-     â””â”€ DestinationDisplayVariant (0..n)
-        â”œâ”€ @id (1..1)
-        â”œâ”€ @version (1..1)
-        â”œâ”€ Name (0..1)
-        â”œâ”€ FrontText (1..1)
-        â””â”€ DestinationDisplayVariantMediaType (0..1)
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  ├─ Name (0..1)
+  ├─ ShortName (0..1)
+  ├─ PublicCode (0..1)
+  ├─ FrontText (1..1)
+  ├─ SideText (0..1)
+  ├─ vias (0..1)
+  │  └─ Via (0..n)
+  │     └─ DestinationDisplayRef/@ref (1..1)
+  └─ variants (0..1)
+     └─ DestinationDisplayVariant (0..n)
+        ├─ @id (1..1)
+        ├─ @version (1..1)
+        ├─ Name (0..1)
+        ├─ FrontText (1..1)
+        └─ DestinationDisplayVariantMediaType (0..1)
 ```
 
 ## Table

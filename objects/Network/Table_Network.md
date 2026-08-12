@@ -1,19 +1,19 @@
-﻿## Structure Overview
+## Structure Overview
 
 ```text
 Network
- â”œâ”€ @id (1..1)
- â”œâ”€ @version (1..1)
- â”œâ”€ Name (1..1)
- â”œâ”€ Description (0..1)
- â”œâ”€ TransportMode (0..1)
- â”œâ”€ AuthorityRef/@ref (0..1)
- â”œâ”€ members (0..1)
- â”‚  â””â”€ LineRef/@ref (0..n)
- â”œâ”€ groupsOfLines (0..1)
- â”‚  â””â”€ GroupOfLinesRef/@ref (0..n)
- â””â”€ tariffZones (0..1)
-    â””â”€ TariffZoneRef/@ref (0..n)
+ ├─ @id (1..1)
+ ├─ @version (1..1)
+ ├─ Name (1..1)
+ ├─ Description (0..1)
+ ├─ TransportMode (0..1)
+ ├─ AuthorityRef/@ref (0..1)
+ ├─ members (0..1)
+ │  └─ LineRef/@ref (0..n)
+ ├─ groupsOfLines (0..1)
+ │  └─ GroupOfLinesRef/@ref (0..n)
+ └─ tariffZones (0..1)
+    └─ TariffZoneRef/@ref (0..n)
 ```
 
 ## Table
