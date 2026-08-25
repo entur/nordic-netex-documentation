@@ -4,6 +4,8 @@
 
 This repository includes a machine-readable ontology — a set of `.ttl` (Turtle/RDF) files that model the NeTEx schema, Nordic Profile constraints, and Entur-specific governance as structured, queryable data.
 
+> ℹ️ **Scope of this guide.** The only ontology file *native* to this repository is [`netex-nordic-documentation.ttl`](../../ontology/netex-nordic-documentation.ttl) — the documentation layer that maps classes to their Description/Table/Example files and profile scope. Every other layer (the generated base, the Nordic Profile, and the Entur layers) lives in the `entur-netex-ontology` and `nordic-netex-ontology` **submodules**, which each carry their own README as the **authoritative, up-to-date source** for their internals. This guide gives a stable conceptual orientation to the whole stack; when submodule detail and this guide disagree, trust the submodule README.
+
 The ontology serves two purposes:
 - **For humans:** a precise, navigable reference for how NeTEx classes, references, and constraints relate to each other.
 - **For machines:** a foundation for automated validation (SHACL), documentation generation, and tooling integration.
@@ -25,9 +27,9 @@ The `ontology/` folder contains a documentation-specific file alongside the [`en
 ontology/
   ├── entur-netex-ontology/            ← git submodule (https://github.com/entur/entur-netex-ontology)
   │   ├── netex-entur.ttl                    ← Entur governance (codespaces, data ownership)
-  │   ├── netex-entur-nsr.ttl                ← Entur NSR sub-profile (stop places)
-  │   ├── netex-rolling-stock.ttl            ← Rolling stock service sub-profile
+  │   ├── netex-entur-*.ttl                  ← Entur service sub-profiles (NSR, rolling stock, …)
   │   └── nordic-netex-ontology/             ← nested submodule (https://github.com/entur/nordic-netex-ontology)
+  │       ├── base/                          ← vendored snapshot of the generated NeTEx base (netex.ttl + modules + SHACL)
   │       ├── netex-nordic.ttl               ← Nordic Profile (SHACL constraints + element ordering)
   │       ├── netex-nordic-vocab.ttl         ← Nordic vocabulary (nordic:) — terms not in the XSD
   │       ├── netex-nordic-model.ttl         ← Curated frame containment & specialisation
@@ -36,7 +38,9 @@ ontology/
   └── netex-nordic-documentation.ttl   ← Documentation paths and scope metadata
 ```
 
-> ℹ️ The NeTEx **base vocabulary** (`netex:`) is now **generated from the NeTEx XSD** and owned externally (CEN). It is pulled in via `owl:imports <https://netex-cen.eu/ontology>` but is **not stored in this repository** — there is no `netex.ttl` file in the submodule.
+> ℹ️ **Filenames drift; layers don't.** The submodules add and rename files over time (new service sub-profiles, module splits). Treat the tree above as illustrative and rely on the **layer roles** below rather than exact filenames.
+
+> ℹ️ The NeTEx **base vocabulary** (`netex:`) is **generated from the NeTEx XSD** and intended to be CEN-owned — the profile never hand-edits it. A snapshot of that generated base is **vendored under `base/`** in the `nordic-netex-ontology` submodule (the `netex.ttl` root plus its per-module documents and a SHACL baseline), so the profile stays self-contained and validatable without fetching anything external. Terms keep their `netex:` identity regardless of where the base is hosted.
 
 ### Import Chain
 
@@ -44,13 +48,12 @@ The files form a layered stack where each file imports the one above:
 
 ```mermaid
 flowchart TD
-    BASE["<b>netex: base</b> (generated, external)<br/><i>CEN-owned NeTEx vocabulary from the XSD</i>"]
+    BASE["<b>netex: base</b> (generated, vendored snapshot)<br/><i>CEN-owned NeTEx vocabulary from the XSD</i>"]
     VOCAB["<b>netex-nordic-vocab.ttl</b><br/><i>nordic: terms not in the XSD</i>"]
     NP["<b>netex-nordic.ttl</b><br/><i>Profile: what NP allows/requires/excludes</i>"]
     MODEL["<b>netex-nordic-model.ttl</b><br/><i>Frame containment & specialisation</i>"]
     ENTUR["<b>netex-entur.ttl</b><br/><i>Governance: codespaces, data ownership</i>"]
-    NSR["<b>netex-entur-nsr.ttl</b><br/><i>NSR sub-profile: stop places</i>"]
-    RS["<b>netex-rolling-stock.ttl</b><br/><i>Rolling stock sub-profile</i>"]
+    SUB["<b>netex-entur-*.ttl</b><br/><i>Service sub-profiles: NSR, rolling stock, …</i>"]
     DOC["<b>netex-nordic-documentation.ttl</b><br/><i>File paths, scope metadata</i>"]
 
     BASE --> NP
@@ -58,14 +61,13 @@ flowchart TD
     BASE --> MODEL
     VOCAB --> MODEL
     NP --> ENTUR
-    ENTUR --> NSR
-    ENTUR --> RS
+    ENTUR --> SUB
     NP --> DOC
 
     style BASE fill:#e8f4e8
     style NP fill:#e8ecf4
     style ENTUR fill:#f4ece8
-    style RS fill:#f4e8ee
+    style SUB fill:#f4e8ee
     style DOC fill:#f0f0f0
 ```
 
@@ -75,15 +77,14 @@ flowchart TD
 
 | File | Role | Contains |
 |------|------|----------|
-| `netex:` base (external) | **Generated base** | OWL classes + `lowerCamelCase` properties + XSD cardinality/sequence, projected from the NeTEx XSD (CEN-owned) |
+| `base/` (generated snapshot) | **Generated base** | OWL classes + `lowerCamelCase` properties + XSD cardinality/sequence, projected from the NeTEx XSD (CEN-owned); vendored, not hand-edited |
 | `netex-nordic.ttl` | **Nordic Profile** | SHACL validation shapes (excludes, requires, allows), element ordering |
 | `netex-nordic-vocab.ttl` | **Nordic vocabulary** | `nordic:` terms not derived from the XSD (profile meta-classes, data confidence, ordering, domain chains, structural predicates, SIRI bridge property) |
 | `netex-nordic-model.ttl` | **Nordic model** | Curated frame containment (`nordic:contains`/`inFrame`/`childOf`) and functional specialisation (`nordic:specializes`) |
 | `netex-transmodel-alignment.ttl` | **Alignment** | `skos` mapping from NeTEx classes to Transmodel concepts |
 | `netex-siri-bridge.ttl` | **SIRI bridge** | Which NeTEx classes are referenced by SIRI real-time services |
 | `netex-entur.ttl` | **Entur governance** | Codespace conventions (NSR, NOG, PEN), data ownership per class, Partner portal modules |
-| `netex-entur-nsr.ttl` | **NSR sub-profile** | Authoritative stop place profile (Tiamat export, hierarchy rules, keyList conventions) |
-| `netex-rolling-stock.ttl` | **Rolling stock sub-profile** | Which references/elements the rolling stock service consumes/produces, service-specific SHACL constraints |
+| `netex-entur-*.ttl` | **Service sub-profiles** | One file per Entur service (NSR stop places, rolling stock, inventory, product, income model, …). Each imports `netex-entur.ttl` as a **peer** and adds service-specific SHACL constraints; a delivery is validated only against the sub-profiles relevant to its purpose |
 | `netex-nordic-documentation.ttl` | **Documentation layer** | Paths to Description/Table/Example files, profile scope assignments |
 
 ---
@@ -168,7 +169,7 @@ Alongside these, four **domain namespaces** carry the model itself:
 
 ## 4. 🛠️ Custom Properties
 
-Beyond the standard W3C vocabularies, the ontology relies on two families of domain terms: **generated `netex:` properties** projected 1:1 from the NeTEx XSD (`lowerCamelCase`, e.g. `netex:routeRef`) that live in the external CEN-owned base, and **hand-authored `nordic:` predicates** for profile navigation, declared in `netex-nordic-vocab.ttl` and applied in `netex-nordic-model.ttl`.
+Beyond the standard W3C vocabularies, the ontology relies on two families of domain terms: **generated `netex:` properties** projected 1:1 from the NeTEx XSD (`lowerCamelCase`, e.g. `netex:routeRef`) that live in the generated, CEN-owned base, and **hand-authored `nordic:` predicates** for profile navigation, declared in `netex-nordic-vocab.ttl` and applied in `netex-nordic-model.ttl`.
 
 ### Why a Separate `nordic:` Namespace?
 
@@ -197,7 +198,7 @@ These model the XML containment hierarchy — how classes nest inside frames and
 Named references are **no longer hand-modelled**. Each reference is a generated `lowerCamelCase` property projected from the XSD, and profile constraints target it directly by URI:
 
 ```turtle
-## Generated base (external): the property exists, projected 1:1 from the XSD
+## Generated base: the property exists, projected 1:1 from the XSD
 netex:routeRef a owl:ObjectProperty .
 
 ## netex-nordic.ttl: a SHACL shape tightens it for the profile
@@ -216,7 +217,7 @@ SHACL shapes, profile constraints, and service sub-profiles all reference these 
 
 ## 5. ✅ SHACL Validation
 
-SHACL shapes in `netex-nordic.ttl`, `netex-entur-nsr.ttl`, and `netex-rolling-stock.ttl` express constraints that standard tools can validate automatically.
+SHACL shapes in `netex-nordic.ttl` and the Entur service sub-profiles (`netex-entur-*.ttl`, e.g. NSR and rolling stock) express constraints that standard tools can validate automatically.
 
 ### What SHACL Expresses
 
@@ -233,7 +234,9 @@ SHACL shapes in `netex-nordic.ttl`, `netex-entur-nsr.ttl`, and `netex-rolling-st
 |------|---------|---------|
 | `netex-nordic.ttl` | `profile:NP_{ClassName}Shape` | `profile:NP_JourneyPatternShape` |
 | `netex-entur-nsr.ttl` | `nsr:NSR_{ClassName}Shape` | `nsr:NSR_StopPlaceShape` |
-| `netex-rolling-stock.ttl` | `svc:RS_{ClassName}Shape` | `svc:RS_DatedServiceJourneyShape` |
+| `netex-entur-rolling-stock.ttl` | `svc:RS_{ClassName}Shape` | `svc:RS_DatedServiceJourneyShape` |
+
+Each service sub-profile uses its own prefix and shape prefix (e.g. `inv:INV_…` for inventory), following the same `{PREFIX}_{ClassName}Shape` pattern.
 
 ### Layered Validation
 
@@ -264,7 +267,7 @@ This enables tools and LLM agents to navigate from a class URI to its full docum
 
 ### From Ontology to Validation
 
-A SHACL shape references a generated property from the (external) NeTEx base:
+A SHACL shape references a generated property from the NeTEx base:
 
 ```
 generated base:   netex:routeRef        (XSD cardinality 0..1, via owl:Restriction)
@@ -286,6 +289,13 @@ This makes it possible to trace which NeTEx data must be stable for SIRI interop
 ---
 
 ## 7. 📚 Further Reading
+
+**Authoritative sources for submodule internals** (kept current upstream):
+
+- [nordic-netex-ontology README](https://github.com/entur/nordic-netex-ontology) — The generated base (`base/`), Nordic Profile, vocabulary, model, and cross-standard alignment
+- [entur-netex-ontology README](https://github.com/entur/entur-netex-ontology) — Entur governance and the service sub-profiles (`netex-entur-*.ttl`)
+
+**Standards:**
 
 - [W3C RDF Primer](https://www.w3.org/TR/rdf11-primer/) — Introduction to RDF and Turtle syntax
 - [W3C OWL 2 Overview](https://www.w3.org/TR/owl2-overview/) — Formal ontology language
