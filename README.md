@@ -96,9 +96,14 @@ objects/<Name>/
 
 The `ontology/` folder contains a layered knowledge graph sourced from [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) (git submodule). To fetch the ontology files locally, clone with `--recurse-submodules` (or run `git submodule update --init --recursive`).
 
-- **ontology/entur-netex-ontology/nordic-netex-ontology/netex.ttl** — Base NeTEx schema (classes, relationships, cardinality)
+- **`netex:` base** — Base NeTEx schema (classes, properties, cardinality), **generated from the NeTEx XSD** and owned externally (CEN). Imported via `owl:imports`; not stored in this repo.
 - **ontology/entur-netex-ontology/nordic-netex-ontology/netex-nordic.ttl** — Nordic Profile constraints and element ordering
+- **ontology/entur-netex-ontology/nordic-netex-ontology/netex-nordic-vocab.ttl** — Nordic vocabulary (`nordic:`) — terms not derived from the XSD
+- **ontology/entur-netex-ontology/nordic-netex-ontology/netex-nordic-model.ttl** — Curated frame containment & specialisation
+- **ontology/entur-netex-ontology/nordic-netex-ontology/netex-transmodel-alignment.ttl** — NeTEx ⇄ Transmodel mapping
+- **ontology/entur-netex-ontology/nordic-netex-ontology/netex-siri-bridge.ttl** — NeTEx ⇄ SIRI real-time bridges
 - **ontology/entur-netex-ontology/netex-entur.ttl** — Entur-specific governance (codespaces, data ownership)
+- **ontology/entur-netex-ontology/netex-entur-nsr.ttl** — Entur NSR sub-profile (stop places)
 - **ontology/entur-netex-ontology/netex-rolling-stock.ttl** — Rolling stock sub-profile
 - **ontology/netex-nordic-documentation.ttl** — Documentation paths and scope metadata (local to this repo)
 

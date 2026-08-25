@@ -7,7 +7,8 @@
 ##       NordicCandidate) to each object.
 ##
 ## This file contains NO model logic. It only adds doc: and
-## profile:scope annotations to classes defined in the other files.
+## profile:scope annotations to netex: classes defined in the
+## generated (external, CEN-owned) NeTEx base and the Nordic overlay.
 ##
 ## Usage: import alongside netex-nordic.ttl for full documentation
 ## links for LLM navigation and tooling.
