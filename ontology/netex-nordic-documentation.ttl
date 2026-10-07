@@ -3,15 +3,14 @@
 ## -----------------------------------------------------------------
 ## ROLE: Pure documentation metadata — maps each class to its
 ##       description file, table file, and XML example in the repo.
-##       Also assigns profile scope (NordicProfile, EnturExtension,
-##       NordicCandidate) to each object.
+##       Also assigns the governing profile scope to each documented class.
 ##
 ## This file contains NO model logic. It only adds doc: and
-## profile:scope annotations to netex: classes defined in the
-## generated (external, CEN-owned) NeTEx base and the Nordic overlay.
+## profile:scope annotations to netex: classes defined in the generated
+## NeTEx base and the Nordic and Entur overlays.
 ##
-## Usage: import alongside netex-nordic.ttl for full documentation
-## links for LLM navigation and tooling.
+## Usage: import alongside the Nordic Profile and Entur ontology for
+## documentation links and resolved profile scopes.
 ##
 ## Generated: 2026-06-16
 ## -----------------------------------------------------------------
@@ -21,11 +20,10 @@
 @prefix doc:     <https://netex-cen.eu/doc#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
-@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
-
 ## --- Ontology declaration ---
 <https://netex-cen.eu/ontology/nordic-documentation> a owl:Ontology ;
-    owl:imports <https://netex-cen.eu/profile/nordic> ;
+    owl:imports <https://netex-cen.eu/profile/nordic> ,
+                <https://entur.org/ontology> ;
     rdfs:label "NeTEx Nordic Documentation Layer" ;
     rdfs:comment "Adds doc:description, doc:table, doc:example, and profile:scope to ontology classes." .
 
@@ -54,21 +52,8 @@ doc:example a owl:AnnotationProperty ;
     rdfs:comment "Relative path to an XML example file" .
 
 ## --- Scope vocabulary ---
-profile:scope a owl:AnnotationProperty ;
-    rdfs:label "scope" ;
-    rdfs:comment "Which profile level governs this object" .
-
-profile:NordicProfile a profile:Scope ;
-    rdfs:label "Nordic Profile" ;
-    skos:definition "Officially part of the Nordic NeTEx Profile" .
-
-profile:EnturExtension a profile:Scope ;
-    rdfs:label "Entur Extension" ;
-    skos:definition "Entur-specific implementation not yet in the Nordic Profile. Defined in netex-entur.ttl." .
-
-profile:NordicCandidate a profile:Scope ;
-    rdfs:label "Nordic Profile Candidate" ;
-    skos:definition "Proposed for Nordic Profile harmonisation, currently Entur-driven" .
+## profile:scope and profile:NP are defined by the Nordic ontology;
+## profile:Entur is defined by the Entur ontology.
 
 ## =================================================================
 ## FRAME DOCUMENTATION
@@ -393,47 +378,45 @@ netex:Codespace
 ## SCOPE ASSIGNMENTS
 ## =================================================================
 ## Classifies each documented object/frame by its profile scope.
-## Objects without an explicit scope annotation are assumed
-## profile:NordicProfile.
+## Objects without an explicit scope annotation are assumed to be in
+## profile:NP, except for the Entur-only classes listed below.
 ## -----------------------------------------------------------------
 
-## --- Entur Extensions (defined in netex-entur.ttl / netex-rolling-stock.ttl) ---
+## --- Entur-only classes (defined in netex-entur.ttl) ---
 
-netex:TrainBlock         profile:scope profile:EnturExtension .
-netex:CompoundTrain      profile:scope profile:EnturExtension .
-netex:Train              profile:scope profile:EnturExtension .
-
-## --- Nordic Profile Candidates (Entur-driven, targeting NP harmonisation) ---
-
-netex:Contract           profile:scope profile:NordicCandidate .
+netex:TrainBlock         profile:scope profile:Entur .
+netex:CompoundTrain      profile:scope profile:Entur .
+netex:Train              profile:scope profile:Entur .
+netex:Contract           profile:scope profile:Entur .
+netex:DatedServiceJourney profile:scope profile:Entur .
+netex:FareContract       profile:scope profile:Entur .
+netex:FareZone           profile:scope profile:Entur .
 
 ## --- Nordic Profile (all other objects default to this) ---
-## Explicit for key classes; unlisted objects inherit NordicProfile.
+## Explicit for key classes; unlisted objects inherit profile:NP.
 
-netex:CompositeFrame     profile:scope profile:NordicProfile .
-netex:ResourceFrame      profile:scope profile:NordicProfile .
-netex:SiteFrame          profile:scope profile:NordicProfile .
-netex:ServiceCalendarFrame profile:scope profile:NordicProfile .
-netex:ServiceFrame       profile:scope profile:NordicProfile .
-netex:TimetableFrame     profile:scope profile:NordicProfile .
-netex:VehicleScheduleFrame profile:scope profile:NordicProfile .
-netex:FareFrame          profile:scope profile:NordicProfile .
-netex:SalesTransactionFrame profile:scope profile:NordicProfile .
-netex:FareContract       profile:scope profile:NordicProfile .
-netex:TrainNumber        profile:scope profile:NordicProfile .
-netex:Line               profile:scope profile:NordicProfile .
-netex:Route              profile:scope profile:NordicProfile .
-netex:JourneyPattern     profile:scope profile:NordicProfile .
-netex:ServiceJourney     profile:scope profile:NordicProfile .
-netex:DatedServiceJourney profile:scope profile:NordicProfile .
-netex:StopPlace          profile:scope profile:NordicProfile .
-netex:Quay               profile:scope profile:NordicProfile .
-netex:ScheduledStopPoint profile:scope profile:NordicProfile .
-netex:PassengerStopAssignment profile:scope profile:NordicProfile .
-netex:DayType            profile:scope profile:NordicProfile .
-netex:DayTypeAssignment  profile:scope profile:NordicProfile .
-netex:OperatingPeriod    profile:scope profile:NordicProfile .
-netex:OperatingDay       profile:scope profile:NordicProfile .
-netex:Authority          profile:scope profile:NordicProfile .
-netex:Operator           profile:scope profile:NordicProfile .
-netex:Interchange        profile:scope profile:NordicProfile .
+netex:CompositeFrame     profile:scope profile:NP .
+netex:ResourceFrame      profile:scope profile:NP .
+netex:SiteFrame          profile:scope profile:NP .
+netex:ServiceCalendarFrame profile:scope profile:NP .
+netex:ServiceFrame       profile:scope profile:NP .
+netex:TimetableFrame     profile:scope profile:NP .
+netex:VehicleScheduleFrame profile:scope profile:NP .
+netex:FareFrame          profile:scope profile:NP .
+netex:SalesTransactionFrame profile:scope profile:NP .
+netex:TrainNumber        profile:scope profile:NP .
+netex:Line               profile:scope profile:NP .
+netex:Route              profile:scope profile:NP .
+netex:JourneyPattern     profile:scope profile:NP .
+netex:ServiceJourney     profile:scope profile:NP .
+netex:StopPlace          profile:scope profile:NP .
+netex:Quay               profile:scope profile:NP .
+netex:ScheduledStopPoint profile:scope profile:NP .
+netex:PassengerStopAssignment profile:scope profile:NP .
+netex:DayType            profile:scope profile:NP .
+netex:DayTypeAssignment  profile:scope profile:NP .
+netex:OperatingPeriod    profile:scope profile:NP .
+netex:OperatingDay       profile:scope profile:NP .
+netex:Authority          profile:scope profile:NP .
+netex:Operator           profile:scope profile:NP .
+netex:Interchange        profile:scope profile:NP .

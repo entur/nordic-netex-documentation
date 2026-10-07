@@ -44,7 +44,7 @@ ontology/
 
 ### Import Chain
 
-The files form a layered stack where each file imports the one above:
+The ontology layers build on imported dependencies. The documentation layer imports both the Nordic Profile and Entur ontology so it can resolve the scope assigned to each class:
 
 ```mermaid
 flowchart TD
@@ -63,6 +63,7 @@ flowchart TD
     NP --> ENTUR
     ENTUR --> SUB
     NP --> DOC
+    ENTUR --> DOC
 
     style BASE fill:#e8f4e8
     style NP fill:#e8ecf4
