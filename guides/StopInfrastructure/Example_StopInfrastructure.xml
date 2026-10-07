@@ -15,17 +15,13 @@
 -->
 <PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
   <PublicationTimestamp>2026-03-18T00:00:00Z</PublicationTimestamp>
-  <ParticipantRef>NSR</ParticipantRef>
+  <ParticipantRef>NP</ParticipantRef>
   <dataObjects>
     <CompositeFrame id="NP:CompositeFrame:Stops:1" version="1">
       <codespaces>
         <Codespace id="np">
           <Xmlns>NP</Xmlns>
           <XmlnsUrl>http://www.nordicprofile.eu/ns/np</XmlnsUrl>
-        </Codespace>
-        <Codespace id="nsr">
-          <Xmlns>NSR</Xmlns>
-          <XmlnsUrl>http://www.rutebanken.org/ns/nsr</XmlnsUrl>
         </Codespace>
       </codespaces>
       <FrameDefaults>

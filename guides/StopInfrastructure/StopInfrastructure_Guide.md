@@ -284,7 +284,7 @@ flowchart TD
 
 1. **Every ScheduledStopPoint needs a PassengerStopAssignment.** Without it, journey planners cannot resolve stops to physical platforms.
 
-2. **Use the multimodal hierarchy for transport hubs.** Don't put bus and rail Quays in the same StopPlace — create a multimodal parent with monomodal children.
+2. **Choose the stop model for the profile.** In Entur NSR, don't put bus and rail Quays in the same StopPlace; use a multimodal parent with monomodal children. In NP operator deliveries, use monomodal StopPlaces and do not use `ParentSiteRef`, which NP excludes.
 
 3. **Keep ScheduledStopPoint lightweight.** It's a logical planning concept — don't put coordinates or accessibility on it. That data belongs on StopPlace/Quay.
 
@@ -302,8 +302,8 @@ flowchart TD
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|
 | Missing PassengerStopAssignment | Logical stop can't resolve to a platform | Always create an assignment for every ScheduledStopPoint |
-| Quays on a multimodal parent | Multimodal parents must have 0 Quays | Create monomodal children with Quays instead |
-| TransportMode on multimodal parent | Multimodal parents have no single mode | Remove TransportMode; set it on children |
+| Quays on a multimodal parent (Entur NSR) | NSR parents must have 0 Quays | Create monomodal children with Quays instead; NP operator deliveries do not use this hierarchy |
+| TransportMode on multimodal parent (Entur NSR) | NSR parents have no single mode | Remove TransportMode; set it on children; NP operator deliveries use monomodal StopPlaces |
 | Coordinates on ScheduledStopPoint | It's a logical concept, not physical | Put coordinates on StopPlace/Quay instead |
 | QuayRef pointing to wrong StopPlace | Data integrity violation | Verify the Quay is contained in the referenced StopPlace |
 | Longitude/Latitude swapped | Geographically incorrect location | Longitude = East/West (X), Latitude = North/South (Y) |

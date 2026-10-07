@@ -40,7 +40,13 @@ StopPlace (Multimodal Parent - Entur NSR)
  │   └── 📄 KeyValue (0..n)
  ├── 📄 Name (1..1)
  ├── 📄 Description (0..1)
+ ├── 📁 Centroid (0..1)
+ │   └── 📄 Location (1..1)
+ │       ├── 📄 Longitude (1..1)
+ │       └── 📄 Latitude (1..1)
  ├── 🔗 TopographicPlaceRef/@ref (0..1)
+ ├── 📁 tariffZones (0..n)
+ │   └── 🔗 TariffZoneRef/@ref (1..n)
  ├── 📄 StopPlaceType (0..1)
  └── 📄 (NO quays; NO TransportMode)
 ```
@@ -79,9 +85,9 @@ StopPlace (Multimodal Parent - Entur NSR)
 ### 5c. Common Pitfalls
 
 > [!WARNING]
-> - **Monomodal/multimodal confusion**: Mistakenly adding Quays to a multimodal parent or omitting TransportMode from monomodal stops. Create separate child StopPlaces for each transport mode under a multimodal parent.
+> - **Monomodal/multimodal confusion**: In Entur NSR, do not add Quays or a TransportMode to a multimodal parent; use monomodal child StopPlaces per mode. For NP operator deliveries, use monomodal StopPlaces and do not use the excluded `ParentSiteRef` hierarchy.
 > - **Missing TransportMode**: NP monomodal StopPlaces and NSR monomodal stops require `TransportMode`, even though the CEN XSD allows `0..1`. An NSR multimodal parent may omit it only when `IS_PARENT_STOP_PLACE=true` is present in `keyList`.
-> - **ParentSiteRef to non-parent**: Referencing a monomodal StopPlace (with Quays) as a parent instead of a true multimodal parent (without Quays). Verify parent is multimodal first.
+> - **ParentSiteRef to non-parent (Entur NSR)**: Referencing a monomodal StopPlace (with Quays) as a parent instead of a true multimodal parent (without Quays). In NP operator deliveries, `ParentSiteRef` is excluded.
 > - **Mixed navigation elements in wrong context**: Placing pathLinks, navigationPaths, or accessSpaces under Quays instead of under the parent StopPlace; these are stop-level, not quay-level constructs.
 > - **Unmarked NSR parent**: A mode-less parent must carry `IS_PARENT_STOP_PLACE=true` in `keyList`; without the marker, the NSR shape requires `TransportMode` and `StopPlaceType`.
 
