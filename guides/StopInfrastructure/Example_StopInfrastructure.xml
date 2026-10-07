@@ -15,13 +15,17 @@
 -->
 <PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
   <PublicationTimestamp>2026-03-18T00:00:00Z</PublicationTimestamp>
-  <ParticipantRef>NP</ParticipantRef>
+  <ParticipantRef>NSR</ParticipantRef>
   <dataObjects>
     <CompositeFrame id="NP:CompositeFrame:Stops:1" version="1">
       <codespaces>
         <Codespace id="np">
           <Xmlns>NP</Xmlns>
           <XmlnsUrl>http://www.nordicprofile.eu/ns/np</XmlnsUrl>
+        </Codespace>
+        <Codespace id="nsr">
+          <Xmlns>NSR</Xmlns>
+          <XmlnsUrl>http://www.rutebanken.org/ns/nsr</XmlnsUrl>
         </Codespace>
       </codespaces>
       <FrameDefaults>
@@ -46,8 +50,9 @@
 
           <stopPlaces>
             <!--
-              MULTIMODAL PARENT: Oslo S
-              No TransportMode, no Quays — just a grouping container.
+              ENTUR NSR MULTIMODAL PARENT: Oslo S
+              No TransportMode, no StopPlaceType, and no Quays.
+              ParentSiteRef on the children is outside NP operator deliveries.
             -->
             <StopPlace id="NP:StopPlace:OsloS_Multi" version="1">
               <Name>Oslo S</Name>

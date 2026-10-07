@@ -87,9 +87,9 @@ flowchart TD
     style QB fill:#1976D2,stroke:#1976D2,color:#fff
 ```
 
-### Multimodal Hierarchy
+### Multimodal Hierarchy (Entur NSR)
 
-Large transport hubs (rail + bus + metro) use a two-level hierarchy:
+The Entur NSR registry models large transport hubs (rail + bus + metro) with a two-level hierarchy. This is not an NP operator-delivery pattern: NP excludes `ParentSiteRef`, while NSR uses it on monomodal children to reference their multimodal parent.
 
 ```mermaid
 flowchart TD
@@ -117,11 +117,16 @@ flowchart TD
     style QB fill:#42A5F5,stroke:#42A5F5,color:#fff
 ```
 
-| Rule | Monomodal | Multimodal parent |
-|------|-----------|-------------------|
-| TransportMode | Required | Must NOT be present |
-| Quays | At least 1 | Must have 0 |
-| ParentSiteRef | Optional | Not used |
+| Rule | NP monomodal | Entur NSR multimodal parent |
+|------|-------------|----------------------------|
+| TransportMode | `1..1` in NP; CEN XSD allows `0..1` | Absent in the parent model |
+| OtherTransportModes | Optional (`0..1`) list of additional accessible modes | Does not replace the parent/child hierarchy |
+| StopPlaceType | Optional (`0..1`) | May be omitted in the parent example |
+| Quays | `1..n` | None |
+| ParentSiteRef | Excluded by NP | Used on each monomodal child to reference its parent |
+
+> [!WARNING]
+> The current [Entur NSR shape](../../ontology/entur-netex-ontology/netex-entur-nsr.ttl) still requires both `TransportMode` and `StopPlaceType` on every StopPlace. It conflicts with the mode-less parent shown above; reconcile the NSR shape before treating this variant as validation-ready.
 
 ---
 
