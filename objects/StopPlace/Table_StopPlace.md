@@ -31,6 +31,8 @@ StopPlace (Monomodal)
 StopPlace (Multimodal Parent - Entur NSR)
  ├─ @id (1..1)
  ├─ @version (1..1)
+ ├─ keyList (0..1)
+ │  └─ KeyValue (0..n; includes IS_PARENT_STOP_PLACE=true)
  ├─ Name (1..1)
  ├─ Description (0..1)
  ├─ TopographicPlaceRef/@ref (0..1)
@@ -74,7 +76,7 @@ StopPlace (Multimodal Parent - Entur NSR)
 | [Quay](../Quay/Table_Quay.md) | Quay | 1..n | Boarding/alighting positions (not on multimodal parent) | StopPlace/quays/Quay |
 
 > [!NOTE]
-> The NP column describes Nordic Profile cardinality, not raw XSD cardinality. NP requires one `TransportMode` on monomodal StopPlaces; the CEN XSD allows `TransportMode` to be absent (`0..1`). The mode-less multimodal parent is an Entur NSR registry variant, not an NP operator-delivery variant because NP excludes `ParentSiteRef`.
+> The NP column describes Nordic Profile cardinality, not raw XSD cardinality. NP requires one `TransportMode` on monomodal StopPlaces; the CEN XSD allows `TransportMode` to be absent (`0..1`). The mode-less multimodal parent is an Entur NSR registry variant, not an NP operator-delivery variant because NP excludes `ParentSiteRef`. In NSR, the parent is marked with `IS_PARENT_STOP_PLACE=true` in `keyList`.
 
-> [!WARNING]
-> The current [Entur NSR shape](../../ontology/entur-netex-ontology/netex-entur-nsr.ttl) requires both `TransportMode` and `StopPlaceType` on every StopPlace. It therefore conflicts with the mode-less parent model shown here; reconcile that shape before using it to validate multimodal parents.
+> [!NOTE]
+> The [Entur NSR shape](../../ontology/entur-netex-ontology/netex-entur-nsr.ttl) requires `TransportMode` and `StopPlaceType` on monomodal stops. It allows both to be absent when `IS_PARENT_STOP_PLACE=true` is present in `keyList`.

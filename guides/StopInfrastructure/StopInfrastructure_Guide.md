@@ -119,14 +119,14 @@ flowchart TD
 
 | Rule | NP monomodal | Entur NSR multimodal parent |
 |------|-------------|----------------------------|
-| TransportMode | `1..1` in NP; CEN XSD allows `0..1` | Absent in the parent model |
+| TransportMode | `1..1` in NP; CEN XSD allows `0..1` | Absent when `IS_PARENT_STOP_PLACE=true` is in `keyList` |
 | OtherTransportModes | Optional (`0..1`) list of additional accessible modes | Does not replace the parent/child hierarchy |
-| StopPlaceType | Optional (`0..1`) | May be omitted in the parent example |
+| StopPlaceType | Optional (`0..1`) | May be omitted when the parent marker is present |
 | Quays | `1..n` | None |
 | ParentSiteRef | Excluded by NP | Used on each monomodal child to reference its parent |
 
-> [!WARNING]
-> The current [Entur NSR shape](../../ontology/entur-netex-ontology/netex-entur-nsr.ttl) still requires both `TransportMode` and `StopPlaceType` on every StopPlace. It conflicts with the mode-less parent shown above; reconcile the NSR shape before treating this variant as validation-ready.
+> [!NOTE]
+> The [Entur NSR shape](../../ontology/entur-netex-ontology/netex-entur-nsr.ttl) requires both fields on monomodal stops. It allows them to be absent on a parent only when `IS_PARENT_STOP_PLACE=true` is present in `keyList`.
 
 ---
 

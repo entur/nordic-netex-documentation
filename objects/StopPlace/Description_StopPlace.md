@@ -36,6 +36,8 @@ StopPlace (Monomodal)
 StopPlace (Multimodal Parent - Entur NSR)
  ├── 📄 @id (1..1)
  ├── 📄 @version (1..1)
+ ├── 📁 keyList (0..1)
+ │   └── 📄 KeyValue (0..n; includes IS_PARENT_STOP_PLACE=true)
  ├── 📄 Name (1..1)
  ├── 📄 Description (0..1)
  ├── 🔗 TopographicPlaceRef/@ref (0..1)
@@ -61,15 +63,15 @@ StopPlace (Multimodal Parent - Entur NSR)
 ## 5. Usage Notes
 
 ### 5a. Consistency Rules
-- **Monomodal vs. Multimodal hierarchy**: A monomodal NP StopPlace has exactly one TransportMode and one or more Quays. The Entur NSR registry uses a separate multimodal parent with no TransportMode or Quays; `ParentSiteRef` is excluded from NP operator deliveries.
+- **Monomodal vs. Multimodal hierarchy**: A monomodal NP StopPlace has exactly one TransportMode and one or more Quays. The Entur NSR registry uses a separate multimodal parent with no TransportMode or Quays, marked by `IS_PARENT_STOP_PLACE=true` in `keyList`; `ParentSiteRef` is excluded from NP operator deliveries.
 - **Unique naming**: StopPlace names should be unique within the system and consistent with official transportation authority naming conventions.
-- **TransportMode requirement**: NP requires one `TransportMode` on monomodal StopPlaces. CEN XSD cardinality is `0..1`; an NSR multimodal parent is a separate registry variant and omits the field.
+- **TransportMode requirement**: NP requires one `TransportMode` on monomodal StopPlaces. CEN XSD cardinality is `0..1`; the Entur NSR shape requires the field on monomodal stops and allows it to be absent on a parent marked with `IS_PARENT_STOP_PLACE=true`.
 - **Centroid positioning**: For monomodal stops, Centroid should be positioned centrally between serving Quays; for multimodal parents, it should be at the hub center.
 
 ### 5b. Validation Requirements
 - **Name is mandatory** – All StopPlaces must have a Name element for identification and display.
 - **TransportMode is mandatory for monomodal StopPlaces** – If the StopPlace contains Quays, TransportMode MUST be present; multimodal parents must NOT have TransportMode.
-- **StopPlaceType cardinality** – Optional (`0..1`) in the CEN XSD and NP baseline; the multimodal parent may omit it. The current Entur NSR SHACL shape instead requires it on every StopPlace, including the parent variant.
+- **StopPlaceType cardinality** – Optional (`0..1`) in the CEN XSD and NP baseline. The Entur NSR shape requires it on monomodal stops and allows it to be absent on a parent marked with `IS_PARENT_STOP_PLACE=true`.
 - **@id and @version are mandatory** – Follow codespace convention (e.g., `NP:StopPlace:1001`); version typically "1" unless updated.
 - **ParentSiteRef cardinality** – If used, a child StopPlace references exactly one multimodal parent; no orphaned children or multiple parents allowed.
 - **Quay containment** – Multimodal parents must have zero Quays (cardinality 0); monomodal StopPlaces must have at least one Quay (cardinality 1..n).
@@ -78,12 +80,10 @@ StopPlace (Multimodal Parent - Entur NSR)
 
 > [!WARNING]
 > - **Monomodal/multimodal confusion**: Mistakenly adding Quays to a multimodal parent or omitting TransportMode from monomodal stops. Create separate child StopPlaces for each transport mode under a multimodal parent.
-> - **Missing TransportMode**: NP monomodal StopPlaces require `TransportMode`, even though the CEN XSD allows `0..1`. Do not apply this NP rule to the separate mode-less NSR parent variant.
+> - **Missing TransportMode**: NP monomodal StopPlaces and NSR monomodal stops require `TransportMode`, even though the CEN XSD allows `0..1`. An NSR multimodal parent may omit it only when `IS_PARENT_STOP_PLACE=true` is present in `keyList`.
 > - **ParentSiteRef to non-parent**: Referencing a monomodal StopPlace (with Quays) as a parent instead of a true multimodal parent (without Quays). Verify parent is multimodal first.
 > - **Mixed navigation elements in wrong context**: Placing pathLinks, navigationPaths, or accessSpaces under Quays instead of under the parent StopPlace; these are stop-level, not quay-level constructs.
-> - **NSR shape mismatch**: The current Entur NSR SHACL shape requires both `TransportMode` and `StopPlaceType` on every StopPlace, while the documented multimodal parent omits them. The shape and hierarchy model need reconciliation before this parent can be validated against NSR rules.
-
-<!-- PROPOSAL: Make the Entur NSR StopPlace shape parent-aware. It currently requires TransportMode and StopPlaceType on every StopPlace, conflicting with the documented mode-less multimodal parent. -->
+> - **Unmarked NSR parent**: A mode-less parent must carry `IS_PARENT_STOP_PLACE=true` in `keyList`; without the marker, the NSR shape requires `TransportMode` and `StopPlaceType`.
 
 > [!TIP]
 > **Centroid positioning**: For monomodal stops, place the Centroid centrally between all serving Quays. For multimodal parents, position it at the hub center – not at a single Quay.
