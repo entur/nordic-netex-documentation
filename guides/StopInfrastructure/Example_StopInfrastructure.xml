@@ -46,10 +46,18 @@
 
           <stopPlaces>
             <!--
-              MULTIMODAL PARENT: Oslo S
-              No TransportMode, no Quays — just a grouping container.
+              ENTUR NSR MULTIMODAL PARENT: Oslo S
+              No TransportMode, no StopPlaceType, and no Quays.
+              IS_PARENT_STOP_PLACE=true identifies this NSR parent.
+              ParentSiteRef on the children is outside NP operator deliveries.
             -->
             <StopPlace id="NP:StopPlace:OsloS_Multi" version="1">
+              <keyList>
+                <KeyValue>
+                  <Key>IS_PARENT_STOP_PLACE</Key>
+                  <Value>true</Value>
+                </KeyValue>
+              </keyList>
               <Name>Oslo S</Name>
               <Centroid>
                 <Location>
