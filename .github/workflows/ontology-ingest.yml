@@ -55,8 +55,13 @@ jobs:
 
       - name: Flyttet pinnen seg?
         id: diff
+        env:
+          OLD_SHA: ${{ steps.before.outputs.sha }}
+          NEW_SHA: ${{ steps.after.outputs.sha }}
         run: |
-          if git diff --quiet --ignore-submodules=dirty; then
+          echo "Gammel pin: ${OLD_SHA}"
+          echo "Ny pin:     ${NEW_SHA}"
+          if [ "$OLD_SHA" = "$NEW_SHA" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Ingen oppstrøms-endring — pinnen står stille."
           else
