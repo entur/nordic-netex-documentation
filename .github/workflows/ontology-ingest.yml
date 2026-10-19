@@ -85,7 +85,7 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         continue-on-error: true   # rød validering skal IKKE hindre PR — den ER signalet
         run: |
-          if python scripts/validate_ontology.py > validate-out.txt 2>&1; then
+          if python scripts/validate_ontology.py > "$RUNNER_TEMP/validate-out.txt" 2>&1; then
             echo "status=✅ **validate_ontology.py: bestått** — ingen døde doc-stier oppdaget." >> "$GITHUB_OUTPUT"
           else
             echo "status=❌ **validate_ontology.py: FEILET** — dokumentasjonen er trolig ute av synk med standarden (se logg under)." >> "$GITHUB_OUTPUT"
@@ -110,14 +110,14 @@ jobs:
             echo "<details><summary>Valideringslogg</summary>"
             echo ""
             echo '```'
-            tail -n 60 validate-out.txt || true
+            tail -n 60 "$RUNNER_TEMP/validate-out.txt" || true
             echo '```'
             echo ""
             echo "</details>"
             echo ""
             echo "---"
             echo "**Til gjennomgang:** har standarden fått nye/endrede/fjernede klasser som krever oppdatert objekt-/frame-dokumentasjon? Merge når docs er i synk."
-          } > pr-body.md
+          } > "$RUNNER_TEMP/pr-body.md"
 
       - name: Opprett/oppdater karantene-PR
         if: steps.diff.outputs.changed == 'true'
@@ -127,7 +127,9 @@ jobs:
           branch: ontology-ingest/upstream
           commit-message: "chore(ontology): bump entur-netex-ontology til oppstrøms main"
           title: "[oppstrøms] entur-netex-ontology har flyttet seg — sjekk om docs må oppdateres"
-          body-path: pr-body.md
+          body-path: ${{ runner.temp }}/pr-body.md
+          # Kun submodul-pinnen skal inn i ingest-PR-en — aldri hjelpefiler.
+          add-paths: ontology/entur-netex-ontology
           labels: |
             ontology
             automated
