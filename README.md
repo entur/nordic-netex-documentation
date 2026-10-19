@@ -108,7 +108,7 @@ The `ontology/` folder contains a layered knowledge graph sourced from [`entur-n
 - **ontology/entur-netex-ontology/netex-entur.ttl** — Entur profile: `entur:X` profile nodes for Entur-only classes, governance (codespaces, data ownership)
 - **ontology/entur-netex-ontology/netex-entur-nsr.ttl** — Entur NSR sub-profile (stop places)
 - **ontology/entur-netex-ontology/netex-rolling-stock.ttl** — Rolling stock sub-profile
-- **ontology/netex-nordic-documentation.ttl** — Documentation paths on the profile nodes (local to this repo). **Generated** from `objects/` and `frames/` — run `python scripts/generate_documentation_ttl.py` after adding or renaming documentation files
+- **ontology/netex-nordic-documentation.ttl** — Documentation paths on the profile nodes, and guides with the classes they cover (local to this repo). **Generated** from `objects/`, `frames/` and `guides/` — run `python scripts/generate_documentation_ttl.py` after adding or renaming documentation files
 
 ---
 

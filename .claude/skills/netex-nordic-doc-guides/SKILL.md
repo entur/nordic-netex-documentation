@@ -23,6 +23,12 @@ guides/
     └── images/                     ← Diagrams, SVGs (optional)
 ```
 
+Keep exactly **one** `.md` file per guide folder. The guide is indexed in `ontology/netex-nordic-documentation.ttl` as `guide:<GuideName>`, with `doc:covers` for every `objects/`/`frames/` folder it links to. After adding a guide, adding examples, or changing which objects it links to, regenerate the index (CI fails if it is stale):
+
+```bash
+python scripts/generate_documentation_ttl.py
+```
+
 ---
 
 ## Section structure

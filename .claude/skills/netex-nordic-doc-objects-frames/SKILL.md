@@ -21,7 +21,7 @@ The folder name `<Name>` must be the NeTEx class name: it is linked to the profi
 python scripts/generate_documentation_ttl.py
 ```
 
-CI fails if `ontology/netex-nordic-documentation.ttl` is stale or a folder has no profile node.
+CI fails if `ontology/netex-nordic-documentation.ttl` is stale or the folder name is not a NeTEx class. A class with no Nordic or Entur profile node is still documented (as `unprofiled:<Name>`) and only gives a warning — a signal to add it to a profile upstream.
 
 ---
 
