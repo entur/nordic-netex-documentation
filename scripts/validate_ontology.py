@@ -8,6 +8,9 @@ Checks:
   3. Doc path validation (every doc:description/table/example points to a real file)
   4. OWL:Ontology header present in every parsed TTL file (DCAT catalog
      manifests such as catalog.ttl are exempt)
+  5. Documentation subjects are profile nodes (profile:ProfileClass), never
+     netex: classes, and the documentation layer sets no profile:scope
+  6. netex-nordic-documentation.ttl matches generate_documentation_ttl.py
 
 Usage:
     python scripts/validate_ontology.py
@@ -136,6 +139,45 @@ def check_doc_paths(g: Graph, result: ValidationResult):
     result.ok(f"[doc-paths] Checked {checked} references, {missing} missing")
 
 
+def check_doc_subjects(doc: Graph, ontology: Graph, result: ValidationResult):
+    """Documentation must sit on profile-owned nodes, not on netex: classes."""
+    for subj, _, _ in doc.triples((None, PROFILE.scope, None)):
+        result.error(f"Documentation layer sets profile:scope on {subj}; scope belongs to the profile ontology")
+
+    subjects = {s for p in (DOC.description, DOC.table, DOC.example) for s in doc.subjects(p, None)}
+    bad = 0
+    for subj in sorted(subjects, key=str):
+        if str(subj).startswith(str(NETEX)):
+            result.error(f"Documentation attached to CEN class {subj}; use the profile node (nordic:/entur:)")
+            bad += 1
+        elif (subj, RDF.type, PROFILE.ProfileClass) not in ontology:
+            result.error(f"Documentation subject {subj} is not a profile:ProfileClass in the loaded ontology")
+            bad += 1
+    result.ok(f"[doc-subjects] Checked {len(subjects)} documented nodes, {bad} invalid")
+
+
+def check_generated(result: ValidationResult):
+    """The committed documentation layer must equal the generator output."""
+    import generate_documentation_ttl as gen
+
+    try:
+        built = gen.build()
+    except Exception as exc:  # noqa: BLE001
+        result.error(f"Documentation generator failed: {exc}")
+        return
+    for msg in built.errors:
+        result.error(f"[generator] {msg}")
+    for msg in built.warnings:
+        result.warn(f"[generator] {msg}")
+    current = DOC_TTL.read_text(encoding="utf-8").replace("\r\n", "\n") if DOC_TTL.exists() else ""
+    if not built.errors and current != built.text:
+        result.error(
+            "netex-nordic-documentation.ttl is stale; run: python scripts/generate_documentation_ttl.py"
+        )
+    elif not built.errors:
+        result.ok("netex-nordic-documentation.ttl matches the generator output")
+
+
 def main():
     print("=" * 60)
     print("NeTEx Nordic Ontology Validation")
@@ -175,6 +217,19 @@ def main():
         check_doc_paths(graphs[DOC_TTL], result)
     else:
         result.warn("netex-nordic-documentation.ttl not found/parsed — skipping path check")
+
+    # 5. Documentation subjects are profile nodes
+    print("\nChecking documentation subjects...")
+    if DOC_TTL in graphs:
+        ontology = Graph()
+        for path, g in graphs.items():
+            if path != DOC_TTL:
+                ontology += g
+        check_doc_subjects(graphs[DOC_TTL], ontology, result)
+
+    # 6. Generated file is up to date
+    print("\nChecking generated documentation layer...")
+    check_generated(result)
 
     # Summary
     print("\n" + "=" * 60)
