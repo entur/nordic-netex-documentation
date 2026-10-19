@@ -6,7 +6,8 @@ Checks:
   1. Turtle syntax (all .ttl files parse without errors)
   2. Structural invariants (every owl:Class has rdfs:label; skos:definition recommended)
   3. Doc path validation (every doc:description/table/example points to a real file)
-  4. OWL:Ontology header present in every parsed TTL file
+  4. OWL:Ontology header present in every parsed TTL file (DCAT catalog
+     manifests such as catalog.ttl are exempt)
 
 Usage:
     python scripts/validate_ontology.py
@@ -18,7 +19,7 @@ Requires: Python 3.10+, rdflib
 import sys
 from pathlib import Path
 from rdflib import Graph, Namespace, RDF, RDFS, OWL
-from rdflib.namespace import SKOS
+from rdflib.namespace import DCAT, SKOS
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ONTOLOGY_DIR = REPO_ROOT / "ontology"
@@ -78,6 +79,11 @@ def parse_ttl(path: Path, result: ValidationResult) -> Graph | None:
 
 def check_ontology_header(g: Graph, path: Path, result: ValidationResult):
     """Check that the file declares an owl:Ontology."""
+    # DCAT manifests (e.g. the generated catalog.ttl) describe ontology files
+    # rather than being ontologies themselves.
+    if (None, RDF.type, DCAT.Catalog) in g:
+        result.ok(f"{path.name} is a DCAT catalog - owl:Ontology not required")
+        return
     ontologies = list(g.subjects(RDF.type, OWL.Ontology))
     if not ontologies:
         result.error(f"{path.name} has no owl:Ontology declaration")
