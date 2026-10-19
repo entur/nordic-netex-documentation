@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate ontology/netex-nordic-documentation.ttl from the objects/ and frames/ folders.
+Generate ontology/netex-nordic-documentation.ttl from objects/, frames/ and guides/.
 
 Each documentation folder objects/<Class>/ or frames/<Class>/ is linked to the
 profile's own node for netex:<Class> (a profile:ProfileClass with
@@ -16,13 +16,23 @@ Profile nodes are read from the Nordic (nordic:, profile:NP) and Entur
 profiles have a node for the same class, the Nordic node is used. Scope is not
 repeated here; read it from the profile node.
 
+A folder whose class has no profile node yet is still documented, on a node
+owned by this repository (unprofiled:<Class> a doc:UnprofiledDocumentation,
+with doc:forClass netex:<Class>), and reported as a warning so the class can
+be added to a profile upstream. Once the profile node exists, the next run
+moves the documentation onto it.
+
+Each guides/<Guide>/ folder becomes a doc:Guide (guide:<Guide>) with its
+markdown file, examples, and doc:covers links to every documented class the
+guide links to.
+
 Usage:
     python scripts/generate_documentation_ttl.py           # write the file
     python scripts/generate_documentation_ttl.py --check   # fail if the file is stale
 
 Exit codes:
-  0  generated (or up to date with --check)
-  1  a folder could not be resolved, or the file is stale with --check
+  0  generated (or up to date with --check); warnings do not fail
+  1  a folder is malformed, or the file is stale with --check
 
 Requires: Python 3.10+, rdflib
 """
@@ -30,6 +40,7 @@ from __future__ import annotations
 
 import argparse
 import difflib
+import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -41,23 +52,29 @@ ONTOLOGY_DIR = REPO_ROOT / "ontology"
 OUTPUT = ONTOLOGY_DIR / "netex-nordic-documentation.ttl"
 ENTUR_DIR = ONTOLOGY_DIR / "entur-netex-ontology"
 NORDIC_DIR = ENTUR_DIR / "nordic-netex-ontology"
+GUIDES_DIR = REPO_ROOT / "guides"
 
 NETEX = "https://netex-cen.eu/ontology#"
 PROFILE = Namespace("https://netex-cen.eu/profile#")
+UNPROFILED_NS = "https://netex-cen.eu/doc/unprofiled#"
+GUIDE_NS = "https://netex-cen.eu/doc/guide#"
 PREFIXES = {
     "nordic": "https://netex-cen.eu/nordic#",
     "entur": "https://entur.org/ontology#",
+    "unprofiled": UNPROFILED_NS,
+    "guide": GUIDE_NS,
 }
 # First match wins when a class has nodes in more than one profile.
 SCOPE_PREFERENCE = [PROFILE.NP, PROFILE.Entur]
 SCOPE_LABEL = {PROFILE.NP: "NP", PROFILE.Entur: "Entur"}
 
-# Documentation folders that intentionally have no profile node.
-UNPROFILED = {
+# Documentation folders that intentionally have no profile node (no warning).
+INTENTIONALLY_UNPROFILED = {
     "Organisation": "abstract supertype of Authority and Operator, which carry the profile nodes",
 }
 
 KINDS = ("frames", "objects")
+GUIDE_LINK = re.compile(r"\]\((?:\.\./)+(objects|frames)/([^/)#\s]+)/")
 
 
 @dataclass
@@ -69,6 +86,15 @@ class Entry:
     examples: list[str] = field(default_factory=list)
     node: URIRef | None = None
     scope: URIRef | None = None
+
+
+@dataclass
+class Guide:
+    name: str
+    path: str
+    label: str
+    examples: list[str]
+    covers: list[str]
 
 
 @dataclass
@@ -122,11 +148,38 @@ def scan_folders() -> list[Entry]:
     return entries
 
 
+def scan_guides(errors: list[str]) -> list[Guide]:
+    guides = []
+    for folder in sorted(GUIDES_DIR.iterdir(), key=lambda p: p.name):
+        if not folder.is_dir():
+            continue
+        docs = sorted(folder.glob("*.md"))
+        if len(docs) != 1:
+            errors.append(f"guides/{folder.name}: expected exactly one .md file, found {len(docs)}")
+            continue
+        text = docs[0].read_text(encoding="utf-8")
+        heading = next((ln[2:] for ln in text.splitlines() if ln.startswith("# ")), folder.name)
+        label = re.sub(r"^\W+", "", heading).strip() or folder.name
+        rel = f"guides/{folder.name}"
+        guides.append(Guide(
+            name=folder.name,
+            path=f"{rel}/{docs[0].name}",
+            label=label,
+            examples=[f"{rel}/{p.name}" for p in sorted(folder.glob("Example_*.xml"))],
+            covers=sorted({m.group(2) for m in GUIDE_LINK.finditer(text)}),
+        ))
+    return guides
+
+
 def qname(node: URIRef) -> str:
     for prefix, ns in PREFIXES.items():
         if str(node).startswith(ns):
             return f"{prefix}:{str(node)[len(ns):]}"
     return f"<{node}>"
+
+
+def literal(value: str) -> str:
+    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
 
 HEADER = """\
@@ -136,29 +189,37 @@ HEADER = """\
 ## GENERATED FILE - do not hand-edit.
 ## Run: python scripts/generate_documentation_ttl.py
 ##
-## Links each documented profile class to its Description, Table and
-## Example files in this repository. Generated from the objects/ and
-## frames/ folders.
+## Links each documented class to its Description, Table and Example
+## files, and each guide to the classes it explains. Generated from the
+## objects/, frames/ and guides/ folders.
 ##
-## Subjects are the profile's own nodes (nordic:X for the Nordic
-## Profile, entur:X for Entur), never the CEN netex:X classes: a
-## statement on netex:X would claim to hold for NeTEx itself. Each node
-## carries profile:onClass netex:X and its profile:scope in the
-## Nordic/Entur ontology layers; scope is not repeated here.
+## Subjects are never the CEN netex:X classes: a statement on netex:X
+## would claim to hold for NeTEx itself.
+##   nordic:X / entur:X  the profile's own node (profile:onClass netex:X);
+##                       its profile:scope lives in the Nordic/Entur
+##                       ontology layers and is not repeated here
+##   unprofiled:X        documentation for a class with no profile node
+##                       yet (doc:forClass netex:X)
+##   guide:X             a conceptual guide (doc:covers the classes it
+##                       links to)
 ## -----------------------------------------------------------------
 
-@prefix nordic:  <https://netex-cen.eu/nordic#> .
-@prefix entur:   <https://entur.org/ontology#> .
-@prefix doc:     <https://netex-cen.eu/doc#> .
-@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix netex:      <https://netex-cen.eu/ontology#> .
+@prefix nordic:     <https://netex-cen.eu/nordic#> .
+@prefix entur:      <https://entur.org/ontology#> .
+@prefix unprofiled: <https://netex-cen.eu/doc/unprofiled#> .
+@prefix guide:      <https://netex-cen.eu/doc/guide#> .
+@prefix doc:        <https://netex-cen.eu/doc#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
 
 ## --- Ontology declaration ---
 <https://netex-cen.eu/ontology/nordic-documentation> a owl:Ontology ;
     owl:imports <https://netex-cen.eu/profile/nordic> ,
                 <https://entur.org/ontology> ;
     rdfs:label "NeTEx Nordic Documentation Layer" ;
-    rdfs:comment "Adds doc:description, doc:table and doc:example to Nordic and Entur profile classes." ;
+    rdfs:comment "Adds documentation and guide links to Nordic and Entur profile classes." ;
     doc:repoBase "https://github.com/entur/nordic-netex-documentation" .
 
 ## --- Documentation vocabulary ---
@@ -179,31 +240,76 @@ doc:table a owl:AnnotationProperty ;
 doc:example a owl:AnnotationProperty ;
     rdfs:label "example" ;
     rdfs:comment "Relative path to an XML example file" .
+
+doc:path a owl:AnnotationProperty ;
+    rdfs:label "path" ;
+    rdfs:comment "Relative path to a guide's markdown file" .
+
+doc:covers a owl:AnnotationProperty ;
+    rdfs:label "covers" ;
+    rdfs:comment "A documented class (profile node or unprofiled documentation) that the guide links to" .
+
+doc:forClass a owl:AnnotationProperty ;
+    rdfs:label "forClass" ;
+    rdfs:comment "The NeTEx class described by an unprofiled documentation entry" .
+
+doc:Guide a owl:Class ;
+    rdfs:label "Guide" ;
+    skos:definition "A conceptual guide in this repository, explaining patterns that span several classes" .
+
+doc:UnprofiledDocumentation a owl:Class ;
+    rdfs:label "UnprofiledDocumentation" ;
+    skos:definition "Documentation for a NeTEx class that has no Nordic or Entur profile node" .
 """
 
 
-def render(entries: list[Entry]) -> str:
+def section(title: str) -> list[str]:
+    return [
+        "",
+        "## =================================================================",
+        f"## {title}",
+        "## =================================================================",
+    ]
+
+
+def block(subject: str, props: list[str]) -> str:
+    return subject + "\n    " + " ;\n    ".join(props) + " ."
+
+
+def render(entries: list[Entry], guides: list[Guide], nodes_by_name: dict[str, URIRef]) -> str:
     out = [HEADER]
     for kind in KINDS:
-        out.append("")
-        out.append("## =================================================================")
-        out.append(f"## {kind.upper()}")
-        out.append("## =================================================================")
+        out.extend(section(kind.upper()))
         for e in entries:
-            if e.kind != kind or e.node is None:
+            if e.kind != kind:
                 continue
             props = []
+            if e.node is None:
+                props.append("a doc:UnprofiledDocumentation")
+                props.append(f"doc:forClass netex:{e.name}")
             if e.description:
-                props.append(f'doc:description "{e.description}"')
+                props.append(f"doc:description {literal(e.description)}")
             if e.table:
-                props.append(f'doc:table "{e.table}"')
-            props.extend(f'doc:example "{x}"' for x in e.examples)
-            if not props:
-                continue
+                props.append(f"doc:table {literal(e.table)}")
+            props.extend(f"doc:example {literal(x)}" for x in e.examples)
+            if e.node is not None:
+                note = SCOPE_LABEL[e.scope]
+                subject = qname(e.node)
+            else:
+                note = "no profile node" + (" - intentional" if e.name in INTENTIONALLY_UNPROFILED else " yet")
+                subject = f"unprofiled:{e.name}"
             out.append("")
-            out.append(f"## {e.name} ({SCOPE_LABEL[e.scope]})")
-            out.append(qname(e.node))
-            out.append("    " + " ;\n    ".join(props) + " .")
+            out.append(f"## {e.name} ({note})")
+            out.append(block(subject, props))
+
+    out.extend(section("GUIDES"))
+    for g in guides:
+        props = ["a doc:Guide", f"rdfs:label {literal(g.label)}", f"doc:path {literal(g.path)}"]
+        props.extend(f"doc:example {literal(x)}" for x in g.examples)
+        props.extend(f"doc:covers {qname(nodes_by_name[c])}" for c in g.covers if c in nodes_by_name)
+        out.append("")
+        out.append(f"## {g.name}")
+        out.append(block(f"guide:{g.name}", props))
     return "\n".join(out) + "\n"
 
 
@@ -220,24 +326,35 @@ def build() -> Result:
             if scope in candidates:
                 e.node, e.scope = candidates[scope], scope
                 break
-        if e.node is None and e.name not in UNPROFILED:
-            errors.append(
-                f"{e.kind}/{e.name}: no Nordic or Entur profile node has profile:onClass netex:{e.name}"
-                " (add it upstream, or list it in UNPROFILED with a reason)"
-            )
-        if e.node is not None and e.name in UNPROFILED:
-            errors.append(f"{e.kind}/{e.name}: listed in UNPROFILED but now has profile node {qname(e.node)}")
-        if e.node is not None and not (e.description or e.table):
+        if not (e.description or e.table):
             errors.append(f"{e.kind}/{e.name}: neither Description_{e.name}.md nor Table_{e.name}.md exists")
+        if e.node is None and e.name not in INTENTIONALLY_UNPROFILED:
+            warnings.append(
+                f"{e.kind}/{e.name}: netex:{e.name} has no Nordic or Entur profile node; documented as"
+                f" unprofiled:{e.name}. Add it to a profile upstream (entur-netex-ontology)."
+            )
+        if e.node is not None and e.name in INTENTIONALLY_UNPROFILED:
+            warnings.append(
+                f"{e.kind}/{e.name}: now has profile node {qname(e.node)}; remove it from INTENTIONALLY_UNPROFILED"
+            )
 
-    for name in sorted(set(UNPROFILED) - folder_names):
-        errors.append(f"UNPROFILED lists {name}, but there is no objects/{name} or frames/{name} folder")
+    for name in sorted(set(INTENTIONALLY_UNPROFILED) - folder_names):
+        warnings.append(f"INTENTIONALLY_UNPROFILED lists {name}, but there is no objects/{name} or frames/{name} folder")
 
     for name in sorted(set(nodes) - folder_names):
-        labels = ", ".join(f"{qname(n)}" for n in nodes[name].values())
+        labels = ", ".join(qname(n) for n in nodes[name].values())
         warnings.append(f"Profile class without documentation folder: {name} ({labels})")
 
-    return Result(render(entries), errors, warnings)
+    nodes_by_name = {
+        e.name: (e.node if e.node is not None else URIRef(UNPROFILED_NS + e.name)) for e in entries
+    }
+    guides = scan_guides(errors)
+    for g in guides:
+        for c in g.covers:
+            if c not in nodes_by_name:
+                warnings.append(f"{g.path}: links to {c}, which is not a documentation folder")
+
+    return Result(render(entries, guides, nodes_by_name), errors, warnings)
 
 
 def main() -> int:

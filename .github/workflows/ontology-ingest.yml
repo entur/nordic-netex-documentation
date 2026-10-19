@@ -83,8 +83,8 @@ jobs:
       - name: Regenerer dokumentasjonslaget mot ny pin
         id: generate
         if: steps.diff.outputs.changed == 'true'
-        continue-on-error: true   # feiler hvis en mappe mangler profilnode; valideringen under rapporterer det
-        run: python scripts/generate_documentation_ttl.py
+        continue-on-error: true   # feiler bare ved feilformede mapper; valideringen under rapporterer det
+        run: python scripts/generate_documentation_ttl.py > "$RUNNER_TEMP/generate-out.txt" 2>&1
 
       - name: Kjør ontologivalidering (resultatet rapporteres i PR-en)
         id: validate
@@ -121,6 +121,13 @@ jobs:
               echo '```diff'
               git diff -U0 -- ontology/netex-nordic-documentation.ttl | grep -E '^[+-][^+-]' | head -n 40 || true
               echo '```'
+            fi
+            echo ""
+            if grep -qE '^(WARN|ERROR)' "$RUNNER_TEMP/generate-out.txt" 2>/dev/null; then
+              echo "**Dokumentasjon vs. profil** (fra \`generate_documentation_ttl.py\`):"
+              echo ""
+              grep -E '^(WARN|ERROR)' "$RUNNER_TEMP/generate-out.txt" | sed -E 's/^(WARN|ERROR): */- **\1** /'
+              echo ""
             fi
             echo ""
             echo "<details><summary>Valideringslogg</summary>"

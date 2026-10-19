@@ -8,9 +8,11 @@ Checks:
   3. Doc path validation (every doc:description/table/example points to a real file)
   4. OWL:Ontology header present in every parsed TTL file (DCAT catalog
      manifests such as catalog.ttl are exempt)
-  5. Documentation subjects are profile nodes (profile:ProfileClass), never
-     netex: classes, and the documentation layer sets no profile:scope
+  5. Documentation subjects are profile nodes (profile:ProfileClass),
+     doc:UnprofiledDocumentation entries or doc:Guide resources — never netex:
+     classes — and the documentation layer sets no profile:scope
   6. netex-nordic-documentation.ttl matches generate_documentation_ttl.py
+     (generator warnings, e.g. classes without a profile node, are always shown)
 
 Usage:
     python scripts/validate_ontology.py
@@ -19,6 +21,7 @@ Usage:
 Requires: Python 3.10+, rdflib
     pip install rdflib
 """
+import os
 import sys
 from pathlib import Path
 from rdflib import Graph, Namespace, RDF, RDFS, OWL
@@ -115,7 +118,7 @@ def check_structural_invariants(g: Graph, label: str, result: ValidationResult):
 
 def check_doc_paths(g: Graph, result: ValidationResult):
     """Every doc:description, doc:table, doc:example value should be a real file."""
-    doc_props = [DOC.description, DOC.table, DOC.example]
+    doc_props = [DOC.description, DOC.table, DOC.example, DOC.path]
     checked = 0
     missing = 0
 
@@ -140,20 +143,40 @@ def check_doc_paths(g: Graph, result: ValidationResult):
 
 
 def check_doc_subjects(doc: Graph, ontology: Graph, result: ValidationResult):
-    """Documentation must sit on profile-owned nodes, not on netex: classes."""
+    """Documentation must sit on profile nodes, unprofiled entries or guides — never on netex: classes."""
     for subj, _, _ in doc.triples((None, PROFILE.scope, None)):
         result.error(f"Documentation layer sets profile:scope on {subj}; scope belongs to the profile ontology")
 
-    subjects = {s for p in (DOC.description, DOC.table, DOC.example) for s in doc.subjects(p, None)}
+    def is_profile_node(node) -> bool:
+        return (node, RDF.type, PROFILE.ProfileClass) in ontology
+
+    def is_unprofiled(node) -> bool:
+        return (node, RDF.type, DOC.UnprofiledDocumentation) in doc
+
+    subjects = {s for p in (DOC.description, DOC.table, DOC.example, DOC.path) for s in doc.subjects(p, None)}
     bad = 0
     for subj in sorted(subjects, key=str):
         if str(subj).startswith(str(NETEX)):
             result.error(f"Documentation attached to CEN class {subj}; use the profile node (nordic:/entur:)")
             bad += 1
-        elif (subj, RDF.type, PROFILE.ProfileClass) not in ontology:
+        elif is_unprofiled(subj):
+            classes = list(doc.objects(subj, DOC.forClass))
+            if len(classes) != 1:
+                result.error(f"{subj} must have exactly one doc:forClass, found {len(classes)}")
+                bad += 1
+            elif (classes[0], RDF.type, OWL.Class) not in ontology:
+                result.error(f"{subj} doc:forClass {classes[0]} is not a class in the NeTEx base")
+                bad += 1
+        elif (subj, RDF.type, DOC.Guide) in doc:
+            pass
+        elif not is_profile_node(subj):
             result.error(f"Documentation subject {subj} is not a profile:ProfileClass in the loaded ontology")
             bad += 1
     result.ok(f"[doc-subjects] Checked {len(subjects)} documented nodes, {bad} invalid")
+
+    for guide, target in doc.subject_objects(DOC.covers):
+        if not (is_profile_node(target) or is_unprofiled(target)):
+            result.error(f"{guide} doc:covers {target}, which is neither a profile node nor unprofiled documentation")
 
 
 def check_generated(result: ValidationResult):
@@ -167,8 +190,14 @@ def check_generated(result: ValidationResult):
         return
     for msg in built.errors:
         result.error(f"[generator] {msg}")
+    # Shown even without --verbose (and as GitHub annotations in CI), so they
+    # are not lost among the base-ontology warnings.
+    in_actions = os.environ.get("GITHUB_ACTIONS") == "true"
     for msg in built.warnings:
-        result.warn(f"[generator] {msg}")
+        result.warnings.append(f"[generator] {msg}")
+        print(f"  NOTE:  {msg}")
+        if in_actions:
+            print(f"::warning title=Documentation layer::{msg}")
     current = DOC_TTL.read_text(encoding="utf-8").replace("\r\n", "\n") if DOC_TTL.exists() else ""
     if not built.errors and current != built.text:
         result.error(

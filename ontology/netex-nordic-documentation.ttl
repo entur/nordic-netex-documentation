@@ -4,29 +4,37 @@
 ## GENERATED FILE - do not hand-edit.
 ## Run: python scripts/generate_documentation_ttl.py
 ##
-## Links each documented profile class to its Description, Table and
-## Example files in this repository. Generated from the objects/ and
-## frames/ folders.
+## Links each documented class to its Description, Table and Example
+## files, and each guide to the classes it explains. Generated from the
+## objects/, frames/ and guides/ folders.
 ##
-## Subjects are the profile's own nodes (nordic:X for the Nordic
-## Profile, entur:X for Entur), never the CEN netex:X classes: a
-## statement on netex:X would claim to hold for NeTEx itself. Each node
-## carries profile:onClass netex:X and its profile:scope in the
-## Nordic/Entur ontology layers; scope is not repeated here.
+## Subjects are never the CEN netex:X classes: a statement on netex:X
+## would claim to hold for NeTEx itself.
+##   nordic:X / entur:X  the profile's own node (profile:onClass netex:X);
+##                       its profile:scope lives in the Nordic/Entur
+##                       ontology layers and is not repeated here
+##   unprofiled:X        documentation for a class with no profile node
+##                       yet (doc:forClass netex:X)
+##   guide:X             a conceptual guide (doc:covers the classes it
+##                       links to)
 ## -----------------------------------------------------------------
 
-@prefix nordic:  <https://netex-cen.eu/nordic#> .
-@prefix entur:   <https://entur.org/ontology#> .
-@prefix doc:     <https://netex-cen.eu/doc#> .
-@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix netex:      <https://netex-cen.eu/ontology#> .
+@prefix nordic:     <https://netex-cen.eu/nordic#> .
+@prefix entur:      <https://entur.org/ontology#> .
+@prefix unprofiled: <https://netex-cen.eu/doc/unprofiled#> .
+@prefix guide:      <https://netex-cen.eu/doc/guide#> .
+@prefix doc:        <https://netex-cen.eu/doc#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
 
 ## --- Ontology declaration ---
 <https://netex-cen.eu/ontology/nordic-documentation> a owl:Ontology ;
     owl:imports <https://netex-cen.eu/profile/nordic> ,
                 <https://entur.org/ontology> ;
     rdfs:label "NeTEx Nordic Documentation Layer" ;
-    rdfs:comment "Adds doc:description, doc:table and doc:example to Nordic and Entur profile classes." ;
+    rdfs:comment "Adds documentation and guide links to Nordic and Entur profile classes." ;
     doc:repoBase "https://github.com/entur/nordic-netex-documentation" .
 
 ## --- Documentation vocabulary ---
@@ -47,6 +55,26 @@ doc:table a owl:AnnotationProperty ;
 doc:example a owl:AnnotationProperty ;
     rdfs:label "example" ;
     rdfs:comment "Relative path to an XML example file" .
+
+doc:path a owl:AnnotationProperty ;
+    rdfs:label "path" ;
+    rdfs:comment "Relative path to a guide's markdown file" .
+
+doc:covers a owl:AnnotationProperty ;
+    rdfs:label "covers" ;
+    rdfs:comment "A documented class (profile node or unprofiled documentation) that the guide links to" .
+
+doc:forClass a owl:AnnotationProperty ;
+    rdfs:label "forClass" ;
+    rdfs:comment "The NeTEx class described by an unprofiled documentation entry" .
+
+doc:Guide a owl:Class ;
+    rdfs:label "Guide" ;
+    skos:definition "A conceptual guide in this repository, explaining patterns that span several classes" .
+
+doc:UnprofiledDocumentation a owl:Class ;
+    rdfs:label "UnprofiledDocumentation" ;
+    skos:definition "Documentation for a NeTEx class that has no Nordic or Entur profile node" .
 
 
 ## =================================================================
@@ -247,6 +275,13 @@ nordic:Operator
     doc:table "objects/Operator/Table_Operator.md" ;
     doc:example "objects/Operator/Example_Operator_NP.xml" .
 
+## Organisation (no profile node - intentional)
+unprofiled:Organisation
+    a doc:UnprofiledDocumentation ;
+    doc:forClass netex:Organisation ;
+    doc:description "objects/Organisation/Description_Organisation.md" ;
+    doc:table "objects/Organisation/Table_Organisation.md" .
+
 ## Parking (NP)
 nordic:Parking
     doc:description "objects/Parking/Description_Parking.md" ;
@@ -390,3 +425,216 @@ nordic:WaitingRoomEquipment
     doc:description "objects/WaitingRoomEquipment/Description_WaitingRoomEquipment.md" ;
     doc:table "objects/WaitingRoomEquipment/Table_WaitingRoomEquipment.md" ;
     doc:example "objects/WaitingRoomEquipment/Example_WaitingRoomEquipment_NP.xml" .
+
+## =================================================================
+## GUIDES
+## =================================================================
+
+## Calendar
+guide:Calendar
+    a doc:Guide ;
+    rdfs:label "Calendar — When Services Operate" ;
+    doc:path "guides/Calendar/Calendar_Guide.md" ;
+    doc:example "guides/Calendar/Example_Calendar.xml" ;
+    doc:covers entur:DatedServiceJourney ;
+    doc:covers nordic:DayType ;
+    doc:covers nordic:OperatingDay ;
+    doc:covers nordic:ServiceCalendarFrame ;
+    doc:covers nordic:ServiceJourney .
+
+## DocumentationMethod
+guide:DocumentationMethod
+    a doc:Guide ;
+    rdfs:label "How This Documentation Was Built" ;
+    doc:path "guides/DocumentationMethod/DocumentationMethod_Guide.md" .
+
+## GetStarted
+guide:GetStarted
+    a doc:Guide ;
+    rdfs:label "Get Started with NeTEx" ;
+    doc:path "guides/GetStarted/GetStarted_Guide.md" ;
+    doc:covers nordic:CompositeFrame ;
+    doc:covers nordic:FareFrame ;
+    doc:covers nordic:ResourceFrame ;
+    doc:covers nordic:ServiceCalendarFrame ;
+    doc:covers nordic:ServiceFrame ;
+    doc:covers nordic:SiteFrame ;
+    doc:covers nordic:TimetableFrame ;
+    doc:covers entur:VehicleScheduleFrame .
+
+## Glossary
+guide:Glossary
+    a doc:Guide ;
+    rdfs:label "Glossary" ;
+    doc:path "guides/Glossary/Glossary.md" ;
+    doc:covers nordic:AlternativeName ;
+    doc:covers nordic:AlternativeText ;
+    doc:covers nordic:Authority ;
+    doc:covers nordic:Codespace ;
+    doc:covers nordic:CompositeFrame ;
+    doc:covers entur:Contract ;
+    doc:covers entur:DatedServiceJourney ;
+    doc:covers nordic:DayType ;
+    doc:covers nordic:DayTypeAssignment ;
+    doc:covers nordic:DestinationDisplay ;
+    doc:covers entur:FareContract ;
+    doc:covers nordic:FareFrame ;
+    doc:covers entur:FareZone ;
+    doc:covers nordic:FlexibleServiceProperties ;
+    doc:covers nordic:GroupOfLines ;
+    doc:covers nordic:Interchange ;
+    doc:covers nordic:JourneyPattern ;
+    doc:covers nordic:Line ;
+    doc:covers nordic:LinkSequenceProjection ;
+    doc:covers nordic:Notice ;
+    doc:covers nordic:OperatingDay ;
+    doc:covers nordic:OperatingPeriod ;
+    doc:covers nordic:Operator ;
+    doc:covers unprofiled:Organisation ;
+    doc:covers nordic:Parking ;
+    doc:covers nordic:PassengerStopAssignment ;
+    doc:covers nordic:PurposeOfGrouping ;
+    doc:covers nordic:Quay ;
+    doc:covers nordic:ResourceFrame ;
+    doc:covers nordic:ResponsibilitySet ;
+    doc:covers nordic:Route ;
+    doc:covers nordic:SalesTransactionFrame ;
+    doc:covers nordic:SanitaryEquipment ;
+    doc:covers nordic:ScheduledStopPoint ;
+    doc:covers nordic:ServiceCalendar ;
+    doc:covers nordic:ServiceCalendarFrame ;
+    doc:covers nordic:ServiceFrame ;
+    doc:covers nordic:ServiceJourney ;
+    doc:covers nordic:ShelterEquipment ;
+    doc:covers nordic:SiteConnection ;
+    doc:covers nordic:SiteFrame ;
+    doc:covers nordic:StopPlace ;
+    doc:covers nordic:TariffZone ;
+    doc:covers nordic:TicketingEquipment ;
+    doc:covers nordic:TimetableFrame ;
+    doc:covers nordic:TopographicPlace ;
+    doc:covers entur:TrainBlock ;
+    doc:covers nordic:TrainNumber ;
+    doc:covers nordic:Vehicle ;
+    doc:covers entur:VehicleScheduleFrame ;
+    doc:covers nordic:VehicleType ;
+    doc:covers nordic:WaitingRoomEquipment .
+
+## HowToBuildATimetable
+guide:HowToBuildATimetable
+    a doc:Guide ;
+    rdfs:label "How to Build a Timetable" ;
+    doc:path "guides/HowToBuildATimetable/HowToBuildATimetable_Guide.md" ;
+    doc:covers entur:DatedServiceJourney ;
+    doc:covers nordic:DestinationDisplay ;
+    doc:covers nordic:JourneyPattern ;
+    doc:covers nordic:Line ;
+    doc:covers nordic:PassengerStopAssignment ;
+    doc:covers nordic:Quay ;
+    doc:covers nordic:ScheduledStopPoint ;
+    doc:covers nordic:ServiceJourney ;
+    doc:covers nordic:StopPlace .
+
+## Interchange
+guide:Interchange
+    a doc:Guide ;
+    rdfs:label "Interchange & InterchangeOnly Guide" ;
+    doc:path "guides/Interchange/Interchange_Guide.md" ;
+    doc:example "guides/Interchange/Example_Interchange.xml" ;
+    doc:covers nordic:Interchange ;
+    doc:covers nordic:JourneyPattern ;
+    doc:covers nordic:ScheduledStopPoint ;
+    doc:covers nordic:ServiceJourney ;
+    doc:covers nordic:TimetableFrame .
+
+## NeTExConventions
+guide:NeTExConventions
+    a doc:Guide ;
+    rdfs:label "NeTEx Conventions" ;
+    doc:path "guides/NeTExConventions/NeTEx_Conventions.md" ;
+    doc:covers nordic:Codespace ;
+    doc:covers nordic:CompositeFrame .
+
+## NeTExInheritance
+guide:NeTExInheritance
+    a doc:Guide ;
+    rdfs:label "NeTEx Inheritance — Developer Guide" ;
+    doc:path "guides/NeTExInheritance/NeTExInheritance_Guide.md" .
+
+## Ontology
+guide:Ontology
+    a doc:Guide ;
+    rdfs:label "Ontology Guide" ;
+    doc:path "guides/Ontology/Ontology_Guide.md" .
+
+## PassengerInformation
+guide:PassengerInformation
+    a doc:Guide ;
+    rdfs:label "Passenger Information — Displays, Notices & Flexible Services" ;
+    doc:path "guides/PassengerInformation/PassengerInformation_Guide.md" ;
+    doc:covers nordic:DestinationDisplay ;
+    doc:covers nordic:FlexibleServiceProperties ;
+    doc:covers nordic:JourneyPattern ;
+    doc:covers nordic:Notice ;
+    doc:covers nordic:ServiceFrame ;
+    doc:covers nordic:TimetableFrame .
+
+## RollingStock
+guide:RollingStock
+    a doc:Guide ;
+    rdfs:label "Rolling Stock — Linking Services to Trains" ;
+    doc:path "guides/RollingStock/RollingStock_Guide.md" ;
+    doc:example "guides/RollingStock/Example_RollingStock.xml" ;
+    doc:covers entur:DatedServiceJourney ;
+    doc:covers nordic:ResourceFrame ;
+    doc:covers nordic:ServiceJourney ;
+    doc:covers entur:TrainBlock ;
+    doc:covers nordic:Vehicle ;
+    doc:covers entur:VehicleScheduleFrame ;
+    doc:covers nordic:VehicleType .
+
+## SeparationOfConcerns
+guide:SeparationOfConcerns
+    a doc:Guide ;
+    rdfs:label "Separation of Concerns" ;
+    doc:path "guides/SeparationOfConcerns/SeparationOfConcerns.md" .
+
+## StopInfrastructure
+guide:StopInfrastructure
+    a doc:Guide ;
+    rdfs:label "Stop Infrastructure — From Timetable to Platform" ;
+    doc:path "guides/StopInfrastructure/StopInfrastructure_Guide.md" ;
+    doc:example "guides/StopInfrastructure/Example_StopInfrastructure.xml" ;
+    doc:covers entur:FareZone ;
+    doc:covers nordic:PassengerStopAssignment ;
+    doc:covers nordic:Quay ;
+    doc:covers nordic:ScheduledStopPoint ;
+    doc:covers nordic:ServiceFrame ;
+    doc:covers nordic:SiteFrame ;
+    doc:covers nordic:StopPlace ;
+    doc:covers nordic:TariffZone ;
+    doc:covers nordic:TopographicPlace .
+
+## Tools
+guide:Tools
+    a doc:Guide ;
+    rdfs:label "Tools & Development Environment" ;
+    doc:path "guides/Tools/Tools_Guide.md" .
+
+## Validation
+guide:Validation
+    a doc:Guide ;
+    rdfs:label "Validation" ;
+    doc:path "guides/Validation/Validation.md" .
+
+## VehicleScheduling
+guide:VehicleScheduling
+    a doc:Guide ;
+    rdfs:label "Vehicle Scheduling — Blocks, Vehicles & Fleet Assignment" ;
+    doc:path "guides/VehicleScheduling/VehicleScheduling_Guide.md" ;
+    doc:example "guides/VehicleScheduling/Example_VehicleScheduling.xml" ;
+    doc:covers nordic:ResourceFrame ;
+    doc:covers entur:TrainBlock ;
+    doc:covers nordic:Vehicle ;
+    doc:covers entur:VehicleScheduleFrame ;
+    doc:covers nordic:VehicleType .
