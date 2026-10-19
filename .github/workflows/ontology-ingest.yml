@@ -45,9 +45,11 @@ jobs:
         # --remote flytter toppnivå-pinnen til origin/main (branch=main i .gitmodules).
         # Deretter sjekkes nøstede submoduler ut ved den commiten toppnivået nå peker
         # på — uten --remote, så de følger den oppstrøms-committede pinnen.
+        # Den rekursive oppdateringen MÅ kjøres inne i submodulen: kjørt fra
+        # toppnivå ville den sjekket ut den gamle (ustagede) pinnen igjen.
         run: |
           git submodule update --remote ontology/entur-netex-ontology
-          git submodule update --init --recursive
+          git -C ontology/entur-netex-ontology submodule update --init --recursive
 
       - name: Noter ny pin
         id: after
@@ -55,8 +57,13 @@ jobs:
 
       - name: Flyttet pinnen seg?
         id: diff
+        env:
+          OLD_SHA: ${{ steps.before.outputs.sha }}
+          NEW_SHA: ${{ steps.after.outputs.sha }}
         run: |
-          if git diff --quiet --ignore-submodules=dirty; then
+          echo "Gammel pin: ${OLD_SHA}"
+          echo "Ny pin:     ${NEW_SHA}"
+          if [ "$OLD_SHA" = "$NEW_SHA" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Ingen oppstrøms-endring — pinnen står stille."
           else
