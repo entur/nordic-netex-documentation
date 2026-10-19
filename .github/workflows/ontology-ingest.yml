@@ -45,9 +45,11 @@ jobs:
         # --remote flytter toppnivå-pinnen til origin/main (branch=main i .gitmodules).
         # Deretter sjekkes nøstede submoduler ut ved den commiten toppnivået nå peker
         # på — uten --remote, så de følger den oppstrøms-committede pinnen.
+        # Den rekursive oppdateringen MÅ kjøres inne i submodulen: kjørt fra
+        # toppnivå ville den sjekket ut den gamle (ustagede) pinnen igjen.
         run: |
           git submodule update --remote ontology/entur-netex-ontology
-          git submodule update --init --recursive
+          git -C ontology/entur-netex-ontology submodule update --init --recursive
 
       - name: Noter ny pin
         id: after
