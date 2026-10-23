@@ -7,8 +7,8 @@ description: Use this skill any time the user asks a question about the Nordic N
 
 ## How to answer a question
 
-1. Start with `ontology/netex-nordic-documentation.ttl` — this is the index.
-2. Identify the relevant Frame or Object from the ontology.
+1. Start with `ontology/netex-nordic-documentation.ttl` — this is the index. It is generated from `objects/`, `frames/` and `guides/`; its subjects are profile nodes (`nordic:X` for the Nordic Profile, `entur:X` for Entur additions), `unprofiled:X` for documented classes not yet in any profile, and `guide:X` for guides (`doc:covers` lists the classes a guide explains) — never `netex:` classes.
+2. Identify the relevant Frame or Object from the ontology. To check whether a class is in the Nordic Profile or only in Entur's, read the profile node's `profile:scope` (`profile:NP` or `profile:Entur`) in `netex-nordic.ttl` / `netex-entur.ttl`; its `profile:onClass` gives the NeTEx class.
 3. Fetch the authoritative file(s):
    - Elements & cardinality → `frames/<X>/Table_<X>.md` or `objects/<X>/Table_<X>.md`
    - Semantic meaning → corresponding `Description_*.md`

@@ -80,6 +80,12 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         run: pip install --quiet rdflib
 
+      - name: Regenerer dokumentasjonslaget mot ny pin
+        id: generate
+        if: steps.diff.outputs.changed == 'true'
+        continue-on-error: true   # feiler bare ved feilformede mapper; valideringen under rapporterer det
+        run: python scripts/generate_documentation_ttl.py > "$RUNNER_TEMP/generate-out.txt" 2>&1
+
       - name: Kjør ontologivalidering (resultatet rapporteres i PR-en)
         id: validate
         if: steps.diff.outputs.changed == 'true'
@@ -107,6 +113,23 @@ jobs:
             echo ""
             echo "${STATUS}"
             echo ""
+            if git diff --quiet -- ontology/netex-nordic-documentation.ttl; then
+              echo "Dokumentasjonslaget (\`netex-nordic-documentation.ttl\`) er uendret mot ny pin."
+            else
+              echo "**Dokumentasjonslaget er regenerert** — profilnoder er endret oppstrøms:"
+              echo ""
+              echo '```diff'
+              git diff -U0 -- ontology/netex-nordic-documentation.ttl | grep -E '^[+-][^+-]' | head -n 40 || true
+              echo '```'
+            fi
+            echo ""
+            if grep -qE '^(WARN|ERROR)' "$RUNNER_TEMP/generate-out.txt" 2>/dev/null; then
+              echo "**Dokumentasjon vs. profil** (fra \`generate_documentation_ttl.py\`):"
+              echo ""
+              grep -E '^(WARN|ERROR)' "$RUNNER_TEMP/generate-out.txt" | sed -E 's/^(WARN|ERROR): */- **\1** /'
+              echo ""
+            fi
+            echo ""
             echo "<details><summary>Valideringslogg</summary>"
             echo ""
             echo '```'
@@ -128,8 +151,10 @@ jobs:
           commit-message: "chore(ontology): bump entur-netex-ontology til oppstrøms main"
           title: "[oppstrøms] entur-netex-ontology har flyttet seg — sjekk om docs må oppdateres"
           body-path: ${{ runner.temp }}/pr-body.md
-          # Kun submodul-pinnen skal inn i ingest-PR-en — aldri hjelpefiler.
-          add-paths: ontology/entur-netex-ontology
+          # Kun submodul-pinnen og det genererte dokumentasjonslaget — aldri hjelpefiler.
+          add-paths: |
+            ontology/entur-netex-ontology
+            ontology/netex-nordic-documentation.ttl
           labels: |
             ontology
             automated

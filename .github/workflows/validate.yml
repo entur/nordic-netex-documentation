@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: pip install rdflib
 
-      - name: Validate ontology (syntax, structure, doc paths)
+      - name: Validate ontology (syntax, structure, doc paths, generated doc layer)
         run: python scripts/validate_ontology.py
 
   validate-links:

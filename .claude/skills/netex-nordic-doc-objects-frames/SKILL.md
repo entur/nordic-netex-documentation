@@ -15,6 +15,14 @@ Each object folder **must** contain exactly three files:
 | `Table_<Name>.md` | Structure overview + flat element table |
 | `Example_<Name>.xml` or `Example_<Name>_<ProfileCode>.xml` | XSD-validated XML |
 
+The folder name `<Name>` must be the NeTEx class name: it is linked to the profile node with `profile:onClass netex:<Name>` (`nordic:<Name>` or `entur:<Name>`). After adding, renaming or removing a folder or file, regenerate the ontology index — never edit it by hand:
+
+```bash
+python scripts/generate_documentation_ttl.py
+```
+
+CI fails if `ontology/netex-nordic-documentation.ttl` is stale or the folder name is not a NeTEx class. A class with no Nordic or Entur profile node is still documented (as `unprofiled:<Name>`) and only gives a warning — a signal to add it to a profile upstream.
+
 ---
 
 ## Object Description template
