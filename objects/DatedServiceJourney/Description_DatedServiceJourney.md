@@ -24,7 +24,7 @@ A **DatedServiceJourney** represents a specific operational instance of a `Servi
 - **@id, @version** – Unique identifier and version label for the dated instance
 - **ServiceJourneyRef** – Reference to the underlying ServiceJourney template (mandatory)
 - **OperatingDayRef** – Reference to the specific calendar date this journey operates (mandatory)
-- **ServiceAlteration** – Enumeration: `planned`, `replaced`, or `extraJourney` (default: `planned`)
+- **ServiceAlteration** – Enumeration: `planned`, `cancellation`, `replaced`, or `extraJourney` (default: `planned`)
 - **BlockRef** – Optional reference to a Block/TrainBlock for vehicle continuity tracking
 - **replacedJourneys** – Optional container for DatedVehicleJourneyRef entries (reinforcements or replacements)
 
