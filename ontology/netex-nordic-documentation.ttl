@@ -147,7 +147,8 @@ nordic:AlternativeName
 ## AlternativeText (NP)
 nordic:AlternativeText
     doc:description "objects/AlternativeText/Description_AlternativeText.md" ;
-    doc:table "objects/AlternativeText/Table_AlternativeText.md" .
+    doc:table "objects/AlternativeText/Table_AlternativeText.md" ;
+    doc:example "objects/AlternativeText/Example_AlternativeText.xml" .
 
 ## Authority (NP)
 nordic:Authority
@@ -214,7 +215,8 @@ entur:FareZone
 ## FlexibleServiceProperties (NP)
 nordic:FlexibleServiceProperties
     doc:description "objects/FlexibleServiceProperties/Description_FlexibleServiceProperties.md" ;
-    doc:table "objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md" .
+    doc:table "objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md" ;
+    doc:example "objects/FlexibleServiceProperties/Example_FlexibleServiceProperties.xml" .
 
 ## GroupOfLines (NP)
 nordic:GroupOfLines
@@ -297,7 +299,8 @@ nordic:PassengerStopAssignment
 ## PurposeOfGrouping (NP)
 nordic:PurposeOfGrouping
     doc:description "objects/PurposeOfGrouping/Description_PurposeOfGrouping.md" ;
-    doc:table "objects/PurposeOfGrouping/Table_PurposeOfGrouping.md" .
+    doc:table "objects/PurposeOfGrouping/Table_PurposeOfGrouping.md" ;
+    doc:example "objects/PurposeOfGrouping/Example_PurposeOfGrouping.xml" .
 
 ## Quay (NP)
 nordic:Quay

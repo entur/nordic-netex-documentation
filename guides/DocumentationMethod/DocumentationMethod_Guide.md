@@ -114,14 +114,14 @@ But "fast" doesn't mean "done." Every guide still goes through iterative improve
 
 ## 4. 🤖 The Role of the LLM Agent
 
-An AI agent was used as a co-author for most of this documentation. But "co-author" doesn't mean "free to improvise." The agent operates under strict constraints defined in `LLM/README.md`:
+An AI agent was used as a co-author for most of this documentation. But "co-author" doesn't mean "free to improvise." The agent operates under strict constraints defined in the skills under `.claude/skills/`:
 
 ### What the agent is given
 
 | Input | Purpose |
 |-------|---------|
-| `LLM/README.md` | The "constitution" — all rules, section orders, naming conventions |
-| `LLM/Templates/` | Exact templates for Object, Frame, and Guide documentation |
+| `.claude/skills/netex-nordic-documentation/` | The "constitution" — routing, rules, naming conventions |
+| `.claude/skills/netex-nordic-doc-*/` | Exact templates for Object, Frame, and Guide documentation, plus visual conventions |
 | `ontology/*.ttl` | Machine-readable profile model and documentation index — the primary navigation tool |
 | `XSD/xsd/` | Full NeTEx schema for validation |
 | Existing documentation | Pattern to follow (consistency by example) |
@@ -211,10 +211,7 @@ NeTEx-Nordic/
 ├── ontology/                  ← TTL ontology (profile model, documentation index, SHACL shapes)
 ├── scripts/                   ← Validation tooling (XSD, profile, SHACL, ontology)
 ├── XSD/                       ← Git submodule → official NeTEx-CEN/NeTEx schema
-├── LLM/                       ← Agent rules and templates
-│   ├── README.md              ← "The constitution" for agents
-│   ├── Templates/             ← Structural templates for all file types
-│   └── AgentGuides/           ← Operational instructions (validation, etc.)
+├── .claude/skills/            ← Agent rules and templates (one skill per documentation type)
 └── assets/images/             ← SVG diagrams, illustrations
 ```
 
@@ -230,8 +227,8 @@ NeTEx-Nordic/
 ## 8. 🔗 Related Resources
 
 ### Internal
-- [LLM/README.md](../../LLM/README.md) — Full agent rules and documentation conventions
-- [LLM/Templates/](../../LLM/Templates/Object_Struture_and_Table_Template.md) — Templates for new objects
+- [Documentation skill](../../.claude/skills/netex-nordic-documentation/SKILL.md) — Full agent rules and documentation conventions
+- [Objects & Frames skill](../../.claude/skills/netex-nordic-doc-objects-frames/SKILL.md) — Templates for new objects and frames
 - [Tools Guide](../Tools/Tools_Guide.md) — Development tools and validation setup
 - [NeTEx Conventions](../NeTExConventions/NeTEx_Conventions.md) — ID patterns, versioning, naming
 

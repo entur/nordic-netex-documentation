@@ -42,7 +42,7 @@ ServiceJourney
 |--------|------|-----|-------------|------|
 | @id | xsd:ID | 1..1 | Unique identifier following {CODESPACE}:ServiceJourney:{LocalId} | ServiceJourney/@id |
 | @version | xsd:string | 1..1 | Version label (e.g., "1"). Increment on changes. | ServiceJourney/@version |
-| [KeyValue](../KeyValue/Table_KeyValue.md) | KeyValue |  | Arbitrary key/value metadata on the journey | keyList/KeyValue |
+| KeyValue | KeyValue |  | Arbitrary key/value metadata on the journey | keyList/KeyValue |
 | Name | xsd:string | 0..1 | Human‑readable name of the journey | Name |
 | PrivateCode | xsd:normalizedString | 0..1 | Internal non‑public code (e.g., trip or train number) | PrivateCode |
 | Description | xsd:string |  | Free‑text description | Description |
@@ -54,8 +54,8 @@ ServiceJourney
 | BlockRef/@ref | VersionedRef |  | Reference to a Block or TrainBlock (vehicle working) | BlockRef/@ref |
 | [OperatorRef](../Operator/Table_Operator.md)/@ref | VersionedRef | 0..1 | Reference to an Operator | OperatorRef/@ref |
 | [LineRef](../Line/Table_Line.md)/@ref | VersionedRef | 0..1 | Reference to the served Line | LineRef/@ref |
-| [FlexibleLineRef](../FlexibleLine/Table_FlexibleLine.md)/@ref | VersionedRef |  | Reference to a FlexibleLine (on‑demand services) | FlexibleLineRef/@ref |
-| [TimetabledPassingTime](../PassingTimes/Table_TimetabledPassingTime.md) | TimetabledPassingTime | 1..n | Collection of scheduled passing/stop times | passingTimes/TimetabledPassingTime |
+| FlexibleLineRef/@ref | VersionedRef |  | Reference to a FlexibleLine (on‑demand services) | FlexibleLineRef/@ref |
+| [TimetabledPassingTime](../../guides/Glossary/Glossary.md#timetabledpassingtime) | TimetabledPassingTime | 1..n | Collection of scheduled passing/stop times | passingTimes/TimetabledPassingTime |
 | TimetabledPassingTime/@id | xsd:ID | 0..1 | Optional identifier for the TimetabledPassingTime element | passingTimes/TimetabledPassingTime/@id |
 | [StopPointInJourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | VersionedRef | 1..1 | Reference to a StopPointInJourneyPattern | passingTimes/TimetabledPassingTime/StopPointInJourneyPatternRef/@ref |
 | ArrivalTime | xsd:time | 0..1 | Planned arrival time at the stop | passingTimes/TimetabledPassingTime/ArrivalTime |
@@ -64,4 +64,4 @@ ServiceJourney
 | DepartureDayOffset | xsd:integer |  | Offset applied to DepartureTime | passingTimes/TimetabledPassingTime/DepartureDayOffset |
 | EarliestDepartureTime | xsd:time |  | Earliest allowed pick‑up time (flexible journeys) | passingTimes/TimetabledPassingTime/EarliestDepartureTime |
 | LatestArrivalTime | xsd:time |  | Latest allowed drop‑off time (flexible journeys) | passingTimes/TimetabledPassingTime/LatestArrivalTime |
-| [JourneyPart](../JourneyPart/Table_JourneyPart.md) | JourneyPart |  | Used for combined or split journeys | parts/JourneyPart |
+| JourneyPart | JourneyPart |  | Used for combined or split journeys | parts/JourneyPart |

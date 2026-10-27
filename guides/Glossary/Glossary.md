@@ -379,7 +379,7 @@ The bridge linking a logical ScheduledStopPoint to a physical Quay within a Stop
 
 A container within a StopPlace or Quay holding equipment items (shelters, waiting rooms, sanitary facilities, ticketing machines) that describe the physical amenities at the stop.
 
-→ [Full documentation](../../objects/placeEquipments/Description_placeEquipments.md)
+→ [Stop Infrastructure guide](../StopInfrastructure/StopInfrastructure_Guide.md)
 
 ---
 
