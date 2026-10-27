@@ -24,6 +24,38 @@
 <body>
   <div id="app"></div>
   <script>
+    // Objects and frames are not in the sidebar, so 'auto' would not index them; keep these lists in sync with the folders.
+    var searchGuides = [
+      'GetStarted/GetStarted_Guide', 'NeTExConventions/NeTEx_Conventions', 'HowToBuildATimetable/HowToBuildATimetable_Guide',
+      'StopInfrastructure/StopInfrastructure_Guide', 'Calendar/Calendar_Guide', 'PassengerInformation/PassengerInformation_Guide',
+      'Interchange/Interchange_Guide', 'VehicleScheduling/VehicleScheduling_Guide', 'RollingStock/RollingStock_Guide',
+      'Tools/Tools_Guide', 'Ontology/Ontology_Guide', 'Glossary/Glossary', 'Validation/Validation',
+      'NeTExInheritance/NeTExInheritance_Guide', 'SeparationOfConcerns/SeparationOfConcerns', 'DocumentationMethod/DocumentationMethod_Guide'
+    ];
+    var searchFrames = [
+      'CompositeFrame', 'FareFrame', 'ResourceFrame', 'SalesTransactionFrame', 'ServiceCalendarFrame',
+      'ServiceFrame', 'SiteFrame', 'TimetableFrame', 'VehicleScheduleFrame'
+    ];
+    var searchObjects = [
+      'AlternativeName', 'AlternativeText', 'Authority', 'Codespace', 'CompoundTrain', 'Contract', 'DatedServiceJourney',
+      'DayType', 'DayTypeAssignment', 'DestinationDisplay', 'FareContract', 'FareZone', 'FlexibleServiceProperties',
+      'GroupOfLines', 'Interchange', 'JourneyPattern', 'Line', 'LinkSequenceProjection', 'Network', 'Notice', 'OperatingDay',
+      'OperatingPeriod', 'Operator', 'Organisation', 'Parking', 'PassengerStopAssignment', 'PurposeOfGrouping', 'Quay',
+      'ResponsibilitySet', 'Route', 'RoutePoint', 'SanitaryEquipment', 'ScheduledStopPoint', 'ServiceCalendar',
+      'ServiceJourney', 'ServiceLink', 'ShelterEquipment', 'SiteConnection', 'StopPlace', 'TariffZone',
+      'TicketingEquipment', 'TopographicPlace', 'Train', 'TrainBlock', 'TrainNumber', 'Vehicle', 'VehicleType',
+      'WaitingRoomEquipment'
+    ];
+    function searchDocPaths(dir, names) {
+      return names.reduce(function (acc, n) {
+        return acc.concat(['/' + dir + '/' + n + '/Description_' + n, '/' + dir + '/' + n + '/Table_' + n]);
+      }, []);
+    }
+    var searchPaths = ['/home']
+      .concat(searchGuides.map(function (g) { return '/guides/' + g; }))
+      .concat(searchDocPaths('frames', searchFrames))
+      .concat(searchDocPaths('objects', searchObjects));
+
     window.$docsify = {
       name: 'Nordic NeTEx Profile',
       repo: 'hfjelstad/NeTEx-Nordic',
@@ -33,6 +65,7 @@
       subMaxLevel: 2,
       auto2top: true,
       search: {
+        paths: searchPaths,
         placeholder: 'Search...',
         noData: 'No results',
         depth: 3
