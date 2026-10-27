@@ -9,6 +9,7 @@ In this guide you will learn:
 - 🏷️ ID format and codespace conventions
 - 🔢 Version attributes and when to use them
 - 📐 Element ordering (xs:sequence)
+- 🔢 How to read cardinality in the tables, including the conditional `*..*`
 
 ---
 
@@ -157,7 +158,41 @@ This means `PublicCode` appeared too early — it should come after `Name` and `
 
 ---
 
-## 6. 📝 ParticipantRef Convention
+## 6. 🔢 Cardinality
+
+Every Table in this documentation states how many times an element may occur in the Nordic Profile.
+
+| Notation | Meaning |
+|----------|---------|
+| `1..1` | Required, exactly once |
+| `0..1` | Optional, at most once |
+| `1..n` | Required, one or more |
+| `0..n` | Optional, any number |
+| `0..0` | Not allowed in the Nordic Profile |
+| `*..*` | Conditional — the requirement depends on which service the data is delivered to |
+
+### Conditional cardinality (`*..*`)
+
+Some elements are required by one service and optional or not used by another. Instead of listing every service in the table, these elements are marked `*..*`. The guide for the topic explains when the element is required.
+
+Example: `ParentSiteRef` on StopPlace is used by the national stop registry (NSR) to build multimodal stop hierarchies, but is not part of operator deliveries. Its cardinality is therefore `*..*`, and the [Stop Infrastructure](../StopInfrastructure/StopInfrastructure_Guide.md) guide explains the hierarchy.
+
+```xml
+<!-- Monomodal stop pointing to its multimodal parent (NSR) -->
+<StopPlace id="NSR:StopPlace:1" version="1">
+  <Name>Oslo S</Name>
+  <ParentSiteRef ref="NSR:StopPlace:58878"/>
+  <TransportMode>rail</TransportMode>
+  <StopPlaceType>railStation</StopPlaceType>
+</StopPlace>
+```
+
+> [!NOTE]
+> `*..*` is not a NeTEx or UML notation. It is a convention of this documentation to signal "check the guide before relying on this element".
+
+---
+
+## 7. 📝 ParticipantRef Convention
 
 All examples in this repository use:
 
@@ -169,7 +204,7 @@ All examples in this repository use:
 
 ---
 
-## 7. 🔗 Related Resources
+## 8. 🔗 Related Resources
 
 ### Guides
 - [Get Started](../GetStarted/GetStarted_Guide.md) — What NeTEx is and how documents are structured
