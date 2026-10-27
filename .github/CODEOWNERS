@@ -1,2 +1,2 @@
 # Only paths listed here need review; everything else can merge on green CI.
-/guides/ @entur/team-arkitektur
+/guides/ @hegedreiem @hiletnes @hfjelstad @einarbjorkevoll
