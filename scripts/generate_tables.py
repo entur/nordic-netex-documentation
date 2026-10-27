@@ -22,6 +22,7 @@ Usage:
     python scripts/generate_tables.py                       # prototype classes
     python scripts/generate_tables.py ServiceJourney Line   # selected classes
     python scripts/generate_tables.py --check               # fail if files are stale
+    python scripts/generate_tables.py --coverage            # profile fields missing from the examples
 
 Requires: Python 3.10+, rdflib
 """
@@ -388,18 +389,25 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("classes", nargs="*", default=PROTOTYPE)
     parser.add_argument("--check", action="store_true", help="fail if generated files are stale")
+    parser.add_argument("--coverage", action="store_true",
+                        help="only report profile fields missing from the examples (all classes if none given)")
     args = parser.parse_args()
 
     docs = documented_classes()
     ont = load_ontology()
-    report, stale = [], []
+    report, stale, uncovered = [], [], {}
+    classes = sorted(docs) if args.coverage and not args.classes else args.classes or PROTOTYPE
 
-    for cls in args.classes:
+    for cls in classes:
         if cls not in docs:
             print(f"SKIP {cls}: no Table in the documentation index")
             continue
         scope, folder = docs[cls]
         rows = collect(cls, docs)
+        members = sorted({p for c, p in [*ont.np, *ont.entur] if c == cls})
+        uncovered[cls] = ([p for p in members if p not in rows.nodes], len(members))
+        if args.coverage:
+            continue
         md, desc_tree = render(cls, scope, rows, ont, report)
 
         outputs = {folder / f"Table_{cls}.md": md}
@@ -421,6 +429,12 @@ def main() -> int:
         print(f"\nFields needing attention ({len(report)}):")
         for line in report:
             print(f"  {line}")
+    missing = {c: v for c, v in uncovered.items() if v[0]}
+    if missing:
+        total = sum(len(v[0]) for v in missing.values())
+        print(f"\nProfile fields not shown in any example ({total}):")
+        for cls, (paths, count) in sorted(missing.items()):
+            print(f"  {cls} ({len(paths)} of {count}): {', '.join(paths)}")
     if stale:
         print("\nStale generated files (run scripts/generate_tables.py):")
         for p in stale:
