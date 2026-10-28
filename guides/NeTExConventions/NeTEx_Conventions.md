@@ -173,7 +173,7 @@ Every Table in this documentation states how many times an element may occur in 
 
 ### Conditional cardinality (`*..*`)
 
-Some elements are required by one service and optional or not used by another. Instead of listing every service in the table, these elements are marked `*..*`. The guide for the topic explains when the element is required.
+When cardinalities differ between the Nordic Profile and service layers, the table shows `*..*` instead of listing every service. This includes elements that are required in one service and optional or forbidden in another, as well as elements that are optional in one service and forbidden in another. The notation does not by itself mean that any service requires the element. The guide for the topic explains the applicable service requirements.
 
 Example: `ParentSiteRef` on StopPlace is used by the national stop registry (NSR) to build multimodal stop hierarchies, but is not part of operator deliveries. Its cardinality is therefore `*..*`, and the [Stop Infrastructure](../StopInfrastructure/StopInfrastructure_Guide.md) guide explains the hierarchy.
 
