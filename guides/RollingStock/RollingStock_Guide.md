@@ -274,7 +274,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 
 ### Guides
 - [Vehicle Scheduling](../VehicleScheduling/VehicleScheduling_Guide.md) — General Block/VehicleType patterns (bus and rail)
-- [Journey Lifecycle](../JourneyLifecycle/JourneyLifecycle_Guide.md) — How ServiceJourney and DatedServiceJourney relate
+- [DatedServiceJourney Lifecycle](../../objects/DatedServiceJourney/Lifecycle_DatedServiceJourney.md) — How ServiceJourney and DatedServiceJourney relate
 - [Separation of Concerns](../SeparationOfConcerns/SeparationOfConcerns.md) — Why timetable and vehicle domains are separated
 
 ### Frames & Objects

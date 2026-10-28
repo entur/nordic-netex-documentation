@@ -67,7 +67,7 @@ Beyond the core reading path, these guides cover specific domains:
 | 📢 Passenger information & booking | [Passenger Information](guides/PassengerInformation/PassengerInformation_Guide.md) |
 | 🚌 Vehicle assignment & blocks | [Vehicle Scheduling](guides/VehicleScheduling/VehicleScheduling_Guide.md) |
 | 🚆 Rolling stock & train composition | [Rolling Stock](guides/RollingStock/RollingStock_Guide.md) |
-| ⚠️ Deviations & replacements | [Extended Sales & Deviations](guides/ExtendedSales_and_DeviationHandling/ExtendedSales_and_DeviationHandling_Guide.md) |
+| ⚠️ Deviations & replacements | [DatedServiceJourney Lifecycle](objects/DatedServiceJourney/Lifecycle_DatedServiceJourney.md) |
 | 🛠️ Tooling & debugging | [Tools](guides/Tools/Tools_Guide.md) |
 
 ---

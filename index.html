@@ -24,6 +24,22 @@
 <body>
   <div id="app"></div>
   <script>
+    // The documentation ontology is the index of all pages; objects and frames are not in the sidebar, so 'auto' would miss them.
+    // Sync request because Docsify reads search.paths once at startup.
+    function ontologySearchPaths() {
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'ontology/netex-nordic-documentation.ttl', false);
+        xhr.send();
+        if (xhr.status !== 200) return 'auto';
+        var re = /doc:(?:description|table|path)\s+"([^"]+)\.md"/g, m, seen = { '/home': true };
+        while ((m = re.exec(xhr.responseText))) seen['/' + m[1]] = true;
+        return Object.keys(seen);
+      } catch (e) {
+        return 'auto';
+      }
+    }
+
     window.$docsify = {
       name: 'Nordic NeTEx Profile',
       repo: 'hfjelstad/NeTEx-Nordic',
@@ -33,6 +49,7 @@
       subMaxLevel: 2,
       auto2top: true,
       search: {
+        paths: ontologySearchPaths(),
         placeholder: 'Search...',
         noData: 'No results',
         depth: 3
