@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NP:SiteFrame:constructed-TopographicPlace" version="1">
+      <topographicPlaces>
+        <TopographicPlace id="NP:TopographicPlace:3001" version="1">
+          <gml:Polygon gml:id="NP_Polygon_TopographicPlace" srsName="urn:ogc:def:crs:EPSG::4326">
+            <gml:exterior>
+              <gml:LinearRing>
+                <gml:posList>59.90 10.70 59.90 10.80 59.95 10.80 59.95 10.70 59.90 10.70</gml:posList>
+              </gml:LinearRing>
+            </gml:exterior>
+          </gml:Polygon>
+          <Descriptor>
+            <Name>Example municipality</Name>
+            <ShortName>Example</ShortName>
+          </Descriptor>
+          <TopographicPlaceType>municipality</TopographicPlaceType>
+        </TopographicPlace>
+      </topographicPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

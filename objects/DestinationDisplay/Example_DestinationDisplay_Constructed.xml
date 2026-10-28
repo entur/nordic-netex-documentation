@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:constructed-DestinationDisplay" version="1">
+      <destinationDisplays>
+        <DestinationDisplay id="NP:DestinationDisplay:3001" version="1">
+          <Name>Example destination</Name>
+          <ShortName>Destination</ShortName>
+          <FrontText>Example town</FrontText>
+          <PublicCode>D1</PublicCode>
+          <vias>
+            <Via>
+              <DestinationDisplayRef ref="NP:DestinationDisplay:3002"/>
+            </Via>
+          </vias>
+          <variants>
+            <DestinationDisplayVariant id="NP:DestinationDisplayVariant:3001" version="1">
+              <DestinationDisplayVariantMediaType>web</DestinationDisplayVariantMediaType>
+              <FrontText>Example town via Example square</FrontText>
+            </DestinationDisplayVariant>
+          </variants>
+        </DestinationDisplay>
+      </destinationDisplays>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

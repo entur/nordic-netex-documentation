@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NP:SiteFrame:constructed-StopPlace" version="1">
+      <stopPlaces>
+        <StopPlace id="NP:StopPlace:3001" version="1">
+          <Name>Example interchange stop</Name>
+          <PrivateCode>S1</PrivateCode>
+          <Centroid>
+            <Location>
+              <Longitude>10.7500</Longitude>
+              <Latitude>59.9100</Latitude>
+            </Location>
+          </Centroid>
+          <placeEquipments>
+            <ShelterEquipment id="NP:ShelterEquipment:3001" version="1">
+              <Seats>2</Seats>
+              <StepFree>true</StepFree>
+              <Enclosed>false</Enclosed>
+            </ShelterEquipment>
+          </placeEquipments>
+          <TransportMode>rail</TransportMode>
+          <OtherTransportModes>bus</OtherTransportModes>
+          <StopPlaceType>railStation</StopPlaceType>
+          <quays>
+            <Quay id="NP:Quay:3001" version="1">
+              <Centroid>
+                <Location>
+                  <Longitude>10.7500</Longitude>
+                  <Latitude>59.9100</Latitude>
+                </Location>
+              </Centroid>
+              <PublicCode>1</PublicCode>
+            </Quay>
+          </quays>
+        </StopPlace>
+      </stopPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

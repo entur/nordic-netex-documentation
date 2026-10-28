@@ -52,3 +52,12 @@ Example XML: [Example_CompositeFrame.xml](Example_CompositeFrame.xml)
 - **Frame ordering convention**: ResourceFrame ? SiteFrame ? ServiceCalendarFrame ? ServiceFrame ? TimetableFrame ? VehicleScheduleFrame ? FareFrame ? SalesTransactionFrame. This convention places foundational data (organizations, stops) before dependent data (journeys, fares).
 - **Codespace placement**: Codespaces can be declared either on the CompositeFrame itself (shared by all contained frames) or on individual ResourceFrames within the `frames` collection. Declaring on CompositeFrame is preferred when multiple frames share the same codespace.
 - **FrameDefaults**: When `DefaultCodespaceRef` is set, all contained frames inherit it, avoiding the need to repeat codespace references in each child frame.
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_CompositeFrame_Constructed.xml](Example_CompositeFrame_Constructed.xml) |
+| Not assessed | [Example_CompositeFrame.xml](Example_CompositeFrame.xml) |

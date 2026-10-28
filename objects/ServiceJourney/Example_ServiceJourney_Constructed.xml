@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <TimetableFrame id="NP:TimetableFrame:constructed-ServiceJourney" version="1">
+      <vehicleJourneys>
+        <ServiceJourney id="NP:ServiceJourney:3001" version="1">
+          <Name>Example flexible departure</Name>
+          <JourneyPatternRef ref="NP:JourneyPattern:3001"/>
+          <BlockRef ref="NP:Block:3001"/>
+          <OperatorRef ref="NP:Operator:3001"/>
+          <FlexibleLineRef ref="NP:FlexibleLine:3001"/>
+          <passingTimes>
+            <TimetabledPassingTime id="NP:TimetabledPassingTime:3001" version="1">
+              <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:3001"/>
+              <ArrivalTime>09:00:00</ArrivalTime>
+              <DepartureTime>09:10:00</DepartureTime>
+              <LatestArrivalTime>09:05:00</LatestArrivalTime>
+              <EarliestDepartureTime>09:10:00</EarliestDepartureTime>
+            </TimetabledPassingTime>
+          </passingTimes>
+        </ServiceJourney>
+      </vehicleJourneys>
+    </TimetableFrame>
+  </dataObjects>
+</PublicationDelivery>
