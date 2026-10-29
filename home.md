@@ -1,3 +1,6 @@
+> [!WARNING]
+> **PR #47 PREVIEW** — isolated generator test, not the current published profile. [Open the before/after comparison and test findings](preview47.md).
+
 # NeTEx Nordic Profile
 
 ![Urban transit at Jernbanetorget, Oslo](assets/images/Jernbanetorget.png)
