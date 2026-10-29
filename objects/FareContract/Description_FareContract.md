@@ -56,4 +56,10 @@ A **FareContract** models a customer-facing agreement for the right to travel an
 
 See [Table_FareContract.md](Table_FareContract.md) for detailed attribute specifications.
 
-Example XML: *(no NP example yet)*
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_FareContract_Constructed.xml](Example_FareContract_Constructed.xml) |

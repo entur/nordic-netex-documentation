@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:constructed-Route" version="1">
+      <routes>
+        <Route id="NP:Route:3001" version="1">
+          <Name>Example route</Name>
+          <Description>Illustrative route</Description>
+          <PrivateCode>R1</PrivateCode>
+          <LineRef ref="NP:Line:3001"/>
+          <pointsInSequence>
+            <PointOnRoute id="NP:PointOnRoute:3001" version="1" order="1">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:3001"/>
+            </PointOnRoute>
+            <PointOnRoute id="NP:PointOnRoute:3002" version="1" order="2">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:3002"/>
+            </PointOnRoute>
+          </pointsInSequence>
+        </Route>
+      </routes>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

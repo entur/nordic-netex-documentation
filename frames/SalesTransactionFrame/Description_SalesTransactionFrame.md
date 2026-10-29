@@ -24,3 +24,11 @@ A **SalesTransactionFrame** is used to exchange sales-related data including far
 SalesTransactionFrame depends on **FareFrame** for the fare products and sales offer packages that contracts reference. It is typically wrapped in a **CompositeFrame** within a PublicationDelivery.
 
 For the full structural specification, see [Table — SalesTransactionFrame](Table_SalesTransactionFrame.md).
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_SalesTransactionFrame_Constructed.xml](Example_SalesTransactionFrame_Constructed.xml) |

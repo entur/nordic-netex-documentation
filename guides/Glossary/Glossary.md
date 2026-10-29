@@ -215,13 +215,9 @@ A logical grouping of multiple Line objects for common management, branding, dis
 
 ## Interchange
 
-A planned transfer opportunity between two ServiceJourneys at a shared stop point, modelled as `ServiceJourneyInterchange` in XML.
+The general NeTEx interchange concept. The abstract Interchange class is specialized by concrete types, including [ServiceJourneyInterchange](#servicejourneyinterchange) for planned transfers between two journeys.
 
-> **NeTEx XSD:** The scheduled possibility for transfer of passengers between two SERVICE JOURNEYs at the same or different STOP POINTs.
->
-> **Transmodel:** The scheduled possibility for transfer of passengers between two SERVICE JOURNEYs at the same or different SCHEDULED STOP POINTs.
-
-→ [Full documentation](../../objects/Interchange/Description_Interchange.md)
+→ [Concrete journey-interchange documentation](../../objects/ServiceJourneyInterchange/Description_ServiceJourneyInterchange.md)
 
 ---
 
@@ -379,7 +375,7 @@ The bridge linking a logical ScheduledStopPoint to a physical Quay within a Stop
 
 A container within a StopPlace or Quay holding equipment items (shelters, waiting rooms, sanitary facilities, ticketing machines) that describe the physical amenities at the stop.
 
-→ [Full documentation](../../objects/placeEquipments/Description_placeEquipments.md)
+→ [Stop Infrastructure guide](../StopInfrastructure/StopInfrastructure_Guide.md)
 
 ---
 
@@ -527,6 +523,18 @@ Contains the network and route definitions - Lines, Routes, JourneyPatterns, Sch
 
 ---
 
+## ServiceJourneyInterchange
+
+A concrete NeTEx specialization of abstract Interchange representing a planned transfer opportunity between two ServiceJourneys at a shared stop point, modelled as `ServiceJourneyInterchange` in XML.
+
+> **NeTEx XSD:** The scheduled possibility for transfer of passengers between two SERVICE JOURNEYs at the same or different STOP POINTs.
+>
+> **Transmodel:** The scheduled possibility for transfer of passengers between two SERVICE JOURNEYs at the same or different SCHEDULED STOP POINTs.
+
+→ [Full documentation](../../objects/ServiceJourneyInterchange/Description_ServiceJourneyInterchange.md)
+
+---
+
 ## ServiceJourney
 
 A planned trip in the timetable operating on a recurring schedule, defining the stop sequence via a JourneyPattern, passing times, operator, and days of operation.
@@ -655,11 +663,19 @@ A named geographic area such as a city, municipality, county, or region - used t
 
 ---
 
+## Block
+
+A general operational sequence of vehicle journeys assigned to a vehicle, independent of transport mode. TrainBlock is a concrete rail-specific specialization.
+
+→ [Full documentation](../../objects/Block/Description_Block.md)
+
+---
+
 ## TrainBlock
 
 *Entur Extension — not part of the official Nordic Profile.*
 
-A rail-specific specialisation of Block that represents an operational grouping for a single train on a given operating day.
+A concrete rail-specific specialisation of Block, represented by its own TrainBlock XML element.
 
 > **NeTEx XSD:** The vehicle work required by a train-based JOURNEY or sequence of JOURNEYs, from the time it leaves a PARKING POINT after parking until its next return to park at a PARKING POINT.
 >

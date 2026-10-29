@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:constructed-ServiceLink" version="1">
+      <serviceLinks>
+        <ServiceLink id="NP:ServiceLink:3001" version="1">
+          <gml:LineString gml:id="NP_Line_ServiceLink" srsName="urn:ogc:def:crs:EPSG::4326">
+            <gml:posList>59.9100 10.7500 59.9200 10.7600</gml:posList>
+          </gml:LineString>
+          <projections>
+            <LinkSequenceProjection id="NP:LinkSequenceProjection:3001" version="1">
+              <gml:LineString gml:id="NP_Line_Projection" srsName="urn:ogc:def:crs:EPSG::4326">
+                <gml:posList>59.9100 10.7500 59.9200 10.7600</gml:posList>
+              </gml:LineString>
+            </LinkSequenceProjection>
+          </projections>
+          <FromPointRef ref="NP:ScheduledStopPoint:3001"/>
+          <ToPointRef ref="NP:ScheduledStopPoint:3002"/>
+        </ServiceLink>
+      </serviceLinks>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

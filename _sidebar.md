@@ -12,7 +12,7 @@
   - [Block - Vehicle Scheduling](/guides/VehicleScheduling/VehicleScheduling_Guide.md)
   - [TrainBlock - Rolling Stock](/guides/RollingStock/RollingStock_Guide.md)
   <!-- - [Fare Modelling](/guides/FareModelling/FareModelling_Guide.md) -->
-  - [Extended Sales & Deviations](/guides/ExtendedSales_and_DeviationHandling/ExtendedSales_and_DeviationHandling_Guide.md)
+  <!-- - [Extended Sales & Deviations](/guides/ExtendedSales_and_DeviationHandling/ExtendedSales_and_DeviationHandling_Guide.md) -->
   - [Tools](/guides/Tools/Tools_Guide.md)
   - [Ontology](/guides/Ontology/Ontology_Guide.md)
 

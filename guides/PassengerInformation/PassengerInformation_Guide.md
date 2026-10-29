@@ -165,7 +165,7 @@ Key properties:
 ## 8. 🔗 Related Resources
 
 ### Guides
-- [Journey Lifecycle](../JourneyLifecycle/JourneyLifecycle_Guide.md) -- How journeys and patterns are structured
+- [How to Build a Timetable](../HowToBuildATimetable/HowToBuildATimetable_Guide.md) -- How journeys and patterns are structured
 - [Stop Infrastructure](../StopInfrastructure/StopInfrastructure_Guide.md) -- Where stops are defined
 
 ### Frames & Objects

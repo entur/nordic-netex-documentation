@@ -9,6 +9,9 @@ The **StopPlace** represents a named physical or virtual location where passenge
 <!-- generated:structure:start -->
 ```text
 📄 @id (1..1)
+📄 @created (?)
+📄 @changed (?)
+📄 @modification (?)
 📄 @version (1..1)
 📁 ValidBetween (0..1)
    └── 📄 FromDate (0..1)
@@ -17,23 +20,43 @@ The **StopPlace** represents a named physical or virtual location where passenge
        ├── 📄 Key (1..1)
        └── 📄 Value (1..1)
 📄 Name (1..1)
+📄 PrivateCode (0..1)
+📄 Description (0..1)
 📁 Centroid (1..1)
    └── 📁 Location (0..1)
        ├── 📄 Longitude (0..1)
        └── 📄 Latitude (0..1)
+📁 placeEquipments (0..1)
+   └── 📄 ShelterEquipment (?)
+🔗 ParentSiteRef/@ref (0..1)
+📁 adjacentSites (0..1)
+   └── 🔗 SiteRef/@ref (1..n)
+📄 TransportMode (*..*)
+📄 OtherTransportModes (0..1)
+📄 StopPlaceType (0..1)
+📁 quays (0..1)
+   └── 📄 Quay (1..n)
 📁 AccessibilityAssessment (0..1)
+   ├── 📄 @modification (?)
    ├── 📄 @id (?)
    ├── 📄 MobilityImpairedAccess (1..1)
    └── 📁 limitations (0..1)
        └── 📁 AccessibilityLimitation (1..n)
+           ├── 📄 @modification (?)
+           ├── 📄 @id (?)
            ├── 📄 WheelchairAccess (0..1)
-           └── 📄 StepFreeAccess (0..1)
+           ├── 📄 StepFreeAccess (0..1)
+           ├── 📄 EscalatorFreeAccess (0..1)
+           ├── 📄 LiftFreeAccess (0..1)
+           ├── 📄 AudibleSignalsAvailable (0..1)
+           └── 📄 VisualSignsAvailable (0..1)
+📁 alternativeNames (0..1)
+   └── 📄 AlternativeName (1..n)
 🔗 TopographicPlaceRef/@ref (0..1)
-📄 TransportMode (*..*)
-📄 StopPlaceType (0..1)
+📄 BusSubmode (0..1)
+📁 tariffZones (0..1)
+   └── 🔗 TariffZoneRef/@ref (?)
 📄 Weighting (0..1)
-📁 quays (0..1)
-   └── 📄 Quay (1..n)
 ```
 <!-- generated:structure:end -->
 
@@ -79,4 +102,14 @@ The **StopPlace** represents a named physical or virtual location where passenge
 > **Centroid positioning**: For monomodal stops, place the Centroid centrally between all serving Quays. For multimodal parents, position it at the hub center – not at a single Quay.
 
 ## 6. Additional Information
+
 See [Table_StopPlace.md](Table_StopPlace.md) for detailed attribute specifications, cardinality rules, and the complete element structure. See [Example_StopPlace_NP.xml](Example_StopPlace_NP.xml) for examples of monomodal and multimodal StopPlace configurations with embedded Quays.
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_StopPlace_Constructed.xml](Example_StopPlace_Constructed.xml) |
+| Not assessed | [Example_StopPlace_NP.xml](Example_StopPlace_NP.xml) |

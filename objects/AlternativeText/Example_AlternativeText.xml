@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-10-27T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NSR:SiteFrame:alttext:1" version="1">
+      <stopPlaces>
+        <StopPlace id="NSR:StopPlace:59977" version="1">
+          <alternativeTexts>
+            <AlternativeText id="NSR:AlternativeText:59977-desc-eng" version="1" attributeName="Description" useForLanguage="en">
+              <Text lang="en">Main railway station in central Oslo</Text>
+            </AlternativeText>
+          </alternativeTexts>
+          <Name lang="nor">Oslo S</Name>
+          <Description lang="nor">Hovedjernbanestasjon i Oslo sentrum</Description>
+        </StopPlace>
+      </stopPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: OBSERVED (anonymized source extract, not a constructed domain example). -->
+  <PublicationTimestamp>2026-10-09T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <!-- Observed content: The domain elements and field usage are based on a real delivery. -->
+  <!-- Source: GOA_L50.xml from the supplied 2026-10-09 rail export. -->
+  <!-- Adaptation: identifiers use neutral NP codes and versions are normalized; reference versions are omitted. -->
+  <!-- Adaptation: Only the first and last route points are retained; order is renumbered. -->
+  <!-- Adaptation: the abbreviated publication envelope, timestamp and frame identifiers are illustrative. -->
+  <!-- External references require other frames from a complete delivery. Observed usage does not establish profile requirements. -->
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:inverse-routes" version="1">
+      <routes>
+        <Route version="1" id="NP:Route:2001">
+          <Name>Oslo S-Kristiansand-Stavanger</Name>
+          <ShortName>STV-OSL</ShortName>
+          <LineRef ref="NP:Line:2001"/>
+          <pointsInSequence>
+            <PointOnRoute order="1" version="1" id="NP:PointOnRoute:2001">
+              <RoutePointRef ref="NP:RoutePoint:2001"/>
+            </PointOnRoute>
+            <PointOnRoute order="2" version="1" id="NP:PointOnRoute:2048">
+              <RoutePointRef ref="NP:RoutePoint:2048"/>
+            </PointOnRoute>
+          </pointsInSequence>
+          <InverseRouteRef ref="NP:Route:2002"/>
+        </Route>
+        <Route version="1" id="NP:Route:2002">
+          <Name>Stavanger-Kristiansand-Oslo S</Name>
+          <ShortName>OSL-STV</ShortName>
+          <LineRef ref="NP:Line:2001"/>
+          <pointsInSequence>
+            <PointOnRoute order="1" version="1" id="NP:PointOnRoute:2049">
+              <RoutePointRef ref="NP:RoutePoint:2048"/>
+            </PointOnRoute>
+            <PointOnRoute order="2" version="1" id="NP:PointOnRoute:2096">
+              <RoutePointRef ref="NP:RoutePoint:2001"/>
+            </PointOnRoute>
+          </pointsInSequence>
+          <InverseRouteRef ref="NP:Route:2001"/>
+        </Route>
+      </routes>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

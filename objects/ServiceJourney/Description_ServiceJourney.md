@@ -12,19 +12,46 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 ```text
 📄 @id (1..1)
 📄 @version (1..1)
+📁 keyList (0..1)
+   └── 📁 KeyValue (1..n)
+       ├── 📄 Key (1..1)
+       └── 📄 Value (1..1)
 📄 Name (0..1)
+📄 Description (0..1)
 📄 PrivateCode (0..1)
 📁 dayTypes (0..1)
    └── 🔗 DayTypeRef/@ref (0..n)
+📄 TransportMode (0..1)
+📁 TransportSubmode (0..1)
+   ├── 📄 RailSubmode (0..1)
+   └── 📄 BusSubmode (0..1)
 🔗 JourneyPatternRef/@ref (1..1)
+🔗 BlockRef/@ref (0..1)
 🔗 OperatorRef/@ref (0..1)
+🔗 FlexibleLineRef/@ref (?)
 🔗 LineRef/@ref (0..1)
 📁 passingTimes (0..1)
    └── 📁 TimetabledPassingTime (1..n)
        ├── 📄 @id (0..1)
        ├── 🔗 StopPointInJourneyPatternRef/@ref (1..1)
        ├── 📄 ArrivalTime (0..1)
-       └── 📄 DepartureTime (0..1)
+       ├── 📄 DepartureTime (0..1)
+       ├── 📄 LatestArrivalTime (0..1)
+       ├── 📄 EarliestDepartureTime (0..1)
+       ├── 📄 DepartureDayOffset (0..1)
+       └── 📄 ArrivalDayOffset (0..1)
+📁 parts (0..1)
+   └── 📁 JourneyPart (0..n)
+       ├── 📄 @id (?)
+       ├── 📄 Description (0..1)
+       ├── 🔗 MainPartRef/@ref (0..1)
+       ├── 🔗 TrainNumberRef/@ref (0..1)
+       ├── 🔗 FromStopPointRef/@ref (0..1)
+       ├── 🔗 ToStopPointRef/@ref (0..1)
+       ├── 📄 StartTime (1..1)
+       ├── 📄 StartTimeDayOffset (0..1)
+       ├── 📄 EndTime (1..1)
+       └── 📄 EndTimeDayOffset (0..1)
 ```
 <!-- generated:structure:end -->
 
@@ -45,7 +72,7 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 - [Operator](../Operator/Table_Operator.md) – Identifies the service provider
 - [Line](../Line/Table_Line.md) – The public transport line being served
 - [DatedServiceJourney](../DatedServiceJourney/Description_DatedServiceJourney.md) – Per-date instances and alterations of this journey
-- [Block](../Block/Table_Block.md) – Optional vehicle/roster grouping
+- Block – Optional vehicle/roster grouping (see the [Vehicle Scheduling guide](../../guides/VehicleScheduling/VehicleScheduling_Guide.md) and [TrainBlock](../TrainBlock/Table_TrainBlock.md))
 
 ## 5. Usage Notes
 
@@ -59,4 +86,12 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 
 For a complete list of all elements, attributes, cardinalities, and data types, see [Table — ServiceJourney](Table_ServiceJourney.md).
 
-Example XML: [Example_ServiceJourney_NP.xml](Example_ServiceJourney_NP.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Observed** | [Example_ServiceJourney_Rail_Observed.xml](Example_ServiceJourney_Rail_Observed.xml) |
+| **Constructed** | [Example_ServiceJourney_Constructed.xml](Example_ServiceJourney_Constructed.xml) |
+| Not assessed | [Example_ServiceJourney_NP.xml](Example_ServiceJourney_NP.xml) |

@@ -55,4 +55,11 @@ A **DayType** represents a classification of days on which a specific set of tra
 
 See [Table_DayType.md](Table_DayType.md) for detailed attribute specifications.
 
-Example XML: [Example_DayType_NP.xml](Example_DayType_NP.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_DayType_Constructed.xml](Example_DayType_Constructed.xml) |
+| Not assessed | [Example_DayType_NP.xml](Example_DayType_NP.xml) |

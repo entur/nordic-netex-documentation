@@ -37,3 +37,12 @@ SiteFrame is independent of other frames but provides the physical stop infrastr
 
 For the full structural specification, see [Table — SiteFrame](Table_SiteFrame.md).
 Example XML: [Example_SiteFrame.xml](Example_SiteFrame.xml)
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_SiteFrame_Constructed.xml](Example_SiteFrame_Constructed.xml) |
+| Not assessed | [Example_SiteFrame.xml](Example_SiteFrame.xml) |

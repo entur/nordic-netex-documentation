@@ -23,5 +23,5 @@ DatedServiceJourney
 | [TrainBlock](../TrainBlock/Table_TrainBlock.md)/@ref | BlockRef | 0..1 | Reference to an operational Block/TrainBlock. | BlockRef/@ref |
 | ServiceAlteration | ServiceAlterationEnumeration | 0..1 | Deviation type. Allowed values: `planned` · `cancellation` · `replaced` · `extraJourney`. Omitted implies `planned`. | ServiceAlteration |
 | replacedJourneys | replacedJourneys | 0..1 | Container for references to journeys being replaced or reinforced. | replacedJourneys |
-| [DatedVehicleJourney](../DatedVehicleJourney/Table_DatedVehicleJourney.md)/@ref | DatedVehicleJourneyRef | 0..n | References to journeys being replaced/reinforced. | replacedJourneys/DatedVehicleJourneyRef/@ref |
+| DatedVehicleJourneyRef/@ref | DatedVehicleJourneyRef | 0..n | References to journeys being replaced/reinforced. | replacedJourneys/DatedVehicleJourneyRef/@ref |
 
