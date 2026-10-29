@@ -23,7 +23,7 @@ TrainBlock
 ## 3. Key Elements
 
 - **Name** and **Description**: Human-readable labels and context.
-- **journeys**: References to the VehicleJourneys belonging to the block.
+- **journeys**: A non-empty collection of journey references or designators. The alternatives are allowed by the schema; VehicleJourneyRef itself is optional (`0..n`), even when the collection is present.
 - **coupledJourneys**: Optional references to CoupledJourney objects; specific to TrainBlock.
 
 ## 4. References

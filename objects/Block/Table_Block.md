@@ -19,5 +19,5 @@ Block
 | @version | VersionIdType | 1..1 | Version label | Block/@version |
 | Name | MultilingualString | 0..1 | Human-readable name | Block/Name |
 | Description | MultilingualString | 0..1 | Free-text description | Block/Description |
-| journeys | journeyRefs_RelStructure | 0..1 | Contained journey references | Block/journeys |
-| @ref | VehicleJourneyRefStructure | 1..n | Reference to a vehicle journey when journeys is present | Block/journeys/VehicleJourneyRef/@ref |
+| journeys | journeyRefs_RelStructure | 0..1 | When present, at least one journey reference or designator overall | Block/journeys |
+| VehicleJourneyRef/@ref | VehicleJourneyRefStructure | 0..n | One permitted reference form; other journey references or designators may be used instead | Block/journeys/VehicleJourneyRef/@ref |
