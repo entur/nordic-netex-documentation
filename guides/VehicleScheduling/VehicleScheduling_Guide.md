@@ -170,3 +170,5 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 ### External
 - [NeTEx CEN Standard](https://www.netex-cen.eu/) -- Official specification
+
+See [Block](../../objects/Block/Description_Block.md) for the general XML type and [TrainBlock](../../objects/TrainBlock/Description_TrainBlock.md) for its concrete rail specialization.

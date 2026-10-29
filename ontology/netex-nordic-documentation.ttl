@@ -165,6 +165,12 @@ nordic:Authority
     doc:example "objects/Authority/Example_Authority_Constructed.xml" ;
     doc:example "objects/Authority/Example_Authority_NP.xml" .
 
+## Block (Entur)
+entur:Block
+    doc:description "objects/Block/Description_Block.md" ;
+    doc:table "objects/Block/Table_Block.md" ;
+    doc:example "objects/Block/Example_Block_Constructed.xml" .
+
 ## Codespace (NP)
 nordic:Codespace
     doc:description "objects/Codespace/Description_Codespace.md" ;
@@ -239,13 +245,6 @@ nordic:GroupOfLines
     doc:table "objects/GroupOfLines/Table_GroupOfLines.md" ;
     doc:example "objects/GroupOfLines/Example_GroupOfLines.xml" ;
     doc:example "objects/GroupOfLines/Example_GroupOfLines_Constructed.xml" .
-
-## Interchange (NP)
-nordic:Interchange
-    doc:description "objects/Interchange/Description_Interchange.md" ;
-    doc:table "objects/Interchange/Table_Interchange.md" ;
-    doc:example "objects/Interchange/Example_Interchange_Constructed.xml" ;
-    doc:example "objects/Interchange/Example_Interchange_NP.xml" .
 
 ## JourneyPattern (NP)
 nordic:JourneyPattern
@@ -384,6 +383,13 @@ nordic:ServiceJourney
     doc:example "objects/ServiceJourney/Example_ServiceJourney_NP.xml" ;
     doc:example "objects/ServiceJourney/Example_ServiceJourney_Rail_Observed.xml" .
 
+## ServiceJourneyInterchange (NP)
+nordic:ServiceJourneyInterchange
+    doc:description "objects/ServiceJourneyInterchange/Description_ServiceJourneyInterchange.md" ;
+    doc:table "objects/ServiceJourneyInterchange/Table_ServiceJourneyInterchange.md" ;
+    doc:example "objects/ServiceJourneyInterchange/Example_ServiceJourneyInterchange_Constructed.xml" ;
+    doc:example "objects/ServiceJourneyInterchange/Example_ServiceJourneyInterchange_NP.xml" .
+
 ## ServiceLink (NP)
 nordic:ServiceLink
     doc:description "objects/ServiceLink/Description_ServiceLink.md" ;
@@ -512,6 +518,7 @@ guide:Glossary
     doc:covers nordic:AlternativeName ;
     doc:covers nordic:AlternativeText ;
     doc:covers nordic:Authority ;
+    doc:covers entur:Block ;
     doc:covers nordic:Codespace ;
     doc:covers nordic:CompositeFrame ;
     doc:covers entur:Contract ;
@@ -524,7 +531,6 @@ guide:Glossary
     doc:covers entur:FareZone ;
     doc:covers nordic:FlexibleServiceProperties ;
     doc:covers nordic:GroupOfLines ;
-    doc:covers nordic:Interchange ;
     doc:covers nordic:JourneyPattern ;
     doc:covers nordic:Line ;
     doc:covers nordic:LinkSequenceProjection ;
@@ -547,6 +553,7 @@ guide:Glossary
     doc:covers nordic:ServiceCalendarFrame ;
     doc:covers nordic:ServiceFrame ;
     doc:covers nordic:ServiceJourney ;
+    doc:covers nordic:ServiceJourneyInterchange ;
     doc:covers nordic:ShelterEquipment ;
     doc:covers nordic:SiteConnection ;
     doc:covers nordic:SiteFrame ;
@@ -583,10 +590,10 @@ guide:Interchange
     rdfs:label "Interchange & InterchangeOnly Guide" ;
     doc:path "guides/Interchange/Interchange_Guide.md" ;
     doc:example "guides/Interchange/Example_Interchange.xml" ;
-    doc:covers nordic:Interchange ;
     doc:covers nordic:JourneyPattern ;
     doc:covers nordic:ScheduledStopPoint ;
     doc:covers nordic:ServiceJourney ;
+    doc:covers nordic:ServiceJourneyInterchange ;
     doc:covers nordic:TimetableFrame .
 
 ## NeTExConventions
@@ -675,6 +682,7 @@ guide:VehicleScheduling
     rdfs:label "Vehicle Scheduling — Blocks, Vehicles & Fleet Assignment" ;
     doc:path "guides/VehicleScheduling/VehicleScheduling_Guide.md" ;
     doc:example "guides/VehicleScheduling/Example_VehicleScheduling.xml" ;
+    doc:covers entur:Block ;
     doc:covers nordic:ResourceFrame ;
     doc:covers entur:TrainBlock ;
     doc:covers nordic:Vehicle ;

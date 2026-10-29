@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
   <PublicationTimestamp>2026-02-23T13:45:00Z</PublicationTimestamp>
   <ParticipantRef>NP</ParticipantRef>
@@ -25,6 +25,7 @@
           <vehicleJourneys>
             <ServiceJourney id="NP:ServiceJourney:SJ:1" version="1"/>
             <DatedServiceJourney id="NP:DatedServiceJourney:DSJ:1" version="1">
+              <TrainBlockRef ref="NP:TrainBlock:TB:1"/>
               <ServiceJourneyRef ref="NP:ServiceJourney:SJ:1"/>
               <OperatingDayRef ref="NP:OperatingDay:2026-02-23"/>
             </DatedServiceJourney>
@@ -32,13 +33,13 @@
         </TimetableFrame>
         <VehicleScheduleFrame id="NP:VehicleScheduleFrame:VSF:1" version="1">
           <blocks>
-            <!-- TrainBlock is represented as a Block element with rail semantics in this profile -->
-            <Block id="NP:TrainBlock:TB:1" version="1">
+            <!-- Concrete TrainBlock specializes Block in NeTEx 2.0. -->
+            <TrainBlock id="NP:TrainBlock:TB:1" version="1">
               <Name>TrainBlock TB:1</Name>
               <journeys>
                 <VehicleJourneyRef ref="NP:ServiceJourney:SJ:1"/>
               </journeys>
-            </Block>
+            </TrainBlock>
           </blocks>
         </VehicleScheduleFrame>
       </frames>
