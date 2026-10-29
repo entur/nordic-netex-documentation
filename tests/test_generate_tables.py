@@ -175,6 +175,24 @@ class GeneratorTests(unittest.TestCase):
         self.assertEqual(2, self.run_main(docs, ['Empty', '--check'])[0])
         self.assertEqual('Retain existing documentation', table.read_text())
 
+    def test_coverage_without_class_arguments_audits_every_documented_folder(self):
+        folder = self.root / 'OtherClass'
+        folder.mkdir()
+        docs = {'OtherClass': g.Documentation('nordic', folder, 'OtherClass')}
+        code, output = self.run_main(docs, ['--coverage'])
+        self.assertEqual(0, code)
+        self.assertIn('OtherClass', output)
+        self.assertNotIn('ServiceJourney', output)
+
+    def test_other_xml_namespace_is_not_a_netex_object(self):
+        folder = self.root / 'Good'
+        self.example(folder, '<external:Good xmlns:external="urn:unrelated" id="other:Good:1"/>')
+        docs = {'Good': g.Documentation('nordic', folder, 'Good')}
+        code, output = self.run_main(docs, ['Good'])
+        self.assertEqual(2, code)
+        self.assertIn('no Good instances', output)
+        self.assertFalse((folder / 'Table_Good.md').exists())
+
     def test_structure_update_preserves_prose_and_provenance(self):
         before = '# Example\n\n## 2. Structure Overview\n\n```text\nold\n```\n\n## 3. Explanation\n\nKeep this prose.\n\n| Observed | example.xml |\n'
         block = g.TREE_START + '\n```text\nnew\n```\n' + g.TREE_END

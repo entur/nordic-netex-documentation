@@ -52,6 +52,7 @@ NORDIC_NS = "https://netex-cen.eu/nordic#"
 ENTUR_NS = "https://entur.org/ontology#"
 DOC = Namespace("https://netex-cen.eu/doc#")
 GML_NS = "http://www.opengis.net/gml/3.2"
+NETEX_XML_NS = "http://www.netex.org.uk/netex"
 XSD_NS = "http://www.w3.org/2001/XMLSchema#"
 
 PROTOTYPE = ["ServiceJourney", "StopPlace"]
@@ -325,7 +326,7 @@ def collect(cls: str, docs: dict) -> Rows:
 
     for ex in examples:
         for el in ET.parse(ex).iter():
-            if tag(el) == doc.target:
+            if el.tag == "{" + NETEX_XML_NS + "}" + doc.target:
                 rows.object_count += 1
                 visit(el, "", True)
     return rows
@@ -468,7 +469,7 @@ def with_description_tree(text: str, block: str) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    parser.add_argument("classes", nargs="*", default=PROTOTYPE)
+    parser.add_argument("classes", nargs="*", default=None)
     parser.add_argument("--check", action="store_true", help="fail if generated files are stale")
     parser.add_argument("--coverage", action="store_true",
                         help="only report profile fields missing from the examples (all classes if none given)")
@@ -501,7 +502,7 @@ def main() -> int:
             desc_file = doc.folder / f"Description_{cls}.md"
             if desc_file.exists():
                 outputs[desc_file] = with_description_tree(desc_file.read_text(encoding="utf-8"), desc_tree)
-    except (ValueError, ET.ParseError) as exc:
+    except (ValueError, ET.ParseError, OSError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 
