@@ -84,6 +84,8 @@ StopPlace (Multimodal Parent)
 
 ## 6. Additional Information
 
+See [Table_StopPlace.md](Table_StopPlace.md) for detailed attribute specifications, cardinality rules, and the complete element structure. See [Example_StopPlace_NP.xml](Example_StopPlace_NP.xml) for examples of monomodal and multimodal StopPlace configurations with embedded Quays.
+
 ### Example provenance
 
 **Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.

@@ -62,6 +62,8 @@ The **Route** represents the logical geographic path definition for a Line with 
 
 ## 6. Additional Information
 
+See [Table_Route.md](Table_Route.md) for detailed attribute specifications, cardinality rules, and the complete PointsInSequence structure. See [Example_Route_NP.xml](Example_Route_NP.xml) for a complete, validated XML instance showing Route with ordered PointOnRoute elements.
+
 ### Example provenance
 
 **Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.

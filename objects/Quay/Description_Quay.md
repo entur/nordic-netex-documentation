@@ -70,6 +70,8 @@ Quay
 
 ## 6. Additional Information
 
+See [Table_Quay.md](Table_Quay.md) for detailed property specifications and cardinality constraints. See [Example_Quay_NP.xml](Example_Quay_NP.xml) for a complete, validated XML instance embedded within a StopPlace container.
+
 ### Example provenance
 
 **Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
