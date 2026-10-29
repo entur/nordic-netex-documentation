@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NP:SiteFrame:constructed-Parking" version="1">
+      <parkings>
+        <Parking id="NP:Parking:3001" version="1">
+          <keyList>
+            <KeyValue>
+              <Key>example-key</Key>
+              <Value>example-value</Value>
+            </KeyValue>
+          </keyList>
+          <Name>Example parking</Name>
+          <Description>Illustrative park-and-ride</Description>
+          <Centroid>
+            <Location>
+              <Longitude>10.7500</Longitude>
+              <Latitude>59.9100</Latitude>
+            </Location>
+          </Centroid>
+        </Parking>
+      </parkings>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

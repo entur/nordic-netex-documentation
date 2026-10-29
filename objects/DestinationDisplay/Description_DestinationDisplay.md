@@ -69,4 +69,12 @@ DestinationDisplay
 
 See [Table_DestinationDisplay.md](Table_DestinationDisplay.md) for detailed attribute specifications.
 
-Example XML: [Example_DestinationDisplay_NP.xml](Example_DestinationDisplay_NP.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Observed** | [Example_DestinationDisplay_Rail_Observed.xml](Example_DestinationDisplay_Rail_Observed.xml) |
+| **Constructed** | [Example_DestinationDisplay_Constructed.xml](Example_DestinationDisplay_Constructed.xml) |
+| Not assessed | [Example_DestinationDisplay_NP.xml](Example_DestinationDisplay_NP.xml) |

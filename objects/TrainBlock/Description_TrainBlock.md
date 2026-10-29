@@ -53,4 +53,11 @@ A **TrainBlock** is a rail-specific specialisation of Block that represents an o
 
 See [Table_TrainBlock.md](Table_TrainBlock.md) for detailed attribute specifications.
 
-Example XML: [Example_TrainBlock.xml](Example_TrainBlock.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_TrainBlock_Constructed.xml](Example_TrainBlock_Constructed.xml) |
+| Not assessed | [Example_TrainBlock.xml](Example_TrainBlock.xml) |

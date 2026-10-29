@@ -39,4 +39,14 @@ ServiceCalendarFrame is referenced by **TimetableFrame** — ServiceJourneys use
 - The `order` attribute on DayTypeAssignment controls evaluation order when multiple assignments overlap.
 
 For the full structural specification, see [Table — ServiceCalendarFrame](Table_ServiceCalendarFrame.md).
-Example XML: [Example_ServiceCalendarFrame.xml](Example_ServiceCalendarFrame.xml)
+
+### Example provenance
+
+**Observed** means anonymized and abbreviated from a real delivery. **Constructed** means written to illustrate a structure, without evidence of its use in a delivery. Publication envelopes and anonymized values do not change an observed example into a constructed one.
+
+| Status | Example |
+|--------|---------|
+| **Observed** | [Example_ServiceCalendarFrame_Observed.xml](Example_ServiceCalendarFrame_Observed.xml) |
+| Not assessed | [Example_ServiceCalendarFrame.xml](Example_ServiceCalendarFrame.xml) |
+
+No constructed example has been added for this class in this change. Older examples remain unclassified until their provenance has been checked. Observed usage alone does not establish a Nordic Profile requirement.

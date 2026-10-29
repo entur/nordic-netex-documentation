@@ -235,3 +235,36 @@ NeTEx-Nordic/
 ### External
 - [NeTEx-CEN/NeTEx](https://github.com/NeTEx-CEN/NeTEx) — Official XSD schema
 - [CEN TC 278](https://www.netex-cen.eu/) — Standard specification
+
+## 9. Example provenance and coverage for issue #48
+
+The [field list in issue #48](https://github.com/entur/nordic-netex-documentation/issues/48) is a comparison with older hand-written tables. It is not a list of verified NeTEx 2.0 paths.
+
+The added `*_Observed.xml` files contain anonymized, abbreviated delivery data. The added `*_Constructed.xml` files are hand-written syntax examples validated against the pinned NeTEx **2.0.0** publication schema. Existing examples retain the status **Not assessed**. XSD validation alone does not demonstrate Nordic Profile conformance.
+
+### Paths requiring correction or clarification
+
+| Class | Path in the issue | NeTEx 2.0 treatment |
+|-------|-------------------|--------------------|
+| Authority, Operator | `ResponsibilitySetRef/@ref` | Use the organisation attribute `@responsibilitySetRef`. The constructed organisation examples demonstrate this attribute. |
+| Operator | `AuthorityRef/@ref` | No direct AuthorityRef child is permitted on Operator. No such child was added; the intended organisational relationship needs clarification. |
+| FareContract | `fareContractEntries/FareContractEntry` | FareContractEntry is abstract. The constructed example uses the concrete TravelSpecification entry, with its inherited id and version. |
+| FareContract | `FareContractEntry/CustomerPurchasePackageRef/@ref` | Not a permitted child at this location. The intended purchase-package relationship needs clarification. |
+| FareContract | `FareContractEntry/TravelSpecificationRef/@ref` | TravelSpecificationRef can be placed directly in fareContractEntries, or TravelSpecification can be embedded there. It is not nested inside FareContractEntry. The example embeds TravelSpecification. |
+| JourneyPattern | `BookingMethods/BookingMethod` | BookingMethods is a whitespace-separated list of enumeration values, not a container of BookingMethod children. |
+| JourneyPattern | Abbreviated NoticeAssignment paths | Attributes and NoticeRef are under `pointsInSequence/StopPointInJourneyPattern/noticeAssignments/NoticeAssignment`. |
+| JourneyPattern | Abbreviated booking paths | BookWhen, LatestBookingTime, MinimumBookingPeriod, BookingUrl and BookingNote are under `pointsInSequence/StopPointInJourneyPattern/BookingArrangements`. BookingUrl contains URL text directly. |
+| Network | `groupsOfLines/GroupOfLinesRef/@ref` | The collection contains embedded GroupOfLines elements in NeTEx 2.0; the constructed example demonstrates that form. |
+| Route | `PublicCode` | Not a permitted direct Route child. PrivateCode is illustrated; no PublicCode was invented on Route. |
+| TariffZone, TopographicPlace | `Polygon` | The element is `gml:Polygon` in the GML 3.2 namespace. |
+| TrainBlock | `Block/OperatorRef/@ref` | No direct OperatorRef child is permitted on Block. The intended operator relationship needs clarification. |
+| VehicleType | `PassengerCapacity/SeatedCapacity` | The 2.0 element name is SeatingCapacity. |
+| VehicleType | `PassengerCapacity/WheelchairCapacity` | The 2.0 element name is WheelchairPlaceCapacity. |
+
+### Class names and generator handling
+
+The Interchange example uses ServiceJourneyInterchange; the TrainBlock example uses Block. These are already used by the existing examples. Their mapping in the table generator, and recognition of GML fields, remain separate work. The generator was not changed here.
+
+### Validation
+
+All 32 new constructed examples were validated together against `.xsd-cache/NeTEx-2.0.0/xsd/NeTEx_publication.xsd` using `scripts/validate_xml.py`. Every file declares publication version 2.0 and labels itself CONSTRUCTED. Identifiers use the neutral NP codespace; unversioned references may require other frames from a complete delivery.

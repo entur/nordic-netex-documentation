@@ -49,4 +49,12 @@ Referenced by:
 ## 6. Additional Information
 
 For the full element specification, see [Table — ServiceLink](Table_ServiceLink.md).
-Example XML: [Example_ServiceLink_NP.xml](Example_ServiceLink_NP.xml)
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_ServiceLink_Constructed.xml](Example_ServiceLink_Constructed.xml) |
+| Not assessed | [Example_ServiceLink_NP.xml](Example_ServiceLink_NP.xml) |

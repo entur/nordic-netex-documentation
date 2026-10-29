@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: OBSERVED (anonymized source extract, not a constructed domain example). -->
+  <PublicationTimestamp>2026-10-09T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <!-- Observed content: The domain elements and field usage are based on a real delivery. -->
+  <!-- Source: GOA_L59.xml and GOA_L50.xml from the supplied 2026-10-09 rail export. -->
+  <!-- Adaptation: identifiers use neutral NP codes and versions are normalized; reference versions are omitted. -->
+  <!-- Adaptation: Names, descriptions, private codes and the OriginalTag value are neutralized; other import keys are omitted. -->
+  <!-- Adaptation: the abbreviated publication envelope, timestamp and frame identifiers are illustrative. -->
+  <!-- External references require other frames from a complete delivery. Observed usage does not establish profile requirements. -->
+  <dataObjects>
+    <TimetableFrame id="NP:TimetableFrame:night-services" version="1">
+      <vehicleJourneys>
+        <ServiceJourney version="1" id="NP:ServiceJourney:2001">
+          <keyList>
+            <KeyValue>
+              <Key>OriginalTag</Key>
+              <Value>example-line</Value>
+            </KeyValue>
+          </keyList>
+          <Name>201</Name>
+          <Description>Night train</Description>
+          <PrivateCode>201</PrivateCode>
+          <TransportMode>rail</TransportMode>
+          <TransportSubmode>
+            <RailSubmode>local</RailSubmode>
+          </TransportSubmode>
+          <JourneyPatternRef ref="NP:JourneyPattern:2003"/>
+          <OperatorRef ref="NP:Operator:2001"/>
+          <LineRef ref="NP:Line:2002"/>
+          <passingTimes>
+            <TimetabledPassingTime version="1" id="NP:TimetabledPassingTime:2001">
+              <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:2006"/>
+              <DepartureTime>00:21:00</DepartureTime>
+              <DepartureDayOffset>1</DepartureDayOffset>
+            </TimetabledPassingTime>
+            <TimetabledPassingTime version="1" id="NP:TimetabledPassingTime:2002">
+              <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:2007"/>
+              <ArrivalTime>00:55:36</ArrivalTime>
+              <ArrivalDayOffset>1</ArrivalDayOffset>
+            </TimetabledPassingTime>
+          </passingTimes>
+          <parts>
+            <JourneyPart version="1" id="NP:JourneyPart:2001">
+              <Description>NBØ - STV</Description>
+              <MainPartRef ref="NP:JourneyPart:2001"/>
+              <TrainNumberRef ref="NP:TrainNumber:2001"/>
+              <FromStopPointRef ref="NP:ScheduledStopPoint:2005"/>
+              <ToStopPointRef ref="NP:ScheduledStopPoint:2006"/>
+              <StartTime>00:21:00</StartTime>
+              <StartTimeDayOffset>1</StartTimeDayOffset>
+              <EndTime>00:55:36</EndTime>
+              <EndTimeDayOffset>1</EndTimeDayOffset>
+            </JourneyPart>
+          </parts>
+        </ServiceJourney>
+        <ServiceJourney version="1" id="NP:ServiceJourney:2002">
+          <keyList>
+            <KeyValue>
+              <Key>OriginalTag</Key>
+              <Value>example-line</Value>
+            </KeyValue>
+          </keyList>
+          <Name>202</Name>
+          <Description>Rail replacement bus</Description>
+          <PrivateCode>202</PrivateCode>
+          <TransportMode>bus</TransportMode>
+          <TransportSubmode>
+            <BusSubmode>railReplacementBus</BusSubmode>
+          </TransportSubmode>
+          <JourneyPatternRef ref="NP:JourneyPattern:2004"/>
+          <OperatorRef ref="NP:Operator:2001"/>
+          <LineRef ref="NP:Line:2001"/>
+          <passingTimes>
+            <TimetabledPassingTime version="1" id="NP:TimetabledPassingTime:2003">
+              <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:2008"/>
+              <DepartureTime>06:20:00</DepartureTime>
+              <DepartureDayOffset>1</DepartureDayOffset>
+            </TimetabledPassingTime>
+            <TimetabledPassingTime version="1" id="NP:TimetabledPassingTime:2004">
+              <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:2009"/>
+              <ArrivalTime>07:31:00</ArrivalTime>
+              <ArrivalDayOffset>1</ArrivalDayOffset>
+            </TimetabledPassingTime>
+          </passingTimes>
+          <parts>
+            <JourneyPart version="1" id="NP:JourneyPart:2002">
+              <Description>KBG - OSL</Description>
+              <MainPartRef ref="NP:JourneyPart:2002"/>
+              <TrainNumberRef ref="NP:TrainNumber:2002"/>
+              <FromStopPointRef ref="NP:ScheduledStopPoint:2007"/>
+              <ToStopPointRef ref="NP:ScheduledStopPoint:2008"/>
+              <StartTime>06:20:00</StartTime>
+              <StartTimeDayOffset>1</StartTimeDayOffset>
+              <EndTime>07:31:00</EndTime>
+              <EndTimeDayOffset>1</EndTimeDayOffset>
+            </JourneyPart>
+          </parts>
+        </ServiceJourney>
+      </vehicleJourneys>
+    </TimetableFrame>
+  </dataObjects>
+</PublicationDelivery>
