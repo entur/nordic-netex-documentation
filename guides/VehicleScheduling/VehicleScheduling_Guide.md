@@ -1,10 +1,10 @@
 # 🚆 Vehicle Scheduling — Blocks, Vehicles & Fleet Assignment
 
-> [!NOTE] This guide covers both Nordic Profile objects (Block, VehicleType, Vehicle) and Entur extensions (TrainBlock). Extension-specific content is noted inline.
+> [!NOTE] This guide covers Nordic Profile objects (VehicleType, Vehicle) and Entur scheduling extensions (Block, TrainBlock). Extension-specific content is noted inline.
 
 ## 1. 🎯 Introduction
 
-Once timetables are planned, the operational question becomes: *which vehicle runs which journeys?* Vehicle scheduling ties fleet management to the timetable, grouping journeys into **blocks** (the work a single vehicle does in a day) and linking them to physical **vehicles** and their **types**.
+Once timetables are planned, the operational question becomes: *which vehicle runs which journeys?* Vehicle scheduling ties fleet management to the timetable, grouping journeys into **blocks** (reusable work sequences intended to be operated by one vehicle) and linking them to physical **vehicles** and their **types**.
 
 In this guide you will learn:
 - 🚌 The difference between VehicleType and Vehicle
@@ -43,7 +43,7 @@ ResourceFrame
 
 ## 3. 📦 Block and TrainBlock
 
-A **Block** represents the work of a single vehicle on a single operating day — all the journeys it performs in sequence:
+A **Block** describes a sequence of journeys intended to be operated by one vehicle. The same Block definition can be reused across operating dates when its journey sequence and applicability remain correct. A concrete vehicle assignment for a particular date is a separate concern; the Block definition does not itself require a new object for every date. For example, a recurring work sequence may contain:
 
 ```text
 Block "Duty 601"
@@ -123,7 +123,7 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 ## 6. ✅ Best Practices
 
-1. **One Block per vehicle per day.** Don't mix multiple vehicles or multiple operating days in a single Block.
+1. **Separate reusable work sequences from dated assignments.** A Block can be reused across operating dates. Where an actual vehicle assignment is date-specific, model that assignment with its date context instead of treating the reusable Block itself as inherently tied to one date.
 
 2. **Define VehicleType in ResourceFrame first.** Both Vehicle and ServiceJourney reference it — it must exist before operational data.
 
@@ -131,7 +131,7 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 4. **Include DeadRuns in Blocks** for a complete picture of vehicle utilisation. Revenue journeys alone leave scheduling gaps.
 
-5. **Use DatedServiceJourney for date-specific block assignments.** If the block assignment changes on specific dates, DatedServiceJourney.BlockRef overrides the template.
+5. **Use date-specific journey data when a block association varies by date.** Keep recurring Block definitions distinct from associations made for a particular operating date; do not infer an override rule solely from the presence of a reference.
 
 6. **Don't create blocks for every journey.** Only use blocks when vehicle continuity matters — simple bus routes may not need them.
 
@@ -142,7 +142,7 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|
 | VehicleType on specific vehicle | VehicleType is a template, not a unit | Use Vehicle for specific units, VehicleType for categories |
-| Block spans multiple days | Different operating days need separate blocks | Create one Block per vehicle per operating day |
+| Reusable Block treated as a dated vehicle assignment | A recurring work sequence and an actual assignment have different date scopes | Keep dated assignments explicit; reuse a Block when its journey sequence and applicability remain correct |
 | VehicleTypeRef treated as assignment | It's a passenger hint, not an operational link | Use BlockRef for actual vehicle assignment |
 | TrainBlock vs Duty confusion | Block = vehicle; Duty = crew | Use separate objects for crew rostering |
 | Missing DeadRuns in blocks | Scheduling gaps between revenue journeys | Add DeadRuns for non-revenue movements |
@@ -170,3 +170,5 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 ### External
 - [NeTEx CEN Standard](https://www.netex-cen.eu/) -- Official specification
+
+See [Block](../../objects/Block/Description_Block.md) for the general XML type and [TrainBlock](../../objects/TrainBlock/Description_TrainBlock.md) for its concrete rail specialization.
