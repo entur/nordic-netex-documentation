@@ -5,18 +5,21 @@ from the validated examples and the ontology.
 
 Rows come from the examples (Example_*.xml in the object folder): every element
 and attribute below the object, in example order. Child objects that have
-their own Table become a single linked row.
+their own Table become a single linked row. XML types come from profile:onClass
+(or doc:forClass for unprofiled documentation), not folder-name guesses.
+Generation refuses empty tables and prepares all selected classes before writing.
 
 Cardinality and description are looked up per row in this order:
 
   1. Nordic Profile   profile:ProfileMember (profile:cardinality, skos:definition)
   2. Entur            Entur ProfileMember, then Entur sub-profile SHACL shapes,
                       labelled with the sub-profile's skos:prefLabel
-  3. NeTEx XSD        SHACL shapes in base/netex-shacl.ttl (via rdfs:subClassOf)
+  3. NeTEx XSD        class-scoped SHACL shapes in base (via rdfs:subClassOf)
 
 If an Entur sub-profile constrains a field differently from the value shown,
 the cardinality becomes the conditional `*..*`. Rows without a description
-are shown as `?` and listed in the report.
+are shown as `?` and listed in the report. Ambiguous shared annotations and
+unrepresented substitutions/combined choice constraints are not guessed.
 
 Usage:
     python scripts/generate_tables.py                       # prototype classes
@@ -47,6 +50,10 @@ NETEX = Namespace("https://netex-cen.eu/ontology#")
 PROFILE = Namespace("https://netex-cen.eu/profile#")
 NORDIC_NS = "https://netex-cen.eu/nordic#"
 ENTUR_NS = "https://entur.org/ontology#"
+DOC = Namespace("https://netex-cen.eu/doc#")
+GML_NS = "http://www.opengis.net/gml/3.2"
+NETEX_XML_NS = "http://www.netex.org.uk/netex"
+XSD_NS = "http://www.w3.org/2001/XMLSchema#"
 
 PROTOTYPE = ["ServiceJourney", "StopPlace"]
 CONDITIONAL = "[`*..*`](../../guides/NeTExConventions/NeTEx_Conventions.md)"
@@ -129,25 +136,57 @@ def load_ontology() -> Ontology:
     base = Graph()
     for f in sorted((NORDIC_DIR / "base").glob("*.ttl")):
         base.parse(f)
+    ont.base_shapes = scoped_base_shapes(base)
+    ont.base = base
+    return ont
+
+
+def unique(values):
+    values = set(values)
+    return next(iter(values)) if len(values) == 1 else None
+
+
+def scoped_base_shapes(base: Graph) -> dict:
+    """Read per-class constraints; shared property annotations may be ambiguous."""
+    owners = {}
     for shape, cls in base.subject_objects(SH.targetClass):
-        props = ont.base_shapes.setdefault(cls, {})
+        for prop in base.objects(shape, SH.property):
+            path = base.value(prop, SH.path)
+            if isinstance(path, URIRef):
+                owners.setdefault(path, set()).add(cls)
+    shapes = {}
+    for shape, cls in base.subject_objects(SH.targetClass):
+        props = shapes.setdefault(cls, {})
         for prop in base.objects(shape, SH.property):
             path = base.value(prop, SH.path)
             if not isinstance(path, URIRef):
                 continue
             mn, mx = base.value(prop, SH.minCount), base.value(prop, SH.maxCount)
-            rng = base.value(prop, SH["class"]) or base.value(prop, SH.datatype)
-            xsd_type = base.value(path, NETEX.xsdType)
-            comment = base.value(path, RDFS.comment)
+            rng, datatype = base.value(prop, SH["class"]), base.value(prop, SH.datatype)
+            global_type = unique(base.objects(path, NETEX.xsdType))
+            is_ref = bool(base.value(path, NETEX.isReference)) or local(path).endswith("Ref")
+            if rng and not is_ref:
+                typ = local(rng)
+            elif is_ref:
+                # A reference structure's XML type differs from its target class.
+                typ = str(global_type) if global_type is not None else None
+            elif datatype:
+                typ = str(global_type) if global_type is not None else (
+                    "xsd:" + local(datatype) if str(datatype).startswith(XSD_NS) else local(datatype))
+            else:
+                # Enum/list constraints may have sh:in without an explicit range.
+                typ = str(global_type) if global_type is not None else None
+            comment = unique(base.objects(prop, SH.description))
+            if comment is None and len(owners.get(path, ())) == 1:
+                comment = unique(base.objects(path, RDFS.comment))
             props[local(path)] = BaseInfo(
                 min=int(mn) if mn is not None else 0,
                 max=int(mx) if mx is not None else None,
-                range=base.value(prop, SH["class"]),
-                type=str(xsd_type) if xsd_type else (local(rng) if rng else None),
-                comment=str(comment) if comment else None,
+                range=rng,
+                type=typ,
+                comment=str(comment) if comment is not None else None,
             )
-    ont.base = base
-    return ont
+    return shapes
 
 
 def ancestors(g: Graph, cls: URIRef) -> list[URIRef]:
@@ -166,7 +205,8 @@ def base_lookup(ont: Ontology, root: str, segments: list[str]) -> BaseInfo | Non
     for seg in segments:
         if cur is None:
             return None
-        prop = seg[1:] if seg.startswith("@") else lc(seg)
+        name = seg.split(":", 1)[-1]
+        prop = name[1:] if name.startswith("@") else lc(name)
         info = next((ont.base_shapes[a][prop] for a in ancestors(ont.base, cur)
                      if prop in ont.base_shapes.get(a, {})), None)
         if info is None:
@@ -177,13 +217,36 @@ def base_lookup(ont: Ontology, root: str, segments: list[str]) -> BaseInfo | Non
 
 # ---------------------------------------------------------------- documentation index
 
-def documented_classes() -> dict[str, tuple[str, Path]]:
-    """Class name -> (scope prefix, folder) for every object/frame with a Table."""
-    text = DOC_TTL.read_text(encoding="utf-8")
+@dataclass(frozen=True)
+class Documentation:
+    scope: str
+    folder: Path
+    target: str
+
+
+def documented_classes() -> dict[str, Documentation]:
+    """Resolve document folders to XML classes using the explicit profile mapping."""
+    index, profiles = Graph(), Graph()
+    index.parse(DOC_TTL, format="turtle")
+    for p in [*sorted(NORDIC_DIR.glob("*.ttl")), *sorted(ENTUR_DIR.glob("netex-entur*.ttl"))]:
+        profiles.parse(p, format="turtle")
     out = {}
-    for prefix, name, table in re.findall(
-            r'^(\w+):(\w+)\s*\n(?:\s+doc:\w+\s+"[^"]+"\s*[;.]\s*\n)*?\s+doc:table\s+"([^"]+)"', text, re.M):
-        out[name] = (prefix, REPO_ROOT / Path(table).parent)
+    for node, table in index.subject_objects(DOC.table):
+        targets = set(profiles.objects(node, PROFILE.onClass)) | set(index.objects(node, DOC.forClass))
+        if len(targets) != 1:
+            raise ValueError(f"{node}: expected one explicit profile:onClass or doc:forClass mapping")
+        target = next(iter(targets))
+        if not str(target).startswith(str(NETEX)):
+            raise ValueError(f"{node}: expected a NeTEx class, got {target}")
+        folder = (REPO_ROOT / str(table)).resolve().parent
+        if not folder.is_relative_to(REPO_ROOT.resolve()):
+            raise ValueError(f"Documentation path escapes repository: {table}")
+        scope = "entur" if str(node).startswith(ENTUR_NS) else "nordic"
+        key = folder.name
+        entry = Documentation(scope, folder, local(target))
+        if key in out and out[key] != entry:
+            raise ValueError(f"Conflicting documentation mapping for {key}")
+        out[key] = entry
     return out
 
 
@@ -198,6 +261,8 @@ class Node:
 
 class Rows:
     def __init__(self):
+        self.example_files: list[Path] = []
+        self.object_count = 0
         self.nodes: dict[str, Node] = {}
         self.children: dict[str, list[str]] = {"": []}
 
@@ -219,12 +284,20 @@ class Rows:
 
 
 def tag(el) -> str:
-    return el.tag.rsplit("}", 1)[-1]
+    name = el.tag.rsplit("}", 1)[-1]
+    return "gml:" + name if el.tag.startswith("{" + GML_NS + "}") else name
 
 
 def collect(cls: str, docs: dict) -> Rows:
     rows = Rows()
-    examples = sorted(docs[cls][1].glob("Example_*.xml"))
+    doc = docs[cls]
+    examples = sorted(doc.folder.glob("Example_*.xml"))
+    rows.example_files = examples
+    by_target = {}
+    for key, entry in docs.items():
+        if entry.target in by_target and by_target[entry.target] != key:
+            raise ValueError(f"Ambiguous documentation folders for {entry.target}")
+        by_target[entry.target] = key
 
     def visit(el, prefix: str, is_root: bool):
         attrs, elems = [], []
@@ -237,9 +310,9 @@ def collect(cls: str, docs: dict) -> Rows:
             path = f"{prefix}{name}"
             if name.endswith("Ref") and "ref" in child.attrib:
                 target = name[:-3]
-                elems.append((f"{path}/@ref", Node(f"{name}/@ref", "ref", target if target in docs else None), None))
-            elif name in docs and name != cls:
-                elems.append((path, Node(name, "object", name), None))
+                elems.append((f"{path}/@ref", Node(f"{name}/@ref", "ref", by_target.get(target)), None))
+            elif name in by_target and name != doc.target:
+                elems.append((path, Node(name, "object", by_target[name]), None))
             else:
                 elems.append((path, Node(name, "element"), child))
         keyed = attrs + elems
@@ -253,7 +326,8 @@ def collect(cls: str, docs: dict) -> Rows:
 
     for ex in examples:
         for el in ET.parse(ex).iter():
-            if tag(el) == cls:
+            if el.tag == "{" + NETEX_XML_NS + "}" + doc.target:
+                rows.object_count += 1
                 visit(el, "", True)
     return rows
 
@@ -342,18 +416,19 @@ def tree_lines(rows: Rows, cards: dict, root: str, emoji: bool) -> list[str]:
     return lines
 
 
-def render(cls: str, scope: str, rows: Rows, ont: Ontology, report: list):
+def render(cls: str, scope: str, rows: Rows, ont: Ontology, report: list, target: str | None = None):
+    target = target or cls
     cards, table = {}, []
     for path in rows.walk():
         node = rows.nodes[path]
-        card, typ, desc = resolve(cls, scope, path, ont)
+        card, typ, desc = resolve(target, scope, path, ont)
         cards[path] = card
         missing = [name for name, value in (("cardinality", card), ("type", typ), ("description", desc)) if value == "?"]
         if missing:
             report.append(f"{cls}: {path} (missing {', '.join(missing)})")
         table.append(f"| {element_cell(node)} | {typ} | {card} | {desc} | {path} |")
 
-    tree = "\n".join(tree_lines(rows, cards, cls, emoji=False))
+    tree = "\n".join(tree_lines(rows, cards, target, emoji=False))
     md = "\n".join([
         f"# Table — {cls}",
         "",
@@ -372,58 +447,76 @@ def render(cls: str, scope: str, rows: Rows, ont: Ontology, report: list):
         *table,
         "",
     ])
-    desc_tree = "\n".join([TREE_START, "```text", *tree_lines(rows, cards, cls, emoji=True), "```", TREE_END])
+    desc_tree = "\n".join([TREE_START, "```text", *tree_lines(rows, cards, target, emoji=True), "```", TREE_END])
     return md, desc_tree
 
 
 def with_description_tree(text: str, block: str) -> str:
-    if TREE_START in text:
-        return re.sub(re.escape(TREE_START) + r".*?" + re.escape(TREE_END), lambda _: block, text, flags=re.S)
-    return re.sub(r"(## 2\. Structure Overview\s*\n\s*)```text\n.*?\n```", lambda m: m.group(1) + block,
-                  text, count=1, flags=re.S)
+    if TREE_START in text or TREE_END in text:
+        if text.count(TREE_START) != 1 or text.count(TREE_END) != 1:
+            raise ValueError("Description must have one balanced pair of generated structure markers")
+        pattern = re.escape(TREE_START) + r".*?" + re.escape(TREE_END)
+        updated, count = re.subn(pattern, lambda _: block, text, flags=re.S)
+    else:
+        pattern = r"(## 2\. Structure Overview[^\S\n]*\n\s*)```[^\n]*\n.*?\n```"
+        updated, count = re.subn(pattern, lambda m: m.group(1) + block, text, count=1, flags=re.S)
+    if count != 1:
+        raise ValueError("Cannot locate the Description structure tree; refusing partial generation")
+    return updated
 
 
 # ---------------------------------------------------------------- main
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    parser.add_argument("classes", nargs="*", default=PROTOTYPE)
+    parser.add_argument("classes", nargs="*", default=None)
     parser.add_argument("--check", action="store_true", help="fail if generated files are stale")
     parser.add_argument("--coverage", action="store_true",
                         help="only report profile fields missing from the examples (all classes if none given)")
     args = parser.parse_args()
 
-    docs = documented_classes()
-    ont = load_ontology()
-    report, stale, uncovered = [], [], {}
-    classes = sorted(docs) if args.coverage and not args.classes else args.classes or PROTOTYPE
-
-    for cls in classes:
-        if cls not in docs:
-            print(f"SKIP {cls}: no Table in the documentation index")
-            continue
-        scope, folder = docs[cls]
-        rows = collect(cls, docs)
-        members = sorted({p for c, p in [*ont.np, *ont.entur] if c == cls})
-        uncovered[cls] = ([p for p in members if p not in rows.nodes], len(members))
-        if args.coverage:
-            continue
-        md, desc_tree = render(cls, scope, rows, ont, report)
-
-        outputs = {folder / f"Table_{cls}.md": md}
-        desc_file = folder / f"Description_{cls}.md"
-        if desc_file.exists():
-            outputs[desc_file] = with_description_tree(desc_file.read_text(encoding="utf-8"), desc_tree)
-
-        for path, content in outputs.items():
-            current = path.read_text(encoding="utf-8") if path.exists() else ""
-            if current == content:
+    try:
+        docs = documented_classes()
+        classes = sorted(docs) if args.coverage and not args.classes else args.classes or PROTOTYPE
+        selections = []
+        for cls in classes:
+            if cls not in docs:
+                raise ValueError(f"{cls}: no documented class with an explicit mapping")
+            doc = docs[cls]
+            rows = collect(cls, docs)
+            if not args.coverage and not rows.nodes:
+                reason = "no Example_*.xml files" if not rows.example_files else f"no {doc.target} instances in the examples"
+                raise ValueError(f"{cls}: {reason}; refusing to overwrite documentation with an empty table")
+            if args.coverage and not rows.nodes:
+                print(f"{cls}: no matching examples (coverage audit only; generation would fail)")
+            selections.append((cls, doc, rows))
+        ont = load_ontology()
+        report, stale, uncovered, outputs = [], [], {}, {}
+        for cls, doc, rows in selections:
+            members = sorted({p for c, p in [*ont.np, *ont.entur] if c == doc.target})
+            uncovered[cls] = ([p for p in members if p not in rows.nodes], len(members))
+            if args.coverage:
                 continue
-            if args.check:
-                stale.append(path.relative_to(REPO_ROOT))
-            else:
-                path.write_text(content, encoding="utf-8", newline="\n")
-                print(f"wrote {path.relative_to(REPO_ROOT)}")
+            md, desc_tree = render(cls, doc.scope, rows, ont, report, doc.target)
+            outputs[doc.folder / f"Table_{cls}.md"] = md
+            desc_file = doc.folder / f"Description_{cls}.md"
+            if desc_file.exists():
+                outputs[desc_file] = with_description_tree(desc_file.read_text(encoding="utf-8"), desc_tree)
+    except (ValueError, ET.ParseError, OSError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+
+    # Prepare every selected class before writing anything: invalid input cannot
+    # erase a table or leave earlier classes partially regenerated.
+    for path, content in outputs.items():
+        current = path.read_text(encoding="utf-8") if path.exists() else ""
+        if current == content:
+            continue
+        if args.check:
+            stale.append(path.relative_to(REPO_ROOT))
+        else:
+            path.write_text(content, encoding="utf-8", newline="\n")
+            print(f"wrote {path.relative_to(REPO_ROOT)}")
 
     if report:
         print(f"\nFields needing attention ({len(report)}):")

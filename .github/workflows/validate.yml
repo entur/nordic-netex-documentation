@@ -55,6 +55,9 @@ jobs:
       - name: Install dependencies
         run: pip install rdflib
 
+      - name: Test table generator safety and metadata resolution
+        run: python -m unittest discover -s tests -p test_generate_tables.py -v
+
       - name: Check Table files and Description structure trees
         run: python scripts/generate_tables.py --check
 

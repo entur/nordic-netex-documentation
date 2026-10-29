@@ -56,25 +56,25 @@ ServiceJourney
 |---------|------|-------------|-------------|------|
 | @id | ? | 1..1 | Unique identifier following {CODESPACE}:ServiceJourney:{LocalId} | @id |
 | @version | ? | 1..1 | Version label (e.g., "1"). Increment on changes. | @version |
-| keyList | KeyListStructure | 0..1 | A list of alternative Key values for an element. | keyList |
+| keyList | KeyListStructure | 0..1 | ? | keyList |
 | KeyValue | KeyValueStructure | 1..n | Key value pair for Entity. | keyList/KeyValue |
-| Key | xsd:normalizedString | 1..1 | Identifier of value e.g. System. | keyList/KeyValue/Key |
-| Value | xsd:normalizedString | 1..1 | Value for alternative key. | keyList/KeyValue/Value |
+| Key | xsd:normalizedString | 1..1 | ? | keyList/KeyValue/Key |
+| Value | xsd:normalizedString | 1..1 | ? | keyList/KeyValue/Value |
 | Name | MultilingualString | 0..1 | Human-readable name of the journey | Name |
-| Description | MultilingualString | 0..1 | Description of TYPE OF VALUE. | Description |
+| Description | MultilingualString | 0..1 | ? | Description |
 | PrivateCode | PrivateCodeStructure | 0..1 | Internal non-public code (e.g., trip or train number) | PrivateCode |
-| dayTypes | dayTypes_RelStructure | 0..1 | DAY TYPEs for AVAILABILITY CONDITION. | dayTypes |
+| dayTypes | dayTypeRefs_RelStructure | 0..1 | ? | dayTypes |
 | [DayTypeRef](../DayType/Table_DayType.md)/@ref | DayTypeRefStructure | 0..n | DayType(s) on which the journey operates | dayTypes/DayTypeRef/@ref |
-| TransportMode | AllModesEnumeration | 0..1 | Identifier of MODE of end point of ACCESS link. Default is all modes. | TransportMode |
+| TransportMode | ? | 0..1 | ? | TransportMode |
 | TransportSubmode | TransportSubmodeStructure | 0..1 | ? | TransportSubmode |
 | RailSubmode | RailSubmodeEnumeration | 0..1 | ? | TransportSubmode/RailSubmode |
 | BusSubmode | BusSubmodeEnumeration | 0..1 | ? | TransportSubmode/BusSubmode |
 | [JourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | JourneyPatternRefStructure | 1..1 | Reference to the JourneyPattern defining the stop sequence | JourneyPatternRef/@ref |
-| BlockRef/@ref | BlockRefStructure | 0..1 | ? | BlockRef/@ref |
+| [BlockRef](../Block/Table_Block.md)/@ref | BlockRefStructure | 0..1 | ? | BlockRef/@ref |
 | [OperatorRef](../Operator/Table_Operator.md)/@ref | OperatorRefStructure | 0..1 | Reference to an Operator | OperatorRef/@ref |
 | FlexibleLineRef/@ref | ? | ? | ? | FlexibleLineRef/@ref |
 | [LineRef](../Line/Table_Line.md)/@ref | LineRefStructure | 0..1 | Reference to the served Line | LineRef/@ref |
-| passingTimes | timetabledPassingTimes_RelStructure | 0..1 | PASSING TIMEs for VEHICLE JOURNEY. | passingTimes |
+| passingTimes | timetabledPassingTimes_RelStructure | 0..1 | ? | passingTimes |
 | TimetabledPassingTime | TimetabledPassingTime_VersionedChildStructure | 1..n | Collection of scheduled passing/stop times | passingTimes/TimetabledPassingTime |
 | @id | ? | 0..1 | Optional identifier for the TimetabledPassingTime element | passingTimes/TimetabledPassingTime/@id |
 | StopPointInJourneyPatternRef/@ref | ? | 1..1 | Reference to a StopPointInJourneyPattern | passingTimes/TimetabledPassingTime/StopPointInJourneyPatternRef/@ref |
@@ -82,17 +82,17 @@ ServiceJourney
 | DepartureTime | xsd:time | 0..1 | Planned departure time from the stop | passingTimes/TimetabledPassingTime/DepartureTime |
 | LatestArrivalTime | xsd:time | 0..1 | Latest Arrival Time. | passingTimes/TimetabledPassingTime/LatestArrivalTime |
 | EarliestDepartureTime | xsd:time | 0..1 | Earliest Timetabled departure time. | passingTimes/TimetabledPassingTime/EarliestDepartureTime |
-| DepartureDayOffset | DayOffsetType | 0..1 | Daya offset if Time of departure of JOURNEY from origin POINT from current OPERATING DAY. | passingTimes/TimetabledPassingTime/DepartureDayOffset |
-| ArrivalDayOffset | DayOffsetType | 0..1 | Daya offset if Time of arrival of JOURNEY at destination POINT. | passingTimes/TimetabledPassingTime/ArrivalDayOffset |
-| parts | journeyParts_RelStructure | 0..1 | Parts of the ORGANISATION. | parts |
+| DepartureDayOffset | DayOffsetType | 0..1 | ? | passingTimes/TimetabledPassingTime/DepartureDayOffset |
+| ArrivalDayOffset | DayOffsetType | 0..1 | ? | passingTimes/TimetabledPassingTime/ArrivalDayOffset |
+| parts | journeyParts_RelStructure | 0..1 | ? | parts |
 | JourneyPart | JourneyPart_VersionStructure | 0..n | ? | parts/JourneyPart |
 | @id | ? | ? | ? | parts/JourneyPart/@id |
-| Description | MultilingualString | 0..1 | Description of TYPE OF VALUE. | parts/JourneyPart/Description |
-| MainPartRef/@ref | JourneyPartRefStructure | 0..1 | Main JOURNEY PART for journey. | parts/JourneyPart/MainPartRef/@ref |
+| Description | MultilingualString | 0..1 | ? | parts/JourneyPart/Description |
+| MainPartRef/@ref | JourneyPartRefStructure | 0..1 | ? | parts/JourneyPart/MainPartRef/@ref |
 | [TrainNumberRef](../TrainNumber/Table_TrainNumber.md)/@ref | TrainNumberRefStructure | 0..1 | ? | parts/JourneyPart/TrainNumberRef/@ref |
-| FromStopPointRef/@ref | ScheduledStopPointRefStructure | 0..1 | SCHEDULED STOP POINT feeding INTERCHANGE. If absent apply to all STOP POINTs. | parts/JourneyPart/FromStopPointRef/@ref |
-| ToStopPointRef/@ref | ScheduledStopPointRefStructure | 0..1 | SCHEDULED STOP POINT distributing from INTERCHANGE. If absent apply to all STOP POINTs. | parts/JourneyPart/ToStopPointRef/@ref |
-| StartTime | xsd:dateTime | 1..1 | The (inclusive) start date and time. | parts/JourneyPart/StartTime |
-| StartTimeDayOffset | DayOffsetType | 0..1 | Number of days after journey start time that start time is. | parts/JourneyPart/StartTimeDayOffset |
-| EndTime | xsd:dateTime | 1..1 | The (inclusive) end date and time. | parts/JourneyPart/EndTime |
-| EndTimeDayOffset | DayOffsetType | 0..1 | Number of days after journey start time that end time is. | parts/JourneyPart/EndTimeDayOffset |
+| FromStopPointRef/@ref | ScheduledStopPointRefStructure | 0..1 | ? | parts/JourneyPart/FromStopPointRef/@ref |
+| ToStopPointRef/@ref | ScheduledStopPointRefStructure | 0..1 | ? | parts/JourneyPart/ToStopPointRef/@ref |
+| StartTime | xsd:time | 1..1 | ? | parts/JourneyPart/StartTime |
+| StartTimeDayOffset | DayOffsetType | 0..1 | ? | parts/JourneyPart/StartTimeDayOffset |
+| EndTime | xsd:time | 1..1 | ? | parts/JourneyPart/EndTime |
+| EndTimeDayOffset | DayOffsetType | 0..1 | ? | parts/JourneyPart/EndTimeDayOffset |

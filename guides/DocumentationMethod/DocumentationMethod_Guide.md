@@ -263,7 +263,7 @@ The added `*_Observed.xml` files contain anonymized, abbreviated delivery data. 
 
 ### Class names and generator handling
 
-The Interchange example uses ServiceJourneyInterchange; the TrainBlock example uses Block. These are already used by the existing examples. Their mapping in the table generator, and recognition of GML fields, remain separate work. The generator was not changed here.
+The journey-interchange documentation now uses ServiceJourneyInterchange explicitly. Block has its own documentation, and TrainBlock examples use the concrete TrainBlock element. The profile mappings and path roots are aligned with these XML types. Generator support for profile:onClass and inherited metadata, and recognition of GML fields, remain separate work.
 
 ### Validation
 

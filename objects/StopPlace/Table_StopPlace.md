@@ -67,24 +67,24 @@ StopPlace
 | @modification | ? | ? | ? | @modification |
 | @version | ? | 1..1 | Version number | @version |
 | ValidBetween | ValidBetween_VersionStructure | 0..1 | Validity period (FromDate, ToDate) | ValidBetween |
-| FromDate | xsd:dateTime | 0..1 | Start date of AVAILABILITY CONDITION. | ValidBetween/FromDate |
-| keyList | KeyListStructure | **Entur – Stop Place Registry:** 0..1 | A list of alternative Key values for an element. | keyList |
+| FromDate | xsd:dateTime | 0..1 | ? | ValidBetween/FromDate |
+| keyList | KeyListStructure | **Entur – Stop Place Registry:** 0..1 | ? | keyList |
 | KeyValue | KeyValueStructure | 0..n | Alternative keys (e.g., external IDs) | keyList/KeyValue |
-| Key | xsd:normalizedString | 1..1 | Identifier of value e.g. System. | keyList/KeyValue/Key |
-| Value | xsd:normalizedString | 1..1 | Value for alternative key. | keyList/KeyValue/Value |
+| Key | xsd:normalizedString | 1..1 | ? | keyList/KeyValue/Key |
+| Value | xsd:normalizedString | 1..1 | ? | keyList/KeyValue/Value |
 | Name | MultilingualString | 1..1 | Name of the stop place | Name |
-| PrivateCode | PrivateCodeStructure | **Entur – Stop Place Registry:** 0..1 | DEPRECATED - use privateCodes. -v2.0 | PrivateCode |
-| Description | MultilingualString | **Entur – Stop Place Registry:** 0..1 | Description of TYPE OF VALUE. | Description |
+| PrivateCode | PrivateCodeStructure | **Entur – Stop Place Registry:** 0..1 | ? | PrivateCode |
+| Description | MultilingualString | **Entur – Stop Place Registry:** 0..1 | ? | Description |
 | Centroid | SimplePoint_VersionStructure | **Entur – Stop Place Registry:** 1..1 | **Entur – Stop Place Registry:** Geographic location (WGS84) | Centroid |
 | Location | LocationStructure | 0..1 | Geographic point representation | Centroid/Location |
 | Longitude | LongitudeType | 0..1 | Longitude from Greenwich Meridian. -180 (West) to +180 (East). Decimal degrees. eg 2.356 | Centroid/Location/Longitude |
 | Latitude | LatitudeType | 0..1 | Latitude from equator. -90 (South) to +90 (North). Decimal degrees. eg 56.356 | Centroid/Location/Latitude |
-| placeEquipments | equipments_RelStructure | **Entur – Stop Place Registry:** 0..1 | **Entur – Stop Place Registry:** Equipment: SanitaryEquipment, WaitingRoomEquipment, etc. | placeEquipments |
+| placeEquipments | placeEquipments_RelStructure | **Entur – Stop Place Registry:** 0..1 | **Entur – Stop Place Registry:** Equipment: SanitaryEquipment, WaitingRoomEquipment, etc. | placeEquipments |
 | [ShelterEquipment](../ShelterEquipment/Table_ShelterEquipment.md) | ? | ? | ? | placeEquipments/ShelterEquipment |
 | ParentSiteRef/@ref | SiteRefStructure | 0..1 | Reference to multimodal parent StopPlace | ParentSiteRef/@ref |
 | adjacentSites | siteRefs_RelStructure | **Entur – Stop Place Registry:** 0..1 | Any references to another SITE of which this STOP PLACE is deemed to be a nearby but distinct. | adjacentSites |
-| SiteRef/@ref | SiteRefStructure | 1..n | Reference to parent of SITE, if any. | adjacentSites/SiteRef/@ref |
-| TransportMode | AllModesEnumeration | [`*..*`](../../guides/NeTExConventions/NeTEx_Conventions.md) | Primary mode (bus, rail, metro, tram, water, etc.) | TransportMode |
+| SiteRef/@ref | SiteRefStructure | 1..n | ? | adjacentSites/SiteRef/@ref |
+| TransportMode | ? | [`*..*`](../../guides/NeTExConventions/NeTEx_Conventions.md) | Primary mode (bus, rail, metro, tram, water, etc.) | TransportMode |
 | OtherTransportModes | AllPublicTransportModesListOfEnumerations | 0..1 | Additional transport modes served | OtherTransportModes |
 | StopPlaceType | StopTypeEnumeration | 0..1 | Functional type (onstreetBus, railStation, metroStation, busStation, etc.) | StopPlaceType |
 | quays | quays_RelStructure | **Entur – Stop Place Registry:** 0..1 | **Entur – Stop Place Registry:** Contained Quay elements | quays |
@@ -103,7 +103,7 @@ StopPlace
 | LiftFreeAccess | LimitationStatusEnumeration | 0..1 | ? | AccessibilityAssessment/limitations/AccessibilityLimitation/LiftFreeAccess |
 | AudibleSignalsAvailable | LimitationStatusEnumeration | 0..1 | Whether a PLACE has audible signals for the visually impaired. | AccessibilityAssessment/limitations/AccessibilityLimitation/AudibleSignalsAvailable |
 | VisualSignsAvailable | LimitationStatusEnumeration | 0..1 | Whether a PLACE has visual signals for the hearing impaired. | AccessibilityAssessment/limitations/AccessibilityLimitation/VisualSignsAvailable |
-| alternativeNames | alternativeNames_RelStructure | **Entur – Stop Place Registry:** 0..1 | Alternativie names for ORGANISATION. | alternativeNames |
+| alternativeNames | alternativeNames_RelStructure | **Entur – Stop Place Registry:** 0..1 | ? | alternativeNames |
 | [AlternativeName](../AlternativeName/Table_AlternativeName.md) | AlternativeName_VersionedChildStructure | 1..n | ALTERNATIVE NAME for Element. | alternativeNames/AlternativeName |
 | [TopographicPlaceRef](../TopographicPlace/Table_TopographicPlace.md)/@ref | TopographicPlaceRefStructure | 0..1 | Reference to city or region | TopographicPlaceRef/@ref |
 | BusSubmode | BusSubmodeEnumeration | **Entur – Stop Place Registry:** 0..1 | ? | BusSubmode |
