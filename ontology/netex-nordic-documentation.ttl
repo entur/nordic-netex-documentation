@@ -165,10 +165,8 @@ nordic:Authority
     doc:example "objects/Authority/Example_Authority_Constructed.xml" ;
     doc:example "objects/Authority/Example_Authority_NP.xml" .
 
-## Block (no profile node yet)
-unprofiled:Block
-    a doc:UnprofiledDocumentation ;
-    doc:forClass netex:Block ;
+## Block (Entur)
+entur:Block
     doc:description "objects/Block/Description_Block.md" ;
     doc:table "objects/Block/Table_Block.md" ;
     doc:example "objects/Block/Example_Block_Constructed.xml" .
@@ -385,10 +383,8 @@ nordic:ServiceJourney
     doc:example "objects/ServiceJourney/Example_ServiceJourney_NP.xml" ;
     doc:example "objects/ServiceJourney/Example_ServiceJourney_Rail_Observed.xml" .
 
-## ServiceJourneyInterchange (no profile node yet)
-unprofiled:ServiceJourneyInterchange
-    a doc:UnprofiledDocumentation ;
-    doc:forClass netex:ServiceJourneyInterchange ;
+## ServiceJourneyInterchange (NP)
+nordic:ServiceJourneyInterchange
     doc:description "objects/ServiceJourneyInterchange/Description_ServiceJourneyInterchange.md" ;
     doc:table "objects/ServiceJourneyInterchange/Table_ServiceJourneyInterchange.md" ;
     doc:example "objects/ServiceJourneyInterchange/Example_ServiceJourneyInterchange_Constructed.xml" ;
@@ -522,7 +518,7 @@ guide:Glossary
     doc:covers nordic:AlternativeName ;
     doc:covers nordic:AlternativeText ;
     doc:covers nordic:Authority ;
-    doc:covers unprofiled:Block ;
+    doc:covers entur:Block ;
     doc:covers nordic:Codespace ;
     doc:covers nordic:CompositeFrame ;
     doc:covers entur:Contract ;
@@ -557,7 +553,7 @@ guide:Glossary
     doc:covers nordic:ServiceCalendarFrame ;
     doc:covers nordic:ServiceFrame ;
     doc:covers nordic:ServiceJourney ;
-    doc:covers unprofiled:ServiceJourneyInterchange ;
+    doc:covers nordic:ServiceJourneyInterchange ;
     doc:covers nordic:ShelterEquipment ;
     doc:covers nordic:SiteConnection ;
     doc:covers nordic:SiteFrame ;
@@ -597,7 +593,7 @@ guide:Interchange
     doc:covers nordic:JourneyPattern ;
     doc:covers nordic:ScheduledStopPoint ;
     doc:covers nordic:ServiceJourney ;
-    doc:covers unprofiled:ServiceJourneyInterchange ;
+    doc:covers nordic:ServiceJourneyInterchange ;
     doc:covers nordic:TimetableFrame .
 
 ## NeTExConventions
@@ -686,7 +682,7 @@ guide:VehicleScheduling
     rdfs:label "Vehicle Scheduling — Blocks, Vehicles & Fleet Assignment" ;
     doc:path "guides/VehicleScheduling/VehicleScheduling_Guide.md" ;
     doc:example "guides/VehicleScheduling/Example_VehicleScheduling.xml" ;
-    doc:covers unprofiled:Block ;
+    doc:covers entur:Block ;
     doc:covers nordic:ResourceFrame ;
     doc:covers entur:TrainBlock ;
     doc:covers nordic:Vehicle ;
