@@ -55,6 +55,7 @@ flowchart RL
 </details>
 
 Rules:
+- A journey that replaces another **always** carries `replacedJourneys` pointing back to it. Without the back-reference there is no replacement in the data, only an unrelated new journey.
 - References always point to the **root original**. A replacement of a replacement still points to the original, not to the intermediate journey (no chains).
 - The original and all its replacements share the same **OperatingDay**.
 - The original keeps its **id**. Only its `version` increases. Tickets sold against the id remain valid references.
@@ -120,7 +121,7 @@ Keeping the train number (`PrivateCode`) on the pieces is recommended. Traveller
 Consider adding a [ServiceJourneyInterchange](../../objects/Interchange/Table_Interchange.md) between the bus and the shortened train at the transfer point. See the [Interchange guide](../Interchange/Interchange_Guide.md).
 
 > [!NOTE]
-> **Alternative for minor changes (convention).** For a small change that keeps one vehicle and one mode (for example a skipped stop or a different quay), you can keep the DSJ id and point it to a new ServiceJourney, then increase the version. This keeps the sales key stable, but carries no explicit deviation signal, so consumers must compare stop patterns. Use the `replaced` pattern whenever the stretch is split across vehicles or modes.
+> **Alternative for minor changes.** For a small change that keeps one vehicle and one mode (for example a skipped stop or a different quay), you can keep the DSJ id and point it to a new ServiceJourney. The DSJ `version` **must** then increase by one. The version increase is the signal that something changed. Consumers compare the fields of the two versions (ServiceJourneyRef, and through it stops and times) to find out what. This keeps the sales key stable. Use the `replaced` pattern whenever the stretch is split across vehicles or modes.
 
 ### 4c. Cancellation without alternative
 
@@ -143,17 +144,19 @@ A journey that is not in the plan, for example for an event. Use `ServiceAlterat
 The train runs, but cannot carry everyone. The original stays `planned`. The supplementary bus is an `extraJourney` with `replacedJourneys` pointing to the train.
 
 > [!NOTE]
-> **Convention.** `extraJourney` combined with `replacedJourneys` means *supplements*, not *replaces*. This stretches the meaning of `replacedJourneys`, but it is the only way to link the two journeys. Consumers must read the pair together.
+> **Convention.** `extraJourney` combined with `replacedJourneys` means *supplements*, not *replaces*. In NeTEx 2.0 the generic link (`DatedServiceJourneyRef`) was replaced by `replacedJourneys`, so a supplement no longer has a neutral way to point to the journey it supports. Reusing `replacedJourneys` is semantically unfortunate, but it is the only link available. Consumers must read the pair together.
 
 ### 4f. Revert
 
-The track work is postponed. Set the original back to `planned` with a new version. **Explicitly** cancel each replacement (`cancellation`, new version) instead of just dropping it from the delivery. Absence is ambiguous: consumers must diff full datasets and cannot tell "withdrawn" from "missing by mistake".
+The track work is postponed. Set the original back to `planned` with a new version, and leave the replacements out of the next delivery. Together, the version increase on the original and the missing replacements are enough for consumers to detect the revert.
 
 | Version | Original 1234 | Bus 1234_BUS |
 |---------|---------------|--------------|
 | 1 | `planned` | not yet created |
 | 2 | `replaced` | v1 `planned`, references 1234 |
-| 3 | `planned` | v2 `cancellation` |
+| 3 | `planned` | no longer delivered |
+
+You may also keep a replacement in the delivery with `ServiceAlteration=cancellation` and a new version. That is useful when tickets have been sold against the replacement itself, but it is not required.
 
 ---
 
@@ -165,7 +168,7 @@ Run these checks per OperatingDay, on the full set of DSJs in the dataset rather
 |---|-------|------|----------|
 | C1 | Dangling reference | Every `replacedJourneys/DatedVehicleJourneyRef` resolves to an existing DSJ | Error |
 | C2 | Same day | A replacing DSJ and the DSJ it references have the same OperatingDay | Error |
-| C3 | Replaced without replacement | A DSJ with `replaced` is referenced by at least one other DSJ. If not, consumers can only treat it as a cancellation. | Warning |
+| C3 | Replaced without replacement | A DSJ with `replaced` is referenced by at least one other DSJ. If not, consumers can only treat it as a cancellation. Rare exception: the journey is replaced by ordinary scheduled service outside the submitter's data responsibility. Then tell travellers about the alternative in a Notice. | Error (see exception) |
 | C4 | Reference to a running journey | A DSJ that is `planned` is only referenced by `extraJourney` DSJs (supplements). A `planned` replacing journey must point to a `replaced` original. | Error |
 | C5 | Reference to a cancelled journey | A DSJ with `cancellation` is not referenced. If something replaces it, it should be `replaced`. | Error |
 | C6 | Chains and self-references | A referenced original does not itself carry `replacedJourneys`. A DSJ does not reference itself. Point to the root original. | Error |
@@ -174,7 +177,7 @@ Run these checks per OperatingDay, on the full set of DSJs in the dataset rather
 | C9 | Duplicate dated instance | At most one non-`extraJourney` DSJ per ServiceJourney and OperatingDay | Error |
 | C10 | Duplicate train number | Several active DSJs with the same `PrivateCode` on the same OperatingDay are only allowed when they are pieces of one replacement, or extras | Warning |
 | C11 | Duplicate id | Each DSJ id appears once per delivery | Error |
-| C12 | Version | A changed `ServiceAlteration`, `ServiceJourneyRef` or `replacedJourneys` comes with a higher version | Error |
+| C12 | Version | Any change to a DSJ (`ServiceAlteration`, `ServiceJourneyRef`, `replacedJourneys`, `BlockRef`) comes with a version one higher than the last delivered version | Error |
 
 ```mermaid
 flowchart TD
@@ -214,7 +217,7 @@ The same deviation should also be reflected in real-time channels (SIRI ET cance
 
 ---
 
-## 7. ❌ Common mistakes
+## 7. Common mistakes
 
 | Mistake | Effect | Fix |
 |---------|--------|-----|
@@ -223,7 +226,8 @@ The same deviation should also be reflected in real-time channels (SIRI ET cance
 | `cancellation` when a bus is provided | Traveller sees "cancelled" with no alternative | Use `replaced` |
 | Replacement points to another replacement | Chains break grouping logic | Point to the root original |
 | New DSJ id for the original | Tickets lose their anchor | Keep the id, increase the version |
-| Replacement dropped silently on revert | Bus may linger in downstream systems | Cancel it explicitly |
+| Revert without a new version on the original | Consumers do not notice the change, and the bus stays linked to a journey that now runs | Set the original to `planned` with a higher version |
+| Changed ServiceJourneyRef without a new version | Consumers keep the old stops and times | Increase the DSJ version on every change |
 | Original marked `replaced` for reduced capacity | Train disappears from the journey planner | Keep it `planned` and add an `extraJourney` supplement |
 
 ---
