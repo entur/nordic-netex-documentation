@@ -27,7 +27,7 @@ In this guide you will learn:
 | `planned` (or omitted) | Runs as published. Also used for a new journey that replaces another. | `replacedJourneys` is **required** when it replaces something |
 | `cancellation` | Does not run, and **no alternative** is offered | Nothing references it |
 | `replaced` | Does not run as planned, and **one or more other DSJs take over** all or part of it | At least one other DSJ references it via `replacedJourneys` (rare exception: see check C3) |
-| `extraJourney` | Runs **in addition** to the plan | No references (pure extra), or `replacedJourneys` pointing to the journey it supplements (see 4f) |
+| `extraJourney` | Runs **in addition** to the plan | No references (pure extra), or `replacedJourneys` pointing to the journey it supplements (see 4g) |
 
 > [!WARNING]
 > `replaced` goes on the **original** journey, not on the new one. The new journey is the one travellers should use, so it is `planned` (or omitted).
@@ -71,7 +71,7 @@ The full examples describe the same Saturday on a fictional line R10, Oslo S –
 
 | Train | Before | After | What changed in the data |
 |-------|--------|-------|--------------------------|
-| 1234 | `planned` v1 | `replaced` v2 | Plus three new DSJs referencing it: two parallel buses Oslo S – Lillestrøm and a shortened train Lillestrøm – Hamar |
+| 1234 | `planned` v1 | `replaced` v2 | Plus three new DSJs referencing it: two parallel buses Oslo S – Lillestrøm (via Strømmen) and a shortened train Lillestrøm – Hamar. Strømmen is added to the original (JourneyPattern and ServiceJourney v2, see 4d). |
 | 1236 | `planned` v1 | `cancellation` v2 | Nothing references it |
 | 1238 | `planned` v1 | `planned` v1 (unchanged) | Plus a new `extraJourney` bus referencing it as a supplement |
 
@@ -138,11 +138,58 @@ Give **every bus its own DSJ**, with its own ServiceJourney and its own identifi
 
 Downstream, each bus has its own real-time feed (position, delay, occupancy). That information needs an identifier to attach to. Send the buses as separate journeys in the planned data. Do not leave it to the real-time service to split or aggregate one planned journey across several vehicles.
 
-### 4d. Cancellation without alternative
+### 4d. Extra stop on a replacement
+
+A replacement sometimes stops at a place the original never serves. In the example, the buses stop at Strømmen between Oslo S and Lillestrøm, where train 1234 does not stop.
+
+If the new stop is a separate node in the price calculation, it **must be added to the route of the original, cancelled journey**. The original is the basis for sales. Without Strømmen on train 1234, there is nothing to sell a ticket to or from Strømmen against.
+
+Make the change on the original:
+1. Insert the stop in the original's JourneyPattern, in the right order, and increase the JourneyPattern version.
+2. Increase the ServiceJourney version, update `JourneyPatternRef` to the new JourneyPattern version, and add a TimetabledPassingTime for the new stop.
+
+Each of these changes is reason enough for a new version on its own. Together the versions make the change traceable.
+
+The passing time at the new stop must pass the same checks as any normal train departure, for example increasing times and plausible travel times between stops. There is no requirement today to mark the stop as one that only exists because of the deviation.
+
+```xml
+<!-- JourneyPattern of the original: version 1 -> 2, Strømmen inserted as order 2 -->
+<JourneyPattern id="NP:JourneyPattern:R10_1234" version="2">
+  <pointsInSequence>
+    <StopPointInJourneyPattern id="NP:StopPointInJourneyPattern:R10_1234_OSL" version="1" order="1">
+      <ScheduledStopPointRef ref="NP:ScheduledStopPoint:OSL"/>
+    </StopPointInJourneyPattern>
+    <StopPointInJourneyPattern id="NP:StopPointInJourneyPattern:R10_1234_STR" version="1" order="2">
+      <ScheduledStopPointRef ref="NP:ScheduledStopPoint:STR"/>
+    </StopPointInJourneyPattern>
+    <!-- Lillestrøm, Eidsvoll and Hamar follow as order 3-5 -->
+  </pointsInSequence>
+</JourneyPattern>
+
+<!-- ServiceJourney of the original: version 1 -> 2, new JourneyPattern version, new passing time -->
+<ServiceJourney id="NP:ServiceJourney:R10_1234" version="2">
+  <JourneyPatternRef ref="NP:JourneyPattern:R10_1234" version="2"/>
+  <PublicCode>1234</PublicCode>
+  <passingTimes>
+    <!-- ... Oslo S 08:02 ... -->
+    <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_STR" version="1">
+      <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_1234_STR"/>
+      <ArrivalTime>08:07:00</ArrivalTime>
+      <DepartureTime>08:08:00</DepartureTime>
+    </TimetabledPassingTime>
+    <!-- ... Lillestrøm, Eidsvoll, Hamar ... -->
+  </passingTimes>
+</ServiceJourney>
+```
+
+> [!WARNING]
+> A ServiceJourney or JourneyPattern may be shared, by DSJs on other dates or by other journeys. Changing it changes all of them. If the original's template is shared, give the original a new ServiceJourney for this date instead, and increase the DSJ version (see the alternative in 4b).
+
+### 4e. Cancellation without alternative
 
 Set `ServiceAlteration=cancellation` and increase the version. No other DSJ may reference it. If something does replace it, use `replaced` instead.
 
-### 4e. Extra journey
+### 4f. Extra journey
 
 A journey that is not in the plan, for example for an event. Use `ServiceAlteration=extraJourney` and no `replacedJourneys`.
 
@@ -156,7 +203,7 @@ An extra journey always has its **own ServiceJourney**. It almost always has dep
 </DatedServiceJourney>
 ```
 
-### 4f. Supplement (reduced capacity)
+### 4g. Supplement (reduced capacity)
 
 Reduced capacity (fewer carriages) is **not** a deviation in this sense. The journey still runs, so it stays `planned`.
 
@@ -165,7 +212,7 @@ When the train cannot carry everyone, add a supplementary bus. It is an `extraJo
 > [!NOTE]
 > **Convention.** `extraJourney` combined with `replacedJourneys` means *supplements*, not *replaces*. In NeTEx 2.0 the generic link (`DatedServiceJourneyRef`) was replaced by `replacedJourneys`, so a supplement no longer has a neutral way to point to the journey it supports. Reusing `replacedJourneys` is semantically unfortunate, but it is the only link available. Consumers must read the pair together.
 
-### 4g. Revert
+### 4h. Revert
 
 The track work is postponed. Set the original back to `planned` with a new version, and leave the replacements out of the next delivery. Together, the version increase on the original and the missing replacements are enough for consumers to detect the revert.
 
