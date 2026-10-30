@@ -316,23 +316,7 @@ A SIRI SX situation can explain the reason for the deviation and link the affect
 
 ---
 
-## 7. Common mistakes
-
-| Mistake | Effect | Fix |
-|---------|--------|-----|
-| `replaced` on the new journey | The bus looks like it does not run, and the train looks like it runs | `replaced` on the original. The new journey is `planned`. |
-| Reference from original to replacement | Consumers cannot find the pair | `replacedJourneys` on the new journey, pointing back |
-| `cancellation` when a bus is provided | Traveller sees "cancelled" with no alternative | Use `replaced` |
-| Replacement points to another replacement | Chains break grouping logic | Point to the root original |
-| New DSJ id for the original | Tickets lose their anchor | Keep the id, increase the version |
-| Revert without a new version on the original | Consumers do not notice the change, and the bus stays linked to a journey that now runs | Set the original to `planned` with a higher version |
-| Changed ServiceJourneyRef without a new version | Consumers keep the old stops and times | Increase the DSJ version on every change |
-| Original marked `replaced` for reduced capacity | Train disappears from the journey planner | Keep it `planned` and add an `extraJourney` supplement |
-| One DSJ for several parallel buses | Real-time data from each bus has no journey to attach to, and the buses get merged or mixed up downstream | One DSJ, ServiceJourney and identifier per bus, all referencing the original |
-
----
-
-## 8. Related resources
+## 7. Related resources
 
 ### Guides
 - [How to Build a Timetable](../HowToBuildATimetable/HowToBuildATimetable_Guide.md) – From Line to DatedServiceJourney
