@@ -1,7 +1,7 @@
 # 🔀 Deviation Handling with DatedServiceJourney
 
 > [!NOTE]
-> **Draft.** This guide builds on the earlier draft *Extended Sales & Deviation Handling* and is aligned with how Entur's consumers (scheduled-stock, sjs-producer) interpret the data today. Rules marked *convention* are agreed practice, not schema constraints. Review before publishing.
+> **Draft.** The rules reflect how data consumers interpret deviations today. Rules marked *convention* are established practice, not schema constraints. Review before publishing.
 
 ## 1. Introduction
 
@@ -22,17 +22,15 @@ In this guide you will learn:
 
 `ServiceAlteration` always describes the journey it sits on. It never describes another journey.
 
-| Value | Norwegian term | Meaning for *this* DSJ | Typical companion |
-|-------|----------------|------------------------|-------------------|
-| `planned` (or omitted) | Planlagt | Runs as published. Also used for a new journey that replaces another. | `replacedJourneys` is **required** when it replaces something |
-| `cancellation` | Innstilt | Does not run, and **no alternative** is offered | Nothing references it |
-| `replaced` | Erstattet | Does not run as planned, and **one or more other DSJs take over** all or part of it | At least one other DSJ references it via `replacedJourneys` (rare exception: see check C3) |
-| `extraJourney` | Ekstratur | Runs **in addition** to the plan | No references (pure extra), or `replacedJourneys` pointing to the journey it supplements |
+| Value | Meaning for *this* DSJ | Typical companion |
+|-------|------------------------|-------------------|
+| `planned` (or omitted) | Runs as published. Also used for a new journey that replaces another. | `replacedJourneys` is **required** when it replaces something |
+| `cancellation` | Does not run, and **no alternative** is offered | Nothing references it |
+| `replaced` | Does not run as planned, and **one or more other DSJs take over** all or part of it | At least one other DSJ references it via `replacedJourneys` (rare exception: see check C3) |
+| `extraJourney` | Runs **in addition** to the plan | No references (pure extra), or `replacedJourneys` pointing to the journey it supplements (see 4e) |
 
 > [!WARNING]
 > `replaced` goes on the **original** journey, not on the new one. The new journey is the one travellers should use, so it is `planned` (or omitted). This is the most common error, and it causes consumers to hide the replacement bus.
-
-Reduced capacity (fewer carriages) is **not** a deviation in this sense. The journey still runs, so it stays `planned`.
 
 ---
 
@@ -141,7 +139,9 @@ A journey that is not in the plan, for example for an event. Use `ServiceAlterat
 
 ### 4e. Supplement (reduced capacity)
 
-The train runs, but cannot carry everyone. The original stays `planned`. The supplementary bus is an `extraJourney` with `replacedJourneys` pointing to the train.
+Reduced capacity (fewer carriages) is **not** a deviation in this sense. The journey still runs, so it stays `planned`.
+
+When the train cannot carry everyone, add a supplementary bus. It is an `extraJourney` with `replacedJourneys` pointing to the train.
 
 > [!NOTE]
 > **Convention.** `extraJourney` combined with `replacedJourneys` means *supplements*, not *replaces*. In NeTEx 2.0 the generic link (`DatedServiceJourneyRef`) was replaced by `replacedJourneys`, so a supplement no longer has a neutral way to point to the journey it supports. Reusing `replacedJourneys` is semantically unfortunate, but it is the only link available. Consumers must read the pair together.
