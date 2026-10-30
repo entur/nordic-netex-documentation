@@ -15,12 +15,12 @@ ServiceJourney
  ├─ Name (0..1)
  ├─ Description (0..1)
  ├─ PrivateCode (0..1)
- ├─ dayTypes (0..1)
- │   └─ DayTypeRef/@ref (0..n)
  ├─ TransportMode (0..1)
  ├─ TransportSubmode (0..1)
- │   ├─ RailSubmode (0..1)
- │   └─ BusSubmode (0..1)
+ │   ├─ BusSubmode (0..1)
+ │   └─ RailSubmode (0..1)
+ ├─ dayTypes (0..1)
+ │   └─ DayTypeRef/@ref (0..n)
  ├─ JourneyPatternRef/@ref (1..1)
  ├─ BlockRef/@ref (0..1)
  ├─ OperatorRef/@ref (0..1)
@@ -31,11 +31,11 @@ ServiceJourney
  │       ├─ @id (0..1)
  │       ├─ StopPointInJourneyPatternRef/@ref (1..1)
  │       ├─ ArrivalTime (0..1)
+ │       ├─ ArrivalDayOffset (0..1)
  │       ├─ DepartureTime (0..1)
- │       ├─ LatestArrivalTime (0..1)
- │       ├─ EarliestDepartureTime (0..1)
  │       ├─ DepartureDayOffset (0..1)
- │       └─ ArrivalDayOffset (0..1)
+ │       ├─ LatestArrivalTime (0..1)
+ │       └─ EarliestDepartureTime (0..1)
  └─ parts (0..1)
      └─ JourneyPart (0..n)
          ├─ @id (?)
@@ -52,47 +52,49 @@ ServiceJourney
 
 ## Table
 
-| Element | Type | Cardinality | Description | Path |
-|---------|------|-------------|-------------|------|
-| @id | ? | 1..1 | Unique identifier following {CODESPACE}:ServiceJourney:{LocalId} | @id |
-| @version | ? | 1..1 | Version label (e.g., "1"). Increment on changes. | @version |
-| keyList | KeyListStructure | 0..1 | ? | keyList |
-| KeyValue | KeyValueStructure | 1..n | Key value pair for Entity. | keyList/KeyValue |
-| Key | xsd:normalizedString | 1..1 | ? | keyList/KeyValue/Key |
-| Value | xsd:normalizedString | 1..1 | ? | keyList/KeyValue/Value |
-| Name | MultilingualString | 0..1 | Human-readable name of the journey | Name |
-| Description | MultilingualString | 0..1 | ? | Description |
-| PrivateCode | PrivateCodeStructure | 0..1 | Internal non-public code (e.g., trip or train number) | PrivateCode |
-| dayTypes | dayTypeRefs_RelStructure | 0..1 | ? | dayTypes |
-| [DayTypeRef](../DayType/Table_DayType.md)/@ref | DayTypeRefStructure | 0..n | DayType(s) on which the journey operates | dayTypes/DayTypeRef/@ref |
-| TransportMode | ? | 0..1 | ? | TransportMode |
-| TransportSubmode | TransportSubmodeStructure | 0..1 | ? | TransportSubmode |
-| RailSubmode | RailSubmodeEnumeration | 0..1 | ? | TransportSubmode/RailSubmode |
-| BusSubmode | BusSubmodeEnumeration | 0..1 | ? | TransportSubmode/BusSubmode |
-| [JourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | JourneyPatternRefStructure | 1..1 | Reference to the JourneyPattern defining the stop sequence | JourneyPatternRef/@ref |
-| [BlockRef](../Block/Table_Block.md)/@ref | BlockRefStructure | 0..1 | ? | BlockRef/@ref |
-| [OperatorRef](../Operator/Table_Operator.md)/@ref | OperatorRefStructure | 0..1 | Reference to an Operator | OperatorRef/@ref |
-| FlexibleLineRef/@ref | ? | ? | ? | FlexibleLineRef/@ref |
-| [LineRef](../Line/Table_Line.md)/@ref | LineRefStructure | 0..1 | Reference to the served Line | LineRef/@ref |
-| passingTimes | timetabledPassingTimes_RelStructure | 0..1 | ? | passingTimes |
-| TimetabledPassingTime | TimetabledPassingTime_VersionedChildStructure | 1..n | Collection of scheduled passing/stop times | passingTimes/TimetabledPassingTime |
-| @id | ? | 0..1 | Optional identifier for the TimetabledPassingTime element | passingTimes/TimetabledPassingTime/@id |
-| StopPointInJourneyPatternRef/@ref | ? | 1..1 | Reference to a StopPointInJourneyPattern | passingTimes/TimetabledPassingTime/StopPointInJourneyPatternRef/@ref |
-| ArrivalTime | xsd:time | 0..1 | Planned arrival time at the stop | passingTimes/TimetabledPassingTime/ArrivalTime |
-| DepartureTime | xsd:time | 0..1 | Planned departure time from the stop | passingTimes/TimetabledPassingTime/DepartureTime |
-| LatestArrivalTime | xsd:time | 0..1 | Latest Arrival Time. | passingTimes/TimetabledPassingTime/LatestArrivalTime |
-| EarliestDepartureTime | xsd:time | 0..1 | Earliest Timetabled departure time. | passingTimes/TimetabledPassingTime/EarliestDepartureTime |
-| DepartureDayOffset | DayOffsetType | 0..1 | ? | passingTimes/TimetabledPassingTime/DepartureDayOffset |
-| ArrivalDayOffset | DayOffsetType | 0..1 | ? | passingTimes/TimetabledPassingTime/ArrivalDayOffset |
-| parts | journeyParts_RelStructure | 0..1 | ? | parts |
-| JourneyPart | JourneyPart_VersionStructure | 0..n | ? | parts/JourneyPart |
-| @id | ? | ? | ? | parts/JourneyPart/@id |
-| Description | MultilingualString | 0..1 | ? | parts/JourneyPart/Description |
-| MainPartRef/@ref | JourneyPartRefStructure | 0..1 | ? | parts/JourneyPart/MainPartRef/@ref |
-| [TrainNumberRef](../TrainNumber/Table_TrainNumber.md)/@ref | TrainNumberRefStructure | 0..1 | ? | parts/JourneyPart/TrainNumberRef/@ref |
-| FromStopPointRef/@ref | ScheduledStopPointRefStructure | 0..1 | ? | parts/JourneyPart/FromStopPointRef/@ref |
-| ToStopPointRef/@ref | ScheduledStopPointRefStructure | 0..1 | ? | parts/JourneyPart/ToStopPointRef/@ref |
-| StartTime | xsd:time | 1..1 | ? | parts/JourneyPart/StartTime |
-| StartTimeDayOffset | DayOffsetType | 0..1 | ? | parts/JourneyPart/StartTimeDayOffset |
-| EndTime | xsd:time | 1..1 | ? | parts/JourneyPart/EndTime |
-| EndTimeDayOffset | DayOffsetType | 0..1 | ? | parts/JourneyPart/EndTimeDayOffset |
+| Element | Type | Cardinality | Description | Source | Path |
+|---------|------|-------------|-------------|--------|------|
+| @id | xsd:ID *(manual)* | 1..1 | Unique identifier following {CODESPACE}:ServiceJourney:{LocalId} | Nordic | @id |
+| @version | xsd:string *(manual)* | 1..1 | Version label (e.g., "1"). Increment on changes. | Nordic | @version |
+| keyList | KeyListStructure | 0..1 | ? | – | keyList |
+| KeyValue | KeyValueStructure | 1..n | Arbitrary key/value metadata on the journey | Manual | keyList/KeyValue |
+| Key | xsd:normalizedString | 1..1 | ? | – | keyList/KeyValue/Key |
+| Value | xsd:normalizedString | 1..1 | ? | – | keyList/KeyValue/Value |
+| Name | MultilingualString | 0..1 | Human-readable name of the journey | Nordic | Name |
+| Description | MultilingualString | 0..1 | Free-text description | Manual | Description |
+| PrivateCode | PrivateCodeStructure | 0..1 | Internal non-public code (e.g., trip or train number) | Nordic | PrivateCode |
+| TransportMode | TransportModeEnumeration *(manual)* | 0..1 | Public transport mode (e.g., bus, rail) | Manual | TransportMode |
+| TransportSubmode | TransportSubmodeStructure | 0..1 | ? | – | TransportSubmode |
+| BusSubmode | BusSubmodeEnumeration | 0..1 | Submode for bus services | Manual | TransportSubmode/BusSubmode |
+| RailSubmode | RailSubmodeEnumeration | 0..1 | Submode for rail services | Manual | TransportSubmode/RailSubmode |
+| dayTypes | dayTypeRefs_RelStructure | 0..1 | ? | – | dayTypes |
+| [DayTypeRef](../DayType/Table_DayType.md)/@ref | DayTypeRefStructure | 0..n | DayType(s) on which the journey operates | Nordic | dayTypes/DayTypeRef/@ref |
+| [JourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | JourneyPatternRefStructure | 1..1 | Reference to the JourneyPattern defining the stop sequence | Nordic | JourneyPatternRef/@ref |
+| [BlockRef](../Block/Table_Block.md)/@ref | BlockRefStructure | 0..1 | Reference to a Block or TrainBlock (vehicle working) | Manual | BlockRef/@ref |
+| [OperatorRef](../Operator/Table_Operator.md)/@ref | OperatorRefStructure | 0..1 | Reference to an Operator | Nordic | OperatorRef/@ref |
+| FlexibleLineRef/@ref | VersionedRef *(manual)* | ? | Reference to a FlexibleLine (on-demand services) | Manual | FlexibleLineRef/@ref |
+| [LineRef](../Line/Table_Line.md)/@ref | LineRefStructure | 0..1 | Reference to the served Line | Nordic | LineRef/@ref |
+| passingTimes | timetabledPassingTimes_RelStructure | 0..1 | ? | – | passingTimes |
+| [TimetabledPassingTime](../../guides/Glossary/Glossary.md#timetabledpassingtime) | TimetabledPassingTime_VersionedChildStructure | 1..n | Collection of scheduled passing/stop times | Nordic | passingTimes/TimetabledPassingTime |
+| @id | xsd:ID *(manual)* | 0..1 | Optional identifier for the TimetabledPassingTime element | Nordic | passingTimes/TimetabledPassingTime/@id |
+| [StopPointInJourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | VersionedRef *(manual)* | 1..1 | Reference to a StopPointInJourneyPattern | Nordic | passingTimes/TimetabledPassingTime/StopPointInJourneyPatternRef/@ref |
+| ArrivalTime | xsd:time | 0..1 | Planned arrival time at the stop | Nordic | passingTimes/TimetabledPassingTime/ArrivalTime |
+| ArrivalDayOffset | DayOffsetType | 0..1 | Offset applied to ArrivalTime (e.g., +1 next day) | Manual | passingTimes/TimetabledPassingTime/ArrivalDayOffset |
+| DepartureTime | xsd:time | 0..1 | Planned departure time from the stop | Nordic | passingTimes/TimetabledPassingTime/DepartureTime |
+| DepartureDayOffset | DayOffsetType | 0..1 | Offset applied to DepartureTime | Manual | passingTimes/TimetabledPassingTime/DepartureDayOffset |
+| LatestArrivalTime | xsd:time | 0..1 | Latest allowed drop-off time (flexible journeys) | Manual | passingTimes/TimetabledPassingTime/LatestArrivalTime |
+| EarliestDepartureTime | xsd:time | 0..1 | Earliest allowed pick-up time (flexible journeys) | Manual | passingTimes/TimetabledPassingTime/EarliestDepartureTime |
+| parts | journeyParts_RelStructure | 0..1 | ? | – | parts |
+| JourneyPart | JourneyPart_VersionStructure | 0..n | Used for combined or split journeys | Manual | parts/JourneyPart |
+| @id | ? | ? | ? | – | parts/JourneyPart/@id |
+| Description | MultilingualString | 0..1 | ? | – | parts/JourneyPart/Description |
+| MainPartRef/@ref | JourneyPartRefStructure | 0..1 | ? | – | parts/JourneyPart/MainPartRef/@ref |
+| [TrainNumberRef](../TrainNumber/Table_TrainNumber.md)/@ref | TrainNumberRefStructure | 0..1 | ? | – | parts/JourneyPart/TrainNumberRef/@ref |
+| FromStopPointRef/@ref | ScheduledStopPointRefStructure | 0..1 | ? | – | parts/JourneyPart/FromStopPointRef/@ref |
+| ToStopPointRef/@ref | ScheduledStopPointRefStructure | 0..1 | ? | – | parts/JourneyPart/ToStopPointRef/@ref |
+| StartTime | xsd:time | 1..1 | ? | – | parts/JourneyPart/StartTime |
+| StartTimeDayOffset | DayOffsetType | 0..1 | ? | – | parts/JourneyPart/StartTimeDayOffset |
+| EndTime | xsd:time | 1..1 | ? | – | parts/JourneyPart/EndTime |
+| EndTimeDayOffset | DayOffsetType | 0..1 | ? | – | parts/JourneyPart/EndTimeDayOffset |
+
+**Source** shows where the description comes from: **Nordic** – the Nordic Profile; **Entur** – Entur's profile or a service layer; **Manual** – hand-written in `Overrides_ServiceJourney.json`; **NeTEx** – inherited from the NeTEx base, generic and not profile-specific. A type marked *(manual)* is hand-written because the ontology has no type for it.

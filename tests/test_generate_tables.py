@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from rdflib import BNode, Graph, Literal, Namespace, RDF, RDFS
-from rdflib.namespace import SH, XSD
+from rdflib.namespace import OWL, SH, XSD
 from scripts import generate_tables as g
 
 
@@ -37,6 +37,13 @@ class GeneratorTests(unittest.TestCase):
         if description is not None:
             graph.add((prop, SH.description, Literal(description)))
         return prop
+
+    def sequence(self, graph, cls, prop, order):
+        r = BNode()
+        graph.add((cls, RDFS.subClassOf, r))
+        graph.add((r, RDF.type, OWL.Restriction))
+        graph.add((r, OWL.onProperty, prop))
+        graph.add((r, g.NETEX.xsdSequenceOrder, Literal(order)))
 
     def run_main(self, docs, args, ont=None):
         output = io.StringIO()
@@ -202,6 +209,77 @@ class GeneratorTests(unittest.TestCase):
         self.assertEqual(updated, g.with_description_tree(updated, block))
         with self.assertRaises(ValueError):
             g.with_description_tree(g.TREE_START + '\nmissing end marker', block)
+
+    def ordered_rows(self, body, graph, second=None):
+        folder = self.root / 'Good'
+        self.example(folder, body)
+        if second:
+            (folder / 'Example_Second.xml').write_text(
+                '<PublicationDelivery xmlns="http://www.netex.org.uk/netex">' + second + '</PublicationDelivery>', encoding='utf-8')
+        rows = g.collect('Good', {'Good': g.Documentation('nordic', folder, 'Good')})
+        report = []
+        g.order_rows(rows, 'Good', g.Ontology(base=graph, base_shapes=g.scoped_base_shapes(graph)), report)
+        return rows, report
+
+    def order_graph(self):
+        graph = Graph()
+        graph.add((g.NETEX.Good, RDFS.subClassOf, g.NETEX.Good_VersionStructure))
+        self.sequence(graph, g.NETEX.Good_VersionStructure, g.NETEX.name, 1)
+        self.sequence(graph, g.NETEX.Good, g.NETEX.centroid, 1)
+        self.sequence(graph, g.NETEX.Good, g.NETEX.quays, 2)
+        return graph
+
+    def test_order_follows_xsd_sequence_with_inherited_properties_first(self):
+        # Merging the examples alone would append Centroid after quays.
+        rows, report = self.ordered_rows('<Good id="NP:Good:1"><Name>x</Name><quays/></Good>', self.order_graph(),
+                                         second='<Good id="NP:Good:2"><Centroid/></Good>')
+        self.assertEqual(['@id', 'Name', 'Centroid', 'quays'], rows.children[''])
+        self.assertEqual([], report)
+
+    def test_order_contradicting_a_valid_example_stops_generation(self):
+        with self.assertRaisesRegex(ValueError, 'contradicts'):
+            self.ordered_rows('<Good id="NP:Good:1"><quays/><Name>x</Name></Good>', self.order_graph())
+
+    def test_element_without_sequence_position_keeps_its_example_neighbour_and_is_reported(self):
+        graph = Graph()
+        self.sequence(graph, g.NETEX.Good, g.NETEX.operatorRef, 1)
+        self.sequence(graph, g.NETEX.Good, g.NETEX.lineRef, 2)
+        rows, report = self.ordered_rows('<Good id="NP:Good:1"><OperatorRef ref="x"/><FlexibleLineRef ref="y"/><LineRef ref="z"/></Good>', graph)
+        self.assertEqual(['@id', 'OperatorRef/@ref', 'FlexibleLineRef/@ref', 'LineRef/@ref'], rows.children[''])
+        self.assertEqual(1, len(report))
+        self.assertIn('FlexibleLineRef/@ref (no XSD sequence position', report[0])
+
+    def test_manual_description_wins_over_netex_base_but_not_over_profile(self):
+        graph = Graph()
+        self.shape(graph, g.NETEX.Good, g.NETEX.alternativeNames, description='ALTERNATIVE NAME for Element.')
+        ont = g.Ontology(base=graph, base_shapes=g.scoped_base_shapes(graph))
+        manual = {'description': 'Alternative names or aliases'}
+        self.assertEqual(('Alternative names or aliases', 'Manual'), g.resolve('Good', 'nordic', 'alternativeNames', ont, manual)[2:4])
+        self.assertEqual(('ALTERNATIVE NAME for Element.', 'NeTEx'), g.resolve('Good', 'nordic', 'alternativeNames', ont)[2:4])
+        ont.np[('Good', 'alternativeNames')] = g.FieldRule(card='0..1', definition='Profile text')
+        self.assertEqual(('Profile text', 'Nordic'), g.resolve('Good', 'nordic', 'alternativeNames', ont, manual)[2:4])
+
+    def test_overrides_fill_type_and_link_and_are_marked(self):
+        folder = self.root / 'Good'
+        self.example(folder, '<Good id="NP:Good:1"><Note>x</Note></Good>')
+        (folder / 'Overrides_Good.json').write_text(
+            '{"fields": {"@id": {"type": "xsd:ID"}, "Note": {"description": "Hand text", "link": "../Other/Table_Other.md"}},'
+            ' "structure_note": "Variant explained by hand."}', encoding='utf-8')
+        (folder / 'Description_Good.md').write_text('## 2. Structure Overview\n\n```text\nold\n```\n', encoding='utf-8')
+        self.assertEqual(0, self.run_main({'Good': g.Documentation('nordic', folder, 'Good')}, ['Good'])[0])
+        table = (folder / 'Table_Good.md').read_text(encoding='utf-8')
+        self.assertIn('| @id | xsd:ID *(manual)* |', table)
+        self.assertIn('| [Note](../Other/Table_Other.md) | ? | ? | Hand text | Manual | Note |', table)
+        self.assertIn('**Source** shows where the description comes from', table)
+        self.assertIn('**Manual:** Variant explained by hand.', (folder / 'Description_Good.md').read_text(encoding='utf-8'))
+
+    def test_override_with_unknown_key_is_rejected(self):
+        folder = self.root / 'Good'
+        self.example(folder, '<Good id="NP:Good:1"/>')
+        (folder / 'Overrides_Good.json').write_text('{"fields": {"@id": {"cardinality": "1..1"}}}', encoding='utf-8')
+        code, output = self.run_main({'Good': g.Documentation('nordic', folder, 'Good')}, ['Good'])
+        self.assertEqual(2, code)
+        self.assertIn('unknown keys', output)
 
 
 if __name__ == '__main__':

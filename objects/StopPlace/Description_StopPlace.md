@@ -20,22 +20,12 @@ The **StopPlace** represents a named physical or virtual location where passenge
        ├── 📄 Key (1..1)
        └── 📄 Value (1..1)
 📄 Name (1..1)
-📄 PrivateCode (0..1)
 📄 Description (0..1)
+📄 PrivateCode (0..1)
 📁 Centroid (1..1)
    └── 📁 Location (0..1)
        ├── 📄 Longitude (0..1)
        └── 📄 Latitude (0..1)
-📁 placeEquipments (0..1)
-   └── 📄 ShelterEquipment (?)
-🔗 ParentSiteRef/@ref (0..1)
-📁 adjacentSites (0..1)
-   └── 🔗 SiteRef/@ref (1..n)
-📄 TransportMode (*..*)
-📄 OtherTransportModes (0..1)
-📄 StopPlaceType (0..1)
-📁 quays (0..1)
-   └── 📄 Quay (1..n)
 📁 AccessibilityAssessment (0..1)
    ├── 📄 @modification (?)
    ├── 📄 @id (?)
@@ -53,11 +43,24 @@ The **StopPlace** represents a named physical or virtual location where passenge
 📁 alternativeNames (0..1)
    └── 📄 AlternativeName (1..n)
 🔗 TopographicPlaceRef/@ref (0..1)
+🔗 ParentSiteRef/@ref (0..1)
+📁 adjacentSites (0..1)
+   └── 🔗 SiteRef/@ref (1..n)
+📁 placeEquipments (0..1)
+   └── 📄 ShelterEquipment (?)
+📄 TransportMode (*..*)
 📄 BusSubmode (0..1)
+📄 OtherTransportModes (0..1)
 📁 tariffZones (0..1)
    └── 🔗 TariffZoneRef/@ref (?)
+📄 StopPlaceType (0..1)
 📄 Weighting (0..1)
+📁 quays (0..1)
+   └── 📄 Quay (1..n)
 ```
+
+> [!NOTE]
+> **Manual:** The tree combines all StopPlace variants in the examples. A monomodal StopPlace has `TransportMode` and `quays`. A multimodal parent StopPlace groups monomodal children (which point to it with `ParentSiteRef`) and has neither `quays` nor `TransportMode`.
 <!-- generated:structure:end -->
 
 ## 3. Key Elements

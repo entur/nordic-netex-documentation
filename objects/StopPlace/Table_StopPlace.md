@@ -18,22 +18,12 @@ StopPlace
  │       ├─ Key (1..1)
  │       └─ Value (1..1)
  ├─ Name (1..1)
- ├─ PrivateCode (0..1)
  ├─ Description (0..1)
+ ├─ PrivateCode (0..1)
  ├─ Centroid (1..1)
  │   └─ Location (0..1)
  │       ├─ Longitude (0..1)
  │       └─ Latitude (0..1)
- ├─ placeEquipments (0..1)
- │   └─ ShelterEquipment (?)
- ├─ ParentSiteRef/@ref (0..1)
- ├─ adjacentSites (0..1)
- │   └─ SiteRef/@ref (1..n)
- ├─ TransportMode (*..*)
- ├─ OtherTransportModes (0..1)
- ├─ StopPlaceType (0..1)
- ├─ quays (0..1)
- │   └─ Quay (1..n)
  ├─ AccessibilityAssessment (0..1)
  │   ├─ @modification (?)
  │   ├─ @id (?)
@@ -51,62 +41,74 @@ StopPlace
  ├─ alternativeNames (0..1)
  │   └─ AlternativeName (1..n)
  ├─ TopographicPlaceRef/@ref (0..1)
+ ├─ ParentSiteRef/@ref (0..1)
+ ├─ adjacentSites (0..1)
+ │   └─ SiteRef/@ref (1..n)
+ ├─ placeEquipments (0..1)
+ │   └─ ShelterEquipment (?)
+ ├─ TransportMode (*..*)
  ├─ BusSubmode (0..1)
+ ├─ OtherTransportModes (0..1)
  ├─ tariffZones (0..1)
  │   └─ TariffZoneRef/@ref (?)
- └─ Weighting (0..1)
+ ├─ StopPlaceType (0..1)
+ ├─ Weighting (0..1)
+ └─ quays (0..1)
+     └─ Quay (1..n)
 ```
 
 ## Table
 
-| Element | Type | Cardinality | Description | Path |
-|---------|------|-------------|-------------|------|
-| @id | ? | 1..1 | Unique identifier (e.g., NP:StopPlace:1001) | @id |
-| @created | ? | ? | ? | @created |
-| @changed | ? | ? | ? | @changed |
-| @modification | ? | ? | ? | @modification |
-| @version | ? | 1..1 | Version number | @version |
-| ValidBetween | ValidBetween_VersionStructure | 0..1 | Validity period (FromDate, ToDate) | ValidBetween |
-| FromDate | xsd:dateTime | 0..1 | ? | ValidBetween/FromDate |
-| keyList | KeyListStructure | **Entur – Stop Place Registry:** 0..1 | ? | keyList |
-| KeyValue | KeyValueStructure | 0..n | Alternative keys (e.g., external IDs) | keyList/KeyValue |
-| Key | xsd:normalizedString | 1..1 | ? | keyList/KeyValue/Key |
-| Value | xsd:normalizedString | 1..1 | ? | keyList/KeyValue/Value |
-| Name | MultilingualString | 1..1 | Name of the stop place | Name |
-| PrivateCode | PrivateCodeStructure | **Entur – Stop Place Registry:** 0..1 | ? | PrivateCode |
-| Description | MultilingualString | **Entur – Stop Place Registry:** 0..1 | ? | Description |
-| Centroid | SimplePoint_VersionStructure | **Entur – Stop Place Registry:** 1..1 | **Entur – Stop Place Registry:** Geographic location (WGS84) | Centroid |
-| Location | LocationStructure | 0..1 | Geographic point representation | Centroid/Location |
-| Longitude | LongitudeType | 0..1 | Longitude from Greenwich Meridian. -180 (West) to +180 (East). Decimal degrees. eg 2.356 | Centroid/Location/Longitude |
-| Latitude | LatitudeType | 0..1 | Latitude from equator. -90 (South) to +90 (North). Decimal degrees. eg 56.356 | Centroid/Location/Latitude |
-| placeEquipments | placeEquipments_RelStructure | **Entur – Stop Place Registry:** 0..1 | **Entur – Stop Place Registry:** Equipment: SanitaryEquipment, WaitingRoomEquipment, etc. | placeEquipments |
-| [ShelterEquipment](../ShelterEquipment/Table_ShelterEquipment.md) | ? | ? | ? | placeEquipments/ShelterEquipment |
-| ParentSiteRef/@ref | SiteRefStructure | 0..1 | Reference to multimodal parent StopPlace | ParentSiteRef/@ref |
-| adjacentSites | siteRefs_RelStructure | **Entur – Stop Place Registry:** 0..1 | Any references to another SITE of which this STOP PLACE is deemed to be a nearby but distinct. | adjacentSites |
-| SiteRef/@ref | SiteRefStructure | 1..n | ? | adjacentSites/SiteRef/@ref |
-| TransportMode | ? | [`*..*`](../../guides/NeTExConventions/NeTEx_Conventions.md) | Primary mode (bus, rail, metro, tram, water, etc.) | TransportMode |
-| OtherTransportModes | AllPublicTransportModesListOfEnumerations | 0..1 | Additional transport modes served | OtherTransportModes |
-| StopPlaceType | StopTypeEnumeration | 0..1 | Functional type (onstreetBus, railStation, metroStation, busStation, etc.) | StopPlaceType |
-| quays | quays_RelStructure | **Entur – Stop Place Registry:** 0..1 | **Entur – Stop Place Registry:** Contained Quay elements | quays |
-| [Quay](../Quay/Table_Quay.md) | Quay_VersionStructure | 1..n | Boarding/alighting positions (not on multimodal parent) | quays/Quay |
-| AccessibilityAssessment | AccessibilityAssessment_VersionedChildStructure | 0..1 | Accessibility evaluation of the stop place | AccessibilityAssessment |
-| @modification | ? | ? | ? | AccessibilityAssessment/@modification |
-| @id | ? | ? | ? | AccessibilityAssessment/@id |
-| MobilityImpairedAccess | LimitationStatusEnumeration | 1..1 | Overall mobility access status (true, false, unknown) | AccessibilityAssessment/MobilityImpairedAccess |
-| limitations | accessibilityLimitations_RelStructure | 0..1 | Collection of specific accessibility limitations | AccessibilityAssessment/limitations |
-| AccessibilityLimitation | AccessibilityLimitation_VersionedChildStructure | 1..n | Specific accessibility limitation assessment | AccessibilityAssessment/limitations/AccessibilityLimitation |
-| @modification | ? | ? | ? | AccessibilityAssessment/limitations/AccessibilityLimitation/@modification |
-| @id | ? | ? | ? | AccessibilityAssessment/limitations/AccessibilityLimitation/@id |
-| WheelchairAccess | LimitationStatusEnumeration | 0..1 | Wheelchair accessibility (true, false, unknown) | AccessibilityAssessment/limitations/AccessibilityLimitation/WheelchairAccess |
-| StepFreeAccess | LimitationStatusEnumeration | 0..1 | Step-free access availability (true, false, unknown) | AccessibilityAssessment/limitations/AccessibilityLimitation/StepFreeAccess |
-| EscalatorFreeAccess | LimitationStatusEnumeration | 0..1 | ? | AccessibilityAssessment/limitations/AccessibilityLimitation/EscalatorFreeAccess |
-| LiftFreeAccess | LimitationStatusEnumeration | 0..1 | ? | AccessibilityAssessment/limitations/AccessibilityLimitation/LiftFreeAccess |
-| AudibleSignalsAvailable | LimitationStatusEnumeration | 0..1 | Whether a PLACE has audible signals for the visually impaired. | AccessibilityAssessment/limitations/AccessibilityLimitation/AudibleSignalsAvailable |
-| VisualSignsAvailable | LimitationStatusEnumeration | 0..1 | Whether a PLACE has visual signals for the hearing impaired. | AccessibilityAssessment/limitations/AccessibilityLimitation/VisualSignsAvailable |
-| alternativeNames | alternativeNames_RelStructure | **Entur – Stop Place Registry:** 0..1 | ? | alternativeNames |
-| [AlternativeName](../AlternativeName/Table_AlternativeName.md) | AlternativeName_VersionedChildStructure | 1..n | ALTERNATIVE NAME for Element. | alternativeNames/AlternativeName |
-| [TopographicPlaceRef](../TopographicPlace/Table_TopographicPlace.md)/@ref | TopographicPlaceRefStructure | 0..1 | Reference to city or region | TopographicPlaceRef/@ref |
-| BusSubmode | BusSubmodeEnumeration | **Entur – Stop Place Registry:** 0..1 | ? | BusSubmode |
-| tariffZones | tariffZoneRefs_RelStructure | **Entur – Stop Place Registry:** 0..1 | **Entur – Stop Place Registry:** TariffZoneRef / FareZoneRef (operator codespace) | tariffZones |
-| [TariffZoneRef](../TariffZone/Table_TariffZone.md)/@ref | ? | ? | ? | tariffZones/TariffZoneRef/@ref |
-| Weighting | InterchangeWeightingEnumeration | 0..1 | Interchange weighting (e.g., interchangeAllowed) | Weighting |
+| Element | Type | Cardinality | Description | Source | Path |
+|---------|------|-------------|-------------|--------|------|
+| @id | ID *(manual)* | 1..1 | Unique identifier (e.g., NP:StopPlace:1001) | Nordic | @id |
+| @created | DateTime *(manual)* | ? | Creation date | Manual | @created |
+| @changed | DateTime *(manual)* | ? | Last modification date | Manual | @changed |
+| @modification | String *(manual)* | ? | Modification type (e.g., delete for decommissioning) | Manual | @modification |
+| @version | String *(manual)* | 1..1 | Version number | Nordic | @version |
+| ValidBetween | ValidBetween_VersionStructure | 0..1 | Validity period (FromDate, ToDate) | Nordic | ValidBetween |
+| FromDate | xsd:dateTime | 0..1 | ? | – | ValidBetween/FromDate |
+| keyList | KeyListStructure | **Entur – Stop Place Registry:** 0..1 | ? | – | keyList |
+| KeyValue | KeyValueStructure | 0..n | Alternative keys (e.g., external IDs) | Nordic | keyList/KeyValue |
+| Key | xsd:normalizedString | 1..1 | ? | – | keyList/KeyValue/Key |
+| Value | xsd:normalizedString | 1..1 | ? | – | keyList/KeyValue/Value |
+| Name | MultilingualString | 1..1 | Name of the stop place | Nordic | Name |
+| Description | MultilingualString | **Entur – Stop Place Registry:** 0..1 | Free-text description of the stop place | Manual | Description |
+| PrivateCode | PrivateCodeStructure | **Entur – Stop Place Registry:** 0..1 | Internal identifier code | Manual | PrivateCode |
+| Centroid | SimplePoint_VersionStructure | **Entur – Stop Place Registry:** 1..1 | Geographic location (WGS84) | Entur – Stop Place Registry | Centroid |
+| Location | LocationStructure | 0..1 | Geographic point representation | Nordic | Centroid/Location |
+| Longitude | LongitudeType | 0..1 | Longitude from Greenwich Meridian. -180 (West) to +180 (East). Decimal degrees. eg 2.356 | NeTEx | Centroid/Location/Longitude |
+| Latitude | LatitudeType | 0..1 | Latitude from equator. -90 (South) to +90 (North). Decimal degrees. eg 56.356 | NeTEx | Centroid/Location/Latitude |
+| AccessibilityAssessment | AccessibilityAssessment_VersionedChildStructure | 0..1 | Accessibility evaluation of the stop place | Nordic | AccessibilityAssessment |
+| @modification | ? | ? | ? | – | AccessibilityAssessment/@modification |
+| @id | ? | ? | ? | – | AccessibilityAssessment/@id |
+| MobilityImpairedAccess | LimitationStatusEnumeration | 1..1 | Overall mobility access status (true, false, unknown) | Nordic | AccessibilityAssessment/MobilityImpairedAccess |
+| limitations | accessibilityLimitations_RelStructure | 0..1 | Collection of specific accessibility limitations | Nordic | AccessibilityAssessment/limitations |
+| AccessibilityLimitation | AccessibilityLimitation_VersionedChildStructure | 1..n | Specific accessibility limitation assessment | Nordic | AccessibilityAssessment/limitations/AccessibilityLimitation |
+| @modification | ? | ? | ? | – | AccessibilityAssessment/limitations/AccessibilityLimitation/@modification |
+| @id | ? | ? | ? | – | AccessibilityAssessment/limitations/AccessibilityLimitation/@id |
+| WheelchairAccess | LimitationStatusEnumeration | 0..1 | Wheelchair accessibility (true, false, unknown) | Nordic | AccessibilityAssessment/limitations/AccessibilityLimitation/WheelchairAccess |
+| StepFreeAccess | LimitationStatusEnumeration | 0..1 | Step-free access availability (true, false, unknown) | Nordic | AccessibilityAssessment/limitations/AccessibilityLimitation/StepFreeAccess |
+| EscalatorFreeAccess | LimitationStatusEnumeration | 0..1 | ? | – | AccessibilityAssessment/limitations/AccessibilityLimitation/EscalatorFreeAccess |
+| LiftFreeAccess | LimitationStatusEnumeration | 0..1 | ? | – | AccessibilityAssessment/limitations/AccessibilityLimitation/LiftFreeAccess |
+| AudibleSignalsAvailable | LimitationStatusEnumeration | 0..1 | Whether a PLACE has audible signals for the visually impaired. | NeTEx | AccessibilityAssessment/limitations/AccessibilityLimitation/AudibleSignalsAvailable |
+| VisualSignsAvailable | LimitationStatusEnumeration | 0..1 | Whether a PLACE has visual signals for the hearing impaired. | NeTEx | AccessibilityAssessment/limitations/AccessibilityLimitation/VisualSignsAvailable |
+| alternativeNames | alternativeNames_RelStructure | **Entur – Stop Place Registry:** 0..1 | ? | – | alternativeNames |
+| [AlternativeName](../AlternativeName/Table_AlternativeName.md) | AlternativeName_VersionedChildStructure | 1..n | Alternative names or aliases | Manual | alternativeNames/AlternativeName |
+| [TopographicPlaceRef](../TopographicPlace/Table_TopographicPlace.md)/@ref | TopographicPlaceRefStructure | 0..1 | Reference to city or region | Nordic | TopographicPlaceRef/@ref |
+| ParentSiteRef/@ref | SiteRefStructure | 0..1 | Reference to multimodal parent StopPlace | Nordic | ParentSiteRef/@ref |
+| adjacentSites | siteRefs_RelStructure | **Entur – Stop Place Registry:** 0..1 | References to adjacent stop places | Manual | adjacentSites |
+| SiteRef/@ref | SiteRefStructure | 1..n | Reference to an adjacent StopPlace | Manual | adjacentSites/SiteRef/@ref |
+| placeEquipments | placeEquipments_RelStructure | **Entur – Stop Place Registry:** 0..1 | Equipment: SanitaryEquipment, WaitingRoomEquipment, etc. | Entur – Stop Place Registry | placeEquipments |
+| [ShelterEquipment](../ShelterEquipment/Table_ShelterEquipment.md) | ? | ? | ? | – | placeEquipments/ShelterEquipment |
+| TransportMode | Enum *(manual)* | [`*..*`](../../guides/NeTExConventions/NeTEx_Conventions.md) | Primary mode (bus, rail, metro, tram, water, etc.) | Nordic | TransportMode |
+| BusSubmode | BusSubmodeEnumeration | **Entur – Stop Place Registry:** 0..1 | Optional submode category | Manual | BusSubmode |
+| OtherTransportModes | AllPublicTransportModesListOfEnumerations | 0..1 | Additional transport modes served | Nordic | OtherTransportModes |
+| tariffZones | tariffZoneRefs_RelStructure | **Entur – Stop Place Registry:** 0..1 | TariffZoneRef / FareZoneRef (operator codespace) | Entur – Stop Place Registry | tariffZones |
+| [TariffZoneRef](../TariffZone/Table_TariffZone.md)/@ref | Reference *(manual)* | ? | References to tariff zones | Manual | tariffZones/TariffZoneRef/@ref |
+| StopPlaceType | StopTypeEnumeration | 0..1 | Functional type (onstreetBus, railStation, metroStation, busStation, etc.) | Nordic | StopPlaceType |
+| Weighting | InterchangeWeightingEnumeration | 0..1 | Interchange weighting (e.g., interchangeAllowed) | Nordic | Weighting |
+| quays | quays_RelStructure | **Entur – Stop Place Registry:** 0..1 | Contained Quay elements | Entur – Stop Place Registry | quays |
+| [Quay](../Quay/Table_Quay.md) | Quay_VersionStructure | 1..n | Boarding/alighting positions (not on multimodal parent) | Nordic | quays/Quay |
+
+**Source** shows where the description comes from: **Nordic** – the Nordic Profile; **Entur** – Entur's profile or a service layer; **Manual** – hand-written in `Overrides_StopPlace.json`; **NeTEx** – inherited from the NeTEx base, generic and not profile-specific. A type marked *(manual)* is hand-written because the ontology has no type for it.
