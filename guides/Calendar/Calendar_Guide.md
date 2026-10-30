@@ -209,7 +209,7 @@ flowchart TD
 
 ---
 
-## 7. ❌ Common Mistakes
+## 7. Common Mistakes
 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|
@@ -223,7 +223,7 @@ flowchart TD
 
 ---
 
-## 8. ✅ Best Practices
+## 8. Best Practices
 
 1. **Start with date-based scheduling.** OperatingDay + DatedServiceJourney is explicit, unambiguous, and directly consumable. Use it for sales, deviations, and block assignment.
 

@@ -123,7 +123,7 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 ---
 
-## 6. ✅ Best Practices
+## 6. Best Practices
 
 1. **One Block per vehicle per day.** Don't mix multiple vehicles or multiple operating days in a single Block.
 
@@ -139,7 +139,7 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 ---
 
-## 7. ❌ Common Mistakes
+## 7. Common Mistakes
 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|

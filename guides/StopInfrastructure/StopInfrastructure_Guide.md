@@ -275,7 +275,7 @@ flowchart TD
 
 ---
 
-## 7. ✅ Best Practices
+## 7. Best Practices
 
 1. **Every ScheduledStopPoint needs a PassengerStopAssignment.** Without it, journey planners cannot resolve stops to physical platforms.
 
@@ -292,7 +292,7 @@ flowchart TD
 
 ---
 
-## 8. ❌ Common Mistakes
+## 8. Common Mistakes
 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|

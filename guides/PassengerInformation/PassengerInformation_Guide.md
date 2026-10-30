@@ -136,7 +136,7 @@ Key properties:
 
 ---
 
-## 6. ✅ Best Practices
+## 6. Best Practices
 
 1. **Define once, reference many.** Never duplicate DestinationDisplay or Notice text. Create one object and reference it from all journeys that need it.
 
@@ -152,7 +152,7 @@ Key properties:
 
 ---
 
-## 7. ❌ Common Mistakes
+## 7. Common Mistakes
 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|

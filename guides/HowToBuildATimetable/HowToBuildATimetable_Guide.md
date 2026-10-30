@@ -272,7 +272,7 @@ In the Nordic Profile, a timetable dataset is split into a **shared data file** 
 
 ---
 
-## 10. ✅ Checklist — Minimum Viable Timetable
+## 10. Checklist — Minimum Viable Timetable
 
 To produce a working timetable delivery, you need at minimum:
 

@@ -234,7 +234,7 @@ SHACL shapes, profile constraints, and service sub-profiles all reference these 
 
 ---
 
-## 5. ✅ SHACL Validation
+## 5. SHACL Validation
 
 SHACL shapes in `netex-nordic.ttl` and the Entur service sub-profiles (`netex-entur-*.ttl`, e.g. NSR and rolling stock) express constraints that standard tools can validate automatically.
 

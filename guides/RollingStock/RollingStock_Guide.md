@@ -245,7 +245,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 
 ---
 
-## 7. ✅ Best Practices
+## 7. Best Practices
 
 > [!TIP]
 > - **Start from the passenger view** (ServiceJourney) and work down to physical equipment — not the other way around.
@@ -257,7 +257,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 
 ---
 
-## 8. ❌ Common Mistakes
+## 8. Common Mistakes
 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|

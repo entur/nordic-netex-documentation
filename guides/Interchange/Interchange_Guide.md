@@ -199,7 +199,7 @@ Combining the interchange with a transfer-only stop in the journey pattern:
 
 ---
 
-## 5. ✅ Best Practices
+## 5. Best Practices
 
 1. **Use `ServiceJourneyInterchange`**, not `Interchange`, as the XML element name. The schema expects the full name.
 
@@ -217,7 +217,7 @@ Combining the interchange with a transfer-only stop in the journey pattern:
 
 ---
 
-## 6. ❌ Common Mistakes
+## 6. Common Mistakes
 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|

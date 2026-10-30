@@ -85,7 +85,7 @@ This gives you real-time validation, auto-completion of NeTEx elements, and hove
 
 ---
 
-## 4. ✅ Validation Tools
+## 4. Validation Tools
 
 ### Command-Line Validators
 
