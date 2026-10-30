@@ -20,7 +20,7 @@ A **Notice** provides informational or regulatory text associated with public tr
 
 ## 4. References
 
-- [NoticeAssignment](../Interchange/Table_Interchange.md) — Assigns a Notice to a specific timetable object
+- [NoticeAssignment](../../guides/Glossary/Glossary.md#noticeassignment) — Assigns a Notice to a specific timetable object
 
 ## 5. Usage Notes
 

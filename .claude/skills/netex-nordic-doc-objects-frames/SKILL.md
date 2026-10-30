@@ -48,6 +48,8 @@ Visual icon-based tree showing the object's structure.
 - `📁` = Container element (grouping)
 - `🔗` = Reference to another object (always include `@ref`)
 
+These three icons are notation, and are the only emoji allowed on object and frame pages. Use them only inside the structure overview code block — not in headings, lists, tables or prose (see the Emoji section in `netex-nordic-doc-visual`).
+
 **Cardinality on every node:**
 - `(1..1)` = Mandatory, exactly one
 - `(1..n)` = Mandatory, one or more

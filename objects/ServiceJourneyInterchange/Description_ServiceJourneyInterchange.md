@@ -1,10 +1,10 @@
-﻿# Interchange
+﻿# ServiceJourneyInterchange
 
-> *→ [Glossary definition](../../guides/Glossary/Glossary.md#interchange)*
+> *→ [Glossary definition](../../guides/Glossary/Glossary.md#servicejourneyinterchange)*
 
 ## 1. Purpose
 
-An **Interchange** (modelled as `ServiceJourneyInterchange` in XML) represents a planned transfer opportunity between two ServiceJourneys. It defines the conditions under which passengers can transfer from one service to another, including whether the connection is guaranteed, required transfer times, and whether passengers can remain seated. Interchanges support both operational coordination and passenger information.
+A **ServiceJourneyInterchange**, the concrete specialization of abstract Interchange, represents a planned transfer opportunity between two ServiceJourneys. It defines the conditions under which passengers can transfer from one service to another, including whether the connection is guaranteed, required transfer times, and whether passengers can remain seated. Interchanges support both operational coordination and passenger information.
 
 ## 2. Structure Overview
 
@@ -52,12 +52,12 @@ An **Interchange** (modelled as `ServiceJourneyInterchange` in XML) represents a
 
 > [!WARNING]
 > - **Confusing element name**: The XML element is `ServiceJourneyInterchange`, not `Interchange`. Using the wrong element name causes validation failures.
-> - **One-directional**: Each interchange defines a transfer in one direction only (From → To). For bidirectional transfers, create two separate interchange elements.
+> - **One-directional**: Each ServiceJourneyInterchange defines a transfer in one direction only (From → To). For bidirectional transfers, create two separate interchange elements.
 > - **Guaranteed without MaximumWaitTime**: Marking a transfer as guaranteed without specifying MaximumWaitTime leaves operational wait limits undefined.
 
 ## 6. Additional Information
 
-See [Table_Interchange.md](Table_Interchange.md) for detailed attribute specifications.
+See [Table_ServiceJourneyInterchange.md](Table_ServiceJourneyInterchange.md) for detailed attribute specifications.
 
 ### Example provenance
 
@@ -65,5 +65,5 @@ See [Table_Interchange.md](Table_Interchange.md) for detailed attribute specific
 
 | Status | Example |
 |--------|---------|
-| **Constructed** | [Example_Interchange_Constructed.xml](Example_Interchange_Constructed.xml) |
-| Not assessed | [Example_Interchange_NP.xml](Example_Interchange_NP.xml) |
+| **Constructed** | [Example_ServiceJourneyInterchange_Constructed.xml](Example_ServiceJourneyInterchange_Constructed.xml) |
+| Not assessed | [Example_ServiceJourneyInterchange_NP.xml](Example_ServiceJourneyInterchange_NP.xml) |

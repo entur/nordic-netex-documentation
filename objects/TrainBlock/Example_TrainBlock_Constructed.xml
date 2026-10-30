@@ -8,13 +8,16 @@
   <dataObjects>
     <VehicleScheduleFrame id="NP:VehicleScheduleFrame:constructed-Block" version="1">
       <blocks>
-        <Block id="NP:Block:3001" version="1">
+        <TrainBlock id="NP:TrainBlock:3001" version="1">
           <Name>Example train block</Name>
           <Description>Illustrative sequence of train journeys</Description>
           <journeys>
             <VehicleJourneyRef ref="NP:ServiceJourney:3001"/>
           </journeys>
-        </Block>
+          <coupledJourneys>
+            <CoupledJourneyRef ref="NP:CoupledJourney:3001"/>
+          </coupledJourneys>
+        </TrainBlock>
       </blocks>
     </VehicleScheduleFrame>
   </dataObjects>

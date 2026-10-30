@@ -2,7 +2,7 @@
 
 *A guide to the method, workflow, and design principles behind this repository.*
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 This repository documents the Nordic NeTEx Profile — from individual XML elements to complete timetable deliveries. Building it required a method that could handle a complex, interconnected standard without creating inconsistencies or drift between the specification, the examples, and the explanations.
 
@@ -11,15 +11,15 @@ The approach: **start from the schema, generate validated examples, derive struc
 Critically, this was never a "fire and forget" process — neither from the human nor the AI side. Every artefact went through multiple iterations: drafts were reviewed, corrections fed back, templates evolved based on what worked, and earlier documentation was revisited and improved as understanding deepened.
 
 **In this guide you will learn:**
-- 🧱 The three-layer documentation model (Example → Table → Description)
-- 🔄 The bottom-up workflow used to produce each object
-- 🤖 How LLM agents are constrained to produce consistent output
-- 🧪 The validation chain that keeps everything in sync
-- 📐 Design principles that shaped the repository
+- The three-layer documentation model (Example → Table → Description)
+- The bottom-up workflow used to produce each object
+- How LLM agents are constrained to produce consistent output
+- The validation chain that keeps everything in sync
+- Design principles that shaped the repository
 
 ---
 
-## 2. 🧱 The Three-Layer Model
+## 2. The Three-Layer Model
 
 Every NeTEx concept in this repository is documented in three files that serve distinct purposes:
 
@@ -43,7 +43,7 @@ The layers build **bottom-up**: the example is authoritative, the table is deriv
 
 ---
 
-## 3. 🔄 The Production Workflow
+## 3. The Production Workflow
 
 ### 3.1 Starting point: XSD + real data
 
@@ -112,7 +112,7 @@ But "fast" doesn't mean "done." Every guide still goes through iterative improve
 
 ---
 
-## 4. 🤖 The Role of the LLM Agent
+## 4. The Role of the LLM Agent
 
 An AI agent was used as a co-author for most of this documentation. But "co-author" doesn't mean "free to improvise." The agent operates under strict constraints defined in the skills under `.claude/skills/`:
 
@@ -153,7 +153,7 @@ The agent generates fast; the human decides what's correct. Validation catches s
 
 ---
 
-## 5. 🧪 The Validation Chain
+## 5. The Validation Chain
 
 The repository currently runs these checks in CI:
 
@@ -171,7 +171,7 @@ Observed and constructed examples can both pass XSD validation. Their provenance
 
 ---
 
-## 6. 📐 Design Principles
+## 6. Design Principles
 
 ### Define once, reference everywhere
 
@@ -201,7 +201,7 @@ The ontology and the markdown documentation describe the same model. This means 
 
 ---
 
-## 7. 📁 Repository Architecture
+## 7. Repository Architecture
 
 ```
 NeTEx-Nordic/
@@ -222,10 +222,12 @@ NeTEx-Nordic/
 - **Predictable file names:** `Description_X.md`, `Table_X.md`, `Example_X_NP.xml`
 - **Relative links everywhere:** no absolute URLs to internal docs
 - **Pinned XSD release:** the XML validator downloads NeTEx 2.0.0 into `.xsd-cache/`; ontology dependencies are Git submodules
+- **Emoji as identity, not decoration:** one emoji per guide, in its H1 and in navigation links to it; the 📄/📁/🔗 notation in structure overviews; ✅/❌ for do/don't. Everything else uses headings, tables and callouts (see `.claude/skills/netex-nordic-doc-visual`)
+- **Git submodule for XSD:** always pinned to a known-good NeTEx schema version
 
 ---
 
-## 8. 🔗 Related Resources
+## 8. Related Resources
 
 ### Internal
 - [Documentation skill](../../.claude/skills/netex-nordic-documentation/SKILL.md) — Full agent rules and documentation conventions
@@ -264,7 +266,7 @@ The added `*_Observed.xml` files contain anonymized, abbreviated delivery data. 
 
 ### Class names and generator handling
 
-The Interchange example uses ServiceJourneyInterchange; the TrainBlock example uses Block. These are already used by the existing examples. Their mapping in the table generator, and recognition of GML fields, remain separate work. The generator was not changed here.
+The journey-interchange documentation now uses ServiceJourneyInterchange explicitly. Block has its own documentation, and TrainBlock examples use the concrete TrainBlock element. The profile mappings and path roots are aligned with these XML types. Generator support for profile:onClass and inherited metadata, and recognition of GML fields, remain separate work.
 
 ### Validation
 
