@@ -48,4 +48,4 @@ The **AlternativeText** provides supplementary textual descriptions for a NeTEx 
 
 See [Table_AlternativeText.md](Table_AlternativeText.md) for detailed attribute specifications.
 
-Example XML: [AlternativeText.xml](AlternativeText.xml)
+Example XML: [Example_AlternativeText.xml](Example_AlternativeText.xml)

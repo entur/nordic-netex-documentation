@@ -51,7 +51,7 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 - [Operator](../Operator/Table_Operator.md) – Identifies the service provider
 - [Line](../Line/Table_Line.md) – The public transport line being served
 - [DatedServiceJourney](../DatedServiceJourney/Description_DatedServiceJourney.md) – Per-date instances and alterations of this journey
-- [Block](../Block/Table_Block.md) – Optional vehicle/roster grouping
+- Block – Optional vehicle/roster grouping (see the [Vehicle Scheduling guide](../../guides/VehicleScheduling/VehicleScheduling_Guide.md) and [TrainBlock](../TrainBlock/Table_TrainBlock.md))
 
 ## 5. Usage Notes
 
@@ -65,4 +65,12 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 
 For a complete list of all elements, attributes, cardinalities, and data types, see [Table — ServiceJourney](Table_ServiceJourney.md).
 
-Example XML: [Example_ServiceJourney_NP.xml](Example_ServiceJourney_NP.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Observed** | [Example_ServiceJourney_Rail_Observed.xml](Example_ServiceJourney_Rail_Observed.xml) |
+| **Constructed** | [Example_ServiceJourney_Constructed.xml](Example_ServiceJourney_Constructed.xml) |
+| Not assessed | [Example_ServiceJourney_NP.xml](Example_ServiceJourney_NP.xml) |

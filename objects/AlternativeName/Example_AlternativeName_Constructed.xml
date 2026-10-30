@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SiteFrame id="NP:SiteFrame:constructed-AlternativeName" version="1">
+      <stopPlaces>
+        <StopPlace id="NP:StopPlace:3001" version="1">
+          <Name>Example stop</Name>
+          <Centroid>
+            <Location>
+              <Longitude>10.7500</Longitude>
+              <Latitude>59.9100</Latitude>
+            </Location>
+          </Centroid>
+          <alternativeNames>
+            <AlternativeName id="NP:AlternativeName:3001" version="1">
+              <NameType>alias</NameType>
+              <Name>Example interchange</Name>
+              <QualifierName>North entrance</QualifierName>
+            </AlternativeName>
+          </alternativeNames>
+        </StopPlace>
+      </stopPlaces>
+    </SiteFrame>
+  </dataObjects>
+</PublicationDelivery>

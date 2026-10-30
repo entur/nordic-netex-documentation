@@ -45,3 +45,12 @@ ResourceFrame is typically the first frame in a CompositeFrame because other fra
 
 For the full structural specification, see [Table — ResourceFrame](Table_ResourceFrame.md).
 Example XML: [Example_ResourceFrame.xml](Example_ResourceFrame.xml)
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_ResourceFrame_Constructed.xml](Example_ResourceFrame_Constructed.xml) |
+| Not assessed | [Example_ResourceFrame.xml](Example_ResourceFrame.xml) |

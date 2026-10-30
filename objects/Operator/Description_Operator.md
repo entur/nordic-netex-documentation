@@ -65,5 +65,11 @@ Operator
 ## 6. Additional Information
 See [Table_Operator.md](Table_Operator.md) for detailed attribute specifications.
 
-Example XML: [Example_Operator_NP.xml](Example_Operator_NP.xml)
+### Example provenance
 
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_Operator_Constructed.xml](Example_Operator_Constructed.xml) |
+| Not assessed | [Example_Operator_NP.xml](Example_Operator_NP.xml) |

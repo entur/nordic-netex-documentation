@@ -85,30 +85,35 @@ doc:UnprofiledDocumentation a owl:Class ;
 nordic:CompositeFrame
     doc:description "frames/CompositeFrame/Description_CompositeFrame.md" ;
     doc:table "frames/CompositeFrame/Table_CompositeFrame.md" ;
-    doc:example "frames/CompositeFrame/Example_CompositeFrame.xml" .
+    doc:example "frames/CompositeFrame/Example_CompositeFrame.xml" ;
+    doc:example "frames/CompositeFrame/Example_CompositeFrame_Constructed.xml" .
 
 ## FareFrame (NP)
 nordic:FareFrame
     doc:description "frames/FareFrame/Description_FareFrame.md" ;
     doc:table "frames/FareFrame/Table_FareFrame.md" ;
-    doc:example "frames/FareFrame/Example_FareFrame.xml" .
+    doc:example "frames/FareFrame/Example_FareFrame.xml" ;
+    doc:example "frames/FareFrame/Example_FareFrame_Constructed.xml" .
 
 ## ResourceFrame (NP)
 nordic:ResourceFrame
     doc:description "frames/ResourceFrame/Description_ResourceFrame.md" ;
     doc:table "frames/ResourceFrame/Table_ResourceFrame.md" ;
-    doc:example "frames/ResourceFrame/Example_ResourceFrame.xml" .
+    doc:example "frames/ResourceFrame/Example_ResourceFrame.xml" ;
+    doc:example "frames/ResourceFrame/Example_ResourceFrame_Constructed.xml" .
 
 ## SalesTransactionFrame (NP)
 nordic:SalesTransactionFrame
     doc:description "frames/SalesTransactionFrame/Description_SalesTransactionFrame.md" ;
-    doc:table "frames/SalesTransactionFrame/Table_SalesTransactionFrame.md" .
+    doc:table "frames/SalesTransactionFrame/Table_SalesTransactionFrame.md" ;
+    doc:example "frames/SalesTransactionFrame/Example_SalesTransactionFrame_Constructed.xml" .
 
 ## ServiceCalendarFrame (NP)
 nordic:ServiceCalendarFrame
     doc:description "frames/ServiceCalendarFrame/Description_ServiceCalendarFrame.md" ;
     doc:table "frames/ServiceCalendarFrame/Table_ServiceCalendarFrame.md" ;
-    doc:example "frames/ServiceCalendarFrame/Example_ServiceCalendarFrame.xml" .
+    doc:example "frames/ServiceCalendarFrame/Example_ServiceCalendarFrame.xml" ;
+    doc:example "frames/ServiceCalendarFrame/Example_ServiceCalendarFrame_Observed.xml" .
 
 ## ServiceFrame (NP)
 nordic:ServiceFrame
@@ -120,13 +125,15 @@ nordic:ServiceFrame
 nordic:SiteFrame
     doc:description "frames/SiteFrame/Description_SiteFrame.md" ;
     doc:table "frames/SiteFrame/Table_SiteFrame.md" ;
-    doc:example "frames/SiteFrame/Example_SiteFrame.xml" .
+    doc:example "frames/SiteFrame/Example_SiteFrame.xml" ;
+    doc:example "frames/SiteFrame/Example_SiteFrame_Constructed.xml" .
 
 ## TimetableFrame (NP)
 nordic:TimetableFrame
     doc:description "frames/TimetableFrame/Description_TimetableFrame.md" ;
     doc:table "frames/TimetableFrame/Table_TimetableFrame.md" ;
-    doc:example "frames/TimetableFrame/Example_TimetableFrame.xml" .
+    doc:example "frames/TimetableFrame/Example_TimetableFrame.xml" ;
+    doc:example "frames/TimetableFrame/Example_TimetableFrame_Connections_Observed.xml" .
 
 ## VehicleScheduleFrame (Entur)
 entur:VehicleScheduleFrame
@@ -142,18 +149,29 @@ entur:VehicleScheduleFrame
 nordic:AlternativeName
     doc:description "objects/AlternativeName/Description_AlternativeName.md" ;
     doc:table "objects/AlternativeName/Table_AlternativeName.md" ;
+    doc:example "objects/AlternativeName/Example_AlternativeName_Constructed.xml" ;
     doc:example "objects/AlternativeName/Example_AlternativeName_NP.xml" .
 
 ## AlternativeText (NP)
 nordic:AlternativeText
     doc:description "objects/AlternativeText/Description_AlternativeText.md" ;
-    doc:table "objects/AlternativeText/Table_AlternativeText.md" .
+    doc:table "objects/AlternativeText/Table_AlternativeText.md" ;
+    doc:example "objects/AlternativeText/Example_AlternativeText.xml" .
 
 ## Authority (NP)
 nordic:Authority
     doc:description "objects/Authority/Description_Authority.md" ;
     doc:table "objects/Authority/Table_Authority.md" ;
+    doc:example "objects/Authority/Example_Authority_Constructed.xml" ;
     doc:example "objects/Authority/Example_Authority_NP.xml" .
+
+## Block (no profile node yet)
+unprofiled:Block
+    a doc:UnprofiledDocumentation ;
+    doc:forClass netex:Block ;
+    doc:description "objects/Block/Description_Block.md" ;
+    doc:table "objects/Block/Table_Block.md" ;
+    doc:example "objects/Block/Example_Block_Constructed.xml" .
 
 ## Codespace (NP)
 nordic:Codespace
@@ -170,7 +188,8 @@ entur:CompoundTrain
 ## Contract (Entur)
 entur:Contract
     doc:description "objects/Contract/Description_Contract.md" ;
-    doc:table "objects/Contract/Table_Contract.md" .
+    doc:table "objects/Contract/Table_Contract.md" ;
+    doc:example "objects/Contract/Example_Contract_Constructed.xml" .
 
 ## DatedServiceJourney (Entur)
 entur:DatedServiceJourney
@@ -186,6 +205,7 @@ entur:DatedServiceJourney
 nordic:DayType
     doc:description "objects/DayType/Description_DayType.md" ;
     doc:table "objects/DayType/Table_DayType.md" ;
+    doc:example "objects/DayType/Example_DayType_Constructed.xml" ;
     doc:example "objects/DayType/Example_DayType_NP.xml" .
 
 ## DayTypeAssignment (NP)
@@ -198,46 +218,49 @@ nordic:DayTypeAssignment
 nordic:DestinationDisplay
     doc:description "objects/DestinationDisplay/Description_DestinationDisplay.md" ;
     doc:table "objects/DestinationDisplay/Table_DestinationDisplay.md" ;
-    doc:example "objects/DestinationDisplay/Example_DestinationDisplay_NP.xml" .
+    doc:example "objects/DestinationDisplay/Example_DestinationDisplay_Constructed.xml" ;
+    doc:example "objects/DestinationDisplay/Example_DestinationDisplay_NP.xml" ;
+    doc:example "objects/DestinationDisplay/Example_DestinationDisplay_Rail_Observed.xml" .
 
 ## FareContract (Entur)
 entur:FareContract
     doc:description "objects/FareContract/Description_FareContract.md" ;
-    doc:table "objects/FareContract/Table_FareContract.md" .
+    doc:table "objects/FareContract/Table_FareContract.md" ;
+    doc:example "objects/FareContract/Example_FareContract_Constructed.xml" .
 
 ## FareZone (Entur)
 entur:FareZone
     doc:description "objects/FareZone/Description_FareZone.md" ;
     doc:table "objects/FareZone/Table_FareZone.md" ;
-    doc:example "objects/FareZone/Example_FareZone.xml" .
+    doc:example "objects/FareZone/Example_FareZone.xml" ;
+    doc:example "objects/FareZone/Example_FareZone_Constructed.xml" .
 
 ## FlexibleServiceProperties (NP)
 nordic:FlexibleServiceProperties
     doc:description "objects/FlexibleServiceProperties/Description_FlexibleServiceProperties.md" ;
-    doc:table "objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md" .
+    doc:table "objects/FlexibleServiceProperties/Table_FlexibleServiceProperties.md" ;
+    doc:example "objects/FlexibleServiceProperties/Example_FlexibleServiceProperties.xml" .
 
 ## GroupOfLines (NP)
 nordic:GroupOfLines
     doc:description "objects/GroupOfLines/Description_GroupOfLines.md" ;
     doc:table "objects/GroupOfLines/Table_GroupOfLines.md" ;
-    doc:example "objects/GroupOfLines/Example_GroupOfLines.xml" .
-
-## Interchange (NP)
-nordic:Interchange
-    doc:description "objects/Interchange/Description_Interchange.md" ;
-    doc:table "objects/Interchange/Table_Interchange.md" ;
-    doc:example "objects/Interchange/Example_Interchange_NP.xml" .
+    doc:example "objects/GroupOfLines/Example_GroupOfLines.xml" ;
+    doc:example "objects/GroupOfLines/Example_GroupOfLines_Constructed.xml" .
 
 ## JourneyPattern (NP)
 nordic:JourneyPattern
     doc:description "objects/JourneyPattern/Description_JourneyPattern.md" ;
     doc:table "objects/JourneyPattern/Table_JourneyPattern.md" ;
-    doc:example "objects/JourneyPattern/Example_JourneyPattern_NP.xml" .
+    doc:example "objects/JourneyPattern/Example_JourneyPattern_Constructed.xml" ;
+    doc:example "objects/JourneyPattern/Example_JourneyPattern_NP.xml" ;
+    doc:example "objects/JourneyPattern/Example_JourneyPattern_RequestStops_Observed.xml" .
 
 ## Line (NP)
 nordic:Line
     doc:description "objects/Line/Description_Line.md" ;
     doc:table "objects/Line/Table_Line.md" ;
+    doc:example "objects/Line/Example_Line_Constructed.xml" ;
     doc:example "objects/Line/Example_Line_NP.xml" .
 
 ## LinkSequenceProjection (NP)
@@ -249,7 +272,9 @@ nordic:LinkSequenceProjection
 ## Network (NP)
 nordic:Network
     doc:description "objects/Network/Description_Network.md" ;
-    doc:table "objects/Network/Table_Network.md" .
+    doc:table "objects/Network/Table_Network.md" ;
+    doc:example "objects/Network/Example_Network_Constructed.xml" ;
+    doc:example "objects/Network/Example_Network_Observed.xml" .
 
 ## Notice (NP)
 nordic:Notice
@@ -261,6 +286,7 @@ nordic:Notice
 nordic:OperatingDay
     doc:description "objects/OperatingDay/Description_OperatingDay.md" ;
     doc:table "objects/OperatingDay/Table_OperatingDay.md" ;
+    doc:example "objects/OperatingDay/Example_OperatingDay_Constructed.xml" ;
     doc:example "objects/OperatingDay/Example_OperatingDay_NP.xml" .
 
 ## OperatingPeriod (NP)
@@ -273,6 +299,7 @@ nordic:OperatingPeriod
 nordic:Operator
     doc:description "objects/Operator/Description_Operator.md" ;
     doc:table "objects/Operator/Table_Operator.md" ;
+    doc:example "objects/Operator/Example_Operator_Constructed.xml" ;
     doc:example "objects/Operator/Example_Operator_NP.xml" .
 
 ## Organisation (no profile node - intentional)
@@ -286,6 +313,7 @@ unprofiled:Organisation
 nordic:Parking
     doc:description "objects/Parking/Description_Parking.md" ;
     doc:table "objects/Parking/Table_Parking.md" ;
+    doc:example "objects/Parking/Example_Parking_Constructed.xml" ;
     doc:example "objects/Parking/Example_Parking_NP.xml" .
 
 ## PassengerStopAssignment (NP)
@@ -297,12 +325,14 @@ nordic:PassengerStopAssignment
 ## PurposeOfGrouping (NP)
 nordic:PurposeOfGrouping
     doc:description "objects/PurposeOfGrouping/Description_PurposeOfGrouping.md" ;
-    doc:table "objects/PurposeOfGrouping/Table_PurposeOfGrouping.md" .
+    doc:table "objects/PurposeOfGrouping/Table_PurposeOfGrouping.md" ;
+    doc:example "objects/PurposeOfGrouping/Example_PurposeOfGrouping.xml" .
 
 ## Quay (NP)
 nordic:Quay
     doc:description "objects/Quay/Description_Quay.md" ;
     doc:table "objects/Quay/Table_Quay.md" ;
+    doc:example "objects/Quay/Example_Quay_Constructed.xml" ;
     doc:example "objects/Quay/Example_Quay_NP.xml" .
 
 ## ResponsibilitySet (NP)
@@ -310,18 +340,22 @@ nordic:ResponsibilitySet
     doc:description "objects/ResponsibilitySet/Description_ResponsibilitySet.md" ;
     doc:table "objects/ResponsibilitySet/Table_ResponsibilitySet.md" ;
     doc:example "objects/ResponsibilitySet/Example_ResponsibilitySet.xml" ;
+    doc:example "objects/ResponsibilitySet/Example_ResponsibilitySet_Constructed.xml" ;
     doc:example "objects/ResponsibilitySet/Example_ResponsibilitySet_Contract.xml" .
 
 ## Route (NP)
 nordic:Route
     doc:description "objects/Route/Description_Route.md" ;
     doc:table "objects/Route/Table_Route.md" ;
+    doc:example "objects/Route/Example_Route_Constructed.xml" ;
+    doc:example "objects/Route/Example_Route_Inverse_Observed.xml" ;
     doc:example "objects/Route/Example_Route_NP.xml" .
 
 ## RoutePoint (NP)
 nordic:RoutePoint
     doc:description "objects/RoutePoint/Description_RoutePoint.md" ;
     doc:table "objects/RoutePoint/Table_RoutePoint.md" ;
+    doc:example "objects/RoutePoint/Example_RoutePoint_Constructed.xml" ;
     doc:example "objects/RoutePoint/Example_RoutePoint_NP.xml" .
 
 ## SanitaryEquipment (NP)
@@ -334,6 +368,7 @@ nordic:SanitaryEquipment
 nordic:ScheduledStopPoint
     doc:description "objects/ScheduledStopPoint/Description_ScheduledStopPoint.md" ;
     doc:table "objects/ScheduledStopPoint/Table_ScheduledStopPoint.md" ;
+    doc:example "objects/ScheduledStopPoint/Example_ScheduledStopPoint_Constructed.xml" ;
     doc:example "objects/ScheduledStopPoint/Example_ScheduledStopPoint_NP.xml" .
 
 ## ServiceCalendar (NP)
@@ -346,12 +381,24 @@ nordic:ServiceCalendar
 nordic:ServiceJourney
     doc:description "objects/ServiceJourney/Description_ServiceJourney.md" ;
     doc:table "objects/ServiceJourney/Table_ServiceJourney.md" ;
-    doc:example "objects/ServiceJourney/Example_ServiceJourney_NP.xml" .
+    doc:example "objects/ServiceJourney/Example_ServiceJourney_Constructed.xml" ;
+    doc:example "objects/ServiceJourney/Example_ServiceJourney_NP.xml" ;
+    doc:example "objects/ServiceJourney/Example_ServiceJourney_Rail_Observed.xml" .
+
+## ServiceJourneyInterchange (no profile node yet)
+unprofiled:ServiceJourneyInterchange
+    a doc:UnprofiledDocumentation ;
+    doc:forClass netex:ServiceJourneyInterchange ;
+    doc:description "objects/ServiceJourneyInterchange/Description_ServiceJourneyInterchange.md" ;
+    doc:table "objects/ServiceJourneyInterchange/Table_ServiceJourneyInterchange.md" ;
+    doc:example "objects/ServiceJourneyInterchange/Example_ServiceJourneyInterchange_Constructed.xml" ;
+    doc:example "objects/ServiceJourneyInterchange/Example_ServiceJourneyInterchange_NP.xml" .
 
 ## ServiceLink (NP)
 nordic:ServiceLink
     doc:description "objects/ServiceLink/Description_ServiceLink.md" ;
     doc:table "objects/ServiceLink/Table_ServiceLink.md" ;
+    doc:example "objects/ServiceLink/Example_ServiceLink_Constructed.xml" ;
     doc:example "objects/ServiceLink/Example_ServiceLink_NP.xml" .
 
 ## ShelterEquipment (NP)
@@ -370,12 +417,14 @@ nordic:SiteConnection
 nordic:StopPlace
     doc:description "objects/StopPlace/Description_StopPlace.md" ;
     doc:table "objects/StopPlace/Table_StopPlace.md" ;
+    doc:example "objects/StopPlace/Example_StopPlace_Constructed.xml" ;
     doc:example "objects/StopPlace/Example_StopPlace_NP.xml" .
 
 ## TariffZone (NP)
 nordic:TariffZone
     doc:description "objects/TariffZone/Description_TariffZone.md" ;
     doc:table "objects/TariffZone/Table_TariffZone.md" ;
+    doc:example "objects/TariffZone/Example_TariffZone_Constructed.xml" ;
     doc:example "objects/TariffZone/Example_TariffZone_NP.xml" .
 
 ## TicketingEquipment (NP)
@@ -388,6 +437,7 @@ nordic:TicketingEquipment
 nordic:TopographicPlace
     doc:description "objects/TopographicPlace/Description_TopographicPlace.md" ;
     doc:table "objects/TopographicPlace/Table_TopographicPlace.md" ;
+    doc:example "objects/TopographicPlace/Example_TopographicPlace_Constructed.xml" ;
     doc:example "objects/TopographicPlace/Example_TopographicPlace_NP.xml" .
 
 ## Train (Entur)
@@ -400,7 +450,8 @@ entur:Train
 entur:TrainBlock
     doc:description "objects/TrainBlock/Description_TrainBlock.md" ;
     doc:table "objects/TrainBlock/Table_TrainBlock.md" ;
-    doc:example "objects/TrainBlock/Example_TrainBlock.xml" .
+    doc:example "objects/TrainBlock/Example_TrainBlock.xml" ;
+    doc:example "objects/TrainBlock/Example_TrainBlock_Constructed.xml" .
 
 ## TrainNumber (NP)
 nordic:TrainNumber
@@ -418,7 +469,8 @@ nordic:Vehicle
 nordic:VehicleType
     doc:description "objects/VehicleType/Description_VehicleType.md" ;
     doc:table "objects/VehicleType/Table_VehicleType.md" ;
-    doc:example "objects/VehicleType/Example_VehicleType.xml" .
+    doc:example "objects/VehicleType/Example_VehicleType.xml" ;
+    doc:example "objects/VehicleType/Example_VehicleType_Constructed.xml" .
 
 ## WaitingRoomEquipment (NP)
 nordic:WaitingRoomEquipment
@@ -470,6 +522,7 @@ guide:Glossary
     doc:covers nordic:AlternativeName ;
     doc:covers nordic:AlternativeText ;
     doc:covers nordic:Authority ;
+    doc:covers unprofiled:Block ;
     doc:covers nordic:Codespace ;
     doc:covers nordic:CompositeFrame ;
     doc:covers entur:Contract ;
@@ -482,7 +535,6 @@ guide:Glossary
     doc:covers entur:FareZone ;
     doc:covers nordic:FlexibleServiceProperties ;
     doc:covers nordic:GroupOfLines ;
-    doc:covers nordic:Interchange ;
     doc:covers nordic:JourneyPattern ;
     doc:covers nordic:Line ;
     doc:covers nordic:LinkSequenceProjection ;
@@ -505,6 +557,7 @@ guide:Glossary
     doc:covers nordic:ServiceCalendarFrame ;
     doc:covers nordic:ServiceFrame ;
     doc:covers nordic:ServiceJourney ;
+    doc:covers unprofiled:ServiceJourneyInterchange ;
     doc:covers nordic:ShelterEquipment ;
     doc:covers nordic:SiteConnection ;
     doc:covers nordic:SiteFrame ;
@@ -541,10 +594,10 @@ guide:Interchange
     rdfs:label "Interchange & InterchangeOnly Guide" ;
     doc:path "guides/Interchange/Interchange_Guide.md" ;
     doc:example "guides/Interchange/Example_Interchange.xml" ;
-    doc:covers nordic:Interchange ;
     doc:covers nordic:JourneyPattern ;
     doc:covers nordic:ScheduledStopPoint ;
     doc:covers nordic:ServiceJourney ;
+    doc:covers unprofiled:ServiceJourneyInterchange ;
     doc:covers nordic:TimetableFrame .
 
 ## NeTExConventions
@@ -633,6 +686,7 @@ guide:VehicleScheduling
     rdfs:label "Vehicle Scheduling — Blocks, Vehicles & Fleet Assignment" ;
     doc:path "guides/VehicleScheduling/VehicleScheduling_Guide.md" ;
     doc:example "guides/VehicleScheduling/Example_VehicleScheduling.xml" ;
+    doc:covers unprofiled:Block ;
     doc:covers nordic:ResourceFrame ;
     doc:covers entur:TrainBlock ;
     doc:covers nordic:Vehicle ;

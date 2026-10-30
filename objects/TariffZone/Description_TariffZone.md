@@ -55,4 +55,11 @@ TariffZone
 
 See [Table_TariffZone.md](Table_TariffZone.md) for detailed attribute specifications.
 
-Example XML: [Example_TariffZone_NP.xml](Example_TariffZone_NP.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_TariffZone_Constructed.xml](Example_TariffZone_Constructed.xml) |
+| Not assessed | [Example_TariffZone_NP.xml](Example_TariffZone_NP.xml) |

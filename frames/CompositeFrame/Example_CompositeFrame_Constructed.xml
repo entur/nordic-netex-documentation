@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:constructed-CompositeFrame" version="1">
+      <frames>
+        <SiteFrame id="NP:SiteFrame:constructed-composite" version="1"/>
+        <VehicleScheduleFrame id="NP:VehicleScheduleFrame:constructed-composite" version="1"/>
+        <FareFrame id="NP:FareFrame:constructed-composite" version="1"/>
+        <SalesTransactionFrame id="NP:SalesTransactionFrame:constructed-composite" version="1"/>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>

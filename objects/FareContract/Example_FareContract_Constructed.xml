@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <SalesTransactionFrame id="NP:SalesTransactionFrame:constructed-FareContract" version="1">
+      <fareContracts>
+        <FareContract id="NP:FareContract:3001" version="1">
+          <Name>Illustrative subscription</Name>
+          <CustomerAccountRef ref="NP:CustomerAccount:3001"/>
+          <TypeOfFareContractRef ref="NP:TypeOfFareContract:3001"/>
+          <fareContractEntries>
+            <!-- FareContractEntry is abstract in NeTEx 2.0; TravelSpecification is a concrete entry. -->
+            <TravelSpecification id="NP:TravelSpecification:3001" version="1">
+              <Date>2026-10-28T12:00:00Z</Date>
+              <IsValid>true</IsValid>
+              <FareContractRef ref="NP:FareContract:3001"/>
+            </TravelSpecification>
+          </fareContractEntries>
+        </FareContract>
+      </fareContracts>
+    </SalesTransactionFrame>
+  </dataObjects>
+</PublicationDelivery>

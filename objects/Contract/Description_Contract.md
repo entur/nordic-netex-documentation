@@ -58,4 +58,10 @@ A **Contract** defines the legal or commercial agreement that governs responsibi
 
 See [Table_Contract.md](Table_Contract.md) for detailed attribute specifications.
 
-Example XML: *(no NP example yet)*
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_Contract_Constructed.xml](Example_Contract_Constructed.xml) |

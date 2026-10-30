@@ -1,56 +1,196 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
-  <PublicationTimestamp>2026-03-17T12:00:00Z</PublicationTimestamp>
+  <PublicationTimestamp>2026-10-27T23:01:36.598</PublicationTimestamp>
   <ParticipantRef>NP</ParticipantRef>
   <dataObjects>
     <SiteFrame id="NSR:SiteFrame:stops:1" version="1">
+      <topographicPlaces>
+        <TopographicPlace id="KVE:TopographicPlace:0301" version="14">
+          <Descriptor>
+            <Name lang="nor">Oslo</Name>
+          </Descriptor>
+          <TopographicPlaceType>municipality</TopographicPlaceType>
+          <CountryRef ref="no"/>
+        </TopographicPlace>
+      </topographicPlaces>
       <stopPlaces>
-        <StopPlace id="NSR:StopPlace:59977" version="1">
+        <!-- Abbreviated from tiamat-export-Current-202610272300488814.xml (2026-10-27). -->
+        <!-- Multimodal parent and three selected bus/tram children; one Quay per child. -->
+        <!-- The multimodal parent has neither TransportMode nor quays. -->
+        <StopPlace created="2017-10-04T14:33:12.909" changed="2026-04-22T13:44:09.344" modification="new" version="96" id="NSR:StopPlace:58366">
           <ValidBetween>
-            <FromDate>2020-01-01T00:00:00.000</FromDate>
+            <FromDate>2026-04-22T13:44:09.298</FromDate>
           </ValidBetween>
           <keyList>
             <KeyValue>
-              <Key>imported-id</Key>
-              <Value>NP:StopArea:9060006</Value>
+              <Key>IS_PARENT_STOP_PLACE</Key>
+              <Value>true</Value>
             </KeyValue>
           </keyList>
-          <Name lang="nor">Oslo S</Name>
+          <Name lang="nor">Jernbanetorget</Name>
           <Centroid>
             <Location>
-              <Longitude>10.752245</Longitude>
-              <Latitude>59.910890</Latitude>
+              <Longitude>10.750380</Longitude>
+              <Latitude>59.911898</Latitude>
             </Location>
           </Centroid>
-          <AccessibilityAssessment id="NSR:AccessibilityAssessment:59977" version="1">
-            <MobilityImpairedAccess>true</MobilityImpairedAccess>
+          <TopographicPlaceRef ref="KVE:TopographicPlace:0301" created="2026-10-27T23:02:47.954" version="14"/>
+          <tariffZones>
+            <TariffZoneRef ref="RUT:TariffZone:1" version="9"/>
+          </tariffZones>
+          <Weighting>interchangeAllowed</Weighting>
+        </StopPlace>
+        <!-- Monomodal child linked to the parent by ParentSiteRef. -->
+        <StopPlace created="2017-06-19T21:17:47.088" changed="2026-04-22T13:44:09.344" modification="new" version="98" id="NSR:StopPlace:3986">
+          <keyList>
+            <KeyValue>
+              <Key>imported-id</Key>
+              <Value>RUT:StopPlace:3010007,RUT:StopPlace:03010007</Value>
+            </KeyValue>
+          </keyList>
+          <Name lang="nor">Jernbanetorget</Name>
+          <Description lang="nor">ved Europarådets plass</Description>
+          <Centroid>
+            <Location>
+              <Longitude>10.749892</Longitude>
+              <Latitude>59.912282</Latitude>
+            </Location>
+          </Centroid>
+          <TopographicPlaceRef ref="KVE:TopographicPlace:0301" created="2026-10-27T23:02:48.124" version="14"/>
+          <ParentSiteRef ref="NSR:StopPlace:58366" version="96"/>
+          <adjacentSites>
+            <SiteRef ref="NSR:StopPlace:59734"/>
+          </adjacentSites>
+          <TransportMode>tram</TransportMode>
+          <tariffZones>
+            <TariffZoneRef ref="RUT:TariffZone:1" version="9"/>
+          </tariffZones>
+          <StopPlaceType>onstreetTram</StopPlaceType>
+          <Weighting>interchangeAllowed</Weighting>
+          <quays>
+            <Quay changed="2022-07-04T11:51:44.827" modification="new" version="104" id="NSR:Quay:7176">
+              <PrivateCode>12</PrivateCode>
+              <Centroid>
+                <Location>
+                  <Longitude>10.749612</Longitude>
+                  <Latitude>59.912325</Latitude>
+                </Location>
+              </Centroid>
+              <PublicCode>F</PublicCode>
+            </Quay>
+          </quays>
+        </StopPlace>
+        <!-- Monomodal child linked to the parent by ParentSiteRef. -->
+        <StopPlace created="2018-10-08T13:50:59.386" changed="2026-04-22T13:44:09.344" modification="new" version="67" id="NSR:StopPlace:59734">
+          <keyList>
+            <KeyValue>
+              <Key>imported-id</Key>
+              <Value>RUT:StopPlace:3010007,RUT:StopPlace:03010007</Value>
+            </KeyValue>
+          </keyList>
+          <Name lang="nor">Jernbanetorget</Name>
+          <Description lang="nor">ved Europarådets plass</Description>
+          <Centroid>
+            <Location>
+              <Longitude>10.749948</Longitude>
+              <Latitude>59.912244</Latitude>
+            </Location>
+          </Centroid>
+          <TopographicPlaceRef ref="KVE:TopographicPlace:0301" created="2026-10-27T23:03:20.227" version="14"/>
+          <ParentSiteRef ref="NSR:StopPlace:58366" version="96"/>
+          <adjacentSites>
+            <SiteRef ref="NSR:StopPlace:3986"/>
+          </adjacentSites>
+          <TransportMode>bus</TransportMode>
+          <tariffZones>
+            <TariffZoneRef ref="RUT:TariffZone:1" version="9"/>
+          </tariffZones>
+          <StopPlaceType>onstreetBus</StopPlaceType>
+          <Weighting>interchangeAllowed</Weighting>
+          <quays>
+            <Quay changed="2025-02-17T13:21:10.374" modification="new" version="103" id="NSR:Quay:104022">
+              <PrivateCode>11</PrivateCode>
+              <Centroid>
+                <Location>
+                  <Longitude>10.750119</Longitude>
+                  <Latitude>59.912237</Latitude>
+                </Location>
+              </Centroid>
+              <PublicCode>E</PublicCode>
+            </Quay>
+          </quays>
+        </StopPlace>
+        <!-- Monomodal child linked to the parent by ParentSiteRef. -->
+        <StopPlace created="2022-07-04T10:19:33.19" changed="2026-04-22T13:44:09.344" modification="new" version="23" id="NSR:StopPlace:62122">
+          <keyList>
+            <KeyValue>
+              <Key>imported-id</Key>
+              <Value>RUT:StopPlace:3010005,RUT:StopPlace:03010005</Value>
+            </KeyValue>
+          </keyList>
+          <Name lang="nor">Jernbanetorget</Name>
+          <Centroid>
+            <Location>
+              <Longitude>10.748725</Longitude>
+              <Latitude>59.909207</Latitude>
+            </Location>
+          </Centroid>
+          <AccessibilityAssessment modification="new" version="23" id="NSR:AccessibilityAssessment:64521">
+            <MobilityImpairedAccess>unknown</MobilityImpairedAccess>
             <limitations>
-              <AccessibilityLimitation>
-                <WheelchairAccess>true</WheelchairAccess>
-                <StepFreeAccess>true</StepFreeAccess>
+              <AccessibilityLimitation modification="new" version="18" id="210357">
+                <WheelchairAccess>unknown</WheelchairAccess>
+                <StepFreeAccess>unknown</StepFreeAccess>
+                <EscalatorFreeAccess>unknown</EscalatorFreeAccess>
+                <LiftFreeAccess>unknown</LiftFreeAccess>
+                <AudibleSignalsAvailable>unknown</AudibleSignalsAvailable>
+                <VisualSignsAvailable>unknown</VisualSignsAvailable>
               </AccessibilityLimitation>
             </limitations>
           </AccessibilityAssessment>
-          <TopographicPlaceRef ref="NSR:TopographicPlace:Oslo"/>
-          <TransportMode>rail</TransportMode>
-          <StopPlaceType>railStation</StopPlaceType>
+          <alternativeNames>
+            <AlternativeName modification="new" version="20" id="NSR:AlternativeName:3260">
+              <NameType>alias</NameType>
+              <Name lang="nor">Tollboden</Name>
+            </AlternativeName>
+          </alternativeNames>
+          <TopographicPlaceRef ref="KVE:TopographicPlace:0301" created="2026-10-27T23:03:23.313" version="14"/>
+          <ParentSiteRef ref="NSR:StopPlace:58366" version="96"/>
+          <TransportMode>bus</TransportMode>
+          <BusSubmode>localBus</BusSubmode>
+          <tariffZones>
+            <TariffZoneRef ref="RUT:TariffZone:1" version="9"/>
+          </tariffZones>
+          <StopPlaceType>onstreetBus</StopPlaceType>
           <Weighting>interchangeAllowed</Weighting>
           <quays>
-            <Quay id="NSR:Quay:107401" version="1">
-              <Name lang="nor">Spor 1</Name>
-              <PrivateCode type="StopPoint">1</PrivateCode>
+            <Quay changed="2026-04-22T13:44:09.297" modification="new" version="37" id="NSR:Quay:7158">
+              <Description lang="nor">i Tollbugata</Description>
+              <PrivateCode>1</PrivateCode>
               <Centroid>
                 <Location>
-                  <Longitude>10.752300</Longitude>
-                  <Latitude>59.910950</Latitude>
+                  <Longitude>10.749527</Longitude>
+                  <Latitude>59.909041</Latitude>
                 </Location>
               </Centroid>
-              <PublicCode>1</PublicCode>
-              <CompassBearing>85.0</CompassBearing>
+              <placeEquipments>
+                <ShelterEquipment modification="new" version="1" id="NSR:ShelterEquipment:39214">
+                  <Seats>1</Seats>
+                  <StepFree>false</StepFree>
+                  <Enclosed>false</Enclosed>
+                </ShelterEquipment>
+              </placeEquipments>
+              <PublicCode>N</PublicCode>
+              <CompassBearing>111.0</CompassBearing>
             </Quay>
           </quays>
         </StopPlace>
       </stopPlaces>
+      <tariffZones>
+        <TariffZone id="RUT:TariffZone:1" version="9">
+          <Name lang="nor">1</Name>
+        </TariffZone>
+      </tariffZones>
     </SiteFrame>
   </dataObjects>
 </PublicationDelivery>

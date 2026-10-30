@@ -29,3 +29,5 @@ VehicleScheduleFrame depends on **TimetableFrame** for the ServiceJourneys and D
 
 For the full structural specification, see [Table — VehicleScheduleFrame](Table_VehicleScheduleFrame.md).
 Example XML: [Example_VehicleScheduleFrame.xml](Example_VehicleScheduleFrame.xml)
+
+See [Block](../../objects/Block/Description_Block.md) for the general XML type and [TrainBlock](../../objects/TrainBlock/Description_TrainBlock.md) for its concrete rail specialization.
