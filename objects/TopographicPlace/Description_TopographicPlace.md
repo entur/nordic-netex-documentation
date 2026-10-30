@@ -60,4 +60,11 @@ TopographicPlace
 
 See [Table_TopographicPlace.md](Table_TopographicPlace.md) for detailed attribute specifications.
 
-Example XML: [Example_TopographicPlace_NP.xml](Example_TopographicPlace_NP.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_TopographicPlace_Constructed.xml](Example_TopographicPlace_Constructed.xml) |
+| Not assessed | [Example_TopographicPlace_NP.xml](Example_TopographicPlace_NP.xml) |

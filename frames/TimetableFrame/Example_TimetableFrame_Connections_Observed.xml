@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: OBSERVED (anonymized source extract, not a constructed domain example). -->
+  <PublicationTimestamp>2026-10-09T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <!-- Observed content: The domain elements and field usage are based on a real delivery. -->
+  <!-- Source: GOA_L50.xml from the supplied 2026-10-09 rail export. -->
+  <!-- Adaptation: identifiers use neutral NP codes and versions are normalized; reference versions are omitted. -->
+  <!-- Adaptation: One notice assignment and one guaranteed connection are retained. -->
+  <!-- Adaptation: the abbreviated publication envelope, timestamp and frame identifiers are illustrative. -->
+  <!-- External references require other frames from a complete delivery. Observed usage does not establish profile requirements. -->
+  <dataObjects>
+    <TimetableFrame id="NP:TimetableFrame:connections" version="1">
+      <noticeAssignments>
+        <NoticeAssignment order="1" version="1" id="NP:NoticeAssignment:2001">
+          <NoticeRef ref="NP:Notice:2001"/>
+          <NoticedObjectRef ref="NP:ServiceJourney:2003"/>
+        </NoticeAssignment>
+      </noticeAssignments>
+      <journeyInterchanges>
+        <ServiceJourneyInterchange version="1" id="NP:ServiceJourneyInterchange:2001">
+          <Guaranteed>true</Guaranteed>
+          <FromPointRef ref="NP:ScheduledStopPoint:2003"/>
+          <ToPointRef ref="NP:ScheduledStopPoint:2009"/>
+          <FromJourneyRef ref="NP:ServiceJourney:2004"/>
+          <ToJourneyRef ref="NP:ServiceJourney:2005"/>
+        </ServiceJourneyInterchange>
+      </journeyInterchanges>
+    </TimetableFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:constructed-Line" version="1">
+      <lines>
+        <Line id="NP:Line:3001" version="1">
+          <Name>Example rail line</Name>
+          <TransportMode>rail</TransportMode>
+          <TransportSubmode>
+            <RailSubmode>regionalRail</RailSubmode>
+          </TransportSubmode>
+          <TypeOfLineRef ref="NP:TypeOfLine:3001"/>
+          <Monitored>true</Monitored>
+          <AccessibilityAssessment id="NP:AccessibilityAssessment:3001" version="1">
+            <MobilityImpairedAccess>true</MobilityImpairedAccess>
+          </AccessibilityAssessment>
+          <allowedDirections>
+            <AllowedLineDirection id="NP:AllowedLineDirection:3001" version="1">
+              <DirectionRef ref="NP:Direction:3001"/>
+            </AllowedLineDirection>
+          </allowedDirections>
+          <documentLinks>
+            <InfoLink>https://example.org/line-guide</InfoLink>
+          </documentLinks>
+        </Line>
+        <Line id="NP:Line:3002" version="1">
+          <Name>Example water line</Name>
+          <TransportMode>water</TransportMode>
+          <TransportSubmode>
+            <WaterSubmode>localPassengerFerry</WaterSubmode>
+          </TransportSubmode>
+        </Line>
+        <Line id="NP:Line:3003" version="1">
+          <Name>Example tram line</Name>
+          <TransportMode>tram</TransportMode>
+          <TransportSubmode>
+            <TramSubmode>cityTram</TramSubmode>
+          </TransportSubmode>
+        </Line>
+        <Line id="NP:Line:3004" version="1">
+          <Name>Example metro line</Name>
+          <TransportMode>metro</TransportMode>
+          <TransportSubmode>
+            <MetroSubmode>metro</MetroSubmode>
+          </TransportSubmode>
+        </Line>
+        <Line id="NP:Line:3005" version="1">
+          <Name>Example air line</Name>
+          <TransportMode>air</TransportMode>
+          <TransportSubmode>
+            <AirSubmode>domesticScheduledFlight</AirSubmode>
+          </TransportSubmode>
+        </Line>
+        <Line id="NP:Line:3006" version="1">
+          <Name>Example coach line</Name>
+          <TransportMode>coach</TransportMode>
+          <TransportSubmode>
+            <CoachSubmode>regionalCoach</CoachSubmode>
+          </TransportSubmode>
+        </Line>
+        <Line id="NP:Line:3007" version="1">
+          <Name>Example telecabin line</Name>
+          <TransportMode>cableway</TransportMode>
+          <TransportSubmode>
+            <TelecabinSubmode>cableCar</TelecabinSubmode>
+          </TransportSubmode>
+        </Line>
+      </lines>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

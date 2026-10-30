@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ResourceFrame id="NP:ResourceFrame:constructed-Contract" version="1">
+      <contracts>
+        <Contract id="NP:Contract:3001" version="1">
+          <Name>Example operating contract</Name>
+          <ContractType>written</ContractType>
+          <LegalStatus>binding</LegalStatus>
+          <ContractGoverningLaw>Illustrative governing law</ContractGoverningLaw>
+          <contractees>
+            <OrganisationRef ref="NP:Authority:3001"/>
+          </contractees>
+          <contractors>
+            <OrganisationRef ref="NP:Operator:3001"/>
+          </contractors>
+        </Contract>
+      </contracts>
+    </ResourceFrame>
+  </dataObjects>
+</PublicationDelivery>

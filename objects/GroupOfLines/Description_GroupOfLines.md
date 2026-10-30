@@ -54,4 +54,11 @@ A **GroupOfLines** organizes multiple Line objects into a logical set within a S
 
 See [Table_GroupOfLines.md](Table_GroupOfLines.md) for detailed attribute specifications.
 
-Example XML: [Example_GroupOfLines.xml](Example_GroupOfLines.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_GroupOfLines_Constructed.xml](Example_GroupOfLines_Constructed.xml) |
+| Not assessed | [Example_GroupOfLines.xml](Example_GroupOfLines.xml) |

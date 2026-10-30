@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: OBSERVED (anonymized source extract, not a constructed domain example). -->
+  <PublicationTimestamp>2026-10-09T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <!-- Observed content: The domain elements and field usage are based on a real delivery. -->
+  <!-- Source: _GOA_Shared.xml from the supplied 2026-10-09 rail export. -->
+  <!-- Adaptation: identifiers use neutral NP codes and versions are normalized; reference versions are omitted. -->
+  <!-- Adaptation: The network name is replaced with a neutral example value. -->
+  <!-- Adaptation: the abbreviated publication envelope, timestamp and frame identifiers are illustrative. -->
+  <!-- External references require other frames from a complete delivery. Observed usage does not establish profile requirements. -->
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:network" version="1">
+      <Network version="1" id="NP:Network:2001">
+        <Name>Example rail network</Name>
+        <AuthorityRef ref="NP:Authority:2001"/>
+      </Network>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

@@ -65,4 +65,12 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 
 For a complete list of all elements, attributes, cardinalities, and data types, see [Table — ServiceJourney](Table_ServiceJourney.md).
 
-Example XML: [Example_ServiceJourney_NP.xml](Example_ServiceJourney_NP.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Observed** | [Example_ServiceJourney_Rail_Observed.xml](Example_ServiceJourney_Rail_Observed.xml) |
+| **Constructed** | [Example_ServiceJourney_Constructed.xml](Example_ServiceJourney_Constructed.xml) |
+| Not assessed | [Example_ServiceJourney_NP.xml](Example_ServiceJourney_NP.xml) |

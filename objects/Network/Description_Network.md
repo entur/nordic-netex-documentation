@@ -62,6 +62,14 @@ A **Network** represents a branded, passenger-facing public transport network co
 
 See [Table_Network.md](Table_Network.md) for detailed attribute specifications.
 
-Example XML: *(no NP example yet)*
 
 Network is placed in the ServiceFrame alongside Lines and GroupOfLines. In the French profile, it is placed in a GeneralFrame with TypeOfFrame `NETEX_RESEAU`.
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Observed** | [Example_Network_Observed.xml](Example_Network_Observed.xml) |
+| **Constructed** | [Example_Network_Constructed.xml](Example_Network_Constructed.xml) |
