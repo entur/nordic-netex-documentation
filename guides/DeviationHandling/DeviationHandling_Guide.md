@@ -14,7 +14,7 @@ In this guide you will learn:
 - Which direction replacement references point, with complete before/after examples
 - How to model partial replacement, an altered stretch, and combinations of train and bus
 - Which consistency checks to run: missing references, conflicting statuses, several journeys on one date
-- How each deviation should be presented to travellers
+- How to derive traveller information from the data, and how it connects to sales and real-time
 
 ---
 
@@ -111,7 +111,7 @@ The bus stays on the **same Line** as the train. It is the same line being opera
 
 ### 4b. Partial replacement and altered stretch
 
-Only part of the stretch is closed. The original is still set to `replaced`, because it does not run *as planned*. Each stretch is then covered by its own new DSJ:
+Only part of the stretch is closed. The original is still set to `replaced`, because it does not run *as planned*. The original keeps its ServiceJourney with **all** its stops, because it is the basis for sales (see section 6). Each stretch is then covered by its own new DSJ:
 
 | Stretch | New DSJ | Mode | ServiceJourney |
 |---------|---------|------|----------------|
@@ -216,28 +216,47 @@ flowchart TD
 
 ---
 
-## 6. How to present deviations to travellers
+## 6. Information to travellers
 
-The data must let a traveller answer three questions: *Does my journey run? If not, what do I take instead? What is different about it?*
+Deviation data reaches travellers through several channels: journey planners, departure boards, ticket sales, notifications to ticket holders, and real-time feeds. In every channel the traveller needs answers to three questions: *Does my journey run? If not, what do I take instead? What is different about it?*
 
-| Situation | Original journey | New journey |
-|-----------|------------------|-------------|
-| Full replacement | Show as cancelled, **with a link** to the replacement: "Replaced by bus 07:35 from Oslo S" | Show as normal departure, labelled "Bus for train 1234" |
-| Partial replacement | Show as cancelled on the affected stretch only. Show the full trip as one itinerary: bus Oslo S – Lillestrøm, then train Lillestrøm – Hamar. | Each piece labelled with its own identifier, the train it replaces and the transfer point ("Bus B101 for train 1234, change at Lillestrøm") |
-| Several buses | Show as cancelled, with links to all replacing buses | Show each bus as its own departure with its own identifier and real-time status ("Bus B101 and B103 for train 1234") |
-| Cancellation | Show as cancelled, suggest the next departure | — |
-| Extra journey | — | Show as normal, optionally labelled "Extra departure" |
-| Supplement | Show as normal, optionally "Reduced capacity, extra bus available" | Show as "Extra bus for train 1238" |
-| Revert | Show as normal again, notify ticket holders | Remove, notify anyone booked on it |
+### Deriving the information from the data
 
-Recommendations:
+The table shows what the traveller should learn in each situation, and which fields the information comes from. The example wording is illustrative, not required text.
+
+| Situation | What the traveller should learn | How to derive it from the data |
+|-----------|---------------------------------|--------------------------------|
+| Full replacement | Train 1234 does not run. Take bus B101, 07:35 from the bus terminal. | The original has `ServiceAlteration=replaced`. Its replacements are all DSJs whose `replacedJourneys` contains the original's id. Time, stop and identifier come from each replacement's ServiceJourney. |
+| Partial replacement | Train 1234 does not run as planned. Oslo S – Lillestrøm by bus, Lillestrøm – Hamar by train. | The same lookup. Compare the stops of the original with the stops of the replacements. Stops that are only covered by a replacement with `TransportMode=bus` are not served by train. |
+| Several buses | Buses B101 and B103 both replace train 1234, each with its own departure and real-time status. | One DSJ per bus, each referencing the original. Real-time data is attached per DSJ id. |
+| Cancellation | Train 1236 does not run, and there is no alternative. | `ServiceAlteration=cancellation`, and no DSJ references it. |
+| Extra journey | An extra departure runs today. | `ServiceAlteration=extraJourney` without `replacedJourneys`. |
+| Supplement | Train 1238 runs, and an extra bus is available. | The original is `planned`. A DSJ with `extraJourney` and `replacedJourneys` points to it. |
+| Revert | Train 1234 runs as planned again. | The original is back to `planned` with a higher version, and its replacements are no longer delivered. |
+| Minor change | Train 1234 does not stop at Eidsvoll today. | The DSJ version has increased. Compare the ServiceJourney of the new version with the previous one. |
+
+> [!WARNING]
+> A replaced journey is cancelled **as a whole**, even if only part of the stretch is closed. The original keeps **all** its stops, including those on the replaced stretch. The original is the basis for sales, so a ticket Oslo S – Hamar on train 1234 must still match it. Mark the stops that are not served by train instead of removing them from the original.
+
+### Ticket holders
+
+Tickets are sold against the DSJ id. A version increase on a DSJ with sold tickets is the trigger to notify the ticket holder. The replacements, found through `replacedJourneys`, are the candidates for rebooking. On a revert, ticket holders need a new notification that the original runs again. This guide does not cover the sales process itself, but the model is designed so that sales can follow every change.
+
+### Real-time
+
+Planned data is the foundation for real-time. Real-time messages, for example SIRI ET, refer to the DSJ id of the journey they update. That explains several of the modelling choices in this guide:
+- The original keeps its id, so a real-time cancellation lands on the same journey that was sold.
+- Every bus has its own DSJ, so each vehicle can report its own position, delay and occupancy.
+- Replacements are sent in the planned data, so the real-time service only updates journeys and does not have to create or merge them.
+
+A SIRI SX situation can explain the reason for the deviation and link the affected journeys. Plan and real-time must agree. A journey that is `replaced` or `cancellation` in the plan must not appear as running in real-time.
+
+### Recommendations
+
 - ✅ Never hide a `replaced` journey without a pointer to its replacement. A traveller searching by train number must find the bus.
 - ✅ Show replacement buses with their own departure time and stop. These often differ from the train's (07:35 from the bus terminal, not 08:02 from platform 4).
 - ✅ Use [Notice](../../objects/Notice/Table_Notice.md) for the reason and practical text. See [Passenger Information](../PassengerInformation/PassengerInformation_Guide.md).
-- ✅ Treat a version increase on a DSJ that has sold tickets as a trigger to notify the ticket holder.
 - ❌ Do not present a supplement (`extraJourney` + `replacedJourneys`) as a replacement. The train still runs.
-
-The same deviation should also be reflected in real-time channels (SIRI ET cancellation, SIRI SX situation), so planned and real-time information agree.
 
 ---
 
