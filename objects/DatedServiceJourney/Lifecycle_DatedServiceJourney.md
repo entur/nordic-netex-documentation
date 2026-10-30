@@ -40,7 +40,7 @@ A DSJ MUST pass the following checks:
 - OperatingDayRef: MUST resolve to an existing OperatingDay with date equal to the DSJ’s operating date.
 - ServiceJourneyRef: MUST resolve to an existing ServiceJourney. The ServiceJourney SHOULD be compatible with the calendar/line context of the DSJ.
 - BlockRef (optional): when present, MUST resolve to an existing Block that is valid on the same OperatingDay; if multiple DSJs share a Block, the operational sequence MUST be coherent (no overlapping vehicle occupancy).
-- replacedJourneys/DatedVehicleJourneyRef (for replacement): MUST resolve to an existing DSJ on the same OperatingDay.
+- replacedJourneys/DatedVehicleJourneyRef (for replacement): MUST resolve to an existing DSJ, and SHOULD be on the same OperatingDay (a different OperatingDay is allowed but adds complexity, e.g. around daylight saving time changes).
 
 ## 5. State diagram (simplified)
 ```

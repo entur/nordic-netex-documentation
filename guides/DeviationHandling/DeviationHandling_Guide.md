@@ -54,8 +54,9 @@ flowchart RL
 
 Rules:
 - A journey that replaces another **always** carries `replacedJourneys` pointing back to it. Without the back-reference there is no replacement in the data, only an unrelated new journey.
-- References always point to the **root original**. A replacement of a replacement still points to the original, not to the intermediate journey (no chains).
-- The original and all its replacements share the same **OperatingDay**.
+- A DSJ is a **journey**, not a vehicle. If the vehicle on a replacement changes (another bus serves the same trip), update that same DSJ with a new version. Do not create a new replacement.
+- References always point to the **root original**. If a genuinely new journey takes over, it also points to the original, never to an intermediate replacement (no chains).
+- Keep the original and its replacements on the same **OperatingDay** as a rule of thumb. A different OperatingDay is allowed, but it adds complexity, for example around daylight saving time changes.
 - The original keeps its **id**. Only its `version` increases. Tickets sold against the id remain valid references.
 
 ### Before and after
@@ -114,7 +115,10 @@ Only part of the stretch is closed. The original is still set to `replaced`, bec
 
 Both new DSJs reference the same original. Together they should cover every stop of the original. A gap means some travellers have no journey (see check C7).
 
-Keeping the train number (`PrivateCode`) on the pieces is recommended. Travellers and staff recognise it, and consumers can group the pieces.
+The shortened train keeps the commercial train number (`PublicCode` 1234). The bus gets its own human-readable identifier (`PublicCode` B101). The link to the train comes from `replacedJourneys`, not from a shared number. Keep commercial and operational train numbers apart: the commercial number belongs in `PublicCode` on the ServiceJourney, the operational number on TrainBlockPart. See [Rolling Stock](../RollingStock/RollingStock_Guide.md).
+
+> [!NOTE]
+> **Open point.** Planners find it easier to look up everything under the commercial train number, including the replacement buses. A separate bus identifier is cleaner for travellers and fits the requirement (TAP TSI) that `PublicCode` carries the commercial train number. The trade-off is not settled yet.
 
 Consider adding a [ServiceJourneyInterchange](../../objects/Interchange/Table_Interchange.md) between the bus and the shortened train at the transfer point. See the [Interchange guide](../Interchange/Interchange_Guide.md).
 
@@ -167,7 +171,7 @@ Run these checks per OperatingDay, on the full set of DSJs in the dataset rather
 | # | Check | Rule | Severity |
 |---|-------|------|----------|
 | C1 | Dangling reference | Every `replacedJourneys/DatedVehicleJourneyRef` resolves to an existing DSJ | Error |
-| C2 | Same day | A replacing DSJ and the DSJ it references have the same OperatingDay | Error |
+| C2 | Same day | A replacing DSJ and the DSJ it references have the same OperatingDay. Allowed to differ, but check times carefully across daylight saving changes. | Warning |
 | C3 | Replaced without replacement | A DSJ with `replaced` is referenced by at least one other DSJ. If not, consumers can only treat it as a cancellation. Rare exception: the journey is replaced by ordinary scheduled service outside the submitter's data responsibility. Then tell travellers about the alternative in a Notice. | Error (see exception) |
 | C4 | Reference to a running journey | A DSJ that is `planned` is only referenced by `extraJourney` DSJs (supplements). A `planned` replacing journey must point to a `replaced` original. | Error |
 | C5 | Reference to a cancelled journey | A DSJ with `cancellation` is not referenced. If something replaces it, it should be `replaced`. | Error |
@@ -175,7 +179,7 @@ Run these checks per OperatingDay, on the full set of DSJs in the dataset rather
 | C7 | Coverage | The replacing DSJs together serve every stop place of the original. Compare at stop place level, because buses use other quays. | Warning |
 | C8 | Cancelled replacement | If every replacement of a `replaced` original is cancelled, the original should be `planned` again (revert) or `cancellation` | Warning |
 | C9 | Duplicate dated instance | At most one non-`extraJourney` DSJ per ServiceJourney and OperatingDay | Error |
-| C10 | Duplicate train number | Several active DSJs with the same `PrivateCode` on the same OperatingDay are only allowed when they are pieces of one replacement, or extras | Warning |
+| C10 | Duplicate train number | Several active DSJs with the same commercial train number (`PublicCode`) on the same OperatingDay are only allowed when they are pieces of one replacement, or extras | Warning |
 | C11 | Duplicate id | Each DSJ id appears once per delivery | Error |
 | C12 | Version | Any change to a DSJ (`ServiceAlteration`, `ServiceJourneyRef`, `replacedJourneys`, `BlockRef`) comes with a version one higher than the last delivered version | Error |
 
@@ -200,7 +204,7 @@ The data must let a traveller answer three questions: *Does my journey run? If n
 | Situation | Original journey | New journey |
 |-----------|------------------|-------------|
 | Full replacement | Show as cancelled, **with a link** to the replacement: "Replaced by bus 07:35 from Oslo S" | Show as normal departure, labelled "Bus for train 1234" |
-| Partial replacement | Show as cancelled on the affected stretch only. Show the full trip as one itinerary: bus Oslo S – Lillestrøm, then train Lillestrøm – Hamar. | Each piece labelled with the train number and the transfer point |
+| Partial replacement | Show as cancelled on the affected stretch only. Show the full trip as one itinerary: bus Oslo S – Lillestrøm, then train Lillestrøm – Hamar. | Each piece labelled with its own identifier, the train it replaces and the transfer point ("Bus B101 for train 1234, change at Lillestrøm") |
 | Cancellation | Show as cancelled, suggest the next departure | — |
 | Extra journey | — | Show as normal, optionally labelled "Extra departure" |
 | Supplement | Show as normal, optionally "Reduced capacity, extra bus available" | Show as "Extra bus for train 1238" |

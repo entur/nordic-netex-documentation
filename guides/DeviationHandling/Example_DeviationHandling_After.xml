@@ -36,8 +36,8 @@
 
             <ServiceJourney id="NP:ServiceJourney:R10_1234" version="1">
               <Name>Oslo S -&gt; Hamar</Name>
-              <PrivateCode>1234</PrivateCode>
               <JourneyPatternRef ref="NP:JourneyPattern:R10_OSL_HMR"/>
+              <PublicCode>1234</PublicCode>
               <LineRef ref="NP:Line:R10"/>
               <passingTimes>
                 <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_1" version="1">
@@ -63,8 +63,8 @@
 
             <ServiceJourney id="NP:ServiceJourney:R10_1236" version="1">
               <Name>Oslo S -&gt; Hamar</Name>
-              <PrivateCode>1236</PrivateCode>
               <JourneyPatternRef ref="NP:JourneyPattern:R10_OSL_HMR"/>
+              <PublicCode>1236</PublicCode>
               <LineRef ref="NP:Line:R10"/>
               <passingTimes>
                 <TimetabledPassingTime id="NP:TimetabledPassingTime:1236_1" version="1">
@@ -80,8 +80,8 @@
 
             <ServiceJourney id="NP:ServiceJourney:R10_1238" version="1">
               <Name>Oslo S -&gt; Hamar</Name>
-              <PrivateCode>1238</PrivateCode>
               <JourneyPatternRef ref="NP:JourneyPattern:R10_OSL_HMR"/>
+              <PublicCode>1238</PublicCode>
               <LineRef ref="NP:Line:R10"/>
               <passingTimes>
                 <TimetabledPassingTime id="NP:TimetabledPassingTime:1238_1" version="1">
@@ -98,12 +98,13 @@
             <!-- NEW: replacement bus Oslo S -> Lillestrøm (covers the closed stretch) -->
             <ServiceJourney id="NP:ServiceJourney:R10_1234_BUS" version="1">
               <Name>Oslo S -&gt; Lillestrøm (buss for tog)</Name>
-              <PrivateCode>1234</PrivateCode>
               <TransportMode>bus</TransportMode>
               <TransportSubmode>
                 <BusSubmode>railReplacementBus</BusSubmode>
               </TransportSubmode>
               <JourneyPatternRef ref="NP:JourneyPattern:R10_BUS_OSL_LLS"/>
+              <!-- own identifier for the bus; linked to train 1234 via replacedJourneys -->
+              <PublicCode>B101</PublicCode>
               <LineRef ref="NP:Line:R10"/>
               <passingTimes>
                 <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_BUS_1" version="1">
@@ -120,8 +121,8 @@
             <!-- NEW: shortened train Lillestrøm -> Hamar (altered stretch, same train number) -->
             <ServiceJourney id="NP:ServiceJourney:R10_1234_LLS" version="1">
               <Name>Lillestrøm -&gt; Hamar</Name>
-              <PrivateCode>1234</PrivateCode>
               <JourneyPatternRef ref="NP:JourneyPattern:R10_LLS_HMR"/>
+              <PublicCode>1234</PublicCode>
               <LineRef ref="NP:Line:R10"/>
               <passingTimes>
                 <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_LLS_1" version="1">
@@ -143,12 +144,13 @@
             <!-- NEW: supplementary bus for train 1238 (reduced capacity) -->
             <ServiceJourney id="NP:ServiceJourney:R10_1238_BUS" version="1">
               <Name>Oslo S -&gt; Hamar (ekstrabuss)</Name>
-              <PrivateCode>1238</PrivateCode>
               <TransportMode>bus</TransportMode>
               <TransportSubmode>
                 <BusSubmode>railReplacementBus</BusSubmode>
               </TransportSubmode>
               <JourneyPatternRef ref="NP:JourneyPattern:R10_BUS_OSL_HMR"/>
+              <!-- own identifier for the bus; linked to train 1238 via replacedJourneys -->
+              <PublicCode>B102</PublicCode>
               <LineRef ref="NP:Line:R10"/>
               <passingTimes>
                 <TimetabledPassingTime id="NP:TimetabledPassingTime:1238_BUS_1" version="1">
