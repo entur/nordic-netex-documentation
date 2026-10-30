@@ -62,9 +62,11 @@ Before writing, the generator prepares every selected class. Missing examples, e
 
 ## When the ontology submodules move
 
-The generated tables depend on the pinned ontology. When a submodule update changes a profile definition, cardinality, shape or base annotation, the tables become stale and `--check` fails in that pull request. This includes the automatic upstream-update pull requests.
+The generated tables depend on the pinned ontology. When a submodule update changes a profile definition, cardinality, shape or base annotation, the tables must be regenerated. Otherwise `--check` fails, which is intended: the documentation must follow the profile.
 
-This is intended: the documentation must follow the profile. In the update pull request, refresh the submodules recursively, regenerate and commit the result:
+The nightly `ontology-ingest` workflow does this itself. It regenerates the tables and structure trees against the new pin and commits them in the same pull request. The PR text shows the changed rows. If the generator refuses to write, the PR text shows the error and the freshness check fails until it is fixed.
+
+When you move a submodule by hand, refresh the submodules recursively, regenerate and commit the result:
 
 ```bash
 git submodule update --init --recursive

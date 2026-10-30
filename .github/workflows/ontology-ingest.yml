@@ -11,6 +11,10 @@ name: ontology-ingest
 # med vilje ikke andre workflows på PR-er laget med GITHUB_TOKEN. Vil man ha en egen
 # check i PR-UI, må peter-evans-steget få en PAT via token:.) En rød validering er ikke
 # en blokkering — den er selve signalet om at docs har blitt ute av synk med standarden.
+#
+# Genererte filer (dokumentasjonslaget og tabellene/strukturtrærne fra generate_tables.py)
+# regenereres mot ny pin og committes i samme PR, så en profilendring oppstrøms synes som
+# en diff på dokumentasjonen.
 
 on:
   schedule:
@@ -86,6 +90,19 @@ jobs:
         continue-on-error: true   # feiler bare ved feilformede mapper; valideringen under rapporterer det
         run: python scripts/generate_documentation_ttl.py > "$RUNNER_TEMP/generate-out.txt" 2>&1
 
+      - name: Regenerer tabeller og strukturtrær mot ny pin
+        # Tabellene er generert fra eksemplene og ontologien. En profilendring oppstrøms
+        # skal synes som en diff på tabellene i PR-en, ikke som en rød freshness-sjekk.
+        id: tables
+        if: steps.diff.outputs.changed == 'true'
+        continue-on-error: true   # exit 2 = generatoren nekter å skrive; rapporteres i PR-en
+        run: |
+          if python scripts/generate_tables.py > "$RUNNER_TEMP/tables-out.txt" 2>&1; then
+            echo "status=ok" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=failed" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Kjør ontologivalidering (resultatet rapporteres i PR-en)
         id: validate
         if: steps.diff.outputs.changed == 'true'
@@ -103,6 +120,7 @@ jobs:
           OLD_SHA: ${{ steps.before.outputs.sha }}
           NEW_SHA: ${{ steps.after.outputs.sha }}
           STATUS: ${{ steps.validate.outputs.status }}
+          TABLES: ${{ steps.tables.outputs.status }}
         run: |
           {
             echo "Oppstrøms [\`entur-netex-ontology\`](https://github.com/entur/entur-netex-ontology) (main) har fått nye commits, og submodul-pinnen i dette repoet er flyttet fremover."
@@ -123,6 +141,22 @@ jobs:
               echo '```'
             fi
             echo ""
+            if [ "$TABLES" != "ok" ]; then
+              echo "❌ **generate_tables.py nektet å skrive** — tabellene er ikke oppdatert, og *Generated tables up to date* vil feile:"
+              echo ""
+              echo '```'
+              grep -E '^ERROR' "$RUNNER_TEMP/tables-out.txt" || tail -n 20 "$RUNNER_TEMP/tables-out.txt" || true
+              echo '```'
+            elif git diff --quiet -- 'objects/*/Table_*.md' 'objects/*/Description_*.md'; then
+              echo "Genererte tabeller og strukturtrær er uendret mot ny pin."
+            else
+              echo "**Tabellene er regenerert** — profilendringer oppstrøms gir disse radene:"
+              echo ""
+              echo '```diff'
+              git diff -U0 -- 'objects/*/Table_*.md' 'objects/*/Description_*.md' | grep -E '^[+-][^+-]' | head -n 60 || true
+              echo '```'
+            fi
+            echo ""
             if grep -qE '^(WARN|ERROR)' "$RUNNER_TEMP/generate-out.txt" 2>/dev/null; then
               echo "**Dokumentasjon vs. profil** (fra \`generate_documentation_ttl.py\`):"
               echo ""
@@ -139,7 +173,7 @@ jobs:
             echo "</details>"
             echo ""
             echo "---"
-            echo "**Til gjennomgang:** har standarden fått nye/endrede/fjernede klasser som krever oppdatert objekt-/frame-dokumentasjon? Merge når docs er i synk."
+            echo "**Til gjennomgang:** har standarden fått nye/endrede/fjernede klasser som krever oppdatert objekt-/frame-dokumentasjon? Er de regenererte tabellradene riktige? En endret kardinalitet eller beskrivelse er en endring i profilen, ikke i generatoren. Merge når docs er i synk."
           } > "$RUNNER_TEMP/pr-body.md"
 
       - name: Opprett/oppdater karantene-PR
@@ -151,10 +185,12 @@ jobs:
           commit-message: "chore(ontology): bump entur-netex-ontology til oppstrøms main"
           title: "[oppstrøms] entur-netex-ontology har flyttet seg — sjekk om docs må oppdateres"
           body-path: ${{ runner.temp }}/pr-body.md
-          # Kun submodul-pinnen og det genererte dokumentasjonslaget — aldri hjelpefiler.
+          # Kun submodul-pinnen og genererte filer — aldri hjelpefiler.
           add-paths: |
             ontology/entur-netex-ontology
             ontology/netex-nordic-documentation.ttl
+            objects/*/Table_*.md
+            objects/*/Description_*.md
           labels: |
             ontology
             automated
