@@ -60,6 +60,7 @@ Rules:
 - References always point to the **root original**. If a genuinely new journey takes over, it also points to the original, never to an intermediate replacement (no chains).
 - Keep the original and its replacements on the same **OperatingDay** as a rule of thumb. A different OperatingDay is allowed, but it adds complexity, for example around daylight saving time changes.
 - The original keeps its **id**. Only its `version` increases. Tickets sold against the id remain valid references.
+- Once published within the sales window, the original is **never removed** from the data. Every deviation is expressed by changing it, never by leaving it out (see C11).
 
 ### Before and after
 
@@ -180,22 +181,26 @@ You may also keep a replacement in the delivery with `ServiceAlteration=cancella
 
 ## 5. Consistency checks
 
-Run these checks per OperatingDay, on the full set of DSJs in the dataset rather than on one delivery file alone. Severity is a proposal.
+Run these checks on the full set of DSJs in the dataset, not on one delivery file alone. A reference can point to a DSJ on another OperatingDay (see C2), so do not limit the lookup to a single day.
+
+Severity levels: **Error** must be fixed before publishing. **Warning** should be fixed, but the data can be published. **Info** needs a manual check.
 
 | # | Check | Rule | Severity |
 |---|-------|------|----------|
 | C1 | Dangling reference | Every `replacedJourneys/DatedVehicleJourneyRef` resolves to an existing DSJ | Error |
 | C2 | Same day | A replacing DSJ and the DSJ it references have the same OperatingDay. Allowed to differ, but check times carefully across daylight saving changes. | Warning |
-| C3 | Replaced without replacement | A DSJ with `replaced` is referenced by at least one other DSJ. If not, consumers can only treat it as a cancellation. Rare exception: the journey is replaced by ordinary scheduled service outside the submitter's data responsibility. Then tell travellers about the alternative in a Notice. | Error (see exception) |
+| C3 | Replaced without replacement | A DSJ with `replaced` is referenced by at least one other DSJ. If not, consumers can only treat it as a cancellation. Rare exception: the journey is replaced by ordinary scheduled service outside the submitter's data responsibility. A [Notice](../../objects/Notice/Table_Notice.md) assigned to the DSJ, telling travellers about the alternative, is then **mandatory**. | Error unless a Notice is assigned |
 | C4 | Reference to a running journey | A DSJ that is `planned` is only referenced by `extraJourney` DSJs (supplements). A `planned` replacing journey must point to a `replaced` original. | Error |
 | C5 | Reference to a cancelled journey | A DSJ with `cancellation` is not referenced. If something replaces it, it should be `replaced`. | Error |
 | C6 | Chains and self-references | A referenced original does not itself carry `replacedJourneys`. A DSJ does not reference itself. Point to the root original. | Error |
-| C7 | Coverage | The replacing DSJs together serve every stop place of the original. Compare at stop place level, because buses use other quays. | Warning |
+| C7 | Coverage | The replacing DSJs together serve every stop of the original. Replacement buses often use other quays or a nearby stop place, so check this manually for now. | Info |
 | C8 | Cancelled replacement | If every replacement of a `replaced` original is cancelled, the original should be `planned` again (revert) or `cancellation` | Warning |
-| C9 | Duplicate dated instance | At most one DSJ per ServiceJourney and OperatingDay. This includes extra journeys, which have their own ServiceJourney. | Error |
-| C10 | Duplicate train number | Several active DSJs with the same commercial train number (`PublicCode`) on the same OperatingDay are only allowed when they are pieces of one replacement, or extras | Warning |
-| C11 | Duplicate id | Each DSJ id appears once per delivery | Error |
-| C12 | Version | Any change to a DSJ (`ServiceAlteration`, `ServiceJourneyRef`, `replacedJourneys`, `BlockRef`) comes with a version one higher than the last delivered version | Error |
+| C9 | Duplicate dated instance | At most one DSJ per ServiceJourney and OperatingDay. This includes extra journeys, which have their own ServiceJourney. | Warning |
+| C10 | Version | Any change to a DSJ (`ServiceAlteration`, `ServiceJourneyRef`, `replacedJourneys`, `BlockRef`) comes with a version one higher than the last delivered version | Warning |
+| C11 | Removed original | An original DSJ (one without `replacedJourneys`) that has been published within the sales window is never removed from later deliveries. Change it with `ServiceAlteration` and a new version instead. Tickets may have been sold against it, so the number of sales on the journey is a useful cross-check. | Error |
+
+> [!NOTE]
+> C7 could be automated if stop places that serve the same station were grouped, for example with GroupOfStopPlaces and a [PurposeOfGrouping](../../objects/PurposeOfGrouping/Table_PurposeOfGrouping.md) for replacement transport. That grouping does not exist in the data today.
 
 ```mermaid
 flowchart TD

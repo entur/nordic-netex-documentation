@@ -456,6 +456,7 @@ guide:DeviationHandling
     doc:covers nordic:Line ;
     doc:covers nordic:Notice ;
     doc:covers nordic:OperatingDay ;
+    doc:covers nordic:PurposeOfGrouping ;
     doc:covers nordic:ServiceJourney ;
     doc:covers nordic:TimetableFrame .
 
