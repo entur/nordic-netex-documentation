@@ -182,8 +182,17 @@ The passing time at the new stop must pass the same checks as any normal train d
 </ServiceJourney>
 ```
 
+#### When the template is shared
+
+A ServiceJourney is often shared by DSJs on several dates. If the extra stop applies on some of those dates but not others, the plan must be **split**:
+- Keep the existing ServiceJourney, without the stop, for the dates that are not affected.
+- Create a new ServiceJourney, with the stop, for the affected dates.
+- On each affected date, the DSJ references the new ServiceJourney. A new reference is a change, so the DSJ version increases by one.
+
+This is the same logic as any other change: different stops mean different ServiceJourneys, and a DSJ that changes its reference gets a new version. The same applies to a JourneyPattern shared by several journeys.
+
 > [!WARNING]
-> A ServiceJourney or JourneyPattern may be shared, by DSJs on other dates or by other journeys. Changing it changes all of them. If the original's template is shared, give the original a new ServiceJourney for this date instead, and increase the DSJ version (see the alternative in 4b).
+> Never add the stop to a shared ServiceJourney or JourneyPattern without splitting. The stop would then also appear on every other date and journey that uses the template.
 
 ### 4e. Cancellation without alternative
 
@@ -287,7 +296,7 @@ The table shows what the traveller should learn in each situation, and which fie
 
 ### Ticket holders
 
-Tickets are sold against the DSJ id. A version increase on a DSJ with sold tickets is the trigger to notify the ticket holder. The replacements, found through `replacedJourneys`, are the candidates for rebooking. On a revert, ticket holders need a new notification that the original runs again. This guide does not cover the sales process itself, but the model is designed so that sales can follow every change.
+Tickets are sold against the DSJ id. A version increase on a DSJ with sold tickets triggers a **check** of whether the change is relevant to each ticket holder. A new passing time at a stop outside the traveller's own stretch may not matter to them, while a cancellation always does. Only relevant changes lead to a notification. The replacements, found through `replacedJourneys`, are the candidates for rebooking. A revert is a change too, and goes through the same check. This guide does not cover the sales process itself, but the model is designed so that sales can follow every change.
 
 ### Real-time
 
