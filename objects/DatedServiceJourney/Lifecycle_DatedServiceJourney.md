@@ -16,7 +16,7 @@ Creation rules:
 
 ## 2. Change handling (reinforcement, replacement, cancellation)
 Change types are expressed on the DSJ level and apply only to that dated instance:
-- Reinforcement (extra journey): an additional DSJ on the same ServiceJourney and OperatingDay to increase capacity. Mark the DSJ as an extra journey.
+- Reinforcement (extra journey): an additional DSJ on the same OperatingDay to increase capacity, with its own ServiceJourney (its own times and identifiers). Mark the DSJ as an extra journey.
 - Replacement: always two DSJs on the same date. The original DSJ is marked as replaced. A new, replacing DSJ references the original via replacedJourneys and is itself planned.
 - Cancellation: the DSJ is not operated on that date. Mark the DSJ as cancelled.
 

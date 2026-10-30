@@ -453,7 +453,6 @@ guide:DeviationHandling
     doc:example "guides/DeviationHandling/Example_DeviationHandling_After.xml" ;
     doc:example "guides/DeviationHandling/Example_DeviationHandling_Before.xml" ;
     doc:covers entur:DatedServiceJourney ;
-    doc:covers nordic:Interchange ;
     doc:covers nordic:Line ;
     doc:covers nordic:Notice ;
     doc:covers nordic:OperatingDay ;

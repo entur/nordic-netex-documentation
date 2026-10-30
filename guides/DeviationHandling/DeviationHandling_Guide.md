@@ -104,6 +104,8 @@ The full examples describe the same Saturday on a fictional line R10, Oslo S –
 
 A bus runs the whole stretch instead of the train. Set the original to `replaced`. Create one DSJ for the bus with `replacedJourneys` pointing to the original. The bus has its own ServiceJourney with `TransportMode=bus` and `BusSubmode=railReplacementBus`, its own stops (often different quays or stop places), and its own times.
 
+The bus stays on the **same Line** as the train. It is the same line being operated, and the same products apply. Only the trip is run by a vehicle that cannot use the track, so the mode is set on the ServiceJourney, not on the Line.
+
 ### 4b. Partial replacement and altered stretch
 
 Only part of the stretch is closed. The original is still set to `replaced`, because it does not run *as planned*. Each stretch is then covered by its own new DSJ:
@@ -120,7 +122,7 @@ The shortened train keeps the commercial train number (`PublicCode` 1234). The b
 > [!NOTE]
 > **Open point.** Planners find it easier to look up everything under the commercial train number, including the replacement buses. A separate bus identifier is cleaner for travellers and fits the requirement (TAP TSI) that `PublicCode` carries the commercial train number. The trade-off is not settled yet.
 
-Consider adding a [ServiceJourneyInterchange](../../objects/Interchange/Table_Interchange.md) between the bus and the shortened train at the transfer point. See the [Interchange guide](../Interchange/Interchange_Guide.md).
+For modelling the transfer between the bus and the shortened train, see the [Interchange guide](../Interchange/Interchange_Guide.md).
 
 > [!NOTE]
 > **Alternative for minor changes.** For a small change that keeps one vehicle and one mode (for example a skipped stop or a different quay), you can keep the DSJ id and point it to a new ServiceJourney. The DSJ `version` **must** then increase by one. The version increase is the signal that something changed. Consumers compare the fields of the two versions (ServiceJourneyRef, and through it stops and times) to find out what. This keeps the sales key stable. Use the `replaced` pattern whenever the stretch is split across vehicles or modes.
@@ -131,7 +133,9 @@ Set `ServiceAlteration=cancellation` and increase the version. No other DSJ may 
 
 ### 4d. Extra journey
 
-A journey that is not in the plan, for example for an event. Use `ServiceAlteration=extraJourney` with its own ServiceJourney and no `replacedJourneys`.
+A journey that is not in the plan, for example for an event. Use `ServiceAlteration=extraJourney` and no `replacedJourneys`.
+
+An extra journey always has its **own ServiceJourney**. It almost always has departure times, identifiers or stops that differ from the planned journeys, so it cannot reuse their template.
 
 ```xml
 <DatedServiceJourney id="NP:DatedServiceJourney:1290_2026-11-14" version="1">
@@ -178,7 +182,7 @@ Run these checks per OperatingDay, on the full set of DSJs in the dataset rather
 | C6 | Chains and self-references | A referenced original does not itself carry `replacedJourneys`. A DSJ does not reference itself. Point to the root original. | Error |
 | C7 | Coverage | The replacing DSJs together serve every stop place of the original. Compare at stop place level, because buses use other quays. | Warning |
 | C8 | Cancelled replacement | If every replacement of a `replaced` original is cancelled, the original should be `planned` again (revert) or `cancellation` | Warning |
-| C9 | Duplicate dated instance | At most one non-`extraJourney` DSJ per ServiceJourney and OperatingDay | Error |
+| C9 | Duplicate dated instance | At most one DSJ per ServiceJourney and OperatingDay. This includes extra journeys, which have their own ServiceJourney. | Error |
 | C10 | Duplicate train number | Several active DSJs with the same commercial train number (`PublicCode`) on the same OperatingDay are only allowed when they are pieces of one replacement, or extras | Warning |
 | C11 | Duplicate id | Each DSJ id appears once per delivery | Error |
 | C12 | Version | Any change to a DSJ (`ServiceAlteration`, `ServiceJourneyRef`, `replacedJourneys`, `BlockRef`) comes with a version one higher than the last delivered version | Error |
