@@ -32,6 +32,32 @@ In this guide you will learn:
 > [!WARNING]
 > `replaced` goes on the **original** journey, not on the new one. The new journey is the one travellers should use, so it is `planned` (or omitted).
 
+### State of the original journey
+
+`replaced` and `cancellation` are states of the original. Every transition is a new version of the same DSJ id. Extra journeys and replacements are separate DSJs, not states of the original.
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> planned: published (v1)
+    planned --> replaced: alternative offered
+    planned --> cancellation: no alternative
+    replaced --> planned: revert
+    cancellation --> planned: revert
+    replaced --> cancellation: alternative withdrawn
+```
+
+<details><summary>Text version</summary>
+
+```text
+  planned ──alternative offered──▶ replaced
+  planned ──no alternative───────▶ cancellation
+  replaced / cancellation ──revert──▶ planned
+  replaced ──alternative withdrawn──▶ cancellation
+  (every arrow = same DSJ id, version + 1)
+```
+</details>
+
 ---
 
 ## 3. Direction of replacement references

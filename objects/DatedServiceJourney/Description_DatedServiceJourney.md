@@ -83,7 +83,7 @@ All extended examples include inline `<!-- DIFF: ... -->` comments highlighting 
 
 ### Lifecycle Concept
 
-A simplified lifecycle flow is documented in [Lifecycle_DatedServiceJourney.md](Lifecycle_DatedServiceJourney.md):
+A simplified lifecycle flow is shown below. Cancellations, replacements, extra journeys and the related consistency checks are covered in the [Deviation Handling guide](../../guides/DeviationHandling/DeviationHandling_Guide.md).
 
 ```
 ServiceJourney (planned, recurring template)

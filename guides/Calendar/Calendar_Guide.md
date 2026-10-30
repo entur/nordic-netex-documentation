@@ -69,7 +69,7 @@ This is unambiguous: "ServiceJourney 100_0730 operates on 2026-03-18." No resolu
 > [!TIP]
 > The date-based model maps directly to what passengers and operators experience: "this specific journey on this specific date." Start here, and layer pattern-based scheduling on top only when managing recurring schedules at scale.
 
-See [DatedServiceJourney Lifecycle](../../objects/DatedServiceJourney/Lifecycle_DatedServiceJourney.md) for the full deviation model using DatedServiceJourney.
+See [Deviation Handling](../DeviationHandling/DeviationHandling_Guide.md) for the full deviation model using DatedServiceJourney.
 
 ---
 
@@ -255,7 +255,7 @@ A complete example showing OperatingDays for date-specific instances, Weekdays a
 
 ### Guides
 - [How to Build a Timetable](../HowToBuildATimetable/HowToBuildATimetable_Guide.md) — The full chain from Line to DatedServiceJourney
-- [DatedServiceJourney Lifecycle](../../objects/DatedServiceJourney/Lifecycle_DatedServiceJourney.md) — How DatedServiceJourney handles cancellations, replacements, and reinforcements
+- [Deviation Handling](../DeviationHandling/DeviationHandling_Guide.md) — How DatedServiceJourney handles cancellations, replacements, and reinforcements
 - [Get Started](../GetStarted/GetStarted_Guide.md) — NeTEx fundamentals and document anatomy
 
 ### Frames & Objects
