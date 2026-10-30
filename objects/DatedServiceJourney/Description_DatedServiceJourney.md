@@ -57,6 +57,7 @@ A **DatedServiceJourney** represents a specific operational instance of a `Servi
 > - **Expecting stop times in DatedServiceJourney** – Stop times are defined only in ServiceJourney and TimetabledPassingTime. A DatedServiceJourney inherits them via its ServiceJourneyRef.
 > - **Mixing OperatingDay and DayType** – OperatingDay is a **specific calendar date**; DayType is a **set of dates** (e.g., weekdays). DatedServiceJourney uses OperatingDay.
 > - **Unclear hierarchy with replacements** – replacedJourneys does not mean the current journey is cancelled. It means this journey reinforces or replaces the referenced journeys on this date.
+> - **ServiceAlteration on the wrong journey** – `replaced` belongs on the **original** journey. The replacing journey carries `replacedJourneys` pointing back to the original, and is itself planned. See the [Deviation Handling guide](../../guides/DeviationHandling/DeviationHandling_Guide.md).
 
 ### 5d. Profile-Specific Notes
 
@@ -74,7 +75,7 @@ Minimal and scenario-specific XML examples are provided:
 
 1. **Minimal** – [Example_DatedServiceJourney_NP.xml](Example_DatedServiceJourney_NP.xml)
 2. **01 Reinforcement** – [Example_DatedServiceJourney_Extended_01_Reinforcement.xml](Example_DatedServiceJourney_Extended_01_Reinforcement.xml) – Additional vehicle/crew added to handle increased demand
-3. **02 Replacement** – [Example_DatedServiceJourney_Extended_02_Replacement.xml](Example_DatedServiceJourney_Extended_02_Replacement.xml) – Substitutes for cancelled or redirected journey
+3. **02 Replacement** – [Example_DatedServiceJourney_Extended_02_Replacement.xml](Example_DatedServiceJourney_Extended_02_Replacement.xml) – Two objects: the original marked `replaced`, and the replacing journey referencing it via replacedJourneys
 4. **03 Block-Linked** – [Example_DatedServiceJourney_Extended_03_BlockLinked.xml](Example_DatedServiceJourney_Extended_03_BlockLinked.xml) – Journey linked via BlockRef for vehicle continuity
 5. **04 Multi-Reference** – [Example_DatedServiceJourney_Extended_04_MultiRef.xml](Example_DatedServiceJourney_Extended_04_MultiRef.xml) – Multiple replacedJourneys references
 

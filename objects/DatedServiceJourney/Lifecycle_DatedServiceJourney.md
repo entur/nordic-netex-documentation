@@ -17,12 +17,12 @@ Creation rules:
 ## 2. Change handling (reinforcement, replacement, cancellation)
 Change types are expressed on the DSJ level and apply only to that dated instance:
 - Reinforcement (extra journey): an additional DSJ on the same ServiceJourney and OperatingDay to increase capacity. Mark the DSJ as an extra journey.
-- Replacement: a DSJ that replaces another DSJ on the same date and corridor. Mark the DSJ as a replacement and reference the replaced DSJ.
+- Replacement: always two DSJs on the same date. The original DSJ is marked as replaced. A new, replacing DSJ references the original via replacedJourneys and is itself planned.
 - Cancellation: the DSJ is not operated on that date. Mark the DSJ as cancelled.
 
 Encoding on DSJ (see [Table_DatedServiceJourney.md](Table_DatedServiceJourney.md)):
-- ServiceAlteration: one of [planned, extraJourney, replaced, cancellation]; omitted implies planned
-- replacedJourneys/DatedVehicleJourneyRef (for replacement): reference to the replaced DSJ
+- ServiceAlteration: one of [planned, extraJourney, replaced, cancellation]; omitted implies planned. Always describes the DSJ it sits on; `replaced` goes on the original.
+- replacedJourneys/DatedVehicleJourneyRef (for replacement): sits on the replacing DSJ and points back to the original DSJ
 
 Effects:
 - Reinforcement: both original and extra DSJ may coexist; passenger information should distinguish them (e.g. vehicle/Block assignment, notices).
@@ -32,7 +32,7 @@ Effects:
 ## 3. Versioning rules
 - DSJ.version is independent of the underlying ServiceJourney.version. A DSJ version MUST increase only when the DSJ’s own state or assignments for that date change (e.g. ServiceAlteration, BlockRef assignment, notices).
 - Changing OperatingDayRef or ServiceJourneyRef effectively makes a different DSJ; such structural changes SHOULD be made by superseding with a new DSJ id.
-- For replacement: the replacing DSJ is a separate DSJ. The replaced DSJ may be versioned to set cancellation, while the replacing DSJ is created (or versioned) to indicate replacement.
+- For replacement: the replacing DSJ is a separate DSJ. The original DSJ is versioned to set ServiceAlteration=replaced, while the replacing DSJ is created with replacedJourneys pointing to the original.
 - For cancellation: increment DSJ.version and set ServiceAlteration=cancellation.
 
 ## 4. Reference integrity checks
@@ -44,23 +44,26 @@ A DSJ MUST pass the following checks:
 
 ## 5. State diagram (simplified)
 ```
+  State of the ORIGINAL DSJ:
+
+           +----------------+   alternative offered   +----------------+
+           |    PLANNED     |------------------------>|    REPLACED    |<-- referenced by new DSJ(s)
+           +----------------+                         +----------------+    via replacedJourneys
+              |         ^                                     |
+ no alternative|         |            revert                   |
+              v         +-------------------------------------+
            +----------------+
-           |   PLANNED      |
+           |   CANCELLED    |
            +----------------+
-                 |  \
-     reinforcement|   \ replacement
-                 v    v
-           +----------------+       cancellation
-           |   REINFORCED   |----------------------+
-           +----------------+                      |
-                 |                                  v
-                 |                          +----------------+
-                 +------------------------> |   CANCELLED    |
-                                            +----------------+
+
+  Separate DSJs (never a state of the original):
+    EXTRA        ServiceAlteration=extraJourney, no replacedJourneys
+    SUPPLEMENT   ServiceAlteration=extraJourney + replacedJourneys -> original (original stays PLANNED)
+    REPLACING    no ServiceAlteration (planned) + replacedJourneys -> original (original is REPLACED)
 ```
 Notes:
-- REINFORCED indicates an “extra” DSJ (ServiceAlteration=extraJourney) in addition to the planned one.
-- REPLACED is represented by creating a new DSJ (ServiceAlteration=replaced) that points to the replaced DSJ via replacedJourneys; the replaced DSJ is typically also set to CANCELLED for the date.
+- An extra DSJ (ServiceAlteration=extraJourney) is a separate journey in addition to the planned one; it does not change the state of the original.
+- REPLACED is represented on the original DSJ (ServiceAlteration=replaced). A new DSJ points to it via replacedJourneys. Use `cancellation` only when no alternative is offered.
 
 ## 6. Short before/after example (illustrative fragment)
 The following snippet shows only the DSJ element to convey the idea; full NeTEx documents in this repository provide complete, schema-valid examples. Codespace used: NP.
@@ -88,11 +91,19 @@ After (cancelled for the same date):
 </DatedServiceJourney>
 ```
 
-For a replacement, create a new replacing DSJ and reference the replaced one:
+For a replacement, mark the original as replaced and create a new replacing DSJ that references it:
 ```xml
-<DatedServiceJourney id="NP:DatedServiceJourney:DSJ_1002" version="1">
+<!-- Original: same id, version incremented, marked as replaced -->
+<DatedServiceJourney id="NP:DatedServiceJourney:DSJ_1001" version="2">
   <ServiceAlteration>replaced</ServiceAlteration>
+  <BlockRef ref="NP:Block:BL_42"/>
   <ServiceJourneyRef ref="NP:ServiceJourney:SJ_5001"/>
+  <OperatingDayRef ref="NP:OperatingDay:2026-03-10"/>
+</DatedServiceJourney>
+
+<!-- Replacing journey: no ServiceAlteration (planned), points back to the original -->
+<DatedServiceJourney id="NP:DatedServiceJourney:DSJ_1002" version="1">
+  <ServiceJourneyRef ref="NP:ServiceJourney:SJ_5002"/>
   <replacedJourneys>
     <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:DSJ_1001"/>
   </replacedJourneys>
