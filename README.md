@@ -24,7 +24,8 @@
 
 ---
 
-> **⚠️ Release Candidate** — This documentation is under active development. Not yet the official source.
+> [!WARNING]
+> **Release Candidate** — This documentation is under active development. Not yet the official source.
 
 ---
 
@@ -36,43 +37,43 @@ This repository is **Entur's implementation guide**: clear explanations, validat
 
 ---
 
-## 🚀 Quick start
+## Quick start
 
 ```mermaid
 flowchart LR
-    A["🏁 Get Started"] --> B["📐 Conventions"]
-    B --> C["🚌 Build a Timetable"]
-    C --> D["🚏 Stops"]
-    D --> E["📅 Calendar"]
-    E --> F["📦 Full Dataset"]
+    A["Get Started"] --> B["Conventions"]
+    B --> C["Build a Timetable"]
+    C --> D["Stops"]
+    D --> E["Calendar"]
+    E --> F["Full Dataset"]
 ```
 
 | # | Guide | You'll learn |
 |---|-------|-------------|
-| 1 | **[Get Started](guides/GetStarted/GetStarted_Guide.md)** | What NeTEx is, document anatomy, frames and objects |
-| 2 | **[NeTEx Conventions](guides/NeTExConventions/NeTEx_Conventions.md)** | ID patterns, versioning, codespace rules |
-| 3 | **[How to Build a Timetable](guides/HowToBuildATimetable/HowToBuildATimetable_Guide.md)** | Line → Route → JourneyPattern → ServiceJourney → Departure |
-| 4 | **[Stop Infrastructure](guides/StopInfrastructure/StopInfrastructure_Guide.md)** | Logical stops, physical platforms, the assignment bridge |
-| 5 | **[Calendar](guides/Calendar/Calendar_Guide.md)** | DayTypes, OperatingPeriods, exceptions, date-based scheduling |
+| 1 | 🚀 **[Get Started](guides/GetStarted/GetStarted_Guide.md)** | What NeTEx is, document anatomy, frames and objects |
+| 2 | 📏 **[NeTEx Conventions](guides/NeTExConventions/NeTEx_Conventions.md)** | ID patterns, versioning, codespace rules |
+| 3 | 🕐 **[How to Build a Timetable](guides/HowToBuildATimetable/HowToBuildATimetable_Guide.md)** | Line → Route → JourneyPattern → ServiceJourney → Departure |
+| 4 | 🚏 **[Stop Infrastructure](guides/StopInfrastructure/StopInfrastructure_Guide.md)** | Logical stops, physical platforms, the assignment bridge |
+| 5 | 📅 **[Calendar](guides/Calendar/Calendar_Guide.md)** | DayTypes, OperatingPeriods, exceptions, date-based scheduling |
 
 ---
 
-## 📖 Topic guides
+## Topic guides
 
 Beyond the core reading path, these guides cover specific domains:
 
 | Domain | Guide |
 |--------|-------|
-| 🔄 Interchanges & connections | [Interchange](guides/Interchange/Interchange_Guide.md) |
-| 📢 Passenger information & booking | [Passenger Information](guides/PassengerInformation/PassengerInformation_Guide.md) |
-| 🚌 Vehicle assignment & blocks | [Vehicle Scheduling](guides/VehicleScheduling/VehicleScheduling_Guide.md) |
-| 🚆 Rolling stock & train composition | [Rolling Stock](guides/RollingStock/RollingStock_Guide.md) |
-| 🔀 Deviations & replacements | [Deviation Handling](guides/DeviationHandling/DeviationHandling_Guide.md) |
-| 🛠️ Tooling & debugging | [Tools](guides/Tools/Tools_Guide.md) |
+| Interchanges & connections | 🔄 [Interchange](guides/Interchange/Interchange_Guide.md) |
+| Passenger information & booking | 📢 [Passenger Information](guides/PassengerInformation/PassengerInformation_Guide.md) |
+| Vehicle assignment & blocks | 🚌 [Vehicle Scheduling](guides/VehicleScheduling/VehicleScheduling_Guide.md) |
+| Rolling stock & train composition | 🚂 [Rolling Stock](guides/RollingStock/RollingStock_Guide.md) |
+| Deviations & replacements | 🔀 [Deviation Handling](guides/DeviationHandling/DeviationHandling_Guide.md) |
+| Tooling & debugging | 🛠️ [Tools](guides/Tools/Tools_Guide.md) |
 
 ---
 
-## 🧱 How the documentation is structured
+## How the documentation is structured
 
 Every NeTEx concept follows three layers:
 
@@ -91,11 +92,12 @@ objects/<Name>/
 | **[ontology/](ontology/)** | Machine-readable knowledge graph (Turtle/OWL) |
 | **[assets/](assets/)** | Images and support files |
 
-> 💡 Need to look up a specific element? Browse [objects/](objects/) directly or check the [Glossary](guides/Glossary/Glossary.md).
+> [!TIP]
+> Need to look up a specific element? Browse [objects/](objects/) directly or check the [Glossary](guides/Glossary/Glossary.md).
 
 ---
 
-## 🧠 Ontology
+## Ontology
 
 The `ontology/` folder contains a layered knowledge graph sourced from [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) (git submodule). To fetch the ontology files locally, clone with `--recurse-submodules` (or run `git submodule update --init --recursive`).
 
@@ -112,7 +114,7 @@ The `ontology/` folder contains a layered knowledge graph sourced from [`entur-n
 
 ---
 
-## 👀 Local Preview
+## Local Preview
 
 This repository uses [Docsify](https://docsify.js.org/) for local preview:
 

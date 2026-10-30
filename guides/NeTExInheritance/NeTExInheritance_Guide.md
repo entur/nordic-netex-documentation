@@ -1,6 +1,6 @@
 # 🧬 NeTEx Inheritance — Developer Guide
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 NeTEx is built on a deep object-oriented inheritance hierarchy. Understanding this hierarchy is essential for:
 - Knowing which elements are **inherited** vs. **specific** to a type
@@ -14,7 +14,7 @@ This guide maps the key inheritance chains in NeTEx using class diagrams, so you
 
 ---
 
-## 2. 🏗️ Core Inheritance Chain
+## 2. Core Inheritance Chain
 
 Every NeTEx data object inherits from a chain of abstract base types. Here's the fundamental hierarchy:
 
@@ -56,7 +56,7 @@ classDiagram
 
 ---
 
-## 3. 📐 Organisation Hierarchy
+## 3. Organisation Hierarchy
 
 Organisations form a simple hierarchy. Both Authority and Operator inherit from Organisation:
 
@@ -100,7 +100,7 @@ classDiagram
 
 ---
 
-## 4. 🚏 Stop Hierarchy
+## 4. Stop Hierarchy
 
 The stop model has two parallel hierarchies — one for infrastructure (physical places), one for planning (logical points):
 
@@ -155,7 +155,7 @@ classDiagram
 
 ---
 
-## 5. 🚌 Line and Route Hierarchy
+## 5. Line and Route Hierarchy
 
 Lines, routes, and journey patterns form the service structure:
 
@@ -213,7 +213,7 @@ classDiagram
 
 ---
 
-## 6. 🕐 Journey and Calendar Hierarchy
+## 6. Journey and Calendar Hierarchy
 
 ServiceJourneys link patterns to timetables:
 
@@ -260,7 +260,7 @@ classDiagram
 
 ---
 
-## 7. 🔗 Transfer Hierarchy
+## 7. Transfer Hierarchy
 
 Transfers model how passengers move between services:
 
@@ -304,7 +304,7 @@ classDiagram
 
 ---
 
-## 8. 📋 Frame Hierarchy
+## 8. Frame Hierarchy
 
 All frames inherit from a common base:
 
@@ -375,7 +375,7 @@ classDiagram
 
 ---
 
-## 9. 💡 Why This Matters
+## 9. Why This Matters
 
 Understanding the inheritance model helps you:
 

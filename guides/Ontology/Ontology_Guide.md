@@ -1,25 +1,26 @@
 # 🧠 Ontology Guide
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 This repository includes a machine-readable ontology — a set of `.ttl` (Turtle/RDF) files that model the NeTEx schema, Nordic Profile constraints, and Entur-specific governance as structured, queryable data.
 
-> ℹ️ **Scope of this guide.** The only ontology file *native* to this repository is [`netex-nordic-documentation.ttl`](../../ontology/netex-nordic-documentation.ttl) — the documentation layer, generated from the `objects/` and `frames/` folders, that links each Nordic and Entur profile class to its Description/Table/Example files. Every other layer (the generated base, the Nordic Profile, and the Entur layers) lives in the `entur-netex-ontology` and `nordic-netex-ontology` **submodules**, which each carry their own README as the **authoritative, up-to-date source** for their internals. This guide gives a stable conceptual orientation to the whole stack; when submodule detail and this guide disagree, trust the submodule README.
+> [!NOTE]
+> **Scope of this guide.** The only ontology file *native* to this repository is [`netex-nordic-documentation.ttl`](../../ontology/netex-nordic-documentation.ttl) — the documentation layer, generated from the `objects/` and `frames/` folders, that links each Nordic and Entur profile class to its Description/Table/Example files. Every other layer (the generated base, the Nordic Profile, and the Entur layers) lives in the `entur-netex-ontology` and `nordic-netex-ontology` **submodules**, which each carry their own README as the **authoritative, up-to-date source** for their internals. This guide gives a stable conceptual orientation to the whole stack; when submodule detail and this guide disagree, trust the submodule README.
 
 The ontology serves two purposes:
 - **For humans:** a precise, navigable reference for how NeTEx classes, references, and constraints relate to each other.
 - **For machines:** a foundation for automated validation (SHACL), documentation generation, and tooling integration.
 
 **In this guide you will learn:**
-- 📂 The file structure and layer stack
-- 🔤 What the standard prefixes (RDF, OWL, SHACL, SKOS) mean
-- 🛠️ Where and why custom properties are used
+- The file structure and layer stack
+- What the standard prefixes (RDF, OWL, SHACL, SKOS) mean
+- Where and why custom properties are used
 - ✅ How SHACL shapes enable validation
-- 🔗 How the layers connect
+- How the layers connect
 
 ---
 
-## 2. 📂 File Structure
+## 2. File Structure
 
 The `ontology/` folder contains a documentation-specific file alongside the [`entur-netex-ontology`](https://github.com/entur/entur-netex-ontology) submodule (the single source of truth for all non-documentation ontology files):
 
@@ -38,9 +39,11 @@ ontology/
   └── netex-nordic-documentation.ttl   ← Documentation paths on profile nodes (generated)
 ```
 
-> ℹ️ **Filenames drift; layers don't.** The submodules add and rename files over time (new service sub-profiles, module splits). Treat the tree above as illustrative and rely on the **layer roles** below rather than exact filenames.
+> [!NOTE]
+> **Filenames drift; layers don't.** The submodules add and rename files over time (new service sub-profiles, module splits). Treat the tree above as illustrative and rely on the **layer roles** below rather than exact filenames.
 
-> ℹ️ The NeTEx **base vocabulary** (`netex:`) is **generated from the NeTEx XSD** and intended to be CEN-owned — the profile never hand-edits it. A snapshot of that generated base is **vendored under `base/`** in the `nordic-netex-ontology` submodule (the `netex.ttl` root plus its per-module documents and a SHACL baseline), so the profile stays self-contained and validatable without fetching anything external. Terms keep their `netex:` identity regardless of where the base is hosted.
+> [!NOTE]
+> The NeTEx **base vocabulary** (`netex:`) is **generated from the NeTEx XSD** and intended to be CEN-owned — the profile never hand-edits it. A snapshot of that generated base is **vendored under `base/`** in the `nordic-netex-ontology` submodule (the `netex.ttl` root plus its per-module documents and a SHACL baseline), so the profile stays self-contained and validatable without fetching anything external. Terms keep their `netex:` identity regardless of where the base is hosted.
 
 ### Import Chain
 
@@ -90,7 +93,7 @@ flowchart TD
 
 ---
 
-## 3. 🔤 Standard Prefixes
+## 3. Standard Prefixes
 
 The ontology uses four W3C standard vocabularies. Each has a specific job:
 
@@ -168,7 +171,7 @@ Alongside these, four **domain namespaces** carry the model itself:
 
 ---
 
-## 4. 🛠️ Custom Properties
+## 4. Custom Properties
 
 Beyond the standard W3C vocabularies, the ontology relies on two families of domain terms: **generated `netex:` properties** projected 1:1 from the NeTEx XSD (`lowerCamelCase`, e.g. `netex:routeRef`) that live in the generated, CEN-owned base, and **hand-authored `nordic:` predicates** for profile navigation, declared in `netex-nordic-vocab.ttl` and applied in `netex-nordic-model.ttl`.
 
@@ -231,7 +234,7 @@ SHACL shapes, profile constraints, and service sub-profiles all reference these 
 
 ---
 
-## 5. ✅ SHACL Validation
+## 5. SHACL Validation
 
 SHACL shapes in `netex-nordic.ttl` and the Entur service sub-profiles (`netex-entur-*.ttl`, e.g. NSR and rolling stock) express constraints that standard tools can validate automatically.
 
@@ -266,7 +269,7 @@ A DatedServiceJourney delivery to the rolling stock service must pass all three 
 
 ---
 
-## 6. 🔗 How It All Connects
+## 6. How It All Connects
 
 ### From Ontology to Documentation
 
@@ -339,7 +342,7 @@ This makes it possible to trace which NeTEx data must be stable for SIRI interop
 
 ---
 
-## 7. 📚 Further Reading
+## 7. Further Reading
 
 **Authoritative sources for submodule internals** (kept current upstream):
 

@@ -1,20 +1,20 @@
 # 🔄 Interchange & InterchangeOnly Guide
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 When passengers transfer between services — say from a bus to a train — the connection needs to be planned, communicated, and sometimes guaranteed. NeTEx models these transfers using **ServiceJourneyInterchange** and optionally marks stops that exist *only* for transferring with `StopUse = interchangeOnly`.
 
 This guide explains when and how to model planned interchanges, with practical examples covering both minimal and full-featured configurations.
 
 In this guide you will learn:
-- 🔗 What a ServiceJourneyInterchange is and where it lives
-- 🚏 How `StopUse = interchangeOnly` marks transfer-only stops
-- ⏱️ How to add timing constraints and guarantees
-- 📝 Practical XML examples from minimal to full
+- What a ServiceJourneyInterchange is and where it lives
+- How `StopUse = interchangeOnly` marks transfer-only stops
+- How to add timing constraints and guarantees
+- Practical XML examples from minimal to full
 
 ---
 
-## 2. 🔗 Core Concepts
+## 2. Core Concepts
 
 ### What Is an Interchange?
 
@@ -51,7 +51,8 @@ An **interchange** is a planned transfer opportunity between two ServiceJourneys
 | **MinimumTransferTime** | Duration | Minimum time needed for a safe transfer (e.g., `PT5M`) |
 | **StaySeated** | Boolean | Whether passengers can remain seated (through-running) |
 
-> 💡 **Tip:** An interchange is **one-directional** (From → To). For bidirectional transfers, create two separate ServiceJourneyInterchange elements.
+> [!TIP]
+> An interchange is **one-directional** (From → To). For bidirectional transfers, create two separate ServiceJourneyInterchange elements.
 
 ### Where Does It Live?
 
@@ -68,7 +69,7 @@ TimetableFrame
 
 ---
 
-## 3. 🚏 StopUse = interchangeOnly
+## 3. StopUse = interchangeOnly
 
 Sometimes a stop on a journey exists solely for transfer purposes — passengers are not expected to board or alight there for its own sake. NeTEx models this with the `StopUse` element on `StopPointInJourneyPattern`:
 
@@ -92,7 +93,8 @@ Sometimes a stop on a journey exists solely for transfer purposes — passengers
 | Regular stop where passengers also board/alight normally | No |
 | Hub station with many connections but also local demand | No |
 
-> ⚠️ **Note:** `StopUse` is a property of the stop *within a specific journey pattern*, not of the stop itself. The same ScheduledStopPoint can be `interchangeOnly` on one journey and a regular stop on another.
+> [!NOTE]
+> `StopUse` is a property of the stop *within a specific journey pattern*, not of the stop itself. The same ScheduledStopPoint can be `interchangeOnly` on one journey and a regular stop on another.
 
 ### Nordic Profile Rules
 
@@ -104,7 +106,7 @@ Sometimes a stop on a journey exists solely for transfer purposes — passengers
 
 ---
 
-## 4. 📝 Practical Examples
+## 4. Practical Examples
 
 ### 4a. Minimal Interchange (MIN profile)
 
@@ -130,7 +132,7 @@ The simplest valid interchange — just two journey references:
 </TimetableFrame>
 ```
 
-> 📄 **Full example:** [Example_Interchange_NP.xml](../../objects/Interchange/Example_Interchange_NP.xml)
+> **Full example:** [Example_Interchange_NP.xml](../../objects/Interchange/Example_Interchange_NP.xml)
 
 ### 4b. Guaranteed Interchange with Timing (NP profile)
 
@@ -157,7 +159,7 @@ A guaranteed connection with stop references and timing constraints:
 </TimetableFrame>
 ```
 
-> 📄 **Full example:** [Example_Interchange_NP.xml](../../objects/Interchange/Example_Interchange_NP.xml)
+> **Full example:** [Example_Interchange_NP.xml](../../objects/Interchange/Example_Interchange_NP.xml)
 
 ### 4c. Interchange with interchangeOnly Stop
 
@@ -193,11 +195,11 @@ Combining the interchange with a transfer-only stop in the journey pattern:
 </ServiceJourneyInterchange>
 ```
 
-> 📄 **Full example:** [Example_Interchange.xml](Example_Interchange.xml) — A complete PublicationDelivery with stop points, journey patterns (including `interchangeOnly`), ServiceJourneys, and both guaranteed and non-guaranteed interchanges.
+> **Full example:** [Example_Interchange.xml](Example_Interchange.xml) — A complete PublicationDelivery with stop points, journey patterns (including `interchangeOnly`), ServiceJourneys, and both guaranteed and non-guaranteed interchanges.
 
 ---
 
-## 5. ✅ Best Practices
+## 5. Best Practices
 
 1. **Use `ServiceJourneyInterchange`**, not `Interchange`, as the XML element name. The schema expects the full name.
 
@@ -215,7 +217,7 @@ Combining the interchange with a transfer-only stop in the journey pattern:
 
 ---
 
-## 6. ❌ Common Mistakes
+## 6. Common Mistakes
 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|
@@ -227,7 +229,7 @@ Combining the interchange with a transfer-only stop in the journey pattern:
 
 ---
 
-## 7. 🔗 Related Resources
+## 7. Related Resources
 
 ### Guides
 - [Separation of Concerns](../SeparationOfConcerns/SeparationOfConcerns.md) -- Domain separation and coupling strategies
