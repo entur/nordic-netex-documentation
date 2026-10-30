@@ -1,0 +1,49 @@
+{
+  "_comment": "Hand-written content for Table_StopPlace.md. Used where the ontology has no profile definition; see scripts/generate_tables.md.",
+  "fields": {
+    "@id": {
+      "type": "ID"
+    },
+    "@version": {
+      "type": "String"
+    },
+    "PrivateCode": {
+      "description": "Internal identifier code"
+    },
+    "TransportMode": {
+      "type": "Enum"
+    },
+    "@created": {
+      "description": "Creation date",
+      "type": "DateTime"
+    },
+    "@changed": {
+      "description": "Last modification date",
+      "type": "DateTime"
+    },
+    "@modification": {
+      "description": "Modification type (e.g., delete for decommissioning)",
+      "type": "String"
+    },
+    "tariffZones/TariffZoneRef/@ref": {
+      "description": "References to tariff zones",
+      "type": "Reference"
+    },
+    "Description": {
+      "description": "Free-text description of the stop place"
+    },
+    "adjacentSites": {
+      "description": "References to adjacent stop places"
+    },
+    "adjacentSites/SiteRef/@ref": {
+      "description": "Reference to an adjacent StopPlace"
+    },
+    "BusSubmode": {
+      "description": "Optional submode category"
+    },
+    "alternativeNames/AlternativeName": {
+      "description": "Alternative names or aliases"
+    }
+  },
+  "structure_note": "The tree combines all StopPlace variants in the examples. A monomodal StopPlace has `TransportMode` and `quays`. A multimodal parent StopPlace groups monomodal children (which point to it with `ParentSiteRef`) and has neither `quays` nor `TransportMode`."
+}

@@ -8,31 +8,50 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 
 ## 2. Structure Overview
 
+<!-- generated:structure:start -->
 ```text
 📄 @id (1..1)
 📄 @version (1..1)
+📁 keyList (0..1)
+   └── 📁 KeyValue (1..n)
+       ├── 📄 Key (1..1)
+       └── 📄 Value (1..1)
 📄 Name (0..1)
-📄 PrivateCode (0..1)
 📄 Description (0..1)
+📄 PrivateCode (0..1)
 📄 TransportMode (0..1)
-📄 TransportSubmode (0..1)
-🔗 JourneyPatternRef/@ref (1..1)
-🔗 LineRef/@ref (0..1)
-🔗 FlexibleLineRef/@ref (0..1)
-🔗 OperatorRef/@ref (0..1)
+📁 TransportSubmode (0..1)
+   ├── 📄 BusSubmode (0..1)
+   └── 📄 RailSubmode (0..1)
 📁 dayTypes (0..1)
    └── 🔗 DayTypeRef/@ref (0..n)
-📁 passingTimes (1..1)
+🔗 JourneyPatternRef/@ref (1..1)
+🔗 OperatorRef/@ref (0..1)
+🔗 LineRef/@ref (0..1)
+📁 passingTimes (0..1)
    └── 📁 TimetabledPassingTime (1..n)
+       ├── 📄 @id (0..1)
        ├── 🔗 StopPointInJourneyPatternRef/@ref (1..1)
        ├── 📄 ArrivalTime (0..1)
+       ├── 📄 ArrivalDayOffset (0..1)
        ├── 📄 DepartureTime (0..1)
-       └── 📄 ArrivalDayOffset / DepartureDayOffset (0..1)
-📁 keyList (0..1)
-   └── 📄 KeyValue (0..n)
+       ├── 📄 DepartureDayOffset (0..1)
+       ├── 📄 LatestArrivalTime (0..1)
+       └── 📄 EarliestDepartureTime (0..1)
 📁 parts (0..1)
-🔗 BlockRef/@ref (0..1)
+   └── 📁 JourneyPart (0..n)
+       ├── 📄 @id (?)
+       ├── 📄 Description (0..1)
+       ├── 🔗 MainPartRef/@ref (0..1)
+       ├── 🔗 TrainNumberRef/@ref (0..1)
+       ├── 🔗 FromStopPointRef/@ref (0..1)
+       ├── 🔗 ToStopPointRef/@ref (0..1)
+       ├── 📄 StartTime (1..1)
+       ├── 📄 StartTimeDayOffset (0..1)
+       ├── 📄 EndTime (1..1)
+       └── 📄 EndTimeDayOffset (0..1)
 ```
+<!-- generated:structure:end -->
 
 ## 3. Key Elements
 
@@ -42,7 +61,7 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 - **dayTypes** – DayType references specifying on which days the journey normally operates
 - **OperatorRef** – Reference to the Operator responsible for this journey
 - **LineRef** – Reference to the served Line
-- **BlockRef** – Optional reference to a Block/TrainBlock for vehicle continuity
+- **Vehicle assignment** – Not set on ServiceJourney in the Nordic Profile (BlockRef is excluded). A [Block](../Block/Table_Block.md) lists its journeys instead
 
 ## 4. References
 
