@@ -24,7 +24,7 @@ ServiceJourney
  ├─ JourneyPatternRef/@ref (1..1)
  ├─ OperatorRef/@ref (0..1)
  ├─ LineRef/@ref (0..1)
- ├─ passingTimes (0..1)
+ ├─ passingTimes (1..1)
  │   └─ TimetabledPassingTime (1..n)
  │       ├─ @id (0..1)
  │       ├─ StopPointInJourneyPatternRef/@ref (1..1)
@@ -70,7 +70,7 @@ ServiceJourney
 | [JourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | JourneyPatternRefStructure | 1..1 | Reference to the JourneyPattern defining the stop sequence | Nordic | JourneyPatternRef/@ref |
 | [OperatorRef](../Operator/Table_Operator.md)/@ref | OperatorRefStructure | 0..1 | Reference to an Operator | Nordic | OperatorRef/@ref |
 | [LineRef](../Line/Table_Line.md)/@ref | LineRefStructure | 0..1 | Reference to the served Line | Nordic | LineRef/@ref |
-| passingTimes | timetabledPassingTimes_RelStructure | 0..1 | ? | – | passingTimes |
+| passingTimes | timetabledPassingTimes_RelStructure | 1..1 | XSD allows 0..1, NP mandates 1..1 (passingTimes/TimetabledPassingTime is 1..n) | Nordic | passingTimes |
 | [TimetabledPassingTime](../../guides/Glossary/Glossary.md#timetabledpassingtime) | TimetabledPassingTime_VersionedChildStructure | 1..n | Collection of scheduled passing/stop times | Nordic | passingTimes/TimetabledPassingTime |
 | @id | xsd:ID *(manual)* | 0..1 | Optional identifier for the TimetabledPassingTime element | Nordic | passingTimes/TimetabledPassingTime/@id |
 | [StopPointInJourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | VersionedRef *(manual)* | 1..1 | Reference to a StopPointInJourneyPattern | Nordic | passingTimes/TimetabledPassingTime/StopPointInJourneyPatternRef/@ref |

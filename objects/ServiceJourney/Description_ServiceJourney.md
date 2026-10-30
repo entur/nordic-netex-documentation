@@ -28,7 +28,7 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 🔗 JourneyPatternRef/@ref (1..1)
 🔗 OperatorRef/@ref (0..1)
 🔗 LineRef/@ref (0..1)
-📁 passingTimes (0..1)
+📁 passingTimes (1..1)
    └── 📁 TimetabledPassingTime (1..n)
        ├── 📄 @id (0..1)
        ├── 🔗 StopPointInJourneyPatternRef/@ref (1..1)
