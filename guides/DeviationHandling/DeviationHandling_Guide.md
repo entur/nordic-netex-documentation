@@ -1,7 +1,7 @@
 # 🔀 Deviation Handling with DatedServiceJourney
 
-> [!NOTE]
-> **Draft.** The rules reflect how data consumers interpret deviations today. Rules marked *convention* are established practice, not schema constraints. Review before publishing.
+> [!WARNING]
+> **Not part of the official Nordic Profile.** DatedServiceJourney, and the deviation model built on it, is an extension of the published Nordic NeTEx Profile. Rules marked *convention* are established practice, not schema constraints.
 
 ## 1. Introduction
 
