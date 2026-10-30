@@ -3,22 +3,22 @@
 > [!NOTE]
 > **Draft.** This guide builds on the earlier draft *Extended Sales & Deviation Handling* and is aligned with how Entur's consumers (scheduled-stock, sjs-producer) interpret the data today. Rules marked *convention* are agreed practice, not schema constraints. Review before publishing.
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 The yearly timetable describes what *should* run. On a given day, track work, crew shortages, broken vehicles and events change that. In the Nordic Profile, **DatedServiceJourney** (DSJ) is where these day-specific changes are expressed. It is the dated, versioned instance of a ServiceJourney, and its id is the stable key that sales, passenger information and real-time feeds bind to.
 
 Two small fields carry the whole model: `ServiceAlteration` (what happened to *this* journey) and `replacedJourneys` (which journey *this* one stands in for). Getting either of them on the wrong journey makes consumers show the wrong thing to travellers. This guide makes the rules explicit.
 
 In this guide you will learn:
-- 🏷️ What `planned`, `cancellation`, `replaced` and `extraJourney` mean, and which journey carries each value
-- ➡️ Which direction replacement references point, with complete before/after examples
-- 🚆🚌 How to model partial replacement, an altered stretch, and combinations of train and bus
-- 🔍 Which consistency checks to run: missing references, conflicting statuses, several journeys on one date
-- 📢 How each deviation should be presented to travellers
+- What `planned`, `cancellation`, `replaced` and `extraJourney` mean, and which journey carries each value
+- Which direction replacement references point, with complete before/after examples
+- How to model partial replacement, an altered stretch, and combinations of train and bus
+- Which consistency checks to run: missing references, conflicting statuses, several journeys on one date
+- How each deviation should be presented to travellers
 
 ---
 
-## 2. 🏷️ The four ServiceAlteration values
+## 2. The four ServiceAlteration values
 
 `ServiceAlteration` always describes the journey it sits on. It never describes another journey.
 
@@ -36,7 +36,7 @@ Reduced capacity (fewer carriages) is **not** a deviation in this sense. The jou
 
 ---
 
-## 3. ➡️ Direction of replacement references
+## 3. Direction of replacement references
 
 `replacedJourneys/DatedVehicleJourneyRef` sits on the **new** journey and points **back** to the original. The original never points forward to its replacements. Consumers find the replacements by looking up which DSJs reference the original.
 
@@ -63,8 +63,8 @@ Rules:
 
 The full examples describe the same Saturday on a fictional line R10, Oslo S – Lillestrøm – Eidsvoll – Hamar.
 
-📄 **Before:** [Example_DeviationHandling_Before.xml](Example_DeviationHandling_Before.xml) has three trains, all `planned`, version 1.
-📄 **After:** [Example_DeviationHandling_After.xml](Example_DeviationHandling_After.xml) adds track work between Oslo S and Lillestrøm, one cancellation and one supplementary bus.
+- **Before:** [Example_DeviationHandling_Before.xml](Example_DeviationHandling_Before.xml) has three trains, all `planned`, version 1.
+- **After:** [Example_DeviationHandling_After.xml](Example_DeviationHandling_After.xml) adds track work between Oslo S and Lillestrøm, one cancellation and one supplementary bus.
 
 | Train | Before | After | What changed in the data |
 |-------|--------|-------|--------------------------|
@@ -98,7 +98,7 @@ The full examples describe the same Saturday on a fictional line R10, Oslo S –
 
 ---
 
-## 4. 🚆🚌 Scenarios
+## 4. Scenarios
 
 ### 4a. Full replacement
 
@@ -157,7 +157,7 @@ The track work is postponed. Set the original back to `planned` with a new versi
 
 ---
 
-## 5. 🔍 Consistency checks
+## 5. Consistency checks
 
 Run these checks per OperatingDay, on the full set of DSJs in the dataset rather than on one delivery file alone. Severity is a proposal.
 
@@ -190,7 +190,7 @@ flowchart TD
 
 ---
 
-## 6. 📢 How to present deviations to travellers
+## 6. How to present deviations to travellers
 
 The data must let a traveller answer three questions: *Does my journey run? If not, what do I take instead? What is different about it?*
 
@@ -228,7 +228,7 @@ The same deviation should also be reflected in real-time channels (SIRI ET cance
 
 ---
 
-## 8. 🔗 Related resources
+## 8. Related resources
 
 ### Guides
 - [How to Build a Timetable](../HowToBuildATimetable/HowToBuildATimetable_Guide.md) – From Line to DatedServiceJourney
