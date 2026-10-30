@@ -5,7 +5,7 @@
   State AFTER the deviation is known. Compare with Example_DeviationHandling_Before.xml.
 
   Changes:
-    - track work closes Oslo S - Lillestrøm (train 1234 partly replaced by bus + shortened train)
+    - track work closes Oslo S - Lillestrøm (train 1234 partly replaced by two parallel buses + shortened train)
     - train 1236 cancelled without alternative
     - train 1238 runs with reduced capacity and gets a supplementary bus
 
@@ -118,6 +118,29 @@
               </passingTimes>
             </ServiceJourney>
 
+            <!-- NEW: second, parallel replacement bus on the same stretch and times (capacity).
+                 Own ServiceJourney and own identifier, so real-time data can be attached per vehicle. -->
+            <ServiceJourney id="NP:ServiceJourney:R10_1234_BUS2" version="1">
+              <Name>Oslo S -&gt; Lillestrøm (buss for tog)</Name>
+              <TransportMode>bus</TransportMode>
+              <TransportSubmode>
+                <BusSubmode>railReplacementBus</BusSubmode>
+              </TransportSubmode>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_BUS_OSL_LLS"/>
+              <PublicCode>B103</PublicCode>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_BUS2_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_BUS_OSL_LLS_1"/>
+                  <DepartureTime>07:35:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_BUS2_2" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_BUS_OSL_LLS_2"/>
+                  <ArrivalTime>08:05:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
             <!-- NEW: shortened train Lillestrøm -> Hamar (altered stretch, same train number) -->
             <ServiceJourney id="NP:ServiceJourney:R10_1234_LLS" version="1">
               <Name>Lillestrøm -&gt; Hamar</Name>
@@ -179,6 +202,15 @@
             <DatedServiceJourney id="NP:DatedServiceJourney:1234_BUS_2026-11-14" version="1">
               <!-- ServiceAlteration omitted: planned (this is the journey passengers should use) -->
               <ServiceJourneyRef ref="NP:ServiceJourney:R10_1234_BUS"/>
+              <replacedJourneys>
+                <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:1234_2026-11-14"/>
+              </replacedJourneys>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+            <!-- 1234 part A, second bus: NEW parallel replacement bus. Its own DSJ, also pointing to the original. -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:1234_BUS2_2026-11-14" version="1">
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1234_BUS2"/>
               <replacedJourneys>
                 <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:1234_2026-11-14"/>
               </replacedJourneys>

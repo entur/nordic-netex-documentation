@@ -27,10 +27,10 @@ In this guide you will learn:
 | `planned` (or omitted) | Runs as published. Also used for a new journey that replaces another. | `replacedJourneys` is **required** when it replaces something |
 | `cancellation` | Does not run, and **no alternative** is offered | Nothing references it |
 | `replaced` | Does not run as planned, and **one or more other DSJs take over** all or part of it | At least one other DSJ references it via `replacedJourneys` (rare exception: see check C3) |
-| `extraJourney` | Runs **in addition** to the plan | No references (pure extra), or `replacedJourneys` pointing to the journey it supplements (see 4e) |
+| `extraJourney` | Runs **in addition** to the plan | No references (pure extra), or `replacedJourneys` pointing to the journey it supplements (see 4f) |
 
 > [!WARNING]
-> `replaced` goes on the **original** journey, not on the new one. The new journey is the one travellers should use, so it is `planned` (or omitted). This is the most common error, and it causes consumers to hide the replacement bus.
+> `replaced` goes on the **original** journey, not on the new one. The new journey is the one travellers should use, so it is `planned` (or omitted).
 
 ---
 
@@ -40,7 +40,8 @@ In this guide you will learn:
 
 ```mermaid
 flowchart RL
-    BUS["DSJ 1234_BUS<br/>bus Oslo S – Lillestrøm<br/>(planned)"] -- replacedJourneys --> ORIG["DSJ 1234<br/>train Oslo S – Hamar<br/>ServiceAlteration = replaced"]
+    BUS["DSJ 1234_BUS<br/>bus B101 Oslo S – Lillestrøm<br/>(planned)"] -- replacedJourneys --> ORIG["DSJ 1234<br/>train Oslo S – Hamar<br/>ServiceAlteration = replaced"]
+    BUS2["DSJ 1234_BUS2<br/>bus B103 Oslo S – Lillestrøm<br/>(planned)"] -- replacedJourneys --> ORIG
     LLS["DSJ 1234_LLS<br/>train Lillestrøm – Hamar<br/>(planned)"] -- replacedJourneys --> ORIG
 ```
 
@@ -48,6 +49,7 @@ flowchart RL
 
 ```text
   DSJ 1234_BUS (planned) ──replacedJourneys──▶ DSJ 1234 (replaced)
+  DSJ 1234_BUS2 (planned) ─replacedJourneys──▶ DSJ 1234 (replaced)
   DSJ 1234_LLS (planned) ──replacedJourneys──▶ DSJ 1234 (replaced)
 ```
 </details>
@@ -68,7 +70,7 @@ The full examples describe the same Saturday on a fictional line R10, Oslo S –
 
 | Train | Before | After | What changed in the data |
 |-------|--------|-------|--------------------------|
-| 1234 | `planned` v1 | `replaced` v2 | Plus two new DSJs referencing it: bus Oslo S – Lillestrøm and shortened train Lillestrøm – Hamar |
+| 1234 | `planned` v1 | `replaced` v2 | Plus three new DSJs referencing it: two parallel buses Oslo S – Lillestrøm and a shortened train Lillestrøm – Hamar |
 | 1236 | `planned` v1 | `cancellation` v2 | Nothing references it |
 | 1238 | `planned` v1 | `planned` v1 (unchanged) | Plus a new `extraJourney` bus referencing it as a supplement |
 
@@ -112,10 +114,10 @@ Only part of the stretch is closed. The original is still set to `replaced`, bec
 
 | Stretch | New DSJ | Mode | ServiceJourney |
 |---------|---------|------|----------------|
-| Oslo S – Lillestrøm | `1234_BUS` | bus (`railReplacementBus`) | New, bus stops and times |
+| Oslo S – Lillestrøm | `1234_BUS`, `1234_BUS2` | bus (`railReplacementBus`) | New, bus stops and times (one per bus, see 4c) |
 | Lillestrøm – Hamar | `1234_LLS` | rail | New, shortened JourneyPattern |
 
-Both new DSJs reference the same original. Together they should cover every stop of the original. A gap means some travellers have no journey (see check C7).
+All new DSJs reference the same original. Together they should cover every stop of the original. A gap means some travellers have no journey (see check C7).
 
 The shortened train keeps the commercial train number (`PublicCode` 1234). The bus gets its own human-readable identifier (`PublicCode` B101). The link to the train comes from `replacedJourneys`, not from a shared number. Keep commercial and operational train numbers apart: the commercial number belongs in `PublicCode` on the ServiceJourney, the operational number on TrainBlockPart. See [Rolling Stock](../RollingStock/RollingStock_Guide.md).
 
@@ -127,11 +129,19 @@ For modelling the transfer between the bus and the shortened train, see the [Int
 > [!NOTE]
 > **Alternative for minor changes.** For a small change that keeps one vehicle and one mode (for example a skipped stop or a different quay), you can keep the DSJ id and point it to a new ServiceJourney. The DSJ `version` **must** then increase by one. The version increase is the signal that something changed. Consumers compare the fields of the two versions (ServiceJourneyRef, and through it stops and times) to find out what. This keeps the sales key stable. Use the `replaced` pattern whenever the stretch is split across vehicles or modes.
 
-### 4c. Cancellation without alternative
+### 4c. Several buses for one train
+
+A train carries far more people than a bus, so one train is often replaced by several buses. Sometimes the buses run different stretches. Sometimes they share the same planned route and times, and are only there for capacity.
+
+Give **every bus its own DSJ**, with its own ServiceJourney and its own identifier (`PublicCode` B101, B103), even when stops and times are identical. Each one references the original train.
+
+Downstream, each bus has its own real-time feed (position, delay, occupancy). That information needs an identifier to attach to. Send the buses as separate journeys in the planned data. Do not leave it to the real-time service to split or aggregate one planned journey across several vehicles.
+
+### 4d. Cancellation without alternative
 
 Set `ServiceAlteration=cancellation` and increase the version. No other DSJ may reference it. If something does replace it, use `replaced` instead.
 
-### 4d. Extra journey
+### 4e. Extra journey
 
 A journey that is not in the plan, for example for an event. Use `ServiceAlteration=extraJourney` and no `replacedJourneys`.
 
@@ -145,7 +155,7 @@ An extra journey always has its **own ServiceJourney**. It almost always has dep
 </DatedServiceJourney>
 ```
 
-### 4e. Supplement (reduced capacity)
+### 4f. Supplement (reduced capacity)
 
 Reduced capacity (fewer carriages) is **not** a deviation in this sense. The journey still runs, so it stays `planned`.
 
@@ -154,7 +164,7 @@ When the train cannot carry everyone, add a supplementary bus. It is an `extraJo
 > [!NOTE]
 > **Convention.** `extraJourney` combined with `replacedJourneys` means *supplements*, not *replaces*. In NeTEx 2.0 the generic link (`DatedServiceJourneyRef`) was replaced by `replacedJourneys`, so a supplement no longer has a neutral way to point to the journey it supports. Reusing `replacedJourneys` is semantically unfortunate, but it is the only link available. Consumers must read the pair together.
 
-### 4f. Revert
+### 4g. Revert
 
 The track work is postponed. Set the original back to `planned` with a new version, and leave the replacements out of the next delivery. Together, the version increase on the original and the missing replacements are enough for consumers to detect the revert.
 
@@ -209,6 +219,7 @@ The data must let a traveller answer three questions: *Does my journey run? If n
 |-----------|------------------|-------------|
 | Full replacement | Show as cancelled, **with a link** to the replacement: "Replaced by bus 07:35 from Oslo S" | Show as normal departure, labelled "Bus for train 1234" |
 | Partial replacement | Show as cancelled on the affected stretch only. Show the full trip as one itinerary: bus Oslo S – Lillestrøm, then train Lillestrøm – Hamar. | Each piece labelled with its own identifier, the train it replaces and the transfer point ("Bus B101 for train 1234, change at Lillestrøm") |
+| Several buses | Show as cancelled, with links to all replacing buses | Show each bus as its own departure with its own identifier and real-time status ("Bus B101 and B103 for train 1234") |
 | Cancellation | Show as cancelled, suggest the next departure | — |
 | Extra journey | — | Show as normal, optionally labelled "Extra departure" |
 | Supplement | Show as normal, optionally "Reduced capacity, extra bus available" | Show as "Extra bus for train 1238" |
@@ -237,6 +248,7 @@ The same deviation should also be reflected in real-time channels (SIRI ET cance
 | Revert without a new version on the original | Consumers do not notice the change, and the bus stays linked to a journey that now runs | Set the original to `planned` with a higher version |
 | Changed ServiceJourneyRef without a new version | Consumers keep the old stops and times | Increase the DSJ version on every change |
 | Original marked `replaced` for reduced capacity | Train disappears from the journey planner | Keep it `planned` and add an `extraJourney` supplement |
+| One DSJ for several parallel buses | Real-time data from each bus has no journey to attach to, and the buses get merged or mixed up downstream | One DSJ, ServiceJourney and identifier per bus, all referencing the original |
 
 ---
 
