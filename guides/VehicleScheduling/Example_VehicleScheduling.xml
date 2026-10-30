@@ -5,7 +5,8 @@
   Demonstrates vehicle scheduling concepts:
   - VehicleType (shared template with capacity)
   - Vehicle (specific fleet unit)
-  - Block grouping two ServiceJourneys into one vehicle duty
+  - Block grouping two ServiceJourneys and a DeadRun into one vehicle duty on weekdays
+    (the Block lists its journeys and day types; the journeys carry no BlockRef)
   - DeadRun for non-revenue return to depot
 
   Scenario: Bus duty 601
@@ -61,26 +62,40 @@
         </ResourceFrame>
 
         <!-- ============================================================
-             TIMETABLE FRAME — ServiceJourneys with BlockRef
+             SERVICE CALENDAR FRAME — DayType used by journeys and Block
+             ============================================================ -->
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:VehicleSched:1" version="1">
+          <dayTypes>
+            <DayType id="NP:DayType:Weekdays" version="1">
+              <Name>Weekdays</Name>
+            </DayType>
+          </dayTypes>
+        </ServiceCalendarFrame>
+
+        <!-- ============================================================
+             TIMETABLE FRAME — ServiceJourneys and DeadRun
              ============================================================ -->
         <TimetableFrame id="NP:TimetableFrame:VehicleSched:1" version="1">
           <vehicleJourneys>
             <!-- Morning run: Drammen -> Oslo -->
             <ServiceJourney id="NP:ServiceJourney:100_0600" version="1">
               <Name>Bus 100 dep. 06:00</Name>
-              <BlockRef ref="NP:Block:Duty_601"/>
+              <dayTypes>
+                <DayTypeRef ref="NP:DayType:Weekdays"/>
+              </dayTypes>
             </ServiceJourney>
 
             <!-- Return run: Oslo -> Drammen -->
             <ServiceJourney id="NP:ServiceJourney:100_0830" version="1">
               <Name>Bus 100 dep. 08:30</Name>
-              <BlockRef ref="NP:Block:Duty_601"/>
+              <dayTypes>
+                <DayTypeRef ref="NP:DayType:Weekdays"/>
+              </dayTypes>
             </ServiceJourney>
 
             <!-- Non-revenue return to depot -->
             <DeadRun id="NP:DeadRun:DR_601_return" version="1">
               <Name>Return to depot after duty 601</Name>
-              <BlockRef ref="NP:Block:Duty_601"/>
             </DeadRun>
           </vehicleJourneys>
         </TimetableFrame>
@@ -93,6 +108,9 @@
             <Block id="NP:Block:Duty_601" version="1">
               <Name>Duty 601 - Morning shift</Name>
               <Description>Bus 100 morning round trip + depot return</Description>
+              <dayTypes>
+                <DayTypeRef ref="NP:DayType:Weekdays"/>
+              </dayTypes>
               <journeys>
                 <VehicleJourneyRef ref="NP:ServiceJourney:100_0600"/>
                 <VehicleJourneyRef ref="NP:ServiceJourney:100_0830"/>

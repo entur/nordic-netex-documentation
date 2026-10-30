@@ -1,22 +1,35 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
   <!-- EXAMPLE STATUS: CONSTRUCTED. General Block example; no source-delivery evidence or rail-specific specialization is implied. -->
+  <!-- The Block lists its journeys (journeys/VehicleJourneyRef) and the day types it applies to (dayTypes/DayTypeRef).
+       The ServiceJourneys carry no BlockRef: it is excluded in the Nordic Profile. -->
   <PublicationTimestamp>2026-10-29T12:00:00Z</PublicationTimestamp>
   <ParticipantRef>NP</ParticipantRef>
   <dataObjects>
     <CompositeFrame id="NP:CompositeFrame:4001" version="1">
       <frames>
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:4001" version="1">
+          <dayTypes>
+            <DayType id="NP:DayType:4001" version="1">
+              <Name>Weekdays</Name>
+            </DayType>
+          </dayTypes>
+        </ServiceCalendarFrame>
         <TimetableFrame id="NP:TimetableFrame:4001" version="1">
           <vehicleJourneys>
             <ServiceJourney id="NP:ServiceJourney:4001" version="1">
               <Name>Example vehicle journey 4001</Name>
               <TransportMode>bus</TransportMode>
-              <BlockRef ref="NP:Block:4001"/>
+              <dayTypes>
+                <DayTypeRef ref="NP:DayType:4001"/>
+              </dayTypes>
             </ServiceJourney>
             <ServiceJourney id="NP:ServiceJourney:4002" version="1">
               <Name>Example vehicle journey 4002</Name>
               <TransportMode>bus</TransportMode>
-              <BlockRef ref="NP:Block:4001"/>
+              <dayTypes>
+                <DayTypeRef ref="NP:DayType:4001"/>
+              </dayTypes>
             </ServiceJourney>
           </vehicleJourneys>
         </TimetableFrame>
@@ -24,7 +37,10 @@
           <blocks>
             <Block id="NP:Block:4001" version="1">
               <Name>Example general vehicle block</Name>
-              <Description>A sequence of two bus journeys assigned to the same vehicle.</Description>
+              <Description>A sequence of two bus journeys assigned to the same vehicle on weekdays.</Description>
+              <dayTypes>
+                <DayTypeRef ref="NP:DayType:4001"/>
+              </dayTypes>
               <journeys>
                 <VehicleJourneyRef ref="NP:ServiceJourney:4001"/>
                 <VehicleJourneyRef ref="NP:ServiceJourney:4002"/>
