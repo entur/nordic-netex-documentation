@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example_DeviationHandling_After.xml
+  Scenario: Saturday 2026-11-14 on a fictional rail line R10 (Oslo S - Lillestrøm - Eidsvoll - Hamar).
+  State AFTER the deviation is known. Compare with Example_DeviationHandling_Before.xml.
+
+  Changes:
+    - track work closes Oslo S - Lillestrøm (train 1234 partly replaced by bus + shortened train)
+    - train 1236 cancelled without alternative
+    - train 1238 runs with reduced capacity and gets a supplementary bus
+
+  Direction rule: replacedJourneys sits on the NEW journey and points back to the ORIGINAL.
+  ServiceAlteration=replaced sits on the ORIGINAL.
+
+  ServiceFrame (JourneyPatterns, ScheduledStopPoints) and ResourceFrame are omitted for brevity.
+-->
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-11-10T14:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:R10_2026-11-14" version="2">
+      <frames>
+
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:R10_2026-11-14" version="1">
+          <operatingDays>
+            <OperatingDay id="NP:OperatingDay:2026-11-14" version="1">
+              <CalendarDate>2026-11-14</CalendarDate>
+            </OperatingDay>
+          </operatingDays>
+        </ServiceCalendarFrame>
+
+        <TimetableFrame id="NP:TimetableFrame:R10_2026-11-14" version="2">
+          <vehicleJourneys>
+
+            <!-- ===== Templates (ServiceJourney) - the three originals are unchanged ===== -->
+
+            <ServiceJourney id="NP:ServiceJourney:R10_1234" version="1">
+              <Name>Oslo S -&gt; Hamar</Name>
+              <PrivateCode>1234</PrivateCode>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_OSL_HMR"/>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_1"/>
+                  <DepartureTime>08:02:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_2" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_2"/>
+                  <ArrivalTime>08:13:00</ArrivalTime>
+                  <DepartureTime>08:14:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_3" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_3"/>
+                  <ArrivalTime>08:34:00</ArrivalTime>
+                  <DepartureTime>08:35:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_4" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_4"/>
+                  <ArrivalTime>09:20:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <ServiceJourney id="NP:ServiceJourney:R10_1236" version="1">
+              <Name>Oslo S -&gt; Hamar</Name>
+              <PrivateCode>1236</PrivateCode>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_OSL_HMR"/>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1236_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_1"/>
+                  <DepartureTime>09:02:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1236_4" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_4"/>
+                  <ArrivalTime>10:20:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <ServiceJourney id="NP:ServiceJourney:R10_1238" version="1">
+              <Name>Oslo S -&gt; Hamar</Name>
+              <PrivateCode>1238</PrivateCode>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_OSL_HMR"/>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1238_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_1"/>
+                  <DepartureTime>10:02:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1238_4" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_4"/>
+                  <ArrivalTime>11:20:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <!-- NEW: replacement bus Oslo S -> Lillestrøm (covers the closed stretch) -->
+            <ServiceJourney id="NP:ServiceJourney:R10_1234_BUS" version="1">
+              <Name>Oslo S -&gt; Lillestrøm (buss for tog)</Name>
+              <PrivateCode>1234</PrivateCode>
+              <TransportMode>bus</TransportMode>
+              <TransportSubmode>
+                <BusSubmode>railReplacementBus</BusSubmode>
+              </TransportSubmode>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_BUS_OSL_LLS"/>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_BUS_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_BUS_OSL_LLS_1"/>
+                  <DepartureTime>07:35:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_BUS_2" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_BUS_OSL_LLS_2"/>
+                  <ArrivalTime>08:05:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <!-- NEW: shortened train Lillestrøm -> Hamar (altered stretch, same train number) -->
+            <ServiceJourney id="NP:ServiceJourney:R10_1234_LLS" version="1">
+              <Name>Lillestrøm -&gt; Hamar</Name>
+              <PrivateCode>1234</PrivateCode>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_LLS_HMR"/>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_LLS_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_LLS_HMR_1"/>
+                  <DepartureTime>08:14:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_LLS_2" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_LLS_HMR_2"/>
+                  <ArrivalTime>08:34:00</ArrivalTime>
+                  <DepartureTime>08:35:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_LLS_3" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_LLS_HMR_3"/>
+                  <ArrivalTime>09:20:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <!-- NEW: supplementary bus for train 1238 (reduced capacity) -->
+            <ServiceJourney id="NP:ServiceJourney:R10_1238_BUS" version="1">
+              <Name>Oslo S -&gt; Hamar (ekstrabuss)</Name>
+              <PrivateCode>1238</PrivateCode>
+              <TransportMode>bus</TransportMode>
+              <TransportSubmode>
+                <BusSubmode>railReplacementBus</BusSubmode>
+              </TransportSubmode>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_BUS_OSL_HMR"/>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1238_BUS_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_BUS_OSL_HMR_1"/>
+                  <DepartureTime>10:00:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1238_BUS_2" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_BUS_OSL_HMR_2"/>
+                  <ArrivalTime>11:45:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <!-- ===== Dated instances (DatedServiceJourney) ===== -->
+
+            <!-- 1234: CHANGED. The original is no longer run as planned.
+                 ServiceAlteration=replaced is set on the ORIGINAL; same id, version goes up. -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:1234_2026-11-14" version="2">
+              <ServiceAlteration>replaced</ServiceAlteration>
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1234"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+            <!-- 1234 part A: NEW replacement bus for the closed stretch.
+                 The reference points FROM the replacing journey TO the replaced original. -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:1234_BUS_2026-11-14" version="1">
+              <!-- ServiceAlteration omitted: planned (this is the journey passengers should use) -->
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1234_BUS"/>
+              <replacedJourneys>
+                <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:1234_2026-11-14"/>
+              </replacedJourneys>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+            <!-- 1234 part B: NEW shortened train for the remaining stretch.
+                 Points to the same original - never to the bus (no chains). -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:1234_LLS_2026-11-14" version="1">
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1234_LLS"/>
+              <replacedJourneys>
+                <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:1234_2026-11-14"/>
+              </replacedJourneys>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+            <!-- 1236: CHANGED. Cancelled without any alternative. No other journey references it. -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:1236_2026-11-14" version="2">
+              <ServiceAlteration>cancellation</ServiceAlteration>
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1236"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+            <!-- 1238: UNCHANGED. Still runs; reduced capacity is not a ServiceAlteration. -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:1238_2026-11-14" version="1">
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1238"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+            <!-- 1238 supplement: NEW extra bus. extraJourney + replacedJourneys = supplements, does not replace. -->
+            <DatedServiceJourney id="NP:DatedServiceJourney:1238_BUS_2026-11-14" version="1">
+              <ServiceAlteration>extraJourney</ServiceAlteration>
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1238_BUS"/>
+              <replacedJourneys>
+                <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:1238_2026-11-14"/>
+              </replacedJourneys>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+          </vehicleJourneys>
+        </TimetableFrame>
+
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>
