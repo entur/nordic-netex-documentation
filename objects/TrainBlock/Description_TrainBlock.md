@@ -4,53 +4,57 @@
 
 ## 1. Purpose
 
-A **TrainBlock** is a rail-specific specialisation of Block that represents an operational grouping for a single train on a given operating day. It may consist of one or more DatedServiceJourneys that are operated as a continuous run by the same physical train. DatedServiceJourneys reference a TrainBlock via BlockRef to indicate vehicle continuity across consecutive journeys.
+A **TrainBlock** is the concrete rail-specific specialization of [Block](../Block/Description_Block.md). It inherits Block properties and adds the optional coupledJourneys collection.
+
+Both concrete elements are placed in `VehicleScheduleFrame/blocks`. A Block used for rail does not automatically become a TrainBlock: the XML element identifies the type.
 
 ## 2. Structure Overview
 
 ```text
-📄 Block (TrainBlock)
-  ├─ 📄 @id (1..1)
-  ├─ 📄 @version (1..1)
-  ├─ 📄 Name (0..1)
-  ├─ 📄 Description (0..1)
-  ├─ 🔗 OperatorRef/@ref (0..1)
-  └─ 📁 journeys (0..1)
+TrainBlock
+  ├─ @id (1..1)
+  ├─ @version (1..1)
+  ├─ Name (0..1)
+  ├─ Description (0..1)
+  ├─ journeys (0..1)
+  └─ coupledJourneys (0..1)
 ```
 
 ## 3. Key Elements
 
-- **Name**: Human-readable label for the train block (e.g., "TrainBlock TB:1"); used in operational displays.
-- **Description**: Optional free-text description providing additional context about the block.
-- **journeys**: Container for references to DatedServiceJourneys that belong to this block.
+- **Name** and **Description**: Human-readable labels and context.
+- **journeys**: A non-empty collection of journey references or designators. The alternatives are allowed by the schema; VehicleJourneyRef itself is optional (`0..n`), even when the collection is present.
+- **coupledJourneys**: Optional references to CoupledJourney objects; specific to TrainBlock.
 
 ## 4. References
 
-- [DatedServiceJourney](../DatedServiceJourney/Table_DatedServiceJourney.md) – Journeys that reference this block via BlockRef for vehicle continuity
-- [Operator](../Operator/Table_Operator.md) – Organisation operating the train block
+- [Block](../Block/Table_Block.md) — inherited common properties.
+- [DatedServiceJourney](../DatedServiceJourney/Table_DatedServiceJourney.md) — may reference the concrete type through TrainBlockRef.
+- [VehicleScheduleFrame](../../frames/VehicleScheduleFrame/Table_VehicleScheduleFrame.md) — contains the blocks collection.
 
 ## 5. Usage Notes
 
 ### 5a. Consistency Rules
 
-- TrainBlock is represented as a `Block` element in XML with rail-specific semantics; it is placed in VehicleScheduleFrame/blocks.
-- All DatedServiceJourneys referencing the same BlockRef must be time-compatible without vehicle overlap on the same operating day.
+Use `TrainBlock` as the XML element and use consistent identifiers in references. A codespace or an id containing a class name does not change the XML element's type.
 
 ### 5b. Validation Requirements
 
-- **@id and @version are mandatory** — follow codespace conventions (e.g., `NP:TrainBlock:TB:1`).
-- **DatedServiceJourney.BlockRef cardinality is 0..1** — at most one BlockRef per journey.
-- **All BlockRef entries must resolve** to an existing Block/TrainBlock in the dataset.
+The profile uses id and version on these objects. Validate element structure and references against NeTEx 2.0. XSD validity alone does not establish service-specific or operational consistency.
 
 ### 5c. Common Pitfalls
 
-> [!WARNING]
-> - **TrainBlock vs. Duty confusion**: TrainBlock groups journeys by vehicle (operational); Duty groups by crew assignment (roster). They are separate concepts.
-> - **Multi-day blocks**: Use distinct TrainBlock instances per operating day; avoid mixing dates within a single block.
-> - **Creating too many blocks**: Reuse the same TrainBlock for contiguous runs of the same train on the same day.
+- Do not substitute Block and TrainBlock solely because their common fields look alike.
+- Neither class permits a direct OperatorRef child in NeTEx 2.0. No replacement operator relationship is assumed here.
+- Date-specific instances and reusable scheduling structures must be distinguished; this page does not require a separate block per operating date.
 
 ## 6. Additional Information
 
-See [Table_TrainBlock.md](Table_TrainBlock.md) for detailed attribute specifications.
+See [Table_TrainBlock.md](Table_TrainBlock.md) for field paths and [the scheduling guide](../../guides/VehicleScheduling/VehicleScheduling_Guide.md) for general Block usage.
 
-Example XML: [Example_TrainBlock.xml](Example_TrainBlock.xml)
+### Example provenance
+
+| Status | Example |
+|--------|---------|
+| Not assessed (corrected to the concrete XML type) | [Example_TrainBlock.xml](Example_TrainBlock.xml) |
+| **Constructed** | [Example_TrainBlock_Constructed.xml](Example_TrainBlock_Constructed.xml) |

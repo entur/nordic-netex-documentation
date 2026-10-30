@@ -46,3 +46,12 @@ FareFrame depends on **ResourceFrame** for organisational context. It may refere
 
 For the full structural specification, see [Table — FareFrame](Table_FareFrame.md).
 Example XML: [Example_FareFrame.xml](Example_FareFrame.xml)
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_FareFrame_Constructed.xml](Example_FareFrame_Constructed.xml) |
+| Not assessed | [Example_FareFrame.xml](Example_FareFrame.xml) |

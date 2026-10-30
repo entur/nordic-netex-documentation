@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to illustrate NeTEx 2.0 syntax; not observed in a delivery. -->
+  <!-- All identifiers and values are illustrative. XSD validity does not establish Nordic Profile conformance or real-world usage. -->
+  <!-- Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-10-28T12:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <ServiceFrame id="NP:ServiceFrame:constructed-JourneyPattern" version="1">
+      <journeyPatterns>
+        <JourneyPattern id="NP:JourneyPattern:3001" version="1">
+          <Name>Example bookable pattern</Name>
+          <RouteRef ref="NP:Route:3001"/>
+          <DirectionType>outbound</DirectionType>
+          <pointsInSequence>
+            <StopPointInJourneyPattern id="NP:StopPointInJourneyPattern:3001" version="1" order="1">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:3001"/>
+              <ChangeOfDestinationDisplay>true</ChangeOfDestinationDisplay>
+              <noticeAssignments>
+                <NoticeAssignment id="NP:NoticeAssignment:3001" version="1" order="1">
+                  <NoticeRef ref="NP:Notice:3001"/>
+                </NoticeAssignment>
+              </noticeAssignments>
+              <RequestStop>true</RequestStop>
+              <RequestMethod>phoneCall</RequestMethod>
+              <StopUse>access</StopUse>
+              <BookingArrangements>
+                <BookingMethods>online callOffice</BookingMethods>
+                <BookingAccess>public</BookingAccess>
+                <BookWhen>untilPreviousDay</BookWhen>
+                <LatestBookingTime>18:00:00</LatestBookingTime>
+                <MinimumBookingPeriod>PT1H</MinimumBookingPeriod>
+                <BookingUrl>https://example.org/booking</BookingUrl>
+                <BookingNote>Book before the previous evening.</BookingNote>
+              </BookingArrangements>
+            </StopPointInJourneyPattern>
+            <StopPointInJourneyPattern id="NP:StopPointInJourneyPattern:3002" version="1" order="2">
+              <ScheduledStopPointRef ref="NP:ScheduledStopPoint:3002"/>
+            </StopPointInJourneyPattern>
+          </pointsInSequence>
+        </JourneyPattern>
+      </journeyPatterns>
+    </ServiceFrame>
+  </dataObjects>
+</PublicationDelivery>

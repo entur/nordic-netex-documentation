@@ -52,4 +52,11 @@ OperatingDay
 
 See [Table_OperatingDay.md](Table_OperatingDay.md) for detailed attribute specifications.
 
-Example XML: [Example_OperatingDay_NP.xml](Example_OperatingDay_NP.xml)
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_OperatingDay_Constructed.xml](Example_OperatingDay_Constructed.xml) |
+| Not assessed | [Example_OperatingDay_NP.xml](Example_OperatingDay_NP.xml) |

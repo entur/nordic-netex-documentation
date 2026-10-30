@@ -107,3 +107,12 @@ See [Table_Line.md](Table_Line.md) for detailed attribute specifications, cardin
 ```
 
 ? [Full file](Example_Line_NP.xml)
+
+### Example provenance
+
+**Observed** examples are abbreviated, anonymized extracts from real deliveries. **Constructed** examples are hand-written to illustrate NeTEx 2.0 syntax; they do not establish real-world usage or Nordic Profile requirements. Older examples remain **Not assessed**.
+
+| Status | Example |
+|--------|---------|
+| **Constructed** | [Example_Line_Constructed.xml](Example_Line_Constructed.xml) |
+| Not assessed | [Example_Line_NP.xml](Example_Line_NP.xml) |
