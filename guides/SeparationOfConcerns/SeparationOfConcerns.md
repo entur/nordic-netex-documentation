@@ -1,4 +1,4 @@
-# Separation of Concerns
+# 🧩 Separation of Concerns
 
 > [!NOTE]
 > This guide is under development.

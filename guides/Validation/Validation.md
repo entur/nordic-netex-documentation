@@ -1,4 +1,4 @@
-# Validation
+# 🧪 Validation
 
 > [!NOTE]
 > This guide is under development.

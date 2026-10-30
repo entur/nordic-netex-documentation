@@ -1,18 +1,18 @@
 # 📏 NeTEx Conventions
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 NeTEx XML follows strict naming and structural conventions derived from the XSD schema. Getting these right avoids validation errors and ensures your data is interoperable. This guide covers the rules you need to know.
 
 In this guide you will learn:
-- 🔤 Casing rules for elements and collections
-- 🏷️ ID format and codespace conventions
-- 🔢 Version attributes and when to use them
-- 📐 Element ordering (xs:sequence)
+- Casing rules for elements and collections
+- ID format and codespace conventions
+- Version attributes and when to use them
+- Element ordering (xs:sequence)
 
 ---
 
-## 2. 🔤 Casing Rules
+## 2. Casing Rules
 
 NeTEx uses two casing patterns consistently:
 
@@ -46,7 +46,7 @@ NeTEx uses two casing patterns consistently:
 
 ---
 
-## 3. 🏷️ ID Format
+## 3. ID Format
 
 Every NeTEx object with an `@id` attribute follows this format:
 
@@ -96,7 +96,7 @@ Codespaces are declared at the CompositeFrame level:
 
 ---
 
-## 4. 🔢 Versioning
+## 4. Versioning
 
 Every object that can change over time has a `@version` attribute:
 
@@ -120,11 +120,12 @@ Every object that can change over time has a `@version` attribute:
 <LineRef ref="NP:Line:L1" version="1"/>
 ```
 
-> ⚠️ **Note:** Adding `version` to a `*Ref` triggers XSD keyref validation — the referenced object must exist with that exact version in the same file. Only use versioned references when you need this strict binding. When referencing external objects (defined in other files/systems), **omit the version attribute**.
+> [!NOTE]
+> Adding `version` to a `*Ref` triggers XSD keyref validation — the referenced object must exist with that exact version in the same file. Only use versioned references when you need this strict binding. When referencing external objects (defined in other files/systems), **omit the version attribute**.
 
 ---
 
-## 5. 📐 Element Ordering
+## 5. Element Ordering
 
 NeTEx XSD uses `xs:sequence`, which means **elements must appear in a specific order**. This order follows the type inheritance chain — parent type elements come before child type elements.
 
@@ -157,7 +158,7 @@ This means `PublicCode` appeared too early — it should come after `Name` and `
 
 ---
 
-## 6. 📝 ParticipantRef Convention
+## 6. ParticipantRef Convention
 
 All examples in this repository use:
 
@@ -169,7 +170,7 @@ All examples in this repository use:
 
 ---
 
-## 7. 🔗 Related Resources
+## 7. Related Resources
 
 ### Guides
 - [Get Started](../GetStarted/GetStarted_Guide.md) — What NeTEx is and how documents are structured

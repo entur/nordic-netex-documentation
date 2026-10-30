@@ -44,10 +44,10 @@ Guides are **more flexible** than Object/Frame docs — section names and count 
 Include a "what you'll learn" summary:
 ```markdown
 In this guide you will learn:
-- 🎯 What separation of concerns means in NeTEx
-- 🧩 The three coupling strategies
-- 🗂️ How frames map to domains
-- 📝 Practical XML examples
+- What separation of concerns means in NeTEx
+- The three coupling strategies
+- How frames map to domains
+- Practical XML examples
 ```
 
 ### 2. Core Concepts (recommended)
@@ -75,7 +75,7 @@ Include:
 
 Complete, validated XML examples with narrative explanation.
 
-- Reference full examples: `📄 **Full example:** [Example_Topic.xml](Example_Topic.xml)`
+- Reference full examples: `**Full example:** [Example_Topic.xml](Example_Topic.xml)`
 - Inline snippets: show only the relevant fragment, not the full PublicationDelivery wrapper
 - Include inline comments explaining key decisions
 
@@ -107,6 +107,7 @@ Links to related guides, frame/object documentation, and external references:
 - Start with an introduction that sets context
 - Include at least one validated XML example
 - Use flexible-alerts syntax (`> [!TIP]`, `> [!NOTE]`, `> [!WARNING]`) — never emoji callouts
+- Exactly one identity emoji, in the H1 only (`# 🚏 Stop Infrastructure`). Register it in the identity registry in `netex-nordic-doc-visual` and reuse it in `_sidebar.md`, `home.md` and `README.md`. No emoji in section headings, lists or prose; ✅/❌ only as do/don't markers
 - Use Mermaid or SVG for diagrams (follow palettes in `netex-nordic-doc-visual` skill)
 - Cross-reference related Object/Frame Table files with relative links
 - Keep paragraphs short (3–5 sentences)

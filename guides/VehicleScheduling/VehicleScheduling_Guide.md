@@ -1,20 +1,20 @@
-# 🚆 Vehicle Scheduling — Blocks, Vehicles & Fleet Assignment
+# 🚌 Vehicle Scheduling — Blocks, Vehicles & Fleet Assignment
 
 > [!NOTE] This guide covers both Nordic Profile objects (Block, VehicleType, Vehicle) and Entur extensions (TrainBlock). Extension-specific content is noted inline.
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 Once timetables are planned, the operational question becomes: *which vehicle runs which journeys?* Vehicle scheduling ties fleet management to the timetable, grouping journeys into **blocks** (the work a single vehicle does in a day) and linking them to physical **vehicles** and their **types**.
 
 In this guide you will learn:
-- 🚌 The difference between VehicleType and Vehicle
-- 📦 How Block/TrainBlock groups journeys into vehicle duties
-- 🔗 How BlockRef connects the timetable to vehicle operations
-- 🔓 How this relates to the separation of concerns between domains
+- The difference between VehicleType and Vehicle
+- How Block/TrainBlock groups journeys into vehicle duties
+- How BlockRef connects the timetable to vehicle operations
+- How this relates to the separation of concerns between domains
 
 ---
 
-## 2. 🚌 VehicleType vs Vehicle
+## 2. VehicleType vs Vehicle
 
 ```text
 ResourceFrame
@@ -37,11 +37,12 @@ ResourceFrame
 | **Referenced by** | Vehicle, ServiceJourney (hint) | Block/operational assignments |
 | **Frame** | ResourceFrame | ResourceFrame |
 
-> 💡 **Tip:** When a ServiceJourney references a VehicleType via `VehicleTypeRef`, it's a **passenger hint** ("expect a low-floor bus"), not an operational assignment. The actual vehicle assignment goes through Block.
+> [!TIP]
+> When a ServiceJourney references a VehicleType via `VehicleTypeRef`, it's a **passenger hint** ("expect a low-floor bus"), not an operational assignment. The actual vehicle assignment goes through Block.
 
 ---
 
-## 3. 📦 Block and TrainBlock
+## 3. Block and TrainBlock
 
 A **Block** represents the work of a single vehicle on a single operating day — all the journeys it performs in sequence:
 
@@ -91,7 +92,7 @@ The connection works in **both directions**:
 
 ---
 
-## 4. 🔗 Coupling Strategies
+## 4. Coupling Strategies
 
 How you connect timetable and vehicle scheduling depends on your separation of concerns needs (see the [Separation of Concerns](../SeparationOfConcerns/SeparationOfConcerns.md) guide):
 
@@ -101,11 +102,12 @@ How you connect timetable and vehicle scheduling depends on your separation of c
 | **Link-based** | DatedServiceJourney references both journey and block | Date-specific assignments |
 | **Independent** | Separate association object | Multi-stakeholder environments |
 
-> ⚠️ **Note:** For passenger-facing data, use `VehicleTypeRef` as a lightweight hint only. Don't expose block assignments or specific vehicle IDs to passengers.
+> [!NOTE]
+> For passenger-facing data, use `VehicleTypeRef` as a lightweight hint only. Don't expose block assignments or specific vehicle IDs to passengers.
 
 ---
 
-## 5. 📝 DeadRun — Non-Revenue Movements
+## 5. DeadRun — Non-Revenue Movements
 
 A **DeadRun** represents a non-revenue journey (depot to first stop, last stop to depot, or repositioning). It lives in the TimetableFrame alongside ServiceJourneys and can be part of a Block:
 
@@ -149,13 +151,13 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 ---
 
-## 8. 📄 Full Example
+## 8. Full Example
 
-> 📄 **Full example:** [Example_VehicleScheduling.xml](Example_VehicleScheduling.xml) — Complete PublicationDelivery with VehicleType, Vehicle, Block with ServiceJourneys, and a DeadRun.
+> **Full example:** [Example_VehicleScheduling.xml](Example_VehicleScheduling.xml) — Complete PublicationDelivery with VehicleType, Vehicle, Block with ServiceJourneys, and a DeadRun.
 
 ---
 
-## 9. 🔗 Related Resources
+## 9. Related Resources
 
 ### Guides
 - [How to Build a Timetable](../HowToBuildATimetable/HowToBuildATimetable_Guide.md) -- How ServiceJourneys are built

@@ -2,7 +2,7 @@
 
 > [!NOTE] **Entur Extension** — This guide documents rolling stock modelling (TrainBlock, CompoundTrain, Train) which is not part of the official Nordic NeTEx Profile. It is an Entur-driven extension targeting future NP harmonisation.
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 > **vehicle** /ˈviːɪk(ə)l/ *noun*
 > A thing used for transporting people or goods, especially on land, such as a car, lorry, or cart.
@@ -13,34 +13,34 @@ In railway NeTEx, a "vehicle" is not a single atomic thing. A train departing Be
 This guide explains how NeTEx models this reality: from the abstract service the passenger sees, through the dated operational assignment, down to the physical composition of the train.
 
 In this guide you will learn:
-- 🔗 The full linking chain from ServiceJourney to physical rolling stock
-- 🚃 How Train, CompoundTrain, and TrainElement model formations
-- 📦 How TrainBlock and TrainBlockPart assign formations to journeys
-- 🎫 Train identity: PublicCode vs Operational Train Number
-- 📋 A complete validated XML example based on real Norwegian rail data
+- The full linking chain from ServiceJourney to physical rolling stock
+- How Train, CompoundTrain, and TrainElement model formations
+- How TrainBlock and TrainBlockPart assign formations to journeys
+- Train identity: PublicCode vs Operational Train Number
+- A complete validated XML example based on real Norwegian rail data
 
 ---
 
-## 2. 🔗 The Full Linking Chain
+## 2. The Full Linking Chain
 
 The path from "passenger sees departure at 06:19" to "locomotive El 18 + 9 carriages" traverses several objects across multiple frames:
 
 ```mermaid
 graph TD
   %% ── TimetableFrame ──────────────────────────────────────────
-  subgraph TimetableFrame["🕐 TimetableFrame"]
+  subgraph TimetableFrame["TimetableFrame"]
     SJ["<b>ServiceJourney</b><br/><i>Train 60 BRG→OSL</i><br/>pattern + times"]
     DSJ["<b>DatedServiceJourney</b><br/><i>Train 60 on 2026-04-14</i>"]
   end
 
   %% ── VehicleScheduleFrame ────────────────────────────────────
-  subgraph VehicleScheduleFrame["📦 VehicleScheduleFrame"]
+  subgraph VehicleScheduleFrame["VehicleScheduleFrame"]
     TB["<b>TrainBlock</b><br/><i>Block for train 60</i><br/>StartTime · EndTime<br/>StartPoint · EndPoint"]
     TBP["<b>TrainBlockPart</b><br/>order=1"]
   end
 
   %% ── ResourceFrame ──────────────────────────────────────────
-  subgraph ResourceFrame["🔧 ResourceFrame · vehicleTypes/"]
+  subgraph ResourceFrame["ResourceFrame · vehicleTypes/"]
     CT["<b>CompoundTrain</b><br/><i>Full consist</i>"]
     T1["Train: El 18 Vest<br/><i>locomotive</i>"]
     T2["Train: Coaches 1–4<br/><i>A7, B7, BC7, B7</i>"]
@@ -48,7 +48,7 @@ graph TD
     T4["Train: Coaches 5–8<br/><i>FR7, B7, B7</i>"]
   end
 
-  subgraph TrainElementTypes["🔧 ResourceFrame · trainElementTypes/"]
+  subgraph TrainElementTypes["ResourceFrame · trainElementTypes/"]
     TE["<b>TrainElement</b><br/>engine · carriage"]
   end
 
@@ -81,7 +81,7 @@ graph TD
 
 ---
 
-## 3. 🚃 Train Composition Model
+## 3. Train Composition Model
 
 NeTEx uses a three-level hierarchy for train formations:
 
@@ -153,7 +153,7 @@ A **CompoundTrain** composes multiple Trains into the actual formation running o
 
 ---
 
-## 4. 📦 TrainBlock and TrainBlockPart
+## 4. TrainBlock and TrainBlockPart
 
 ### TrainBlock — The Operational Duty
 
@@ -191,7 +191,7 @@ Block for train 601 (Oslo → Bergen):
 
 ---
 
-## 5. 🎫 Train Identity — Commercial vs Operational
+## 5. Train Identity — Commercial vs Operational
 
 A train has two identities:
 
@@ -241,7 +241,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 - Formation: El 18 locomotive + 4 Type 7 coaches (A7, B7, BC7, B7) + 1 rest car (BFWL) + 3 more coaches (FR7, B7, B7)
 - One operating day: 2026-04-14
 
-📄 **Full example:** [Example_RollingStock.xml](Example_RollingStock.xml)
+**Full example:** [Example_RollingStock.xml](Example_RollingStock.xml)
 
 ---
 
@@ -270,7 +270,7 @@ The following example models a simplified version of Vy's train 60 (Bergen → O
 
 ---
 
-## 9. 🔗 Related Resources
+## 9. Related Resources
 
 ### Guides
 - [Vehicle Scheduling](../VehicleScheduling/VehicleScheduling_Guide.md) — General Block/VehicleType patterns (bus and rail)

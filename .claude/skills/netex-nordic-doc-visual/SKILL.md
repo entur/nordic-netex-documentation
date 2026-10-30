@@ -9,6 +9,50 @@ All documentation in the Nordic NeTEx Profile must follow these formatting rules
 
 ---
 
+## Emoji
+
+Emoji are used sparingly, as **identity** and as **notation** — never as decoration. Structure, emphasis and visual rhythm come from headings, tables, flexible-alerts, bold lead-ins, Mermaid diagrams and the theme colours instead.
+
+**Allowed:**
+
+| Where | What | Example |
+|-------|------|---------|
+| H1 of a guide | Exactly **one** identity emoji, from the registry below | `# 🚏 Stop Infrastructure — From Timetable to Platform` |
+| References to a guide in navigation (`README.md`, `home.md`, `_sidebar.md`) | The **same** identity emoji, placed directly before the link | `- 🚏 [Stop Infrastructure](/guides/StopInfrastructure/StopInfrastructure_Guide.md)` |
+| `README.md` H1 | One emoji for the repository as a whole | `# 🚍 NeTEx Nordic Profile — Entur Implementation` |
+| Structure overviews (inside code blocks) | `📄` element · `📁` container · `🔗` reference | See the objects/frames skill |
+| Do/don't lists and tables | `✅` and `❌` as markers only | `- ✅ Keep the DSJ id stable` |
+
+**Not allowed:** emoji in H2–H6 headings, in "what you'll learn" lists or other bullets, in prose, in table cells (other than ✅/❌), in callouts, in Mermaid/SVG labels, in object and frame pages outside the structure overview, and in inline references to a guide from body text.
+
+Use text instead of symbolic emoji: ratings as `3 / 5`, status as a word or a status badge, file references as `**Full example:** [file](file)`.
+
+### Identity registry
+
+Each guide has exactly one identity emoji. Pick one that is not already taken, add it here, and use it in the guide's H1 and in every navigation reference to the guide.
+
+| Guide | Emoji |
+|-------|-------|
+| Calendar | 📅 |
+| DeviationHandling | 🔀 |
+| DocumentationMethod | 🏗️ |
+| GetStarted | 🚀 |
+| Glossary | 📖 |
+| HowToBuildATimetable | 🕐 |
+| Interchange | 🔄 |
+| NeTExConventions | 📏 |
+| NeTExInheritance | 🧬 |
+| Ontology | 🧠 |
+| PassengerInformation | 📢 |
+| RollingStock | 🚂 |
+| SeparationOfConcerns | 🧩 |
+| StopInfrastructure | 🚏 |
+| Tools | 🛠️ |
+| Validation | 🧪 |
+| VehicleScheduling | 🚌 |
+
+---
+
 ## Callouts (flexible-alerts)
 
 Use the docsify flexible-alerts plugin syntax. **Never** use emoji-based callouts (`> 💡 **Tip:**`).
@@ -177,7 +221,7 @@ Always use relative paths. Always verify links resolve to existing files.
 - Use `xml` language tag for syntax highlighting
 - Add inline comments explaining key decisions
 - Show only relevant fragments (not full PublicationDelivery wrappers) in inline snippets
-- Reference full examples with: `📄 **Full example:** [Example_Topic.xml](Example_Topic.xml)`
+- Reference full examples with: `**Full example:** [Example_Topic.xml](Example_Topic.xml)`
 
 ---
 
@@ -207,6 +251,8 @@ Before finalising any artifact:
 - [ ] XML examples validate against XSD
 - [ ] Table and structure overview are synchronised
 - [ ] No emoji-based callouts (use flexible-alerts syntax)
+- [ ] Emoji only where the Emoji section allows it (guide H1 identity, navigation references, structure overview icons, ✅/❌)
+- [ ] A new guide has an identity emoji in the registry, used in its H1 and in `_sidebar.md`, `home.md` and `README.md`
 - [ ] English language throughout
 - [ ] Cross-references use correct format
 - [ ] Mermaid uses blue palette

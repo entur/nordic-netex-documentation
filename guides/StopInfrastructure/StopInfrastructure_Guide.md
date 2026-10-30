@@ -1,21 +1,21 @@
 # 🚏 Stop Infrastructure — From Timetable to Platform
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 One of NeTEx's most important — and most confusing — design decisions is the separation of **logical stops** from **physical stops**. The timetable doesn't care about platform numbers or GPS coordinates; it only knows that journey X stops at point Y. The physical infrastructure — station buildings, platforms, accessibility features — lives in a completely separate layer.
 
 The bridge between these worlds is **PassengerStopAssignment**.
 
 In this guide you will learn:
-- 🗺️ Why NeTEx splits stops into logical and physical layers
-- 🔗 How PassengerStopAssignment bridges the two
-- 🏗️ How StopPlace and Quay model physical infrastructure
-- 🌍 How TopographicPlace and TariffZone add geographic and fare context
-- 📝 A complete worked example wiring everything together
+- Why NeTEx splits stops into logical and physical layers
+- How PassengerStopAssignment bridges the two
+- How StopPlace and Quay model physical infrastructure
+- How TopographicPlace and TariffZone add geographic and fare context
+- A complete worked example wiring everything together
 
 ---
 
-## 2. 🗺️ The Two Worlds of Stops
+## 2. The Two Worlds of Stops
 
 ![The two worlds of stops — logical vs physical](../../assets/images/netex_stop_infrastructure_two_worlds.svg)
 
@@ -30,7 +30,7 @@ In this guide you will learn:
 
 ---
 
-## 3. 🔗 PassengerStopAssignment — The Bridge
+## 3. PassengerStopAssignment — The Bridge
 
 PassengerStopAssignment connects exactly one ScheduledStopPoint to exactly one Quay:
 
@@ -67,7 +67,7 @@ Key rules:
 
 ---
 
-## 4. 🏗️ StopPlace and Quay
+## 4. StopPlace and Quay
 
 ### Monomodal StopPlace
 
@@ -125,7 +125,7 @@ flowchart TD
 
 ---
 
-## 5. 🌍 Geographic and Fare Context
+## 5. Geographic and Fare Context
 
 ### TopographicPlace
 
@@ -177,7 +177,7 @@ Fare zones attach geographic pricing context to stops. The Nordic Profile suppor
 
 ---
 
-## 6. 📐 The Full Picture
+## 6. The Full Picture
 
 All objects together in a CompositeFrame:
 
@@ -305,7 +305,7 @@ flowchart TD
 
 ---
 
-## 9. 🔗 Related Resources
+## 9. Related Resources
 
 ### Guides
 - [Get Started](../GetStarted/GetStarted_Guide.md) — Introduction to NeTEx basics

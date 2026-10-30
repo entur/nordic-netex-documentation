@@ -2,20 +2,20 @@
 
 *Technical guide*
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 A timetable answers two questions: *what runs?* and *when does it run?* The journey lifecycle guides cover the first question (Line → Route → JourneyPattern → ServiceJourney). This guide covers the second — the calendar model that determines which dates a service operates on, and how to handle exceptions like holidays.
 
 In this guide you will learn:
-- 🗓️ The **date-based** model: **OperatingDay** + **DatedServiceJourney** (recommended starting point)
-- 🧩 The **pattern-based** model: **DayType**, **OperatingPeriod**, **DayTypeAssignment**
-- 🔗 How the two mechanisms relate and work together
-- 🚫 How to model **exceptions** (holidays, one-off closures) using `isAvailable=false`
-- 📝 Worked XML examples for each scenario
+- The **date-based** model: **OperatingDay** + **DatedServiceJourney** (recommended starting point)
+- The **pattern-based** model: **DayType**, **OperatingPeriod**, **DayTypeAssignment**
+- How the two mechanisms relate and work together
+- How to model **exceptions** (holidays, one-off closures) using `isAvailable=false`
+- Worked XML examples for each scenario
 
 ---
 
-## 2. 🧩 The Calendar Objects
+## 2. The Calendar Objects
 
 All calendar data lives in the **ServiceCalendarFrame**. Two distinct mechanisms exist — date-based and pattern-based:
 
@@ -34,7 +34,7 @@ All calendar data lives in the **ServiceCalendarFrame**. Two distinct mechanisms
 
 ---
 
-## 3. 🗓️ Date-Based Scheduling: OperatingDay + DatedServiceJourney
+## 3. Date-Based Scheduling: OperatingDay + DatedServiceJourney
 
 The date-based model is the most direct: an **OperatingDay** represents a single calendar date, and a **DatedServiceJourney** pins a ServiceJourney template to that date.
 
@@ -73,7 +73,7 @@ See [DatedServiceJourney Lifecycle](../../objects/DatedServiceJourney/Lifecycle_
 
 ---
 
-## 4. 🔁 Pattern-Based Scheduling: DayType + DayTypeAssignment + OperatingPeriod
+## 4. Pattern-Based Scheduling: DayType + DayTypeAssignment + OperatingPeriod
 
 For recurring schedules ("every weekday from January to June"), the pattern-based model avoids enumerating every date individually. A **ServiceJourney** says "I run on Weekdays" by referencing a **DayType**. The **DayTypeAssignment** then resolves "Weekdays" to actual calendar dates within an **OperatingPeriod**.
 
@@ -121,7 +121,7 @@ For recurring schedules ("every weekday from January to June"), the pattern-base
 
 ---
 
-## 5. 🚫 Handling Exceptions: The `isAvailable` Pattern
+## 5. Handling Exceptions: The `isAvailable` Pattern
 
 Real-world schedules have exceptions: public holidays, one-off closures, seasonal changes. NeTEx handles these by stacking DayTypeAssignments with `isAvailable=false`.
 
@@ -168,7 +168,7 @@ You can also use `isAvailable=true` to add specific dates that wouldn't normally
 
 ---
 
-## 6. 🗓️ When to Use Which
+## 6. When to Use Which
 
 ```mermaid
 flowchart TD
@@ -243,15 +243,15 @@ flowchart TD
 
 ---
 
-## 9. 📄 Example: Full Calendar Setup
+## 9. Example: Full Calendar Setup
 
 A complete example showing OperatingDays for date-specific instances, Weekdays and Saturdays patterns, an OperatingPeriod, and DayTypeAssignments with a Christmas exception:
 
-> 📄 **Full example:** [Example_Calendar.xml](Example_Calendar.xml) — A ServiceCalendarFrame with date-based OperatingDays, pattern-based schedules, and holiday exceptions.
+> **Full example:** [Example_Calendar.xml](Example_Calendar.xml) — A ServiceCalendarFrame with date-based OperatingDays, pattern-based schedules, and holiday exceptions.
 
 ---
 
-## 10. 🔗 Related Resources
+## 10. Related Resources
 
 ### Guides
 - [How to Build a Timetable](../HowToBuildATimetable/HowToBuildATimetable_Guide.md) — The full chain from Line to DatedServiceJourney
