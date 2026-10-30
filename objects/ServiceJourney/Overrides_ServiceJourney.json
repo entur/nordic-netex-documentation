@@ -7,9 +7,6 @@
     "@version": {
       "type": "xsd:string"
     },
-    "BlockRef/@ref": {
-      "description": "Reference to a Block or TrainBlock (vehicle working)"
-    },
     "passingTimes/TimetabledPassingTime": {
       "link": "../../guides/Glossary/Glossary.md#timetabledpassingtime"
     },

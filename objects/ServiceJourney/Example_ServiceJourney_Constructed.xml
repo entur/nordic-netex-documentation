@@ -11,7 +11,6 @@
         <ServiceJourney id="NP:ServiceJourney:3001" version="1">
           <Name>Example flexible departure</Name>
           <JourneyPatternRef ref="NP:JourneyPattern:3001"/>
-          <BlockRef ref="NP:Block:3001"/>
           <OperatorRef ref="NP:Operator:3001"/>
           <LineRef ref="NP:Line:3001"/>
           <passingTimes>

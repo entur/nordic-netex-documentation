@@ -26,7 +26,6 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 📁 dayTypes (0..1)
    └── 🔗 DayTypeRef/@ref (0..n)
 🔗 JourneyPatternRef/@ref (1..1)
-🔗 BlockRef/@ref (0..0)
 🔗 OperatorRef/@ref (0..1)
 🔗 LineRef/@ref (0..1)
 📁 passingTimes (0..1)
@@ -62,7 +61,7 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 - **dayTypes** – DayType references specifying on which days the journey normally operates
 - **OperatorRef** – Reference to the Operator responsible for this journey
 - **LineRef** – Reference to the served Line
-- **BlockRef** – Optional reference to a Block/TrainBlock for vehicle continuity
+- **Vehicle assignment** – Not set on ServiceJourney in the Nordic Profile (BlockRef is excluded). A [Block](../Block/Table_Block.md) lists its journeys instead
 
 ## 4. References
 

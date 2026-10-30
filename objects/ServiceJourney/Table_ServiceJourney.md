@@ -22,7 +22,6 @@ ServiceJourney
  ├─ dayTypes (0..1)
  │   └─ DayTypeRef/@ref (0..n)
  ├─ JourneyPatternRef/@ref (1..1)
- ├─ BlockRef/@ref (0..0)
  ├─ OperatorRef/@ref (0..1)
  ├─ LineRef/@ref (0..1)
  ├─ passingTimes (0..1)
@@ -69,7 +68,6 @@ ServiceJourney
 | dayTypes | dayTypeRefs_RelStructure | 0..1 | ? | – | dayTypes |
 | [DayTypeRef](../DayType/Table_DayType.md)/@ref | DayTypeRefStructure | 0..n | DayType(s) on which the journey operates | Nordic | dayTypes/DayTypeRef/@ref |
 | [JourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | JourneyPatternRefStructure | 1..1 | Reference to the JourneyPattern defining the stop sequence | Nordic | JourneyPatternRef/@ref |
-| [BlockRef](../Block/Table_Block.md)/@ref | BlockRefStructure | 0..0 | Not used in NP | Nordic | BlockRef/@ref |
 | [OperatorRef](../Operator/Table_Operator.md)/@ref | OperatorRefStructure | 0..1 | Reference to an Operator | Nordic | OperatorRef/@ref |
 | [LineRef](../Line/Table_Line.md)/@ref | LineRefStructure | 0..1 | Reference to the served Line | Nordic | LineRef/@ref |
 | passingTimes | timetabledPassingTimes_RelStructure | 0..1 | ? | – | passingTimes |
