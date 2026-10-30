@@ -24,9 +24,9 @@ In this guide you will learn:
 
 | Value | Norwegian term | Meaning for *this* DSJ | Typical companion |
 |-------|----------------|------------------------|-------------------|
-| `planned` (or omitted) | Planlagt | Runs as published. Also used for a new journey that replaces another. | Optionally `replacedJourneys` when it replaces something |
+| `planned` (or omitted) | Planlagt | Runs as published. Also used for a new journey that replaces another. | `replacedJourneys` is **required** when it replaces something |
 | `cancellation` | Innstilt | Does not run, and **no alternative** is offered | Nothing references it |
-| `replaced` | Erstattet | Does not run as planned, and **one or more other DSJs take over** all or part of it | At least one other DSJ references it via `replacedJourneys` |
+| `replaced` | Erstattet | Does not run as planned, and **one or more other DSJs take over** all or part of it | At least one other DSJ references it via `replacedJourneys` (rare exception: see check C3) |
 | `extraJourney` | Ekstratur | Runs **in addition** to the plan | No references (pure extra), or `replacedJourneys` pointing to the journey it supplements |
 
 > [!WARNING]
