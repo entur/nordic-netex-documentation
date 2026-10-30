@@ -60,6 +60,20 @@ The **Source** column shows where each description comes from: `Nordic`, `Entur`
 
 Before writing, the generator prepares every selected class. Missing examples, examples without a matching object, invalid XML, an absent explicit class mapping, an unreplaceable structure tree, an invalid overrides file or an order that contradicts an example stop generation with exit code 2. They do not erase a table or leave earlier classes regenerated. --coverage is a read-only audit and may report classes that lack examples.
 
+## When the ontology submodules move
+
+The generated tables depend on the pinned ontology. When a submodule update changes a profile definition, cardinality, shape or base annotation, the tables become stale and `--check` fails in that pull request. This includes the automatic upstream-update pull requests.
+
+This is intended: the documentation must follow the profile. In the update pull request, refresh the submodules recursively, regenerate and commit the result:
+
+```bash
+git submodule update --init --recursive
+python scripts/generate_tables.py
+python scripts/generate_documentation_ttl.py
+```
+
+Review the regenerated rows like any other change. A changed cardinality or description is a change in the profile, not in the generator.
+
 ## Remaining metadata limits
 
 The base SHACL subset read here does not provide every XML attribute, substitution relationship or combined choice constraint. Unknown values remain `?` and are listed in the report; a passing --check establishes freshness, not metadata completeness or profile conformance.
