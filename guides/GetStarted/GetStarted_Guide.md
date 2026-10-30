@@ -2,7 +2,7 @@
 
 ![Parent and child waiting for a train](../../assets/images/Holding_Your_Hand.png)
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 This guide is for anyone working with public transport data — whether you're a developer integrating timetable feeds, a data manager at a transport authority, or an analyst exploring how NeTEx structures information.
 
@@ -11,14 +11,14 @@ Public transport systems across Europe need to exchange planned data — timetab
 By the end of this guide, you'll understand where NeTEx comes from, how it's structured, and how to read a real NeTEx document.
 
 In this guide you will learn:
-- 🌍 What Transmodel is and how NeTEx implements it
-- 📄 The anatomy of a NeTEx document
-- 🏗️ How frames organize data into domains
-- 🔍 How to read a real example step by step
+- What Transmodel is and how NeTEx implements it
+- The anatomy of a NeTEx document
+- How frames organize data into domains
+- How to read a real example step by step
 
 ---
 
-## 2. 🌍 The Standards Family
+## 2. The Standards Family
 
 NeTEx is one piece of a European standards ecosystem. Understanding where it fits helps you know what NeTEx covers — and what it doesn't.
 
@@ -33,7 +33,7 @@ NeTEx doesn't exist in isolation — it's part of a European standards family fo
 
 ---
 
-## 3. 📄 Anatomy of a NeTEx Document
+## 3. Anatomy of a NeTEx Document
 
 Once you know the outer structure, every NeTEx file becomes predictable. Here's the pattern they all follow:
 
@@ -45,13 +45,13 @@ flowchart TD
     CS["codespaces<br/><i>Declares namespace prefixes, e.g. NP</i>"]
     FR["frames"]
 
-    RF["🏢 <b>ResourceFrame</b><br/>Organizations, operators"]
-    SF["📍 <b>SiteFrame</b><br/>Stop places, facilities"]
-    SCF["📅 <b>ServiceCalendarFrame</b><br/>Day types, calendars"]
-    SVF["🚌 <b>ServiceFrame</b><br/>Lines, routes, patterns"]
-    TF["🕐 <b>TimetableFrame</b><br/>Journeys, timetables"]
-    VSF["🚃 <b>VehicleScheduleFrame</b><br/>Vehicle blocks"]
-    FF["💰 <b>FareFrame</b><br/>Fares and tariffs"]
+    RF["<b>ResourceFrame</b><br/>Organizations, operators"]
+    SF["<b>SiteFrame</b><br/>Stop places, facilities"]
+    SCF["<b>ServiceCalendarFrame</b><br/>Day types, calendars"]
+    SVF["<b>ServiceFrame</b><br/>Lines, routes, patterns"]
+    TF["<b>TimetableFrame</b><br/>Journeys, timetables"]
+    VSF["<b>VehicleScheduleFrame</b><br/>Vehicle blocks"]
+    FF["<b>FareFrame</b><br/>Fares and tariffs"]
 
     PD --> DO --> CF
     CF --> CS
@@ -90,7 +90,7 @@ For details, see the [CompositeFrame documentation](../../frames/CompositeFrame/
 
 ---
 
-## 4. 🏗️ Frames and What They Contain
+## 4. Frames and What They Contain
 
 Each frame type owns a specific domain of transport data. You only include the frames your delivery needs.
 
@@ -111,11 +111,11 @@ Each frame type owns a specific domain of transport data. You only include the f
 
 ![Getting on the bike](../../assets/images/getting_on_the_bike.png)
 
-## 5. 🔍 Reading Your First NeTEx File
+## 5. Reading Your First NeTEx File
 
 Let's look at what a real NeTEx file looks like. At this stage, don't worry about what the objects *mean* — focus on the **structure** and the **reference pattern**.
 
-📄 **Full file:** [Example_CompositeFrame.xml](../../frames/CompositeFrame/Example_CompositeFrame.xml)
+**Full file:** [Example_CompositeFrame.xml](../../frames/CompositeFrame/Example_CompositeFrame.xml)
 
 ### The Envelope
 
@@ -168,7 +168,7 @@ One object is defined once, then referenced by `id` wherever it's needed. This i
 
 ---
 
-## 6. 🧭 Where to Go Next
+## 6. Where to Go Next
 
 You now understand what NeTEx is and how its documents are structured. The next step is to build something.
 

@@ -2,18 +2,18 @@
 
 *Technical Guide*
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 You know how to plan a route: which stops a vehicle serves, in what order, and when it departs. This guide shows you how to express that knowledge in NeTEx — the European XML standard for exchanging public transport data.
 
 We'll build a timetable step by step, starting with concepts you already know and showing the NeTEx objects that represent them. By the end, you'll have a complete picture of how stops, lines, patterns, and journeys fit together.
 
 **In this guide you will learn:**
-- 📍 How stops are represented ([ScheduledStopPoint](../../objects/ScheduledStopPoint/Description_ScheduledStopPoint.md))
-- 🚌 How a line is defined ([Line](../../objects/Line/Description_Line.md))
-- 🗺️ How the stop sequence is described ([JourneyPattern](../../objects/JourneyPattern/Description_JourneyPattern.md))
-- 🕐 How departure times are added ([ServiceJourney](../../objects/ServiceJourney/Description_ServiceJourney.md) + TimetabledPassingTime)
-- 🔗 How the pieces reference each other
+- How stops are represented ([ScheduledStopPoint](../../objects/ScheduledStopPoint/Description_ScheduledStopPoint.md))
+- How a line is defined ([Line](../../objects/Line/Description_Line.md))
+- How the stop sequence is described ([JourneyPattern](../../objects/JourneyPattern/Description_JourneyPattern.md))
+- How departure times are added ([ServiceJourney](../../objects/ServiceJourney/Description_ServiceJourney.md) + TimetabledPassingTime)
+- How the pieces reference each other
 
 > [!TIP]
 > If you're new to NeTEx documents in general (frames, codespaces, the PublicationDelivery envelope), read the [Get Started guide](../GetStarted/GetStarted_Guide.md) first.
@@ -22,7 +22,7 @@ We'll build a timetable step by step, starting with concepts you already know an
 
 ---
 
-## 2. 🧠 The Mental Model
+## 2. The Mental Model
 
 Think of building a timetable as answering four questions:
 
@@ -42,7 +42,7 @@ Let's build them one at a time.
 
 ---
 
-## 3. 📍 Where does it stop? — ScheduledStopPoint
+## 3. Where does it stop? — ScheduledStopPoint
 
 A [ScheduledStopPoint](../../objects/ScheduledStopPoint/Description_ScheduledStopPoint.md) is a logical stopping point in the timetable. It's not the physical platform or shelter — it's the planning concept "the vehicle stops here."
 
@@ -84,7 +84,7 @@ That's it — a name and a unique ID. But every ScheduledStopPoint must be linke
 
 ---
 
-## 4. 🚌 What line is it? — Line
+## 4. What line is it? — Line
 
 A [Line](../../objects/Line/Description_Line.md) groups related journeys into a single public-facing service. It gives the service a name, a transport mode, and links to the operator.
 
@@ -106,7 +106,7 @@ Key points:
 
 ---
 
-## 5. 🗺️ In what order? — JourneyPattern
+## 5. In what order? — JourneyPattern
 
 A [JourneyPattern](../../objects/JourneyPattern/Description_JourneyPattern.md) defines the ordered sequence of stops a vehicle visits. It references the ScheduledStopPoints you already defined, and puts them in sequence.
 
@@ -146,7 +146,7 @@ Key points:
 
 ---
 
-## 6. 🕐 When does it depart? — ServiceJourney
+## 6. When does it depart? — ServiceJourney
 
 Now we have stops, a line, and an order. The final piece is *time*. A [ServiceJourney](../../objects/ServiceJourney/Description_ServiceJourney.md) ties it all together: it references a JourneyPattern and adds concrete arrival/departure times for each stop.
 
@@ -193,7 +193,7 @@ Key points:
 
 ---
 
-## 7. 📅 Which days does it run? — DatedServiceJourney
+## 7. Which days does it run? — DatedServiceJourney
 
 A ServiceJourney defines *what* happens and *at what time*, but not *on which date*. To assign a journey to a specific calendar day, you create a [DatedServiceJourney](../../objects/DatedServiceJourney/Description_DatedServiceJourney.md). It references the ServiceJourney (the template) and an OperatingDay (the date).
 
@@ -238,7 +238,7 @@ Key points:
 
 ---
 
-## 8. 🔗 How It All Connects
+## 8. How It All Connects
 
 Here's how the objects reference each other:
 
@@ -254,7 +254,7 @@ Data is defined once and referenced everywhere — no duplication.
 
 ---
 
-## 9. 📐 Putting It Together — The Frame Structure
+## 9. Putting It Together — The Frame Structure
 
 You already know from [Get Started](../GetStarted/GetStarted_Guide.md) that NeTEx files use `PublicationDelivery` → `CompositeFrame` → frames. Here's where the timetable objects land:
 
@@ -272,7 +272,7 @@ In the Nordic Profile, a timetable dataset is split into a **shared data file** 
 
 ---
 
-## 10. ✅ Checklist — Minimum Viable Timetable
+## 10. Checklist — Minimum Viable Timetable
 
 To produce a working timetable delivery, you need at minimum:
 
@@ -290,7 +290,7 @@ To produce a working timetable delivery, you need at minimum:
 
 ![Public transport illustration](../../assets/images/getting_on_the_bike.png)
 
-## 11. 🧭 Where to Go Next
+## 11. Where to Go Next
 
 **Add passenger information:**
 - [Passenger Information](../PassengerInformation/PassengerInformation_Guide.md) — [DestinationDisplay](../../objects/DestinationDisplay/Description_DestinationDisplay.md) (headsign text), notices

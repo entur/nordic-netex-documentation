@@ -1,18 +1,18 @@
 # 📢 Passenger Information — Displays, Notices & Flexible Services
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 Beyond the core timetable, passengers need contextual information: what does the front of the bus say? Are there special conditions for this stop? Is this a booking-required service? NeTEx handles these through a set of "decoration" objects that are **defined once centrally** and **referenced from journeys and stops**.
 
 In this guide you will learn:
-- 🚌 How DestinationDisplay controls vehicle signage at each stop
-- 📋 How Notice and NoticeAssignment add textual information to journeys
-- 📱 How FlexibleServiceProperties marks demand-responsive services
-- 🎨 The define-once, reference-many pattern shared by all three
+- How DestinationDisplay controls vehicle signage at each stop
+- How Notice and NoticeAssignment add textual information to journeys
+- How FlexibleServiceProperties marks demand-responsive services
+- The define-once, reference-many pattern shared by all three
 
 ---
 
-## 2. 🎨 The Common Pattern
+## 2. The Common Pattern
 
 All passenger information objects follow the same design:
 
@@ -29,7 +29,7 @@ This avoids duplication: if 50 journeys share the same destination text, you def
 
 ---
 
-## 3. 🚌 DestinationDisplay — Vehicle Signage
+## 3. DestinationDisplay — Vehicle Signage
 
 A **DestinationDisplay** defines the text shown on the front (and optionally side) of a vehicle. It's referenced from `StopPointInJourneyPattern` — meaning the display can **change at each stop** along the journey.
 
@@ -72,7 +72,7 @@ Each `StopPointInJourneyPattern` can reference a different DestinationDisplay. I
 
 ---
 
-## 4. 📋 Notice & NoticeAssignment
+## 4. Notice & NoticeAssignment
 
 A **Notice** is a reusable text fragment (e.g., "Booking required 30 min. before departure"). A **NoticeAssignment** attaches it to a specific object in the timetable.
 
@@ -107,11 +107,12 @@ ServiceFrame               TimetableFrame
 | TimetabledPassingTime | Stop-specific notes ("Stops only on request") |
 | Line | Line-wide information ("Reduced frequency during summer") |
 
-> 💡 **Tip:** Always define Notices in the ServiceFrame's `notices` collection and assign them via NoticeAssignment. Don't embed notice text directly on journeys — it creates duplication and maintenance burden.
+> [!TIP]
+> Always define Notices in the ServiceFrame's `notices` collection and assign them via NoticeAssignment. Don't embed notice text directly on journeys — it creates duplication and maintenance burden.
 
 ---
 
-## 5. 📱 FlexibleServiceProperties — Demand-Responsive Services
+## 5. FlexibleServiceProperties — Demand-Responsive Services
 
 For services that don't follow fixed routes or timetables (dial-a-ride, on-demand shuttles), **FlexibleServiceProperties** defines the booking rules:
 
@@ -130,11 +131,12 @@ Key properties:
 - **BookWhen** — when booking must happen (`untilPreviousDay`, `dayOfTravelOnly`)
 - **LatestBookingTime** — deadline for booking
 
-> ⚠️ **Note:** FlexibleServiceProperties should only be applied to genuinely demand-responsive services. Regular scheduled services with fixed routes should not use this object.
+> [!NOTE]
+> FlexibleServiceProperties should only be applied to genuinely demand-responsive services. Regular scheduled services with fixed routes should not use this object.
 
 ---
 
-## 6. ✅ Best Practices
+## 6. Best Practices
 
 1. **Define once, reference many.** Never duplicate DestinationDisplay or Notice text. Create one object and reference it from all journeys that need it.
 
@@ -150,7 +152,7 @@ Key properties:
 
 ---
 
-## 7. ❌ Common Mistakes
+## 7. Common Mistakes
 
 | Mistake | Why It Fails | Fix |
 |---------|-------------|-----|
@@ -162,7 +164,7 @@ Key properties:
 
 ---
 
-## 8. 🔗 Related Resources
+## 8. Related Resources
 
 ### Guides
 - [How to Build a Timetable](../HowToBuildATimetable/HowToBuildATimetable_Guide.md) -- How journeys and patterns are structured

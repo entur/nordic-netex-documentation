@@ -1,4 +1,4 @@
-# Glossary
+# 📖 Glossary
 
 Core terms used in this NeTEx profile, organised alphabetically.
 Each entry includes the profile definition, the official NeTEx XSD annotation, and (where applicable) the Transmodel (EN 12896) definition.

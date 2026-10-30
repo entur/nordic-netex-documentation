@@ -1,18 +1,18 @@
 # 🛠️ Tools & Development Environment
 
-## 1. 🎯 Introduction
+## 1. Introduction
 
 Working with NeTEx XML requires a good set of tools — from schema-aware editors to validation utilities. This guide covers the tools, plugins, and resources that make NeTEx development productive.
 
 In this guide you will learn:
-- 📦 Where to find the official NeTEx XSD schemas
-- ✏️ Which editors and plugins work well for NeTEx XML
+- Where to find the official NeTEx XSD schemas
+- Which editors and plugins work well for NeTEx XML
 - ✅ How to validate locally and in CI
-- 🔍 Useful utilities for inspecting and transforming NeTEx data
+- Useful utilities for inspecting and transforming NeTEx data
 
 ---
 
-## 2. 📦 Official NeTEx Schema (XSD)
+## 2. Official NeTEx Schema (XSD)
 
 The NeTEx XML Schema is the authoritative source for validating NeTEx documents.
 
@@ -36,21 +36,22 @@ The entry point is then `netex-xsd/xsd/NeTEx_publication.xsd`.
 | `NeTEx_publication.xsd` | General publication validation (recommended default) |
 | `NeTEx_publication_timetable.xsd` | Timetable-focused validation (imports Part 2 modules) |
 
-> 💡 **Tip:** Always validate against `NeTEx_publication.xsd` unless you specifically need timetable-only imports. It covers the full schema.
+> [!TIP]
+> Always validate against `NeTEx_publication.xsd` unless you specifically need timetable-only imports. It covers the full schema.
 
 ---
 
-## 3. ✏️ Editors & Plugins
+## 3. Editors & Plugins
 
 ### Recommended Editors
 
 | Editor | License | NeTEx Suitability | Notes |
 |--------|---------|-------------------|-------|
-| **VS Code** | Free | ⭐⭐⭐ | Lightweight, extensible, great plugin ecosystem |
-| **Oxygen XML Editor** | Commercial | ⭐⭐⭐⭐⭐ | Best-in-class XSD support, visual schema explorer, XPath, XSLT |
-| **XMLSpy (Altova)** | Commercial | ⭐⭐⭐⭐⭐ | Schema-aware editing, graphical XSD viewer, validation |
-| **IntelliJ IDEA** | Free / Commercial | ⭐⭐⭐ | Built-in XML support, XSD validation, refactoring |
-| **Notepad++** | Free | ⭐⭐ | XML syntax highlighting via XML Tools plugin |
+| **VS Code** | Free | 3 / 5 | Lightweight, extensible, great plugin ecosystem |
+| **Oxygen XML Editor** | Commercial | 5 / 5 | Best-in-class XSD support, visual schema explorer, XPath, XSLT |
+| **XMLSpy (Altova)** | Commercial | 5 / 5 | Schema-aware editing, graphical XSD viewer, validation |
+| **IntelliJ IDEA** | Free / Commercial | 3 / 5 | Built-in XML support, XSD validation, refactoring |
+| **Notepad++** | Free | 2 / 5 | XML syntax highlighting via XML Tools plugin |
 
 ### VS Code Extensions
 
@@ -79,11 +80,12 @@ After installing the Red Hat XML extension, you can enable schema-aware validati
 
 This gives you real-time validation, auto-completion of NeTEx elements, and hover documentation directly in the editor.
 
-> ⚠️ **Note:** The XSD must be available locally. Clone it from the [official repo](https://github.com/NeTEx-CEN/NeTEx) — see the [Validation Guide](../Validation/Validation.md) for details.
+> [!NOTE]
+> The XSD must be available locally. Clone it from the [official repo](https://github.com/NeTEx-CEN/NeTEx) — see the [Validation Guide](../Validation/Validation.md) for details.
 
 ---
 
-## 4. ✅ Validation Tools
+## 4. Validation Tools
 
 ### Command-Line Validators
 
@@ -116,7 +118,7 @@ else:
 
 ---
 
-## 5. 🔍 Useful Utilities
+## 5. Useful Utilities
 
 ### XPath Querying
 
@@ -157,7 +159,7 @@ For batch-processing NeTEx files (renaming codespaces, extracting summaries):
 
 ---
 
-## 6. 📋 Recommended Development Workflow
+## 6. Recommended Development Workflow
 
 ```text
 1. Edit          Use a schema-aware editor (VS Code + Red Hat XML, or Oxygen)
@@ -178,7 +180,7 @@ For batch-processing NeTEx files (renaming codespaces, extracting summaries):
 
 ---
 
-## 7. 🔗 Related Resources
+## 7. Related Resources
 
 ### Guides
 - [NeTEx Conventions](../NeTExConventions/NeTEx_Conventions.md) — Casing rules and naming patterns
