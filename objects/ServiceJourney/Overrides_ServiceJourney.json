@@ -1,0 +1,52 @@
+{
+  "_comment": "Hand-written content for Table_ServiceJourney.md. Used where the ontology has no profile definition; see scripts/generate_tables.md.",
+  "fields": {
+    "@id": {
+      "type": "xsd:ID"
+    },
+    "@version": {
+      "type": "xsd:string"
+    },
+    "passingTimes/TimetabledPassingTime": {
+      "link": "../../guides/Glossary/Glossary.md#timetabledpassingtime"
+    },
+    "passingTimes/TimetabledPassingTime/@id": {
+      "type": "xsd:ID"
+    },
+    "passingTimes/TimetabledPassingTime/StopPointInJourneyPatternRef/@ref": {
+      "type": "VersionedRef",
+      "link": "../JourneyPattern/Table_JourneyPattern.md"
+    },
+    "passingTimes/TimetabledPassingTime/LatestArrivalTime": {
+      "description": "Latest allowed drop-off time (flexible journeys)"
+    },
+    "passingTimes/TimetabledPassingTime/EarliestDepartureTime": {
+      "description": "Earliest allowed pick-up time (flexible journeys)"
+    },
+    "Description": {
+      "description": "Free-text description"
+    },
+    "TransportMode": {
+      "description": "Public transport mode (e.g., bus, rail)",
+      "type": "TransportModeEnumeration"
+    },
+    "keyList/KeyValue": {
+      "description": "Arbitrary key/value metadata on the journey"
+    },
+    "TransportSubmode/RailSubmode": {
+      "description": "Submode for rail services"
+    },
+    "passingTimes/TimetabledPassingTime/DepartureDayOffset": {
+      "description": "Offset applied to DepartureTime"
+    },
+    "passingTimes/TimetabledPassingTime/ArrivalDayOffset": {
+      "description": "Offset applied to ArrivalTime (e.g., +1 next day)"
+    },
+    "parts/JourneyPart": {
+      "description": "Used for combined or split journeys"
+    },
+    "TransportSubmode/BusSubmode": {
+      "description": "Submode for bus services"
+    }
+  }
+}

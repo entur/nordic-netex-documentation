@@ -82,7 +82,7 @@ flowchart TD
 
 **Step 1 — Extract snippet.** From the real dataset, isolate a minimal but representative XML fragment for the object. Strip away noise, but keep enough context to show real references. This often took multiple passes — the first attempt might be too complex, or miss an important edge case that only became apparent later.
 
-**Step 2 — Validate.** Run `python scripts/validate.py` against the full NeTEx XSD. If it fails, fix the snippet — not the table. The XSD is never wrong; our understanding might be. Validation failures were common and instructive: wrong element order, missing mandatory children, incorrect nesting. Each failure deepened understanding of the schema.
+**Step 2 — Validate.** Run `python scripts/validate_xml.py` against the full NeTEx XSD. If it fails, fix the snippet — not the table. The XSD is never wrong; our understanding might be. Validation failures were common and instructive: wrong element order, missing mandatory children, incorrect nesting. Each failure deepened understanding of the schema.
 
 **Step 3 — Build Table.** The validated snippet now defines the element order. The Table lists every element, its XSD type, cardinality in the profile (MIN and NP), and whether it's a reference to another object. Tables were frequently revised when later objects revealed that earlier ones had missed elements or used incorrect cardinality.
 
@@ -123,12 +123,12 @@ An AI agent was used as a co-author for most of this documentation. But "co-auth
 | `.claude/skills/netex-nordic-documentation/` | The "constitution" — routing, rules, naming conventions |
 | `.claude/skills/netex-nordic-doc-*/` | Exact templates for Object, Frame, and Guide documentation, plus visual conventions |
 | `ontology/*.ttl` | Machine-readable profile model and documentation index — the primary navigation tool |
-| `XSD/xsd/` | Full NeTEx schema for validation |
+| `.xsd-cache/NeTEx-2.0.0/xsd/` | Pinned NeTEx 2.0.0 schema, downloaded by the XML validator |
 | Existing documentation | Pattern to follow (consistency by example) |
 
 ### The real guardrail: validation, not rules
 
-There's no long list of prohibitions. The primary constraint is practical: **if it doesn't validate, it doesn't ship.** An agent can't invent elements that don't exist in the XSD — not because of a rule saying "don't," but because `validate.py` will reject the output immediately. The XSD is the enforcer.
+There's no long list of prohibitions. The primary constraint is practical: **if it doesn't validate, it doesn't ship.** An agent can't invent elements that don't exist in the XSD — not because of a rule saying "don't," but because `validate_xml.py` will reject the output immediately. The XSD is the enforcer.
 
 Beyond that, the templates and existing documentation provide strong patterns. The agent learns by example: "here's how the last 20 objects were documented — do it the same way." Consistency emerges from pattern-following, not from policing.
 
@@ -155,18 +155,19 @@ The agent generates fast; the human decides what's correct. Validation catches s
 
 ## 5. The Validation Chain
 
-Multiple layers of validation keep the documentation honest:
+The repository currently runs these checks in CI:
 
-| Layer | Tool | What it checks |
-|-------|------|----------------|
-| XML well-formedness | `lxml` parser | Syntax, encoding, nesting |
-| XSD conformance | `scripts/validate.py` | Elements, types, order, cardinality vs NeTEx schema |
-| Profile rules | `scripts/validate_profile.py` | Nordic-specific constraints beyond XSD |
-| Ontology integrity | `scripts/validate_ontology.py` | TTL files are internally consistent |
-| SHACL shapes | `scripts/validate_shacl.py` | Profile constraints expressed as RDF shapes |
-| Link integrity | Manual / CI | All relative markdown links resolve to existing files |
+| Check | Tool | Scope |
+|-------|------|-------|
+| XML syntax and XSD conformance | `scripts/validate_xml.py` | Example XML against the pinned NeTEx **2.0.0** publication schema: elements, types, order and XSD constraints |
+| Ontology integrity | `scripts/validate_ontology.py` | RDF/TTL syntax, structural invariants, documentation paths and the generated documentation layer |
+| Documentation index | `scripts/generate_documentation_ttl.py --check` | The generated TTL index matches the documentation files; also checked by ontology validation |
+| Internal Markdown links | `scripts/validate_links.py` | Local file targets and path case; fragment anchors and external URLs are not validated |
+| Submodule integrity | Git submodule status in CI | Ontology submodules match their pinned commits |
 
-The critical rule: **if the XML doesn't validate, nothing else proceeds.** Tables and descriptions are never written against invalid examples.
+**XSD validation does not establish Nordic Profile conformance.** The ontology contains profile metadata and SHACL shapes, but the CI checks above do not apply those shapes to XML deliveries. This repository currently has no `validate_profile.py`, `validate_shacl.py`, or generated Schematron pipeline.
+
+Observed and constructed examples can both pass XSD validation. Their provenance describes the evidence behind their content, not a different validation level. See the [Validation Guide](../Validation/Validation.md) for the commands and limits of the existing checks.
 
 ---
 
@@ -209,8 +210,8 @@ NeTEx-Nordic/
 ├── Frames/                    ← 9 frame types (CompositeFrame, ServiceFrame, etc.)
 ├── Guides/                    ← 20+ topic guides (conceptual, cross-cutting)
 ├── ontology/                  ← TTL ontology (profile model, documentation index, SHACL shapes)
-├── scripts/                   ← Validation tooling (XSD, profile, SHACL, ontology)
-├── XSD/                       ← Git submodule → official NeTEx-CEN/NeTEx schema
+├── scripts/                   ← XSD, ontology, documentation-index and link checks
+├── .xsd-cache/                ← Downloaded, pinned NeTEx 2.0.0 schema (local cache)
 ├── .claude/skills/            ← Agent rules and templates (one skill per documentation type)
 └── assets/images/             ← SVG diagrams, illustrations
 ```
@@ -220,6 +221,7 @@ NeTEx-Nordic/
 - **Folder per concept:** `Objects/Line/`, `Guides/Calendar/`, `Frames/ServiceFrame/`
 - **Predictable file names:** `Description_X.md`, `Table_X.md`, `Example_X_NP.xml`
 - **Relative links everywhere:** no absolute URLs to internal docs
+- **Pinned XSD release:** the XML validator downloads NeTEx 2.0.0 into `.xsd-cache/`; ontology dependencies are Git submodules
 - **Emoji as identity, not decoration:** one emoji per guide, in its H1 and in navigation links to it; the 📄/📁/🔗 notation in structure overviews; ✅/❌ for do/don't. Everything else uses headings, tables and callouts (see `.claude/skills/netex-nordic-doc-visual`)
 - **Git submodule for XSD:** always pinned to a known-good NeTEx schema version
 

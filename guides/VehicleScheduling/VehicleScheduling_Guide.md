@@ -9,7 +9,7 @@ Once timetables are planned, the operational question becomes: *which vehicle ru
 In this guide you will learn:
 - The difference between VehicleType and Vehicle
 - How Block/TrainBlock groups journeys into vehicle duties
-- How BlockRef connects the timetable to vehicle operations
+- How a Block references its journeys and day types
 - How this relates to the separation of concerns between domains
 
 ---
@@ -62,33 +62,44 @@ Block "Duty 601"
 VehicleScheduleFrame
  └── blocks
       └── Block (or TrainBlock)
+           ├── dayTypes
+           │    └── DayTypeRef -> DayType "Weekdays"
            └── journeys
                 ├── VehicleJourneyRef -> ServiceJourney A
                 └── VehicleJourneyRef -> ServiceJourney B
 ```
 
-### How Journeys Reference Blocks
+### How Blocks Reference Journeys
 
-The connection works in **both directions**:
-- **Block → Journey**: The block's `journeys` container lists its journeys
-- **Journey → Block**: ServiceJourney or DatedServiceJourney has a `BlockRef`
+The link goes **from the Block to its journeys**:
+- `journeys` lists the ServiceJourneys and DeadRuns the vehicle runs, with `VehicleJourneyRef`.
+- `dayTypes` states on which day types the block applies, with `DayTypeRef`.
+
+A ServiceJourney does **not** point back to its block. `BlockRef` on ServiceJourney is excluded in the Nordic Profile. Because the block carries its own day types, it is a recurring duty and does not need a DatedServiceJourney for every date.
 
 ```xml
 <!-- In VehicleScheduleFrame -->
 <Block id="NP:Block:Duty_601" version="1">
   <Name>Duty 601</Name>
+  <dayTypes>
+    <DayTypeRef ref="NP:DayType:Weekdays"/>
+  </dayTypes>
   <journeys>
     <VehicleJourneyRef ref="NP:ServiceJourney:100_0600"/>
     <VehicleJourneyRef ref="NP:ServiceJourney:100_0830"/>
   </journeys>
 </Block>
-
-<!-- In TimetableFrame -->
-<ServiceJourney id="NP:ServiceJourney:100_0600" version="1">
-  <BlockRef ref="NP:Block:Duty_601"/>
-  <!-- ... -->
-</ServiceJourney>
 ```
+
+For a **date-specific** assignment, a DatedServiceJourney may carry a `BlockRef` instead (Entur extension). Rolling stock uses this to point a dated departure to its TrainBlock. See [Rolling Stock](../RollingStock/RollingStock_Guide.md).
+
+### Distribution of Block Data (Entur)
+
+Block data is operational and is treated as **restricted**. In Entur's data pipeline, each dataset is published in two versions:
+- The **standard** dataset does not contain the VehicleScheduleFrame.
+- A separate dataset **with blocks** contains it, for consumers that are entitled to operational data.
+
+When the dataset with blocks is produced, a Block is kept only if it references at least one ServiceJourney and at least one DayType that exist in the dataset. A block without `dayTypes` is dropped.
 
 ---
 
@@ -98,8 +109,8 @@ How you connect timetable and vehicle scheduling depends on your separation of c
 
 | Strategy | Pattern | When to Use |
 |----------|---------|-------------|
-| **Direct** | ServiceJourney has `BlockRef` | Simple systems, single stakeholder |
-| **Link-based** | DatedServiceJourney references both journey and block | Date-specific assignments |
+| **Block-based** | Block lists its journeys and day types | Recurring vehicle duties |
+| **Link-based** | DatedServiceJourney references both journey and block | Date-specific assignments, such as rolling stock |
 | **Independent** | Separate association object | Multi-stakeholder environments |
 
 > [!NOTE]
@@ -109,14 +120,19 @@ How you connect timetable and vehicle scheduling depends on your separation of c
 
 ## 5. DeadRun — Non-Revenue Movements
 
-A **DeadRun** represents a non-revenue journey (depot to first stop, last stop to depot, or repositioning). It lives in the TimetableFrame alongside ServiceJourneys and can be part of a Block:
+A **DeadRun** represents a non-revenue journey (depot to first stop, last stop to depot, or repositioning). It lives in the TimetableFrame alongside ServiceJourneys. Like a ServiceJourney, it becomes part of a Block by being listed in the block's `journeys`:
 
 ```xml
 <DeadRun id="NP:DeadRun:DR_601_return" version="1">
   <Name>Return to depot after duty 601</Name>
   <JourneyPatternRef ref="NP:JourneyPattern:Depot_Return"/>
-  <BlockRef ref="NP:Block:Duty_601"/>
 </DeadRun>
+
+<!-- In the Block -->
+<journeys>
+  <VehicleJourneyRef ref="NP:ServiceJourney:100_0830"/>
+  <VehicleJourneyRef ref="NP:DeadRun:DR_601_return"/>
+</journeys>
 ```
 
 DeadRuns complete the picture of what a vehicle does in a day — without them, vehicle scheduling has gaps between revenue journeys.
@@ -129,7 +145,7 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 2. **Define VehicleType in ResourceFrame first.** Both Vehicle and ServiceJourney reference it — it must exist before operational data.
 
-3. **Use BlockRef for operational systems, VehicleTypeRef for passenger systems.** Keep the domains separate.
+3. **Use Block for operational systems, VehicleTypeRef for passenger systems.** Keep the domains separate. Block data is restricted and is not part of the standard dataset.
 
 4. **Include DeadRuns in Blocks** for a complete picture of vehicle utilisation. Revenue journeys alone leave scheduling gaps.
 
@@ -145,7 +161,9 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 |---------|-------------|-----|
 | VehicleType on specific vehicle | VehicleType is a template, not a unit | Use Vehicle for specific units, VehicleType for categories |
 | Reusable Block treated as a dated vehicle assignment | A recurring work sequence and an actual assignment have different date scopes | Keep dated assignments explicit; reuse a Block when its journey sequence and applicability remain correct |
-| VehicleTypeRef treated as assignment | It's a passenger hint, not an operational link | Use BlockRef for actual vehicle assignment |
+| VehicleTypeRef treated as assignment | It's a passenger hint, not an operational link | Use a Block for actual vehicle assignment |
+| BlockRef on ServiceJourney | Excluded in the Nordic Profile | List the journey in the Block's `journeys` |
+| Block without `dayTypes` | The block is dropped from the dataset with blocks | Add `dayTypes/DayTypeRef` to an existing DayType |
 | TrainBlock vs Duty confusion | Block = vehicle; Duty = crew | Use separate objects for crew rostering |
 | Missing DeadRuns in blocks | Scheduling gaps between revenue journeys | Add DeadRuns for non-revenue movements |
 
@@ -153,7 +171,7 @@ DeadRuns complete the picture of what a vehicle does in a day — without them, 
 
 ## 8. Full Example
 
-> **Full example:** [Example_VehicleScheduling.xml](Example_VehicleScheduling.xml) — Complete PublicationDelivery with VehicleType, Vehicle, Block with ServiceJourneys, and a DeadRun.
+> **Full example:** [Example_VehicleScheduling.xml](Example_VehicleScheduling.xml) — Complete PublicationDelivery with VehicleType, Vehicle, a DayType, and a Block listing two ServiceJourneys and a DeadRun.
 
 ---
 
