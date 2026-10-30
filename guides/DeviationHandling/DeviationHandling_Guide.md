@@ -323,10 +323,17 @@ A SIRI SX situation can explain the reason for the deviation and link the affect
 - [Calendar](../Calendar/Calendar_Guide.md) – OperatingDay versus DayType
 - [Interchange](../Interchange/Interchange_Guide.md) – Transfers between replacement bus and train
 - [Passenger Information](../PassengerInformation/PassengerInformation_Guide.md) – Notices and displays
+- [Rolling Stock](../RollingStock/RollingStock_Guide.md) – Commercial and operational train numbers
 
 ### Objects & frames
 - [DatedServiceJourney](../../objects/DatedServiceJourney/Table_DatedServiceJourney.md) – Element-level specification
 - [ServiceJourney](../../objects/ServiceJourney/Table_ServiceJourney.md) – The reusable template
+- [JourneyPattern](../../objects/JourneyPattern/Table_JourneyPattern.md) – The stop sequence, extended when an extra stop is added
 - [OperatingDay](../../objects/OperatingDay/Table_OperatingDay.md) – The calendar date a DSJ belongs to
-- [Line](../../objects/Line/Table_Line.md) – TransportMode and TransportSubmode
+- [Line](../../objects/Line/Table_Line.md) – The line a replacement stays on; its TransportMode is the general mode of the line
+- [Notice](../../objects/Notice/Table_Notice.md) – Text for travellers, mandatory in the exception to C3
 - [TimetableFrame](../../frames/TimetableFrame/Table_TimetableFrame.md) – Carries ServiceJourney and DatedServiceJourney
+
+### External
+- [NeTEx](https://github.com/NeTEx-CEN/NeTEx) – The CEN standard and XSD
+- [SIRI](https://github.com/SIRI-CEN/SIRI) – The CEN standard for real-time information, which builds on the planned data
