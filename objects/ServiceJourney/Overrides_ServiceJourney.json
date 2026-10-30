@@ -10,10 +10,6 @@
     "BlockRef/@ref": {
       "description": "Reference to a Block or TrainBlock (vehicle working)"
     },
-    "FlexibleLineRef/@ref": {
-      "description": "Reference to a FlexibleLine (on-demand services)",
-      "type": "VersionedRef"
-    },
     "passingTimes/TimetabledPassingTime": {
       "link": "../../guides/Glossary/Glossary.md#timetabledpassingtime"
     },

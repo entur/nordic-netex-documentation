@@ -110,6 +110,7 @@ class BaseInfo:
 @dataclass
 class Ontology:
     np: dict = field(default_factory=dict)        # (Class, path) -> FieldRule
+    np_shapes: dict = field(default_factory=dict)  # (Class, prop) -> (min, max, description) from NP_*Shape
     entur: dict = field(default_factory=dict)     # (Class, path) -> FieldRule
     services: dict = field(default_factory=dict)  # (Class, prop) -> [(label, min, max, desc)]
     base_shapes: dict = field(default_factory=dict)  # targetClass -> {prop: BaseInfo}
@@ -136,6 +137,20 @@ def load_ontology() -> Ontology:
         )
         target = ont.np if str(node).startswith(NORDIC_NS) else ont.entur
         target[(name, path)] = rule
+
+    # Nordic Profile SHACL constraints (allow / require / exclude) on the standard classes.
+    for shape, cls in profile.subject_objects(SH.targetClass):
+        if not str(shape).startswith(str(PROFILE) + "NP_"):
+            continue
+        for prop in profile.objects(shape, SH.property):
+            path = profile.value(prop, SH.path)
+            if not isinstance(path, URIRef):
+                continue
+            mn, mx = profile.value(prop, SH.minCount), profile.value(prop, SH.maxCount)
+            desc = profile.value(prop, SH.description)
+            ont.np_shapes[(local(cls), local(path))] = (
+                int(mn) if mn is not None else None, int(mx) if mx is not None else None,
+                str(desc) if desc else None)
 
     for f in sorted(ENTUR_DIR.glob("netex-entur-*.ttl")):
         g = Graph()
@@ -448,6 +463,22 @@ def fmt(mn, mx) -> str:
     return f"{mn}..{'n' if mx is None else mx}"
 
 
+def nordic_shape(ont: Ontology, cls: str, segments: list[str]):
+    """NP_*Shape constraint on the row's property, on the class that owns it."""
+    if not ont.np_shapes:
+        return None
+    if len(segments) == 1:
+        owner = cls
+    else:
+        info = base_lookup(ont, cls, segments[:-1])
+        if info is None or info.range is None:
+            return None
+        owner = local(info.range)
+    name = segments[-1].split(":", 1)[-1]
+    prop = name[1:] if name.startswith("@") else lc(name)
+    return ont.np_shapes.get((owner, prop))
+
+
 def resolve(cls: str, scope: str, path: str, ont: Ontology, manual: dict | None = None):
     """Return (cardinality, type, description, description source, type is manual)."""
     manual = manual or {}
@@ -456,12 +487,22 @@ def resolve(cls: str, scope: str, path: str, ont: Ontology, manual: dict | None 
     base = base_lookup(ont, cls, segments)
     services = ont.services.get((cls, lc(segments[0]).lstrip("@")), []) if len(segments) == 1 else []
     entur_tag = "" if scope == "entur" else "**Entur:** "
+    np_shape = nordic_shape(ont, cls, segments)
 
     def service_card(mn, mx):
         return fmt(base.min if mn is None else mn, base.max if mx is None else mx)
 
+    def shape_card(mn, mx):
+        if mx == 0:
+            return "0..0"
+        lo = mn if mn is not None else (base.min if base else 0)
+        hi = mx if mx is not None else (base.max if base else None)
+        return fmt(lo, hi)
+
     if np_rule and np_rule.card:
         card = np_rule.card
+    elif np_shape and (np_shape[0] is not None or np_shape[1] is not None):
+        card = shape_card(np_shape[0], np_shape[1])
     elif en_rule and en_rule.card:
         card = entur_tag + en_rule.card
     elif len(services) == 1 and base:
@@ -483,8 +524,13 @@ def resolve(cls: str, scope: str, path: str, ont: Ontology, manual: dict | None 
     elif any(d for *_, d in services):
         label, *_, d = next(s for s in services if s[3])
         desc, source = d, f"Entur – {label}"
+    elif np_shape and np_shape[1] == 0 and np_shape[2]:
+        # The profile's reason for excluding a field beats any general description.
+        desc, source = np_shape[2], "Nordic"
     elif manual.get("description"):
         desc, source = manual["description"], "Manual"
+    elif np_shape and np_shape[2]:
+        desc, source = np_shape[2], "Nordic"
     elif base and base.comment:
         desc, source = base.comment, "NeTEx"
     else:
@@ -551,6 +597,8 @@ def render(cls: str, scope: str, rows: Rows, ont: Ontology, report: list, target
         missing = [name for name, value in (("cardinality", card), ("type", typ), ("description", desc)) if value == "?"]
         if missing:
             report.append(f"{cls}: {path} (missing {', '.join(missing)})")
+        if card == "0..0":
+            report.append(f"{cls}: {path} (used in an example but excluded by the Nordic Profile)")
         if manual.get("description") and source != "Manual":
             report.append(f"{cls}: {path} (manual description not used; {source} definition takes precedence)")
         typ_cell = f"{typ} *(manual)*" if typ_manual else typ

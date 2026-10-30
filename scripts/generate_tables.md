@@ -45,9 +45,12 @@ Because every example is XSD-valid, the generated order must not contradict any 
 
 | Value | Precedence |
 |---|---|
-| Description | Nordic Profile → Entur (profile, then service layers) → Manual → NeTEx base |
+| Cardinality | Nordic ProfileMember → Nordic SHACL shape (`NP_*Shape`) → Entur → NeTEx base |
+| Description | Nordic ProfileMember → Entur (profile, then service layers) → Nordic exclusion reason → Manual → Nordic shape description → NeTEx base |
 | Type | NeTEx base (XSD-derived) → Manual, shown as *(manual)* |
 | Link | Generated link to a documented object → Manual |
+
+The Nordic SHACL shapes in `netex-nordic.ttl` (allow, require, exclude) are read for the class that owns each field. A field the profile excludes (`sh:maxCount 0`) is shown as `0..0` with the profile's reason, and the report flags any example that still uses it.
 
 A manual description therefore replaces the generic NeTEx base text, but never a profile definition. The report says when a profile definition shadows a manual description, and when an override has no matching row. Unknown keys stop generation.
 

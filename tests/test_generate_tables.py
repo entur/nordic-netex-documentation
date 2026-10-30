@@ -273,6 +273,19 @@ class GeneratorTests(unittest.TestCase):
         self.assertIn('**Source** shows where the description comes from', table)
         self.assertIn('**Manual:** Variant explained by hand.', (folder / 'Description_Good.md').read_text(encoding='utf-8'))
 
+    def test_nordic_shapes_require_and_exclude_fields(self):
+        graph = Graph()
+        self.shape(graph, g.NETEX.Good, g.NETEX.passingTimes, mx=1)
+        self.shape(graph, g.NETEX.Good, g.NETEX.blockRef, mx=1)
+        ont = g.Ontology(base=graph, base_shapes=g.scoped_base_shapes(graph))
+        ont.np_shapes[('Good', 'passingTimes')] = (1, 1, 'XSD allows 0..1, NP mandates 1..1')
+        ont.np_shapes[('Good', 'blockRef')] = (None, 0, 'Not used in NP')
+        self.assertEqual(('1..1', 'XSD allows 0..1, NP mandates 1..1', 'Nordic'),
+                         tuple(g.resolve('Good', 'nordic', 'passingTimes', ont)[i] for i in (0, 2, 3)))
+        # The exclusion reason wins over a hand-written description.
+        resolved = g.resolve('Good', 'nordic', 'BlockRef/@ref', ont, {'description': 'Reference to a Block'})
+        self.assertEqual(('0..0', 'Not used in NP', 'Nordic'), tuple(resolved[i] for i in (0, 2, 3)))
+
     def test_override_with_unknown_key_is_rejected(self):
         folder = self.root / 'Good'
         self.example(folder, '<Good id="NP:Good:1"/>')
