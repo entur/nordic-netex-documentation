@@ -4,7 +4,7 @@
 
 ## 1. Purpose
 
-A **TrainNumber** represents a railway-specific service number advertised to passengers (e.g. train 41 Oslo–Bergen). In the Nordic Profile, train numbers are typically referenced via JourneyPart rather than directly on ServiceJourney, where PrivateCode/PublicCode is preferred for the journey-level identifier.
+A **TrainNumber** represents a railway-specific service number advertised to passengers (e.g. train 61 Oslo–Bergen). In the Nordic Profile, train numbers are typically referenced via JourneyPart rather than directly on ServiceJourney, where PrivateCode/PublicCode is preferred for the journey-level identifier.
 
 ## 2. Structure Overview
 
