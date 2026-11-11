@@ -3,22 +3,32 @@
   Example_DatedServiceJourney_Extended_02_Replacement.xml
   Scenario: Replacement
   Purpose:
-    - Demonstrates ServiceAlteration="replaced"
-    - Shows replacedJourneys with one DatedVehicleJourneyRef pointing to the replaced instance
+    - Shows that a replacement always involves TWO DatedServiceJourneys on the same OperatingDay
+    - The ORIGINAL carries ServiceAlteration="replaced" (same id, version incremented)
+    - The REPLACING journey carries replacedJourneys with a DatedVehicleJourneyRef pointing back to the original
+      (no ServiceAlteration: it is the journey passengers should use, i.e. planned)
     - Keeps identifier format (refers to NP:DatedServiceJourney:*)
   Diff vs minimal (Example_DatedServiceJourney.xml):
-    + replacedJourneys / DatedVehicleJourneyRef (new)
+    + ServiceAlteration = replaced (on the original)
+    + Second DatedServiceJourney with replacedJourneys / DatedVehicleJourneyRef (new)
     - DatedServiceJourneyRef (removed)
+  See also: guides/DeviationHandling/DeviationHandling_Guide.md
 -->
 <PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:siri="http://www.siri.org.uk/siri" version="1.0">
     <PublicationTimestamp>2026-03-01T10:00:00Z</PublicationTimestamp>
-    <ParticipantRef>NP</ParticipantRef>  
+    <ParticipantRef>NP</ParticipantRef>
     <dataObjects>
             <TimetableFrame version="1" id="NP:TimetableFrame:1">
                 <vehicleJourneys>
-                    <DatedServiceJourney version="2" id="NP:DatedServiceJourney:Replacement02">
+                    <!-- DIFF: original journey, no longer run as planned. Same id, version 1 -> 2 -->
+                    <DatedServiceJourney version="2" id="NP:DatedServiceJourney:Core">
                         <ServiceAlteration>replaced</ServiceAlteration>
                         <ServiceJourneyRef ref="NP:ServiceJourney:Core"/>
+                        <OperatingDayRef ref="NP:OperatingDay:2026-03-07"/>
+                    </DatedServiceJourney>
+                    <!-- DIFF: new replacing journey. The reference points FROM the replacement TO the original -->
+                    <DatedServiceJourney version="1" id="NP:DatedServiceJourney:Replacement02">
+                        <ServiceJourneyRef ref="NP:ServiceJourney:Replacement02"/>
                         <replacedJourneys>
                             <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:Core"/>
                         </replacedJourneys>

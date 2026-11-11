@@ -490,6 +490,22 @@ guide:Calendar
     doc:covers nordic:ServiceCalendarFrame ;
     doc:covers nordic:ServiceJourney .
 
+## DeviationHandling
+guide:DeviationHandling
+    a doc:Guide ;
+    rdfs:label "Deviation Handling with DatedServiceJourney" ;
+    doc:path "guides/DeviationHandling/DeviationHandling_Guide.md" ;
+    doc:example "guides/DeviationHandling/Example_DeviationHandling_After.xml" ;
+    doc:example "guides/DeviationHandling/Example_DeviationHandling_Before.xml" ;
+    doc:covers entur:DatedServiceJourney ;
+    doc:covers nordic:JourneyPattern ;
+    doc:covers nordic:Line ;
+    doc:covers nordic:Notice ;
+    doc:covers nordic:OperatingDay ;
+    doc:covers nordic:PurposeOfGrouping ;
+    doc:covers nordic:ServiceJourney ;
+    doc:covers nordic:TimetableFrame .
+
 ## DocumentationMethod
 guide:DocumentationMethod
     a doc:Guide ;

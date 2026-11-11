@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example_DatedServiceJourney_Extended_01_Reinforcement.xml
+  Scenario: Extra journey (reinforcement)
+  Purpose:
+    - Demonstrates ServiceAlteration="extraJourney"
+    - The extra journey has its OWN ServiceJourney: it has its own departure times and identifiers,
+      so it cannot reuse the template of the planned journey it reinforces
+-->
 <PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:siri="http://www.siri.org.uk/siri" version="1.0">
     <PublicationTimestamp>2026-02-23T13:52:00Z</PublicationTimestamp>
     <ParticipantRef>NP:publisher:1</ParticipantRef>
@@ -14,12 +22,13 @@
                 </ServiceCalendarFrame>
                 <TimetableFrame id="NP:TimetableFrame:2026-03" version="1">
                     <vehicleJourneys>
-                        <ServiceJourney id="NP:SJ:1001" version="1">
+                        <!-- DIFF: own template for the extra journey (own times and identifiers) -->
+                        <ServiceJourney id="NP:SJ:1001-X1" version="1">
                             <JourneyPatternRef ref="NP:JP:10"/>
                         </ServiceJourney>
                         <DatedServiceJourney id="NP:DSJ:reinforcement-01" version="1">
                             <ServiceAlteration>extraJourney</ServiceAlteration>
-                            <ServiceJourneyRef ref="NP:SJ:1001"/>
+                            <ServiceJourneyRef ref="NP:SJ:1001-X1"/>
                             <OperatingDayRef ref="NP:OD:2026-03-01"/>
                         </DatedServiceJourney>
                     </vehicleJourneys>
