@@ -45,6 +45,7 @@ stateDiagram-v2
     replaced --> planned: revert
     cancellation --> planned: revert
     replaced --> cancellation: alternative withdrawn
+    cancellation --> replaced: alternative found
 ```
 
 <details><summary>Text version</summary>
@@ -54,9 +55,12 @@ stateDiagram-v2
   planned ──no alternative───────▶ cancellation
   replaced / cancellation ──revert──▶ planned
   replaced ──alternative withdrawn──▶ cancellation
+  cancellation ──alternative found──▶ replaced
   (every arrow = same DSJ id, version + 1)
 ```
 </details>
+
+In planned data the original often goes straight from `planned` to `replaced`, because the alternative is known when the change is published. When it is not, the journey is first cancelled and set to `replaced` once an alternative has been found. This is the usual sequence in real-time, where the cancellation reaches travellers before the replacement exists. Both paths are valid, so that plan and real-time follow the same flow.
 
 ---
 
@@ -222,7 +226,7 @@ This is the same logic as any other change: different stops mean different Servi
 
 ### 4e. Cancellation without alternative
 
-Set `ServiceAlteration=cancellation` and increase the version. No other DSJ may reference it. If something does replace it, use `replaced` instead.
+Set `ServiceAlteration=cancellation` and increase the version. No other DSJ may reference it. If something does replace it, use `replaced` instead. If an alternative is found after the cancellation has been published, change the original to `replaced` with a new version, in the same delivery as the replacement (see the state diagram in section 2).
 
 ### 4f. Extra journey
 
@@ -273,7 +277,7 @@ Severity levels: **Error** must be fixed before publishing. **Warning** should b
 | C2 | Same day | A replacing DSJ and the DSJ it references have the same OperatingDay. Allowed to differ, but check times carefully across daylight saving changes. | Warning |
 | C3 | Replaced without replacement | A DSJ with `replaced` is referenced by at least one other DSJ. If not, consumers can only treat it as a cancellation. Rare exception: the journey is replaced by ordinary scheduled service outside the submitter's data responsibility. A [Notice](../../objects/Notice/Table_Notice.md) assigned to the DSJ, telling travellers about the alternative, is then **mandatory**. | Error unless a Notice is assigned |
 | C4 | Reference to a running journey | A DSJ that is `planned` is only referenced by `extraJourney` DSJs (supplements). A `planned` replacing journey must point to a `replaced` original. | Error |
-| C5 | Reference to a cancelled journey | A DSJ with `cancellation` is not referenced. If something replaces it, it should be `replaced`. | Error |
+| C5 | Reference to a cancelled journey | A DSJ with `cancellation` is not referenced. If something replaces it, it should be `replaced`, also when the cancellation was published first. | Error |
 | C6 | Chains and self-references | A referenced original does not itself carry `replacedJourneys`. A DSJ does not reference itself. Point to the root original. | Error |
 | C7 | Coverage | The replacing DSJs together serve every stop of the original. Replacement buses often use other quays or a nearby stop place, so check this manually for now. | Info |
 | C8 | Cancelled replacement | If every replacement of a `replaced` original is cancelled, the original should be `planned` again (revert) or `cancellation` | Warning |
