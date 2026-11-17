@@ -2,6 +2,9 @@
 
 > *→ [Glossary definition](../../guides/Glossary/Glossary.md#tariffzone)*
 
+> [!WARNING]
+> **Not used in Norway.** TariffZone has been replaced by [FareZone](../FareZone/Description_FareZone.md). It is deprecated in Entur's APIs, and as of November 2026 Entur's APIs no longer return TariffZone or TariffZoneRef. Publish fare zones as FareZone, and list a StopPlace's zones as `FareZoneRef`. TariffZone remains part of the NeTEx standard and the Nordic Profile for other users. See [Why FareZone instead of TariffZone](../FareZone/Description_FareZone.md#why-farezone-instead-of-tariffzone).
+
 ## 1. Purpose
 
 The **TariffZone** defines a geographic fare zone used for ticketing and pricing in public transport. It groups stops and areas into zones that determine ticket prices, enabling zone-based fare calculation for passenger journeys.
