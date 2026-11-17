@@ -151,11 +151,11 @@ Fare zones attach geographic pricing context to stops. The Nordic Profile suppor
 
 | Object | Where | How it links to stops |
 |--------|-------|----------------------|
-| `TariffZone` (legacy) | SiteFrame | Referenced *from* StopPlace via `TariffZoneRef` |
+| `TariffZone` (not used in Norway) | SiteFrame | Referenced *from* StopPlace via `TariffZoneRef` |
 | `FareZone` (preferred) | FareFrame | Contains `members` listing `ScheduledStopPointRef`s |
 
 > [!NOTE]
-> New implementations should use `FareZone`. `TariffZone` is still supported for backward compatibility but will be phased out.
+> Use `FareZone`. `TariffZone` is not used in Norway: it is deprecated in Entur's APIs, and as of November 2026 they no longer return TariffZone or TariffZoneRef. See [Why FareZone instead of TariffZone](../../objects/FareZone/Description_FareZone.md#why-farezone-instead-of-tariffzone).
 
 ```xml
 <!-- Legacy: TariffZone referenced from StopPlace -->

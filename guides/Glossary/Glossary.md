@@ -613,7 +613,7 @@ A named physical or virtual location where passengers can board or alight from p
 
 ## TariffZone
 
-A geographic fare zone used for ticketing and pricing, grouping stops and areas into zones that determine ticket prices.
+A geographic fare zone used for ticketing and pricing, grouping stops and areas into zones that determine ticket prices. Not used in Norway, where it has been replaced by [FareZone](#farezone).
 
 > **NeTEx XSD / Transmodel:** A ZONE used to define a zonal fare structure in a zone-counting or zone-matrix system.
 
