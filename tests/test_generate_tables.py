@@ -286,6 +286,25 @@ class GeneratorTests(unittest.TestCase):
         resolved = g.resolve('Good', 'nordic', 'BlockRef/@ref', ont, {'description': 'Reference to a Block'})
         self.assertEqual(('0..0', 'Not used in NP', 'Nordic'), tuple(resolved[i] for i in (0, 2, 3)))
 
+    def test_excluded_field_is_never_conditional_and_says_not_used(self):
+        graph = Graph()
+        self.shape(graph, g.NETEX.Good, g.NETEX.tariffZones, mx=1)
+        ont = g.Ontology(base=graph, base_shapes=g.scoped_base_shapes(graph))
+        # A sub-profile still describes how it used the field.
+        ont.services[('Good', 'tariffZones')] = [('Stop Place Registry', None, None, 'FareZoneRef')]
+
+        ont.np[('Good', 'tariffZones')] = g.FieldRule(card='0..0')
+        card, _, desc, source, _ = g.resolve('Good', 'nordic', 'tariffZones', ont)
+        self.assertEqual(('0..0', 'Not used.', 'Nordic'), (card, desc, source))
+
+        ont.np[('Good', 'tariffZones')] = g.FieldRule(card='0..0', definition='Replaced by FareZone')
+        self.assertEqual('Not used. Replaced by FareZone', g.resolve('Good', 'nordic', 'tariffZones', ont)[2])
+
+        del ont.np[('Good', 'tariffZones')]
+        ont.entur[('Good', 'tariffZones')] = g.FieldRule(card='0..0', definition='Not used in Norway')
+        card, _, desc, source, _ = g.resolve('Good', 'nordic', 'tariffZones', ont)
+        self.assertEqual(('**Entur:** 0..0', 'Not used in Norway', 'Entur'), (card, desc, source))
+
     def test_override_with_unknown_key_is_rejected(self):
         folder = self.root / 'Good'
         self.example(folder, '<Good id="NP:Good:1"/>')
