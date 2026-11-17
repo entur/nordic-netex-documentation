@@ -145,6 +145,12 @@ entur:VehicleScheduleFrame
 ## OBJECTS
 ## =================================================================
 
+## AccessibilityAssessment (NP)
+nordic:AccessibilityAssessment
+    doc:description "objects/AccessibilityAssessment/Description_AccessibilityAssessment.md" ;
+    doc:table "objects/AccessibilityAssessment/Table_AccessibilityAssessment.md" ;
+    doc:example "objects/AccessibilityAssessment/Example_AccessibilityAssessment_Constructed.xml" .
+
 ## AlternativeName (NP)
 nordic:AlternativeName
     doc:description "objects/AlternativeName/Description_AlternativeName.md" ;

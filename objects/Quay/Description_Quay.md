@@ -43,6 +43,7 @@ Quay
 ## 4. References
 - [StopPlace](../StopPlace/Table_StopPlace.md) – Parent location containing this Quay
 - [ScheduledStopPoint](../ScheduledStopPoint/Table_ScheduledStopPoint.md) – Abstract timetable stop optionally mapped to this Quay
+- [AccessibilityAssessment](../AccessibilityAssessment/Description_AccessibilityAssessment.md) – How accessible this Quay is, and what the values mean
 
 ## 5. Usage Notes
 
