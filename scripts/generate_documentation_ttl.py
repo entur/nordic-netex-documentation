@@ -73,6 +73,14 @@ INTENTIONALLY_UNPROFILED = {
     "Organisation": "abstract supertype of Authority and Operator, which carry the profile nodes",
 }
 
+# Profile classes that deliberately have no documentation folder of their own,
+# with the reason. Listing a class here silences the "Profile class without
+# documentation folder" warning; a warning asks to remove it once a folder exists.
+INTENTIONALLY_UNDOCUMENTED = {
+    "AccessibilityLimitation": "documented as part of objects/AccessibilityAssessment, the only element that contains it",
+    "DefaultConnection": "Nordic Profile only; not used by Entur, not reached from any profiled frame, and no examples",
+}
+
 KINDS = ("frames", "objects")
 GUIDE_LINK = re.compile(r"\]\((?:\.\./)+(objects|frames)/([^/)#\s]+)/")
 
@@ -341,9 +349,12 @@ def build() -> Result:
     for name in sorted(set(INTENTIONALLY_UNPROFILED) - folder_names):
         warnings.append(f"INTENTIONALLY_UNPROFILED lists {name}, but there is no objects/{name} or frames/{name} folder")
 
-    for name in sorted(set(nodes) - folder_names):
+    for name in sorted(set(nodes) - folder_names - set(INTENTIONALLY_UNDOCUMENTED)):
         labels = ", ".join(qname(n) for n in nodes[name].values())
         warnings.append(f"Profile class without documentation folder: {name} ({labels})")
+
+    for name in sorted(set(INTENTIONALLY_UNDOCUMENTED) & folder_names):
+        warnings.append(f"{name} now has a documentation folder; remove it from INTENTIONALLY_UNDOCUMENTED")
 
     nodes_by_name = {
         e.name: (e.node if e.node is not None else URIRef(UNPROFILED_NS + e.name)) for e in entries
