@@ -30,9 +30,12 @@ Each XSD-valid file in examples/profile-examples.json (the manifest written by
 scripts/sync_profile_examples.py) becomes a doc:ScenarioExample
 (scenario:<path>) in a section of its own. It carries the file's permalink in
 entur/profile-examples (doc:url), doc:contains links to the documented classes
-that occur in it, and doc:guide links from the manifest's hand-written guides
-field. Class nodes are not changed: doc:example keeps meaning a focused
-example file in this repository.
+that occur in it, and a doc:guide link to every guide that links to it. The
+guides are the only hand-written input: a guide links to a scenario with its
+permalink at the commit the manifest pins, and linking to a file that is not
+in the manifest, is not XSD-valid or uses another commit is an error. Class
+nodes are not changed: doc:example keeps meaning a focused example file in
+this repository.
 
 Usage:
     python scripts/generate_documentation_ttl.py           # write the file
@@ -95,6 +98,8 @@ INTENTIONALLY_UNDOCUMENTED = {
 
 KINDS = ("frames", "objects")
 GUIDE_LINK = re.compile(r"\]\((?:\.\./)+(objects|frames)/([^/)#\s]+)/")
+# Same pattern as GUIDE_SCENARIO_LINK in sync_profile_examples.py.
+SCENARIO_LINK = re.compile(r"https://github\.com/entur/profile-examples/blob/([^/\s)]+)/([^\s)#]+\.xml)")
 
 
 @dataclass
@@ -115,16 +120,16 @@ class Guide:
     label: str
     examples: list[str]
     covers: list[str]
+    scenario_links: list[tuple[str, str]]  # (commit, path) in profile-examples
 
 
 @dataclass
 class Scenario:
     name: str
-    label: str
+    path: str
     url: str
-    provenance: str
     contains: list[str]
-    guides: list[str]
+    guides: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -197,6 +202,7 @@ def scan_guides(errors: list[str]) -> list[Guide]:
             label=label,
             examples=[f"{rel}/{p.name}" for p in sorted(folder.glob("Example_*.xml"))],
             covers=sorted({m.group(2) for m in GUIDE_LINK.finditer(text)}),
+            scenario_links=sorted({(m.group(1), m.group(2)) for m in SCENARIO_LINK.finditer(text)}),
         ))
     return guides
 
@@ -305,11 +311,7 @@ doc:contains a owl:AnnotationProperty ;
 
 doc:guide a owl:AnnotationProperty ;
     rdfs:label "guide" ;
-    rdfs:comment "A guide the scenario example belongs to (hand-written in examples/profile-examples.json)" .
-
-doc:provenance a owl:AnnotationProperty ;
-    rdfs:label "provenance" ;
-    rdfs:comment "Evidence behind the example content: Observed, Constructed or Not assessed" .
+    rdfs:comment "A guide that links to the scenario example (derived from the links in the guide)" .
 
 doc:ScenarioExample a owl:Class ;
     rdfs:label "ScenarioExample" ;
@@ -335,28 +337,38 @@ def scenario_name(path: str) -> str:
     return re.sub(r"[^A-Za-z0-9_-]", "_", stem.replace("/", "-"))
 
 
-def load_scenarios(errors: list[str]) -> list[Scenario]:
-    """XSD-valid entries of the profile-examples manifest; none if it is absent."""
+def load_manifest(errors: list[str]) -> tuple[str | None, dict[str, dict]]:
+    """Pinned commit and entries by path of the profile-examples manifest."""
     if not SCENARIO_MANIFEST.exists():
-        return []
+        return None, {}
     try:
         data = json.loads(SCENARIO_MANIFEST.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         errors.append(f"{SCENARIO_MANIFEST.relative_to(REPO_ROOT).as_posix()}: invalid JSON ({exc})")
-        return []
-    scenarios = []
-    for e in data.get("examples", []):
-        if e.get("xsd") != "valid":
-            continue
-        scenarios.append(Scenario(
-            name=scenario_name(e["path"]),
-            label=e.get("scenario") or e["path"],
-            url=e["url"],
-            provenance=e.get("provenance") or "Not assessed",
-            contains=list(e.get("classes", [])),
-            guides=list(e.get("guides", [])),
-        ))
-    return sorted(scenarios, key=lambda s: s.name)
+        return None, {}
+    return data.get("commit"), {e["path"]: e for e in data.get("examples", [])}
+
+
+def link_scenarios(guides: list[Guide], errors: list[str]) -> list[Scenario]:
+    """XSD-valid manifest entries, each with the guides that link to it."""
+    commit, manifest = load_manifest(errors)
+    scenarios = {
+        path: Scenario(name=scenario_name(path), path=path, url=e["url"], contains=list(e.get("classes", [])))
+        for path, e in manifest.items() if e.get("xsd") == "valid"
+    }
+    for g in guides:
+        for sha, path in g.scenario_links:
+            where = f"{g.path}: profile-examples link to {path}"
+            if path not in manifest:
+                errors.append(f"{where} is not in examples/profile-examples.json (excluded or missing upstream)")
+            elif path not in scenarios:
+                errors.append(f"{where} fails the NeTEx XSD; see xsdErrors in examples/profile-examples.json")
+            elif sha != commit:
+                errors.append(f"{where} uses commit {sha}; use the pinned commit {commit}"
+                              " (python scripts/sync_profile_examples.py rewrites it)")
+            elif g.name not in scenarios[path].guides:
+                scenarios[path].guides.append(g.name)
+    return sorted(scenarios.values(), key=lambda s: s.name)
 
 
 def render(entries: list[Entry], guides: list[Guide], nodes_by_name: dict[str, URIRef],
@@ -397,15 +409,13 @@ def render(entries: list[Entry], guides: list[Guide], nodes_by_name: dict[str, U
 
     if scenarios:
         out.extend(section("SCENARIO EXAMPLES (entur/profile-examples, XSD-valid only)"))
-        guide_names = {g.name for g in guides}
         for s in scenarios:
             props = [
                 "a doc:ScenarioExample",
-                f"rdfs:label {literal(s.label)}",
+                f"rdfs:label {literal(s.path)}",
                 f"doc:url {literal(s.url)}",
-                f"doc:provenance {literal(s.provenance)}",
             ]
-            props.extend(f"doc:guide guide:{g}" for g in s.guides if g in guide_names)
+            props.extend(f"doc:guide guide:{g}" for g in sorted(s.guides))
             props.extend(f"doc:contains {qname(nodes_by_name[c])}" for c in s.contains if c in nodes_by_name)
             out.append("")
             out.append(block(f"scenario:{s.name}", props))
@@ -456,12 +466,8 @@ def build() -> Result:
             if c not in nodes_by_name:
                 warnings.append(f"{g.path}: links to {c}, which is not a documentation folder")
 
-    scenarios = load_scenarios(errors)
-    guide_names = {g.name for g in guides}
+    scenarios = link_scenarios(guides, errors)
     for s in scenarios:
-        for g in s.guides:
-            if g not in guide_names:
-                warnings.append(f"examples/profile-examples.json: {s.url} lists guide {g}, which is not a guides/ folder")
         for c in s.contains:
             if c not in nodes_by_name:
                 warnings.append(f"examples/profile-examples.json: {s.url} contains {c}, which is not a documentation folder")
