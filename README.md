@@ -6,7 +6,9 @@
   markdown and XML files in this repo; the profile node's profile:onClass
   gives the NeTEx class. The file is generated from objects/ and frames/.
   Use these annotations to traverse from any class to its documentation
-  instead of guessing file paths.
+  instead of guessing file paths. Complete, XSD-valid deliveries in
+  entur/profile-examples are doc:ScenarioExample nodes with a pinned doc:url
+  and doc:contains links to the classes that occur in them.
 -->
 <div align="center">
 
