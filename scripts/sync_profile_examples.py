@@ -52,7 +52,7 @@ from pathlib import Path
 from lxml import etree
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from validate_xml import ensure_xsd, validate_file  # noqa: E402
+from validate_xml import SCHEMA_PATH, XSD_URL, ensure_xsd, validate_file  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = REPO_ROOT / "examples" / "profile-examples.json"
@@ -95,6 +95,17 @@ def checkout(ref: str) -> Path:
 def documented_classes() -> set[str]:
     return {p.name for base in ("objects", "frames")
             for p in (REPO_ROOT / base).iterdir() if p.is_dir()}
+
+
+def xsd_info() -> dict:
+    """The schema every file is validated against, as pinned in validate_xml.py."""
+    release = re.search(r"/tags/([^/]+)\.zip$", XSD_URL)
+    return {
+        "standard": "NeTEx",
+        "release": release.group(1) if release else XSD_URL,
+        "schema": SCHEMA_PATH.name,
+        "source": XSD_URL,
+    }
 
 
 def excluded(rel: str) -> bool:
@@ -147,7 +158,7 @@ def build(source: Path) -> dict:
                      "Do not edit; link to scenarios from guides/ instead."),
         "source": SOURCE_URL,
         "commit": sha,
-        "xsd": "NeTEx 2.0.0 NeTEx_publication.xsd (as scripts/validate_xml.py)",
+        "xsd": xsd_info(),
         "exclude": EXCLUDE,
         "summary": {"files": len(examples), "valid": valid,
                     "invalid": len(examples) - valid},
