@@ -92,9 +92,13 @@ doc:guide a owl:AnnotationProperty ;
     rdfs:label "guide" ;
     rdfs:comment "A guide that links to the scenario example (derived from the links in the guide)" .
 
+doc:validatedAgainst a owl:AnnotationProperty ;
+    rdfs:label "validatedAgainst" ;
+    rdfs:comment "The XML schema (standard, release and schema file) the example passes. XSD validity does not show conformance to the Nordic Profile" .
+
 doc:ScenarioExample a owl:Class ;
     rdfs:label "ScenarioExample" ;
-    skos:definition "A complete NeTEx delivery in entur/profile-examples that passes the pinned NeTEx XSD. Listed in examples/profile-examples.json" .
+    skos:definition "A complete NeTEx delivery in entur/profile-examples that passes the XSD named by doc:validatedAgainst. Listed in examples/profile-examples.json" .
 
 
 ## =================================================================
@@ -710,13 +714,14 @@ guide:VehicleScheduling
     doc:covers nordic:VehicleType .
 
 ## =================================================================
-## SCENARIO EXAMPLES (entur/profile-examples, XSD-valid only)
+## SCENARIO EXAMPLES (entur/profile-examples, valid against NeTEx v2.0.0 NeTEx_publication.xsd)
 ## =================================================================
 
 scenario:fares-sales-Entur-CappedFares-VTFK-example-v1-NJSK
     a doc:ScenarioExample ;
     rdfs:label "netex/fares-sales/Entur-CappedFares-VTFK-example-v1-NJSK.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/fares-sales/Entur-CappedFares-VTFK-example-v1-NJSK.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:AlternativeName ;
     doc:contains nordic:AlternativeText ;
     doc:contains nordic:Codespace ;
@@ -731,6 +736,7 @@ scenario:fares-sales-Entur-reference-data-TypeOfAccessRightAssignments-master
     a doc:ScenarioExample ;
     rdfs:label "netex/fares-sales/Entur-reference-data-TypeOfAccessRightAssignments-master.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/fares-sales/Entur-reference-data-TypeOfAccessRightAssignments-master.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Operator ;
     doc:contains nordic:ResourceFrame .
@@ -739,6 +745,7 @@ scenario:fares-sales-FareZones
     a doc:ScenarioExample ;
     rdfs:label "netex/fares-sales/FareZones.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/fares-sales/FareZones.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:AlternativeText ;
     doc:contains nordic:Authority ;
     doc:contains nordic:FareFrame ;
@@ -755,6 +762,7 @@ scenario:fares-sales-fares-penalty
     a doc:ScenarioExample ;
     rdfs:label "netex/fares-sales/fares-penalty.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/fares-sales/fares-penalty.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
@@ -765,6 +773,7 @@ scenario:fares-sales-fares-refunding
     a doc:ScenarioExample ;
     rdfs:label "netex/fares-sales/fares-refunding.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/fares-sales/fares-refunding.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
@@ -775,6 +784,7 @@ scenario:frames-PublicationDelivery-CompositeFrame
     a doc:ScenarioExample ;
     rdfs:label "netex/frames/PublicationDelivery-CompositeFrame.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/frames/PublicationDelivery-CompositeFrame.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:ResourceFrame ;
     doc:contains nordic:ServiceCalendarFrame ;
@@ -786,6 +796,7 @@ scenario:frames-PublicationDelivery-separate-frames
     a doc:ScenarioExample ;
     rdfs:label "netex/frames/PublicationDelivery-separate-frames.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/frames/PublicationDelivery-separate-frames.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:ResourceFrame ;
     doc:contains nordic:ServiceCalendarFrame ;
     doc:contains nordic:ServiceFrame ;
@@ -796,6 +807,7 @@ scenario:network-BookingArrangements
     a doc:ScenarioExample ;
     rdfs:label "netex/network/BookingArrangements.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/network/BookingArrangements.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:JourneyPattern ;
@@ -807,6 +819,7 @@ scenario:network-FlexibleLine-Brakar-HentMeg-Kongsberg
     a doc:ScenarioExample ;
     rdfs:label "netex/network/FlexibleLine-Brakar-HentMeg-Kongsberg.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/network/FlexibleLine-Brakar-HentMeg-Kongsberg.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
@@ -831,6 +844,7 @@ scenario:network-Train-Network-with-RoutePointProjections
     a doc:ScenarioExample ;
     rdfs:label "netex/network/Train-Network-with-RoutePointProjections.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/network/Train-Network-with-RoutePointProjections.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:JourneyPattern ;
@@ -852,6 +866,7 @@ scenario:schedule-ServiceCalendar-DayType-AvailabilityCondition
     a doc:ScenarioExample ;
     rdfs:label "netex/schedule/ServiceCalendar-DayType-AvailabilityCondition.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/schedule/ServiceCalendar-DayType-AvailabilityCondition.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:DayType ;
     doc:contains nordic:ServiceCalendarFrame ;
@@ -862,6 +877,7 @@ scenario:schedule-ServiceCalendar-DayType-date-ranges
     a doc:ScenarioExample ;
     rdfs:label "netex/schedule/ServiceCalendar-DayType-date-ranges.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/schedule/ServiceCalendar-DayType-date-ranges.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:DayType ;
     doc:contains nordic:OperatingDay ;
@@ -875,6 +891,7 @@ scenario:schedule-ServiceCalendar-DayTypeAssignments
     a doc:ScenarioExample ;
     rdfs:label "netex/schedule/ServiceCalendar-DayTypeAssignments.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/schedule/ServiceCalendar-DayTypeAssignments.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:DayType ;
     doc:contains nordic:DayTypeAssignment ;
@@ -887,6 +904,7 @@ scenario:schedule-ServiceCalendar-OperatingPeriods
     a doc:ScenarioExample ;
     rdfs:label "netex/schedule/ServiceCalendar-OperatingPeriods.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/schedule/ServiceCalendar-OperatingPeriods.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:DayType ;
     doc:contains nordic:DayTypeAssignment ;
@@ -901,6 +919,7 @@ scenario:schedule-ServiceCalendar-OperatingPeriods-with-exceptions
     a doc:ScenarioExample ;
     rdfs:label "netex/schedule/ServiceCalendar-OperatingPeriods-with-exceptions.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/schedule/ServiceCalendar-OperatingPeriods-with-exceptions.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:DayType ;
     doc:contains nordic:DayTypeAssignment ;
@@ -913,6 +932,7 @@ scenario:schedule-ServiceCalendar-calendar-ref
     a doc:ScenarioExample ;
     rdfs:label "netex/schedule/ServiceCalendar-calendar-ref.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/schedule/ServiceCalendar-calendar-ref.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:DayType ;
     doc:contains nordic:DayTypeAssignment ;
@@ -926,6 +946,7 @@ scenario:schedule-ServiceCalendar-official-dayTypes-Norway
     a doc:ScenarioExample ;
     rdfs:label "netex/schedule/ServiceCalendar-official-dayTypes-Norway.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/schedule/ServiceCalendar-official-dayTypes-Norway.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:AlternativeText ;
     doc:contains nordic:DayType ;
     doc:contains nordic:ServiceCalendar ;
@@ -935,6 +956,7 @@ scenario:stops-BasicStopPlace-two-quays_example
     a doc:ScenarioExample ;
     rdfs:label "netex/stops/BasicStopPlace-two-quays_example.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/stops/BasicStopPlace-two-quays_example.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:Quay ;
@@ -945,6 +967,7 @@ scenario:stops-BasicStopPlace_example
     a doc:ScenarioExample ;
     rdfs:label "netex/stops/BasicStopPlace_example.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/stops/BasicStopPlace_example.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Quay ;
     doc:contains nordic:SiteFrame ;
     doc:contains nordic:StopPlace .
@@ -953,6 +976,7 @@ scenario:stops-StopPlace-with-FareZones-example
     a doc:ScenarioExample ;
     rdfs:label "netex/stops/StopPlace-with-FareZones-example.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/stops/StopPlace-with-FareZones-example.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains entur:FareZone ;
     doc:contains nordic:Quay ;
@@ -968,6 +992,7 @@ scenario:stops-StopPlace-with-TariffZone-example
     a doc:ScenarioExample ;
     rdfs:label "netex/stops/StopPlace-with-TariffZone-example.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/stops/StopPlace-with-TariffZone-example.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Quay ;
     doc:contains nordic:ResourceFrame ;
@@ -979,6 +1004,7 @@ scenario:stops-TaxiStand
     a doc:ScenarioExample ;
     rdfs:label "netex/stops/TaxiStand.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/stops/TaxiStand.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Quay ;
     doc:contains nordic:SiteFrame ;
     doc:contains nordic:StopPlace .
@@ -987,6 +1013,7 @@ scenario:stops-TopographicPlace-and-GroupOfStopPlaces
     a doc:ScenarioExample ;
     rdfs:label "netex/stops/TopographicPlace-and-GroupOfStopPlaces.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/stops/TopographicPlace-and-GroupOfStopPlaces.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Quay ;
     doc:contains nordic:SiteFrame ;
     doc:contains nordic:StopPlace ;
@@ -996,6 +1023,7 @@ scenario:submodels-resource-ResourceFrame-sample-content
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/resource/ResourceFrame-sample-content.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/resource/ResourceFrame-sample-content.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:ResourceFrame ;
@@ -1005,6 +1033,7 @@ scenario:submodels-resource-ResponsibilitySets-ResponsibilityRoles-Organisations
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/resource/ResponsibilitySets-ResponsibilityRoles-Organisations-POC-extended.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/resource/ResponsibilitySets-ResponsibilityRoles-Organisations-POC-extended.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:ResourceFrame ;
@@ -1014,6 +1043,7 @@ scenario:submodels-resource-submodel-ResponsibilitySets
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/resource/submodel-ResponsibilitySets.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/resource/submodel-ResponsibilitySets.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:ResourceFrame ;
@@ -1023,6 +1053,7 @@ scenario:submodels-site-submodel-alternativeNames
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/site/submodel-alternativeNames.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/site/submodel-alternativeNames.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:AlternativeName ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
@@ -1035,6 +1066,7 @@ scenario:submodels-submodel-Branding-Line
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/submodel-Branding-Line.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/submodel-Branding-Line.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
@@ -1047,6 +1079,7 @@ scenario:submodels-submodel-Branding-Network
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/submodel-Branding-Network.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/submodel-Branding-Network.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
@@ -1057,12 +1090,14 @@ scenario:submodels-submodel-Branding-Network
 scenario:submodels-submodel-Locale
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/submodel-Locale.xml" ;
-    doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/submodel-Locale.xml" .
+    doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/submodel-Locale.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" .
 
 scenario:submodels-submodel-Presentation
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/submodel-Presentation.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/submodel-Presentation.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:Line ;
     doc:contains nordic:Network ;
@@ -1072,6 +1107,7 @@ scenario:submodels-submodel-additionalNetworks
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/submodel-additionalNetworks.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/submodel-additionalNetworks.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
@@ -1085,6 +1121,7 @@ scenario:submodels-typesOfValue-Branding
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/typesOfValue-Branding.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/typesOfValue-Branding.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains nordic:CompositeFrame ;
     doc:contains nordic:GroupOfLines ;
@@ -1103,12 +1140,14 @@ scenario:submodels-typesOfValue-Branding
 scenario:submodels-validity-submodel-ValidBetween
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/validity/submodel-ValidBetween.xml" ;
-    doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/validity/submodel-ValidBetween.xml" .
+    doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/validity/submodel-ValidBetween.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" .
 
 scenario:submodels-vehicles-submodel-VehicleScheduleFrame
     a doc:ScenarioExample ;
     rdfs:label "netex/submodels/vehicles/submodel-VehicleScheduleFrame.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/submodels/vehicles/submodel-VehicleScheduleFrame.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Authority ;
     doc:contains entur:Block ;
     doc:contains nordic:Codespace ;
@@ -1126,6 +1165,7 @@ scenario:timetable-DSJ-ENT_example_L50
     a doc:ScenarioExample ;
     rdfs:label "netex/timetable/DSJ/ENT_example_L50.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/timetable/DSJ/ENT_example_L50.xml" ;
+    doc:validatedAgainst "NeTEx v2.0.0 NeTEx_publication.xsd" ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
     doc:contains entur:DatedServiceJourney ;
