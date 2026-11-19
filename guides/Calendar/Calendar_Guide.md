@@ -71,6 +71,8 @@ This is unambiguous: "ServiceJourney 100_0730 operates on 2026-03-18." No resolu
 
 See [DatedServiceJourney Lifecycle](../../objects/DatedServiceJourney/Lifecycle_DatedServiceJourney.md) for the full deviation model using DatedServiceJourney.
 
+> **Real-world scenario:** [ENT_example_L50.xml](https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/timetable/DSJ/ENT_example_L50.xml) in entur/profile-examples is a train timetable for line L50. Each operating date of train 771 is its own DatedServiceJourney. Most dates run as planned, two are cancelled (`ServiceAlteration=cancellation`) and three are replaced (`ServiceAlteration=replaced`). The OperatingDays it references are defined in a shared data file of the same delivery.
+
 ---
 
 ## 4. Pattern-Based Scheduling: DayType + DayTypeAssignment + OperatingPeriod
@@ -248,6 +250,8 @@ flowchart TD
 A complete example showing OperatingDays for date-specific instances, Weekdays and Saturdays patterns, an OperatingPeriod, and DayTypeAssignments with a Christmas exception:
 
 > **Full example:** [Example_Calendar.xml](Example_Calendar.xml) — A ServiceCalendarFrame with date-based OperatingDays, pattern-based schedules, and holiday exceptions.
+
+> **Real-world scenario:** [ENT_example_L50.xml](https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/timetable/DSJ/ENT_example_L50.xml) — A train timetable where every operating date is a DatedServiceJourney, including cancelled and replaced dates (see section 3).
 
 ---
 

@@ -1126,6 +1126,7 @@ scenario:timetable-DSJ-ENT_example_L50
     a doc:ScenarioExample ;
     rdfs:label "netex/timetable/DSJ/ENT_example_L50.xml" ;
     doc:url "https://github.com/entur/profile-examples/blob/7b7c717c758e32a44f141308673b485dd221a232/netex/timetable/DSJ/ENT_example_L50.xml" ;
+    doc:guide guide:Calendar ;
     doc:contains nordic:Codespace ;
     doc:contains nordic:CompositeFrame ;
     doc:contains entur:DatedServiceJourney ;
