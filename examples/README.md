@@ -16,7 +16,7 @@ The examples are linked, never copied. Every link points at one pinned commit of
 | `guides` | hand-written | Guide folders the example belongs to, for example `Calendar` |
 | `provenance` | hand-written | `Observed`, `Constructed` or `Not assessed` |
 
-The generator keeps the hand-written fields and overwrites everything else. Work files, old exports and files marked deprecated, WIP or partial are left out.
+The generator keeps the hand-written fields and overwrites everything else. `scripts/generate_documentation_ttl.py` turns every `valid` entry into a `doc:ScenarioExample` node in a separate section of [the documentation ontology](../ontology/netex-nordic-documentation.ttl), with `doc:url`, `doc:contains` and `doc:guide`. The existing class nodes are not changed. Work files, old exports and files marked deprecated, WIP or partial are left out.
 
 > [!NOTE]
 > A `valid` result means the file passes the NeTEx XSD. It does not show that the file conforms to the Nordic Profile.

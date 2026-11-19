@@ -10,7 +10,9 @@ Checks:
      manifests such as catalog.ttl are exempt)
   5. Documentation subjects are profile nodes (profile:ProfileClass),
      doc:UnprofiledDocumentation entries or doc:Guide resources — never netex:
-     classes — and the documentation layer sets no profile:scope
+     classes — and the documentation layer sets no profile:scope. Scenario
+     examples (doc:ScenarioExample) have one pinned profile-examples doc:url,
+     and their doc:contains / doc:guide targets are documented nodes / guides
   6. netex-nordic-documentation.ttl matches generate_documentation_ttl.py
      (generator warnings, e.g. classes without a profile node, are always shown)
 
@@ -34,6 +36,7 @@ DOC_TTL = ONTOLOGY_DIR / "netex-nordic-documentation.ttl"
 NETEX = Namespace("https://netex-cen.eu/ontology#")
 DOC = Namespace("https://netex-cen.eu/doc#")
 PROFILE = Namespace("https://netex-cen.eu/profile#")
+SCENARIO_URL_PREFIX = "https://github.com/entur/profile-examples/blob/"
 
 VERBOSE = "--verbose" in sys.argv or "-v" in sys.argv
 
@@ -177,6 +180,19 @@ def check_doc_subjects(doc: Graph, ontology: Graph, result: ValidationResult):
     for guide, target in doc.subject_objects(DOC.covers):
         if not (is_profile_node(target) or is_unprofiled(target)):
             result.error(f"{guide} doc:covers {target}, which is neither a profile node nor unprofiled documentation")
+
+    scenarios = sorted(doc.subjects(RDF.type, DOC.ScenarioExample), key=str)
+    for s in scenarios:
+        urls = [str(u) for u in doc.objects(s, DOC.url)]
+        if len(urls) != 1 or not urls[0].startswith(SCENARIO_URL_PREFIX):
+            result.error(f"{s} must have exactly one doc:url starting with {SCENARIO_URL_PREFIX}, found {urls}")
+        for target in doc.objects(s, DOC.contains):
+            if not (is_profile_node(target) or is_unprofiled(target)):
+                result.error(f"{s} doc:contains {target}, which is neither a profile node nor unprofiled documentation")
+        for target in doc.objects(s, DOC.guide):
+            if (target, RDF.type, DOC.Guide) not in doc:
+                result.error(f"{s} doc:guide {target}, which is not a doc:Guide")
+    result.ok(f"[scenarios] Checked {len(scenarios)} scenario examples")
 
 
 def check_generated(result: ValidationResult):

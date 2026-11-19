@@ -26,6 +26,14 @@ Each guides/<Guide>/ folder becomes a doc:Guide (guide:<Guide>) with its
 markdown file, examples, and doc:covers links to every documented class the
 guide links to.
 
+Each XSD-valid file in examples/profile-examples.json (the manifest written by
+scripts/sync_profile_examples.py) becomes a doc:ScenarioExample
+(scenario:<path>) in a section of its own. It carries the file's permalink in
+entur/profile-examples (doc:url), doc:contains links to the documented classes
+that occur in it, and doc:guide links from the manifest's hand-written guides
+field. Class nodes are not changed: doc:example keeps meaning a focused
+example file in this repository.
+
 Usage:
     python scripts/generate_documentation_ttl.py           # write the file
     python scripts/generate_documentation_ttl.py --check   # fail if the file is stale
@@ -40,6 +48,7 @@ from __future__ import annotations
 
 import argparse
 import difflib
+import json
 import re
 import sys
 from dataclasses import dataclass, field
@@ -53,16 +62,19 @@ OUTPUT = ONTOLOGY_DIR / "netex-nordic-documentation.ttl"
 ENTUR_DIR = ONTOLOGY_DIR / "entur-netex-ontology"
 NORDIC_DIR = ENTUR_DIR / "nordic-netex-ontology"
 GUIDES_DIR = REPO_ROOT / "guides"
+SCENARIO_MANIFEST = REPO_ROOT / "examples" / "profile-examples.json"
 
 NETEX = "https://netex-cen.eu/ontology#"
 PROFILE = Namespace("https://netex-cen.eu/profile#")
 UNPROFILED_NS = "https://netex-cen.eu/doc/unprofiled#"
 GUIDE_NS = "https://netex-cen.eu/doc/guide#"
+SCENARIO_NS = "https://netex-cen.eu/doc/scenario#"
 PREFIXES = {
     "nordic": "https://netex-cen.eu/nordic#",
     "entur": "https://entur.org/ontology#",
     "unprofiled": UNPROFILED_NS,
     "guide": GUIDE_NS,
+    "scenario": SCENARIO_NS,
 }
 # First match wins when a class has nodes in more than one profile.
 SCOPE_PREFERENCE = [PROFILE.NP, PROFILE.Entur]
@@ -103,6 +115,16 @@ class Guide:
     label: str
     examples: list[str]
     covers: list[str]
+
+
+@dataclass
+class Scenario:
+    name: str
+    label: str
+    url: str
+    provenance: str
+    contains: list[str]
+    guides: list[str]
 
 
 @dataclass
@@ -210,6 +232,9 @@ HEADER = """\
 ##                       yet (doc:forClass netex:X)
 ##   guide:X             a conceptual guide (doc:covers the classes it
 ##                       links to)
+##   scenario:X          a complete, XSD-valid example in
+##                       entur/profile-examples (doc:url), with the
+##                       documented classes it contains (doc:contains)
 ## -----------------------------------------------------------------
 
 @prefix netex:      <https://netex-cen.eu/ontology#> .
@@ -217,6 +242,7 @@ HEADER = """\
 @prefix entur:      <https://entur.org/ontology#> .
 @prefix unprofiled: <https://netex-cen.eu/doc/unprofiled#> .
 @prefix guide:      <https://netex-cen.eu/doc/guide#> .
+@prefix scenario:   <https://netex-cen.eu/doc/scenario#> .
 @prefix doc:        <https://netex-cen.eu/doc#> .
 @prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:        <http://www.w3.org/2002/07/owl#> .
@@ -268,6 +294,26 @@ doc:Guide a owl:Class ;
 doc:UnprofiledDocumentation a owl:Class ;
     rdfs:label "UnprofiledDocumentation" ;
     skos:definition "Documentation for a NeTEx class that has no Nordic or Entur profile node" .
+
+doc:url a owl:AnnotationProperty ;
+    rdfs:label "url" ;
+    rdfs:comment "Absolute permalink to a file outside this repository, pinned to one commit" .
+
+doc:contains a owl:AnnotationProperty ;
+    rdfs:label "contains" ;
+    rdfs:comment "A documented class that occurs in the scenario example. Occurrence only: the example is not claimed to demonstrate the class" .
+
+doc:guide a owl:AnnotationProperty ;
+    rdfs:label "guide" ;
+    rdfs:comment "A guide the scenario example belongs to (hand-written in examples/profile-examples.json)" .
+
+doc:provenance a owl:AnnotationProperty ;
+    rdfs:label "provenance" ;
+    rdfs:comment "Evidence behind the example content: Observed, Constructed or Not assessed" .
+
+doc:ScenarioExample a owl:Class ;
+    rdfs:label "ScenarioExample" ;
+    skos:definition "A complete NeTEx delivery in entur/profile-examples that passes the pinned NeTEx XSD. Listed in examples/profile-examples.json" .
 """
 
 
@@ -284,7 +330,37 @@ def block(subject: str, props: list[str]) -> str:
     return subject + "\n    " + " ;\n    ".join(props) + " ."
 
 
-def render(entries: list[Entry], guides: list[Guide], nodes_by_name: dict[str, URIRef]) -> str:
+def scenario_name(path: str) -> str:
+    stem = path.removeprefix("netex/").removesuffix(".xml")
+    return re.sub(r"[^A-Za-z0-9_-]", "_", stem.replace("/", "-"))
+
+
+def load_scenarios(errors: list[str]) -> list[Scenario]:
+    """XSD-valid entries of the profile-examples manifest; none if it is absent."""
+    if not SCENARIO_MANIFEST.exists():
+        return []
+    try:
+        data = json.loads(SCENARIO_MANIFEST.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        errors.append(f"{SCENARIO_MANIFEST.relative_to(REPO_ROOT).as_posix()}: invalid JSON ({exc})")
+        return []
+    scenarios = []
+    for e in data.get("examples", []):
+        if e.get("xsd") != "valid":
+            continue
+        scenarios.append(Scenario(
+            name=scenario_name(e["path"]),
+            label=e.get("scenario") or e["path"],
+            url=e["url"],
+            provenance=e.get("provenance") or "Not assessed",
+            contains=list(e.get("classes", [])),
+            guides=list(e.get("guides", [])),
+        ))
+    return sorted(scenarios, key=lambda s: s.name)
+
+
+def render(entries: list[Entry], guides: list[Guide], nodes_by_name: dict[str, URIRef],
+           scenarios: list[Scenario]) -> str:
     out = [HEADER]
     for kind in KINDS:
         out.extend(section(kind.upper()))
@@ -318,6 +394,21 @@ def render(entries: list[Entry], guides: list[Guide], nodes_by_name: dict[str, U
         out.append("")
         out.append(f"## {g.name}")
         out.append(block(f"guide:{g.name}", props))
+
+    if scenarios:
+        out.extend(section("SCENARIO EXAMPLES (entur/profile-examples, XSD-valid only)"))
+        guide_names = {g.name for g in guides}
+        for s in scenarios:
+            props = [
+                "a doc:ScenarioExample",
+                f"rdfs:label {literal(s.label)}",
+                f"doc:url {literal(s.url)}",
+                f"doc:provenance {literal(s.provenance)}",
+            ]
+            props.extend(f"doc:guide guide:{g}" for g in s.guides if g in guide_names)
+            props.extend(f"doc:contains {qname(nodes_by_name[c])}" for c in s.contains if c in nodes_by_name)
+            out.append("")
+            out.append(block(f"scenario:{s.name}", props))
     return "\n".join(out) + "\n"
 
 
@@ -365,7 +456,17 @@ def build() -> Result:
             if c not in nodes_by_name:
                 warnings.append(f"{g.path}: links to {c}, which is not a documentation folder")
 
-    return Result(render(entries, guides, nodes_by_name), errors, warnings)
+    scenarios = load_scenarios(errors)
+    guide_names = {g.name for g in guides}
+    for s in scenarios:
+        for g in s.guides:
+            if g not in guide_names:
+                warnings.append(f"examples/profile-examples.json: {s.url} lists guide {g}, which is not a guides/ folder")
+        for c in s.contains:
+            if c not in nodes_by_name:
+                warnings.append(f"examples/profile-examples.json: {s.url} contains {c}, which is not a documentation folder")
+
+    return Result(render(entries, guides, nodes_by_name, scenarios), errors, warnings)
 
 
 def main() -> int:
