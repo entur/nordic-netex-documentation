@@ -4,6 +4,9 @@
   <!-- Valid against NeTEx 2.0.0: https://github.com/TransmodelEcosystem/NeTEx/tree/v2.0.0/xsd -->
   <!-- Valid against Entur NeTEx 1.16.1: https://github.com/entur/NeTEx/tree/v1.0.16.1/xsd (ContractRef added to ResponsibilityRoleAssignment in this release) -->
   <!-- In 1.16.1 the Contract object itself does not exist: ContractRef points to a contract identifier agreed outside the dataset. -->
+  <!-- DELIVERY: this file declares version="2.0" for documentation purposes. A delivery to Entur that uses ContractRef must declare -->
+  <!--   version="1.16.1:NO-NeTEx-networktimetable:1.6" -->
+  <!-- The first segment selects the schema. "1.16:..." selects the 1.16 schema, which has no ContractRef, and the file fails validation. -->
   <!-- All identifiers and values are illustrative. Unversioned references may point to objects supplied in other frames of a complete delivery. -->
   <PublicationTimestamp>2026-11-20T10:00:00+01:00</PublicationTimestamp>
   <ParticipantRef>NP</ParticipantRef>

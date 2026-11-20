@@ -48,6 +48,7 @@ A **ResponsibilitySet** defines the set of roles and organisations responsible f
 - **@id and @version are mandatory** — follow codespace conventions (e.g., `NP:ResponsibilitySet:EXAMPLE_1`).
 - **ResponsibleOrganisationRef must resolve** to an existing organisation if provided.
 - **ContractRef resolution depends on the NeTEx version.** In Entur NeTEx 1.16.1 only ContractRef exists, not the Contract object, so the reference points to a contract identifier agreed outside the dataset and cannot be required to resolve within the delivery. In NeTEx 2.0 the Contract can be supplied in a ResourceFrame, and the reference should then resolve.
+- **Declare the schema that has ContractRef.** A delivery to Entur that uses ContractRef must declare `PublicationDelivery/@version="1.16.1:NO-NeTEx-networktimetable:1.6"`. The first segment selects the schema: `1.16:…` selects the 1.16 schema, which has no ContractRef, and the file fails validation.
 
 ### 5c. Common Pitfalls
 
