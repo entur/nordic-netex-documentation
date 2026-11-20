@@ -30,7 +30,7 @@ A **ServiceJourney** represents a planned trip in the timetable operating on a r
 🔗 LineRef/@ref (0..1)
 📁 passingTimes (1..1)
    └── 📁 TimetabledPassingTime (1..n)
-       ├── 📄 @id (0..1)
+       ├── 📄 @id (1..1)
        ├── 🔗 StopPointInJourneyPatternRef/@ref (1..1)
        ├── 📄 ArrivalTime (0..1)
        ├── 📄 ArrivalDayOffset (0..1)

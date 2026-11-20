@@ -50,7 +50,7 @@ StopPlace
  ├─ BusSubmode (0..1)
  ├─ OtherTransportModes (0..1)
  ├─ tariffZones (0..1)
- │   └─ TariffZoneRef/@ref (?)
+ │   └─ TariffZoneRef/@ref (0..0)
  ├─ StopPlaceType (0..1)
  ├─ Weighting (0..1)
  └─ quays (0..1)
@@ -104,8 +104,8 @@ StopPlace
 | TransportMode | Enum *(manual)* | [`*..*`](../../guides/NeTExConventions/NeTEx_Conventions.md) | Primary mode (bus, rail, metro, tram, water, etc.) | Nordic | TransportMode |
 | BusSubmode | BusSubmodeEnumeration | **Entur – Stop Place Registry:** 0..1 | Optional submode category | Manual | BusSubmode |
 | OtherTransportModes | AllPublicTransportModesListOfEnumerations | 0..1 | Additional transport modes served | Nordic | OtherTransportModes |
-| tariffZones | tariffZoneRefs_RelStructure | **Entur – Stop Place Registry:** 0..1 | TariffZoneRef / FareZoneRef (operator codespace) | Entur – Stop Place Registry | tariffZones |
-| [TariffZoneRef](../TariffZone/Table_TariffZone.md)/@ref | Reference *(manual)* | ? | References to tariff zones | Manual | tariffZones/TariffZoneRef/@ref |
+| tariffZones | tariffZoneRefs_RelStructure | 0..1 | FareZoneRef (operator codespace). TariffZoneRef is not used since 2026-11-17; see entur:TariffZone | Entur – Stop Place Registry | tariffZones |
+| [TariffZoneRef](../TariffZone/Table_TariffZone.md)/@ref | Reference *(manual)* | **Entur:** 0..0 | Not used in Norway: a StopPlace lists its zones as FareZoneRef (see entur:TariffZone) | Entur | tariffZones/TariffZoneRef/@ref |
 | StopPlaceType | StopTypeEnumeration | 0..1 | Functional type (onstreetBus, railStation, metroStation, busStation, etc.) | Nordic | StopPlaceType |
 | Weighting | InterchangeWeightingEnumeration | 0..1 | Interchange weighting (e.g., interchangeAllowed) | Nordic | Weighting |
 | quays | quays_RelStructure | **Entur – Stop Place Registry:** 0..1 | Contained Quay elements | Entur – Stop Place Registry | quays |

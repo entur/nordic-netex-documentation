@@ -26,7 +26,7 @@ ServiceJourney
  ├─ LineRef/@ref (0..1)
  ├─ passingTimes (1..1)
  │   └─ TimetabledPassingTime (1..n)
- │       ├─ @id (0..1)
+ │       ├─ @id (1..1)
  │       ├─ StopPointInJourneyPatternRef/@ref (1..1)
  │       ├─ ArrivalTime (0..1)
  │       ├─ ArrivalDayOffset (0..1)
@@ -61,18 +61,18 @@ ServiceJourney
 | Name | MultilingualString | 0..1 | Human-readable name of the journey | Nordic | Name |
 | Description | MultilingualString | 0..1 | Free-text description | Manual | Description |
 | PrivateCode | PrivateCodeStructure | 0..1 | Internal non-public code (e.g., trip or train number) | Nordic | PrivateCode |
-| TransportMode | TransportModeEnumeration *(manual)* | 0..1 | Public transport mode (e.g., bus, rail) | Manual | TransportMode |
-| TransportSubmode | TransportSubmodeStructure | 0..1 | ? | – | TransportSubmode |
-| BusSubmode | BusSubmodeEnumeration | 0..1 | Submode for bus services | Manual | TransportSubmode/BusSubmode |
-| RailSubmode | RailSubmodeEnumeration | 0..1 | Submode for rail services | Manual | TransportSubmode/RailSubmode |
+| TransportMode | TransportModeEnumeration *(manual)* | 0..1 | Transport mode, when it differs from the line's (Antu TRANSPORT_MODE_ON_SERVICE_JOURNEY) | Nordic | TransportMode |
+| TransportSubmode | TransportSubmodeStructure | 0..1 | Transport submode, when it differs from the line's (Antu TRANSPORT_SUB_MODE_ON_SERVICE_JOURNEY) | Nordic | TransportSubmode |
+| BusSubmode | BusSubmodeEnumeration | 0..1 | Transport submode (Antu TRANSPORT_SUB_MODE_ON_SERVICE_JOURNEY) | Nordic | TransportSubmode/BusSubmode |
+| RailSubmode | RailSubmodeEnumeration | 0..1 | Transport submode (Antu TRANSPORT_SUB_MODE_ON_SERVICE_JOURNEY) | Nordic | TransportSubmode/RailSubmode |
 | dayTypes | dayTypeRefs_RelStructure | 0..1 | ? | – | dayTypes |
 | [DayTypeRef](../DayType/Table_DayType.md)/@ref | DayTypeRefStructure | 0..n | DayType(s) on which the journey operates | Nordic | dayTypes/DayTypeRef/@ref |
 | [JourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | JourneyPatternRefStructure | 1..1 | Reference to the JourneyPattern defining the stop sequence | Nordic | JourneyPatternRef/@ref |
 | [OperatorRef](../Operator/Table_Operator.md)/@ref | OperatorRefStructure | 0..1 | Reference to an Operator | Nordic | OperatorRef/@ref |
 | [LineRef](../Line/Table_Line.md)/@ref | LineRefStructure | 0..1 | Reference to the served Line | Nordic | LineRef/@ref |
-| passingTimes | timetabledPassingTimes_RelStructure | 1..1 | XSD allows 0..1, NP mandates 1..1 (passingTimes/TimetabledPassingTime is 1..n) | Nordic | passingTimes |
+| passingTimes | timetabledPassingTimes_RelStructure | 1..1 | Container for the journey's TimetabledPassingTimes; required in NP | Nordic | passingTimes |
 | [TimetabledPassingTime](../../guides/Glossary/Glossary.md#timetabledpassingtime) | TimetabledPassingTime_VersionedChildStructure | 1..n | Collection of scheduled passing/stop times | Nordic | passingTimes/TimetabledPassingTime |
-| @id | xsd:ID *(manual)* | 0..1 | Optional identifier for the TimetabledPassingTime element | Nordic | passingTimes/TimetabledPassingTime/@id |
+| @id | xsd:ID *(manual)* | 1..1 | Optional identifier for the TimetabledPassingTime element (Antu SERVICE_JOURNEY_8) | Nordic | passingTimes/TimetabledPassingTime/@id |
 | [StopPointInJourneyPatternRef](../JourneyPattern/Table_JourneyPattern.md)/@ref | VersionedRef *(manual)* | 1..1 | Reference to a StopPointInJourneyPattern | Nordic | passingTimes/TimetabledPassingTime/StopPointInJourneyPatternRef/@ref |
 | ArrivalTime | xsd:time | 0..1 | Planned arrival time at the stop | Nordic | passingTimes/TimetabledPassingTime/ArrivalTime |
 | ArrivalDayOffset | DayOffsetType | 0..1 | Offset applied to ArrivalTime (e.g., +1 next day) | Manual | passingTimes/TimetabledPassingTime/ArrivalDayOffset |
