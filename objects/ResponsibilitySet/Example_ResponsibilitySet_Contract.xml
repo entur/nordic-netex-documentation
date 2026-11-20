@@ -1,51 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
-    <PublicationTimestamp>2026-03-04T10:00:00+01:00</PublicationTimestamp>
-    <ParticipantRef>NP</ParticipantRef>
-    <dataObjects>
-        <CompositeFrame id="NP:CompositeFrame:EXAMPLE_1" version="1">
-            <codespaces>
-                <Codespace id="np" >
-                    <Xmlns>NP</Xmlns>
-                </Codespace>
-                <Codespace id="noc">
-                    <Xmlns>NOC</Xmlns>
-                </Codespace>
-                <Codespace id="nog">
-                    <Xmlns>NOG</Xmlns>
-                </Codespace>
-            </codespaces>
-            <frames>
-                <ResourceFrame id="NP:ResourceFrame:RESOURCES_1" version="1">
-                    <responsibilitySets>
-                        <ResponsibilitySet id="NP:ResponsibilitySet:EXAMPLE_1" version="1">
-                            <Name>Eksempel ansvarsett</Name>
-                            <roles> 
-                                <ResponsibilityRoleAssignment id="NP:RespRoleAssignment:2" version="1">
-                                    <AssociatedContract>
-                                        <ContractRef ref="NOC:Contract:XYZ"/>
-                                    </AssociatedContract>
-                                </ResponsibilityRoleAssignment>
-                            </roles>
-                        </ResponsibilitySet>
-                    </responsibilitySets>
-                </ResourceFrame>
-                <ServiceFrame version="1" id="">
-                    <lines>
-                        <Line version="1" id="NP:Line:Example_1" responsibilitySetRef="NP:ResponsibilitySet:EXAMPLE_1">
-                            <Name>ExampleLine</Name>
-                            <AuthorityRef ref="NOG:Authority:X"/>
-                            <OperatorRef ref="NOG:Operator:Y"/>
-                        </Line>
-                    </lines>
-                </ServiceFrame>
-                <TimetableFrame version="1" id="NP:TimetableFrame:1" responsibilitySetRef="NP:ResponsibilitySet:EXAMPLE_1">
-                    <vehicleJourneys>
-                        <ServiceJourney version="1" id="" responsibilitySetRef="NP:ResponsibilitySet:EXAMPLE_1">
-                        </ServiceJourney>
-                    </vehicleJourneys>
-                </TimetableFrame>
-            </frames>
-        </CompositeFrame>
-    </dataObjects>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <!-- EXAMPLE STATUS: CONSTRUCTED. Hand-written to show how a Line or a ServiceJourney is tied to a contract; not observed in a delivery. -->
+  <!-- Valid against NeTEx 2.0.0: https://github.com/TransmodelEcosystem/NeTEx/tree/v2.0.0/xsd -->
+  <!-- Valid against Entur NeTEx 1.16.1: https://github.com/entur/NeTEx/tree/v1.0.16.1/xsd (ContractRef added to ResponsibilityRoleAssignment in this release) -->
+  <!-- In 1.16.1 the Contract object itself does not exist: ContractRef points to a contract identifier agreed outside the dataset. -->
+  <!-- All identifiers and values are illustrative. Unversioned references may point to objects supplied in other frames of a complete delivery. -->
+  <PublicationTimestamp>2026-11-20T10:00:00+01:00</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:Contract_1" version="1">
+      <frames>
+        <ResourceFrame id="NP:ResourceFrame:Contract_1" version="1">
+          <responsibilitySets>
+            <!-- One ResponsibilitySet per contract -->
+            <ResponsibilitySet id="NP:ResponsibilitySet:Contract_A" version="1">
+              <Name>Contract A</Name>
+              <roles>
+                <ResponsibilityRoleAssignment id="NP:ResponsibilityRoleAssignment:Contract_A" version="1">
+                  <ResponsibleOrganisationRef ref="NP:Operator:1"/>
+                  <AssociatedContract>
+                    <ContractRef ref="NP:Contract:A"/>
+                  </AssociatedContract>
+                </ResponsibilityRoleAssignment>
+              </roles>
+            </ResponsibilitySet>
+            <ResponsibilitySet id="NP:ResponsibilitySet:Contract_B" version="1">
+              <Name>Contract B</Name>
+              <roles>
+                <ResponsibilityRoleAssignment id="NP:ResponsibilityRoleAssignment:Contract_B" version="1">
+                  <ResponsibleOrganisationRef ref="NP:Operator:2"/>
+                  <AssociatedContract>
+                    <ContractRef ref="NP:Contract:B"/>
+                  </AssociatedContract>
+                </ResponsibilityRoleAssignment>
+              </roles>
+            </ResponsibilitySet>
+          </responsibilitySets>
+        </ResourceFrame>
+        <ServiceFrame id="NP:ServiceFrame:Contract_1" version="1">
+          <lines>
+            <!-- Contract on the Line: covers all journeys on the line -->
+            <Line id="NP:Line:1" version="1" responsibilitySetRef="NP:ResponsibilitySet:Contract_A">
+              <Name>Example line</Name>
+              <TransportMode>bus</TransportMode>
+              <PublicCode>1</PublicCode>
+              <OperatorRef ref="NP:Operator:1"/>
+            </Line>
+          </lines>
+        </ServiceFrame>
+        <TimetableFrame id="NP:TimetableFrame:Contract_1" version="1">
+          <vehicleJourneys>
+            <!-- No responsibilitySetRef: the journey belongs to the Line's contract -->
+            <ServiceJourney id="NP:ServiceJourney:1" version="1">
+              <JourneyPatternRef ref="NP:JourneyPattern:1"/>
+              <OperatorRef ref="NP:Operator:1"/>
+            </ServiceJourney>
+            <!-- Contract on the ServiceJourney: this journey belongs to a different contract than its Line -->
+            <ServiceJourney id="NP:ServiceJourney:2" version="1" responsibilitySetRef="NP:ResponsibilitySet:Contract_B">
+              <JourneyPatternRef ref="NP:JourneyPattern:1"/>
+              <OperatorRef ref="NP:Operator:2"/>
+            </ServiceJourney>
+          </vehicleJourneys>
+        </TimetableFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
 </PublicationDelivery>
