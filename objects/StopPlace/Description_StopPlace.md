@@ -52,7 +52,7 @@ The **StopPlace** represents a named physical or virtual location where passenge
 📄 BusSubmode (0..1)
 📄 OtherTransportModes (0..1)
 📁 tariffZones (0..1)
-   └── 🔗 TariffZoneRef/@ref (?)
+   └── 🔗 TariffZoneRef/@ref (0..0)
 📄 StopPlaceType (0..1)
 📄 Weighting (0..1)
 📁 quays (0..1)
