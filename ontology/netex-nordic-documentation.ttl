@@ -119,6 +119,12 @@ nordic:FareFrame
     doc:example "frames/FareFrame/Example_FareFrame.xml" ;
     doc:example "frames/FareFrame/Example_FareFrame_Constructed.xml" .
 
+## PublicationDelivery (NP)
+nordic:PublicationDelivery
+    doc:description "frames/PublicationDelivery/Description_PublicationDelivery.md" ;
+    doc:table "frames/PublicationDelivery/Table_PublicationDelivery.md" ;
+    doc:example "frames/PublicationDelivery/Example_PublicationDelivery_Constructed.xml" .
+
 ## ResourceFrame (NP)
 nordic:ResourceFrame
     doc:description "frames/ResourceFrame/Description_ResourceFrame.md" ;

@@ -1,0 +1,24 @@
+{
+  "_comment": "Hand-written content for Table_PublicationDelivery.md. Used where the ontology has no profile definition; see scripts/generate_tables.md.",
+  "fields": {
+    "@version": {
+      "description": "Version of the NeTEx schema the document follows (e.g. 2.0), not an object version",
+      "type": "NMTOKEN"
+    },
+    "ParticipantRef": {
+      "description": "Free-text identifier for the publishing system or organisation; not validated",
+      "type": "siri:ParticipantCodeType"
+    },
+    "Description": {
+      "description": "Human-readable description of what the delivery contains"
+    },
+    "dataObjects": {
+      "description": "Container for the frames in the delivery",
+      "type": "Container"
+    },
+    "dataObjects/CompositeFrame": {
+      "description": "Frame that groups the other frames in the delivery",
+      "type": "Element"
+    }
+  }
+}
