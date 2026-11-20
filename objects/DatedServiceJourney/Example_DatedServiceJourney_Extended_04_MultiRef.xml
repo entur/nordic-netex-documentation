@@ -4,7 +4,8 @@
   Scenario: Multiple references
   Purpose:
     - Demonstrates multiple DatedVehicleJourneyRef entries (0..*) inside replacedJourneys
-    - Shows reinforcement that targets more than one base instance
+    - Shows a supplementary extra journey (extraJourney + replacedJourneys) that supports more than one base instance
+    - The extra journey has its own ServiceJourney (own times and identifiers)
     - Keeps identifier format (refers to NP:DatedServiceJourney:*)
   Diff vs minimal (Example_DatedServiceJourney.xml):
     + replacedJourneys / DatedVehicleJourneyRef (new)
@@ -19,7 +20,8 @@
             <vehicleJourneys>
                 <DatedServiceJourney version="2" id="NP:DatedServiceJourney:MultiRef04">
                     <ServiceAlteration>extraJourney</ServiceAlteration>
-                    <ServiceJourneyRef ref="NP:ServiceJourney:Core"/>
+                    <!-- DIFF: own template, not the template of the journeys it supplements -->
+                    <ServiceJourneyRef ref="NP:ServiceJourney:MultiRef04"/>
                     <replacedJourneys>
                         <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:Core"/>
                         <DatedVehicleJourneyRef ref="NP:DatedServiceJourney:SpecialEvent"/>

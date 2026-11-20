@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example_DeviationHandling_Before.xml
+  Scenario: Saturday 2026-11-14 on a fictional rail line R10 (Oslo S - Lillestrøm - Eidsvoll - Hamar).
+  State BEFORE the deviation is known: three trains, all planned (version 1).
+
+  Compare with Example_DeviationHandling_After.xml, which is the same delivery after:
+    - track work closes Oslo S - Lillestrøm (train 1234 partly replaced by bus + shortened train)
+    - train 1236 cancelled without alternative
+    - train 1238 runs with reduced capacity and gets a supplementary bus
+
+  Only the JourneyPattern of train 1234 is included (it changes in the After example).
+  Other JourneyPatterns, ScheduledStopPoints and the ResourceFrame are omitted for brevity.
+-->
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" version="2.0">
+  <PublicationTimestamp>2026-10-01T08:00:00Z</PublicationTimestamp>
+  <ParticipantRef>NP</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame id="NP:CompositeFrame:R10_2026-11-14" version="1">
+      <frames>
+
+        <ServiceCalendarFrame id="NP:ServiceCalendarFrame:R10_2026-11-14" version="1">
+          <operatingDays>
+            <OperatingDay id="NP:OperatingDay:2026-11-14" version="1">
+              <CalendarDate>2026-11-14</CalendarDate>
+            </OperatingDay>
+          </operatingDays>
+        </ServiceCalendarFrame>
+
+        <ServiceFrame id="NP:ServiceFrame:R10_2026-11-14" version="1">
+          <journeyPatterns>
+            <JourneyPattern id="NP:JourneyPattern:R10_1234" version="1">
+              <Name>Oslo S -&gt; Hamar</Name>
+              <pointsInSequence>
+                <StopPointInJourneyPattern id="NP:StopPointInJourneyPattern:R10_1234_OSL" version="1" order="1">
+                  <ScheduledStopPointRef ref="NP:ScheduledStopPoint:OSL"/>
+                </StopPointInJourneyPattern>
+                <StopPointInJourneyPattern id="NP:StopPointInJourneyPattern:R10_1234_LLS" version="1" order="2">
+                  <ScheduledStopPointRef ref="NP:ScheduledStopPoint:LLS"/>
+                </StopPointInJourneyPattern>
+                <StopPointInJourneyPattern id="NP:StopPointInJourneyPattern:R10_1234_EVL" version="1" order="3">
+                  <ScheduledStopPointRef ref="NP:ScheduledStopPoint:EVL"/>
+                </StopPointInJourneyPattern>
+                <StopPointInJourneyPattern id="NP:StopPointInJourneyPattern:R10_1234_HMR" version="1" order="4">
+                  <ScheduledStopPointRef ref="NP:ScheduledStopPoint:HMR"/>
+                </StopPointInJourneyPattern>
+              </pointsInSequence>
+            </JourneyPattern>
+          </journeyPatterns>
+        </ServiceFrame>
+
+        <TimetableFrame id="NP:TimetableFrame:R10_2026-11-14" version="1">
+          <vehicleJourneys>
+
+            <!-- ===== Templates (ServiceJourney) ===== -->
+
+            <ServiceJourney id="NP:ServiceJourney:R10_1234" version="1">
+              <Name>Oslo S -&gt; Hamar</Name>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_1234" version="1"/>
+              <PublicCode>1234</PublicCode>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_OSL" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_1234_OSL"/>
+                  <DepartureTime>08:02:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_LLS" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_1234_LLS"/>
+                  <ArrivalTime>08:13:00</ArrivalTime>
+                  <DepartureTime>08:14:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_EVL" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_1234_EVL"/>
+                  <ArrivalTime>08:34:00</ArrivalTime>
+                  <DepartureTime>08:35:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1234_HMR" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_1234_HMR"/>
+                  <ArrivalTime>09:20:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <ServiceJourney id="NP:ServiceJourney:R10_1236" version="1">
+              <Name>Oslo S -&gt; Hamar</Name>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_OSL_HMR"/>
+              <PublicCode>1236</PublicCode>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1236_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_1"/>
+                  <DepartureTime>09:02:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1236_4" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_4"/>
+                  <ArrivalTime>10:20:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <ServiceJourney id="NP:ServiceJourney:R10_1238" version="1">
+              <Name>Oslo S -&gt; Hamar</Name>
+              <JourneyPatternRef ref="NP:JourneyPattern:R10_OSL_HMR"/>
+              <PublicCode>1238</PublicCode>
+              <LineRef ref="NP:Line:R10"/>
+              <passingTimes>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1238_1" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_1"/>
+                  <DepartureTime>10:02:00</DepartureTime>
+                </TimetabledPassingTime>
+                <TimetabledPassingTime id="NP:TimetabledPassingTime:1238_4" version="1">
+                  <StopPointInJourneyPatternRef ref="NP:StopPointInJourneyPattern:R10_OSL_HMR_4"/>
+                  <ArrivalTime>11:20:00</ArrivalTime>
+                </TimetabledPassingTime>
+              </passingTimes>
+            </ServiceJourney>
+
+            <!-- ===== Dated instances (DatedServiceJourney) - all planned ===== -->
+
+            <DatedServiceJourney id="NP:DatedServiceJourney:1234_2026-11-14" version="1">
+              <!-- ServiceAlteration omitted: planned -->
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1234"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+            <DatedServiceJourney id="NP:DatedServiceJourney:1236_2026-11-14" version="1">
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1236"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+            <DatedServiceJourney id="NP:DatedServiceJourney:1238_2026-11-14" version="1">
+              <ServiceJourneyRef ref="NP:ServiceJourney:R10_1238"/>
+              <OperatingDayRef ref="NP:OperatingDay:2026-11-14"/>
+            </DatedServiceJourney>
+
+          </vehicleJourneys>
+        </TimetableFrame>
+
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>
