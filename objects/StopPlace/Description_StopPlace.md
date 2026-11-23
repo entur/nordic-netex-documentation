@@ -26,20 +26,7 @@ The **StopPlace** represents a named physical or virtual location where passenge
    └── 📁 Location (0..1)
        ├── 📄 Longitude (0..1)
        └── 📄 Latitude (0..1)
-📁 AccessibilityAssessment (0..1)
-   ├── 📄 @modification (?)
-   ├── 📄 @id (?)
-   ├── 📄 MobilityImpairedAccess (1..1)
-   └── 📁 limitations (0..1)
-       └── 📁 AccessibilityLimitation (1..n)
-           ├── 📄 @modification (?)
-           ├── 📄 @id (?)
-           ├── 📄 WheelchairAccess (0..1)
-           ├── 📄 StepFreeAccess (0..1)
-           ├── 📄 EscalatorFreeAccess (0..1)
-           ├── 📄 LiftFreeAccess (0..1)
-           ├── 📄 AudibleSignalsAvailable (0..1)
-           └── 📄 VisualSignsAvailable (0..1)
+📄 AccessibilityAssessment (0..1)
 📁 alternativeNames (0..1)
    └── 📄 AlternativeName (1..n)
 🔗 TopographicPlaceRef/@ref (0..1)
@@ -76,6 +63,7 @@ The **StopPlace** represents a named physical or virtual location where passenge
 - [Quay](../Quay/Table_Quay.md) – Specific boarding/alighting positions within this StopPlace
 - [TariffZone](../TariffZone/Table_TariffZone.md) – Fare zones applicable at this StopPlace
 - [TopographicPlace](../TopographicPlace/Table_TopographicPlace.md) – City or region containing this StopPlace
+- [AccessibilityAssessment](../AccessibilityAssessment/Description_AccessibilityAssessment.md) – How accessible this StopPlace is, and what the values mean
 
 ## 5. Usage Notes
 

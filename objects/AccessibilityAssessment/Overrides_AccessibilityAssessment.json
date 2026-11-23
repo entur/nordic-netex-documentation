@@ -1,0 +1,32 @@
+{
+  "_comment": "Hand-written content for Table_AccessibilityAssessment.md. Used where the ontology has no profile definition; see scripts/generate_tables.md.",
+  "fields": {
+    "@id": {
+      "description": "Identifier of the assessment",
+      "type": "ID"
+    },
+    "@version": {
+      "description": "Version of the assessment",
+      "type": "String"
+    },
+    "limitations": {
+      "description": "Container for the detailed limitation"
+    },
+    "limitations/AccessibilityLimitation/@id": {
+      "description": "Identifier of the limitation",
+      "type": "ID"
+    },
+    "limitations/AccessibilityLimitation/WheelchairAccess": {
+      "description": "Whether a wheelchair user can access the place"
+    },
+    "limitations/AccessibilityLimitation/StepFreeAccess": {
+      "description": "Whether there is a route without steps"
+    },
+    "limitations/AccessibilityLimitation/EscalatorFreeAccess": {
+      "description": "Whether there is a route without escalators"
+    },
+    "limitations/AccessibilityLimitation/LiftFreeAccess": {
+      "description": "Whether there is a route without lifts"
+    }
+  }
+}

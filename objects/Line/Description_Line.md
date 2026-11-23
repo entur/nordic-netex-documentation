@@ -59,6 +59,7 @@ Line
 - [Operator](../Operator/Table_Operator.md) – Organization responsible for operating this Line
 - [Route](../Route/Table_Route.md) – Geographic path definition for journeys on this Line
 - [JourneyPattern](../JourneyPattern/Table_JourneyPattern.md) – Stop sequence patterns served by this Line
+- [AccessibilityAssessment](../AccessibilityAssessment/Description_AccessibilityAssessment.md) – Accessibility declared for this Line, and what the values mean
 
 ## 5. Usage Notes
 

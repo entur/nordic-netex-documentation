@@ -25,19 +25,6 @@ StopPlace
  │       ├─ Longitude (0..1)
  │       └─ Latitude (0..1)
  ├─ AccessibilityAssessment (0..1)
- │   ├─ @modification (?)
- │   ├─ @id (?)
- │   ├─ MobilityImpairedAccess (1..1)
- │   └─ limitations (0..1)
- │       └─ AccessibilityLimitation (1..n)
- │           ├─ @modification (?)
- │           ├─ @id (?)
- │           ├─ WheelchairAccess (0..1)
- │           ├─ StepFreeAccess (0..1)
- │           ├─ EscalatorFreeAccess (0..1)
- │           ├─ LiftFreeAccess (0..1)
- │           ├─ AudibleSignalsAvailable (0..1)
- │           └─ VisualSignsAvailable (0..1)
  ├─ alternativeNames (0..1)
  │   └─ AlternativeName (1..n)
  ├─ TopographicPlaceRef/@ref (0..1)
@@ -79,20 +66,7 @@ StopPlace
 | Location | LocationStructure | 0..1 | Geographic point representation | Nordic | Centroid/Location |
 | Longitude | LongitudeType | 0..1 | Longitude from Greenwich Meridian. -180 (West) to +180 (East). Decimal degrees. eg 2.356 | NeTEx | Centroid/Location/Longitude |
 | Latitude | LatitudeType | 0..1 | Latitude from equator. -90 (South) to +90 (North). Decimal degrees. eg 56.356 | NeTEx | Centroid/Location/Latitude |
-| AccessibilityAssessment | AccessibilityAssessment_VersionedChildStructure | 0..1 | Accessibility evaluation of the stop place | Nordic | AccessibilityAssessment |
-| @modification | ? | ? | ? | – | AccessibilityAssessment/@modification |
-| @id | ? | ? | ? | – | AccessibilityAssessment/@id |
-| MobilityImpairedAccess | LimitationStatusEnumeration | 1..1 | Overall mobility access status (true, false, unknown) | Nordic | AccessibilityAssessment/MobilityImpairedAccess |
-| limitations | accessibilityLimitations_RelStructure | 0..1 | Collection of specific accessibility limitations | Nordic | AccessibilityAssessment/limitations |
-| AccessibilityLimitation | AccessibilityLimitation_VersionedChildStructure | 1..n | Specific accessibility limitation assessment | Nordic | AccessibilityAssessment/limitations/AccessibilityLimitation |
-| @modification | ? | ? | ? | – | AccessibilityAssessment/limitations/AccessibilityLimitation/@modification |
-| @id | ? | ? | ? | – | AccessibilityAssessment/limitations/AccessibilityLimitation/@id |
-| WheelchairAccess | LimitationStatusEnumeration | 0..1 | Wheelchair accessibility (true, false, unknown) | Nordic | AccessibilityAssessment/limitations/AccessibilityLimitation/WheelchairAccess |
-| StepFreeAccess | LimitationStatusEnumeration | 0..1 | Step-free access availability (true, false, unknown) | Nordic | AccessibilityAssessment/limitations/AccessibilityLimitation/StepFreeAccess |
-| EscalatorFreeAccess | LimitationStatusEnumeration | 0..1 | ? | – | AccessibilityAssessment/limitations/AccessibilityLimitation/EscalatorFreeAccess |
-| LiftFreeAccess | LimitationStatusEnumeration | 0..1 | ? | – | AccessibilityAssessment/limitations/AccessibilityLimitation/LiftFreeAccess |
-| AudibleSignalsAvailable | LimitationStatusEnumeration | 0..1 | Whether a PLACE has audible signals for the visually impaired. | NeTEx | AccessibilityAssessment/limitations/AccessibilityLimitation/AudibleSignalsAvailable |
-| VisualSignsAvailable | LimitationStatusEnumeration | 0..1 | Whether a PLACE has visual signals for the hearing impaired. | NeTEx | AccessibilityAssessment/limitations/AccessibilityLimitation/VisualSignsAvailable |
+| [AccessibilityAssessment](../AccessibilityAssessment/Table_AccessibilityAssessment.md) | AccessibilityAssessment_VersionedChildStructure | 0..1 | Accessibility evaluation of the stop place | Nordic | AccessibilityAssessment |
 | alternativeNames | alternativeNames_RelStructure | **Entur – Stop Place Registry:** 0..1 | ? | – | alternativeNames |
 | [AlternativeName](../AlternativeName/Table_AlternativeName.md) | AlternativeName_VersionedChildStructure | 1..n | Alternative names or aliases | Manual | alternativeNames/AlternativeName |
 | [TopographicPlaceRef](../TopographicPlace/Table_TopographicPlace.md)/@ref | TopographicPlaceRefStructure | 0..1 | Reference to city or region | Nordic | TopographicPlaceRef/@ref |
