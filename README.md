@@ -14,7 +14,9 @@
 
 # 🚍 NeTEx Nordic Profile — Entur Implementation
 
-**Entur's implementation documentation for Nordic public transport data**
+Entur's implementation guide for the Nordic NeTEx Profile: explanations, XSD-validated examples
+and machine-readable rules for producing and consuming timetable, stop, vehicle and fare data
+in the Nordic public transport context.
 
 *Timetables · Stops · Vehicles · Fares · Operations*
 
