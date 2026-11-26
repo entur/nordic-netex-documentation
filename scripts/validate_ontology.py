@@ -186,6 +186,9 @@ def check_doc_subjects(doc: Graph, ontology: Graph, result: ValidationResult):
         urls = [str(u) for u in doc.objects(s, DOC.url)]
         if len(urls) != 1 or not urls[0].startswith(SCENARIO_URL_PREFIX):
             result.error(f"{s} must have exactly one doc:url starting with {SCENARIO_URL_PREFIX}, found {urls}")
+        schemas = [str(x) for x in doc.objects(s, DOC.validatedAgainst)]
+        if len(schemas) != 1 or not schemas[0].strip():
+            result.error(f"{s} must have exactly one doc:validatedAgainst naming the XSD, found {schemas}")
         for target in doc.objects(s, DOC.contains):
             if not (is_profile_node(target) or is_unprofiled(target)):
                 result.error(f"{s} doc:contains {target}, which is neither a profile node nor unprofiled documentation")

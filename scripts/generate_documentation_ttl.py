@@ -313,9 +313,13 @@ doc:guide a owl:AnnotationProperty ;
     rdfs:label "guide" ;
     rdfs:comment "A guide that links to the scenario example (derived from the links in the guide)" .
 
+doc:validatedAgainst a owl:AnnotationProperty ;
+    rdfs:label "validatedAgainst" ;
+    rdfs:comment "The XML schema (standard, release and schema file) the example passes. XSD validity does not show conformance to the Nordic Profile" .
+
 doc:ScenarioExample a owl:Class ;
     rdfs:label "ScenarioExample" ;
-    skos:definition "A complete NeTEx delivery in entur/profile-examples that passes the pinned NeTEx XSD. Listed in examples/profile-examples.json" .
+    skos:definition "A complete NeTEx delivery in entur/profile-examples that passes the XSD named by doc:validatedAgainst. Listed in examples/profile-examples.json" .
 """
 
 
@@ -337,21 +341,33 @@ def scenario_name(path: str) -> str:
     return re.sub(r"[^A-Za-z0-9_-]", "_", stem.replace("/", "-"))
 
 
-def load_manifest(errors: list[str]) -> tuple[str | None, dict[str, dict]]:
-    """Pinned commit and entries by path of the profile-examples manifest."""
+def xsd_label(xsd: object) -> str:
+    """'NeTEx v2.0.0 NeTEx_publication.xsd' from the manifest's xsd object."""
+    if isinstance(xsd, dict) and all(xsd.get(k) for k in ("standard", "release", "schema")):
+        return f"{xsd['standard']} {xsd['release']} {xsd['schema']}"
+    return ""
+
+
+def load_manifest(errors: list[str]) -> tuple[str | None, str, dict[str, dict]]:
+    """Pinned commit, schema label and entries by path of the profile-examples manifest."""
     if not SCENARIO_MANIFEST.exists():
-        return None, {}
+        return None, "", {}
+    rel = SCENARIO_MANIFEST.relative_to(REPO_ROOT).as_posix()
     try:
         data = json.loads(SCENARIO_MANIFEST.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
-        errors.append(f"{SCENARIO_MANIFEST.relative_to(REPO_ROOT).as_posix()}: invalid JSON ({exc})")
-        return None, {}
-    return data.get("commit"), {e["path"]: e for e in data.get("examples", [])}
+        errors.append(f"{rel}: invalid JSON ({exc})")
+        return None, "", {}
+    label = xsd_label(data.get("xsd"))
+    if not label:
+        errors.append(f"{rel}: xsd must name standard, release and schema; "
+                      "run python scripts/sync_profile_examples.py")
+    return data.get("commit"), label, {e["path"]: e for e in data.get("examples", [])}
 
 
-def link_scenarios(guides: list[Guide], errors: list[str]) -> list[Scenario]:
-    """XSD-valid manifest entries, each with the guides that link to it."""
-    commit, manifest = load_manifest(errors)
+def link_scenarios(guides: list[Guide], errors: list[str]) -> tuple[str, list[Scenario]]:
+    """Schema label, and the XSD-valid manifest entries with the guides that link to them."""
+    commit, xsd, manifest = load_manifest(errors)
     scenarios = {
         path: Scenario(name=scenario_name(path), path=path, url=e["url"], contains=list(e.get("classes", [])))
         for path, e in manifest.items() if e.get("xsd") == "valid"
@@ -368,11 +384,11 @@ def link_scenarios(guides: list[Guide], errors: list[str]) -> list[Scenario]:
                               " (python scripts/sync_profile_examples.py rewrites it)")
             elif g.name not in scenarios[path].guides:
                 scenarios[path].guides.append(g.name)
-    return sorted(scenarios.values(), key=lambda s: s.name)
+    return xsd, sorted(scenarios.values(), key=lambda s: s.name)
 
 
 def render(entries: list[Entry], guides: list[Guide], nodes_by_name: dict[str, URIRef],
-           scenarios: list[Scenario]) -> str:
+           scenarios: list[Scenario], xsd: str) -> str:
     out = [HEADER]
     for kind in KINDS:
         out.extend(section(kind.upper()))
@@ -408,12 +424,13 @@ def render(entries: list[Entry], guides: list[Guide], nodes_by_name: dict[str, U
         out.append(block(f"guide:{g.name}", props))
 
     if scenarios:
-        out.extend(section("SCENARIO EXAMPLES (entur/profile-examples, XSD-valid only)"))
+        out.extend(section(f"SCENARIO EXAMPLES (entur/profile-examples, valid against {xsd})"))
         for s in scenarios:
             props = [
                 "a doc:ScenarioExample",
                 f"rdfs:label {literal(s.path)}",
                 f"doc:url {literal(s.url)}",
+                f"doc:validatedAgainst {literal(xsd)}",
             ]
             props.extend(f"doc:guide guide:{g}" for g in sorted(s.guides))
             props.extend(f"doc:contains {qname(nodes_by_name[c])}" for c in s.contains if c in nodes_by_name)
@@ -466,13 +483,13 @@ def build() -> Result:
             if c not in nodes_by_name:
                 warnings.append(f"{g.path}: links to {c}, which is not a documentation folder")
 
-    scenarios = link_scenarios(guides, errors)
+    xsd, scenarios = link_scenarios(guides, errors)
     for s in scenarios:
         for c in s.contains:
             if c not in nodes_by_name:
                 warnings.append(f"examples/profile-examples.json: {s.url} contains {c}, which is not a documentation folder")
 
-    return Result(render(entries, guides, nodes_by_name, scenarios), errors, warnings)
+    return Result(render(entries, guides, nodes_by_name, scenarios, xsd), errors, warnings)
 
 
 def main() -> int:
