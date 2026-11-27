@@ -16,11 +16,16 @@ on:
   schedule:
     - cron: "0 6 * * 1"
 
+# Exactly what the jobs in code-scan.yml@v2 ask for. A called workflow
+# cannot get more than this block grants, and a missing permission makes
+# the run fail at startup without any job running.
 permissions:
   actions: read
-  contents: read
+  contents: write         # dependency graph upload on main
+  issues: write           # scanner-action: issues for findings
   packages: read
-  security-events: write
+  pull-requests: write    # scanner-action: comments on pull requests
+  security-events: write  # upload of CodeQL and Semgrep results
 
 jobs:
   code-scan:
