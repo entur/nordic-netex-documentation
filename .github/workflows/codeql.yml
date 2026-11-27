@@ -1,0 +1,29 @@
+name: CodeQL
+
+# Entur's shared code scan (CodeQL and Semgrep) from entur/gha-security.
+# It detects the languages itself: here Python (scripts/), JavaScript
+# (assets/) and GitHub Actions (the workflows). Findings land in the
+# Security tab.
+#
+# It also runs on pull requests, unlike in entur/kompass. Nothing here
+# needs a build, so the scan is quick, and a finding shows up before merge.
+# The Monday cron keeps the scan fresh when the repo is quiet.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  actions: read
+  contents: read
+  packages: read
+  security-events: write
+
+jobs:
+  code-scan:
+    name: Code scan
+    uses: entur/gha-security/.github/workflows/code-scan.yml@v2
+    secrets: inherit
